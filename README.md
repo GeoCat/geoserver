@@ -26,7 +26,7 @@ While nightly builds can be provided as a temporary fix. We only support tagged 
 This repository uses git submodules, clone using ``--recursive``:
 
 ```bash
-git clone --recursive https://eos.geocat.net/gitlab/jody.garnett/geoserver-enterprise
+git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterprise.git
 ```
 
 Update when changing branches:
