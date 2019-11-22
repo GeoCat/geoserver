@@ -50,12 +50,57 @@
   </dependencies>
 
   <build>
+    <finalName>geoserver</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <plugins>
+      <!-- Builds a valid data directory into the web app -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>configPackage</id>
+            <phase>package</phase>
+            <configuration>
+              <tasks>
+  <!-- check if config is available, if not fail -->
+  <available file="${configDirectory}/${configId}" property="configIsAvailable" />
+  <fail message="Unable to locate configuration: ${configDirectory}/${configId}" unless="configIsAvailable" />
+
+  <!-- copy the files from the config dir to the webapp dir -->
+  <echo message="Copying data dir from ${configDirectory}/${configId}" />
+  <copy todir="${webappSourceDirectory}/data">
+     <fileset dir="${configDirectory}/${configId}" includes="**/**" />
+  </copy>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>configClean</id>
+            <phase>clean</phase>
+            <configuration>
+              <tasks>
+  <delete dir="${webappSourceDirectory}/data" />
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-            <warName>geoserver-enterprise</warName>
+            <warName>geoserver</warName>
             <webappDirectory>${project.build.directory}/geoserver</webappDirectory>
             <packagingExcludes>WEB-INF/lib/javax.servlet-api*.jar</packagingExcludes>
             <archive>
@@ -104,10 +149,48 @@
           <daemon>false</daemon>
         </configuration>
       </plugin>
+      <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.8</version>
+          <executions>
+              <execution>
+                  <id>attach-war</id>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>attach-artifact</goal>
+                  </goals>
+                  <configuration>
+                      <artifacts>
+                          <artifact>
+                              <file>${project.build.directory}/geoserver.war</file>
+                              <type>war</type>
+                          </artifact>
+                      </artifacts>
+                  </configuration>
+              </execution>
+          </executions>
+      </plugin>
     </plugins>
   </build>
 
+  <properties>
+    <configId>minimal</configId>
+    <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+    <webappSourceDirectory>${basedir}/src/main/webapp</webappSourceDirectory>
+    <jetty.port>8080</jetty.port>
+    <jetty.run.daemon>false</jetty.run.daemon>
+  </properties>
+  
+
   <profiles>
+    <profile>
+      <id>release</id>
+      <properties>
+        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+        <configId>release</configId>
+      </properties>
+    </profile>
     <profile>
       <!-- GeoCat Live -->
       <id>live</id>
