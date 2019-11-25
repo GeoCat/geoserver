@@ -6,6 +6,16 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
+# -- setup --------------------------------------------------------------------
+
+import datetime
+import os
+
+now = datetime.datetime.now()
+
+#Current year
+year = now.year
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -20,7 +30,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'GeoServer Enterprise'
-copyright = '2019, GeoCat BV'
+copyright = u'{}, GeoCat BV'.format(year)
 author = 'GeoCat BV'
 
 # The short X.Y version
@@ -39,6 +49,7 @@ release = '2.16.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+  'sphinx.ext.ifconfig'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
