@@ -50,7 +50,7 @@
   </dependencies>
 
   <build>
-    <finalName>geoserver</finalName>
+    <finalName>geoserver-enterprise</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -58,7 +58,7 @@
     </resources>
     <plugins>
       <!-- Builds a valid data directory into the web app -->
-      <plugin>
+      <!--plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.7</version>
         <executions>
@@ -67,11 +67,11 @@
             <phase>package</phase>
             <configuration>
               <tasks>
-  <!-- check if config is available, if not fail -->
+  <!- check if config is available, if not fail ->
   <available file="${configDirectory}/${configId}" property="configIsAvailable" />
   <fail message="Unable to locate configuration: ${configDirectory}/${configId}" unless="configIsAvailable" />
 
-  <!-- copy the files from the config dir to the webapp dir -->
+  <!- copy the files from the config dir to the webapp dir ->
   <echo message="Copying data dir from ${configDirectory}/${configId}" />
   <copy todir="${webappSourceDirectory}/data">
      <fileset dir="${configDirectory}/${configId}" includes="**/**" />
@@ -95,39 +95,15 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin-->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-            <warName>geoserver</warName>
-            <webappDirectory>${project.build.directory}/geoserver</webappDirectory>
-            <packagingExcludes>WEB-INF/lib/javax.servlet-api*.jar</packagingExcludes>
-            <archive>
-                <manifest>
-                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                </manifest>
-                <manifestEntries>
-                    <GeoServerModule>core</GeoServerModule>
-                    <Application-Name>${project.build.finalname}</Application-Name>
-                    <Project-Version>${project.version}</Project-Version>
-                    <Iteration-Name>${iteration}</Iteration-Name>
-                    <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
-                    <Git-Revision>${build.commit.id}</Git-Revision>
-                </manifestEntries>
-            </archive>
+          <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
         </configuration>
-        <executions>
-            <execution>
-                <phase>package</phase>
-                <goals>
-                    <goal>war</goal>
-                </goals>
-            </execution>
-        </executions>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.version}</version>
@@ -170,7 +146,7 @@
                   </configuration>
               </execution>
           </executions>
-      </plugin>
+      </plugin-->
     </plugins>
   </build>
 
