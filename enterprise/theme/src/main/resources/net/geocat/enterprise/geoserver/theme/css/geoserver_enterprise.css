@@ -4,6 +4,6 @@
   This code is licensed under the GPL 2.0 license, available at the root
   application directory.
 */
-#header a {
-  background: url(enterprise/geoserver_enterprise_logo.png) no-repeat;
+#header h2 a {
+  background: url(../enterprise/geoserver_enterprise_logo.png) no-repeat;
 }

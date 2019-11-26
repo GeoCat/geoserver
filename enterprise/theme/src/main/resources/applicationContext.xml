@@ -21,9 +21,7 @@
       <!-- defines the resources folder -->
       <property name="scope" value="net.geocat.enterprise.geoserver.theme.GeoCatEnterpriseTheme"/>
       <!-- identifies css file to include -->
-      
       <property name="CSSFilename" value="css/geoserver_enterprise.css"/>
-
   </bean>
  
 </beans>

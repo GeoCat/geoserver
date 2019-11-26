@@ -30,7 +30,7 @@
   <dependencies>
     <dependency>
       <groupId>org.geoserver.web</groupId>
-      <artifactId>gs-web-core</artifactId>
+      <artifactId>gs-web-app</artifactId>
     </dependency>
   </dependencies>
 
