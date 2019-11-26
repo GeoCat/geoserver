@@ -103,7 +103,7 @@
           <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
         </configuration>
       </plugin>
-      <!--plugin>
+      <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.version}</version>
@@ -123,9 +123,10 @@
           <stopPort>${jetty.stopPort}</stopPort>
           <stopKey>GEOSERVER_JETTY_STOPKEY</stopKey>
           <daemon>false</daemon>
+          <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
         </configuration>
       </plugin>
-      <plugin>
+      <!--plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>1.8</version>
