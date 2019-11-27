@@ -4,6 +4,642 @@
   This code is licensed under the GPL 2.0 license, available at the root
   application directory.
 */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* ----------------------------------------------------------------------
+/* general
+/* ------------------------------------------------------------------- */
+
+body {
+  background: #fff;
+  font-size: 14px;
+  color: #333;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-align:left !important; /* override blueprint's ie.css */
+}
+body.help form, body.help ul li {
+  padding: 0;
+  margin: 0;
+}
+body.help form fieldset {
+  margin: 0;
+  border: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  height: auto; /* override blueprint's screen.css */
+}
+h1 { /* override blueprint.css */
+  font-size: 2.1em;
+}
+h3 {
+  margin: 1em 0 0.5em 0;
+}
+strong, em, dt, b, i {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a:hover {
+  color: #0dad9f;
+}
+.error,
+.notice,
+.success { /* override blueprint.css */
+  border: 0 none transparent;
+  margin-bottom: 0;
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+}
+.palette-theme-default .palette-header {
+  border: 0;
+  background: no-repeat;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 100;
+}
+.palette-theme-default .palette-buttons {
+  margin-top: 26px;
+}
+.palette-theme-default .palette-buttons button div {
+  height: 20px;
+  width: 20px;
+}
+.palette-theme-default .palette-buttons button.palette-add div:after {
+  content: '\2192';
+}
+.palette-theme-default .palette-buttons button.palette-remove div:after {
+  content: '\2190';
+}
+.palette-theme-default .palette-buttons button.palette-up div:after {
+  content: '\2191';
+}
+.palette-theme-default .palette-buttons button.palette-down div:after {
+  content: '\2193';
+}
+
+/* ----------------------------------------------------------------------
+/* utility
+/* ------------------------------------------------------------------- */
+
+.selfclear {
+  display: block;
+}
+
+/* ----------------------------------------------------------------------
+/* feedback
+/* ------------------------------------------------------------------- */
+
+.feedbackPanel {
+  margin-bottom: 15px !important;
+}
+.feedbackPanelINFO {
+  color: #fff;
+  background: #02a6d8;
+  padding: 8px 10px;
+  border-radius: 2px;
+}
+.feedbackPanelINFO a {
+  color: #fff;
+  padding: 8px 10px;
+  text-decoration: underline;
+}
+.feedbackPanelINFO a:hover {
+  color: #fff;
+}
+.feedbackPanelWARNING {
+  padding: 8px 10px;
+  border-radius: 2px;
+}
+.feedbackPanelINFO a {
+  color: #fff;
+  padding: 8px 10px;
+  text-decoration: underline;
+}
+.feedbackPanelINFO a:hover {
+  color: #fff;
+}
+.feedbackPanelWARNING {
+  padding: 8px 10px;
+  border-radius: 2px;
+}
+  
+/* ----------------------------------------------------------------------
+/* structural elements
+/* ------------------------------------------------------------------- */
+
+#header {
+  background: #f8f8f8;
+  color: #777;
+  padding: 5px;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+#header .wrap {
+  width: 100%;
+}
+#main {
+  background: none;
+  border: 0;
+}
+#main .wrap {
+  background: none;
+}
+#sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  padding: 30px 20px 0;
+}
+#page {
+  margin: 0 0 -250px 21em;
+  padding: 25px 0 250px 19px;
+  background: none;
+}
+#page .page-header {
+  background: none;
+}
+
+/* ----------------------------------------------------------------------
+/* header
+/* ------------------------------------------------------------------- */
+
+#header .wrap {
+  text-align: right;
+}
+#header h2 {
+  margin: 0;
+  font-size: 1.76em;
+}
 #header h2 a {
+  float: left;
+  height: 34px;
+  width: 200px;
   background: url(../enterprise/geoserver_enterprise_logo.png) no-repeat;
+  background-size: contain;
+  overflow: hidden;
+  text-indent: -9999em;
+  margin: 3px 0 0 15px;
+}
+#header h2 a span {
+  display: none;
+}
+#header .button-group {
+  padding: 0.2em 0 0.2em;
+}
+#header label.shown {
+  display: inline;
+  font-weight: normal;
+}
+#header .button-group a, #header .button-group button {
+  margin: 0 0.2em;
+  font-size: 0.9em;
+  float: none;
+}
+#header .button-group button img {
+  display: none;
+}
+#header .button-group a.button-logout {
+  float: right;
+  margin: -5px 0 0 1em;
+}
+
+/* ----------------------------------------------------------------------
+/* sidebar
+/* ------------------------------------------------------------------- */
+
+ul#navigation {
+  margin: 10px 0 6px;
+  list-style-type: none;
+}
+ul#navigation a {
+  text-decoration: none;
+}
+ul#navigation a:hover {
+  text-decoration: underline;
+}
+ul#navigation .navigation-tab {
+  margin: 3px 0;
+  border-bottom: 1px solid #ddd;
+}
+.navigation-tab-header {
+  padding: 2px 5px;
+  font-weight: 500;
+  font-style: normal;
+}
+.navigation-tab-single, .navigation-tab-content {
+  padding: 3px 5px 7px;
+}
+.navigation-tab-single, .navigation-tab-header {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.navigation-tab-content {
+  border-top: none;
+}
+.navigation-tab-single a, .navigation-tab-header a, .navigation-tab-content a {
+  display: block;
+  color: #333;
+  padding: 5px 3px;
+  font-size: 13px;
+}
+li.nav-administer-service {
+  clear: left;
+}
+li.nav-administer-service img {
+  float: left;
+  margin-right: 0.5em;
+  height: 16px;
+  width: 16px;
+  filter: grayscale(100%);
+}
+li.nav-administer-service a:hover img {
+  filter: none;
+}
+
+/* ----------------------------------------------------------------------
+/* welcome/overview
+/* ------------------------------------------------------------------- */
+
+#welcome {
+  float: left;
+  max-width: 500px;
+}
+#welcome table {
+  margin-bottom: 1em;
+}
+
+/* ----------------------------------------------------------------------
+/* capabilities
+/* ------------------------------------------------------------------- */
+
+#capabilities {
+  float: right;
+  padding-right: 50px;
+  margin-top: -86px;
+}
+div#capabilities ul {
+  list-style-type: none;
+}
+.navigation-tab {
+  border-bottom: 0;
+}
+
+/* tabs */
+.tab-row {
+  border-bottom: 1px solid #ccc;
+  height: 34px;
+}
+.tab-row li {
+  margin-right: 5px !important;
+}
+.tab-row a {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  background: #efefef;
+  margin: 0;
+  font-weight: normal;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* ----------------------------------------------------------------------
+/* tables
+/* ------------------------------------------------------------------- */
+
+table {
+  margin-bottom: 10px; /* override blueprint's settings */
+  margin-top: 10px; /* override blueprint's settings */
+}
+th {
+  color: #222;
+  font-weight: 100;
+}
+td {
+  color: #707070;
+}
+tr th, tr td {
+  border-bottom: 1px solid #ccc;
+  padding: 6px 10px 6px 5px;
+}
+thead th {
+  background: #fff;
+  color: #222;
+  border-bottom: 1px solid #ccc;
+}
+tr:hover td, tbody tr:hover th {
+  background: #fff;
+}
+tr.even td, tr.even th {
+  background: #fff; /* override blueprint's settings */
+}
+tr.even:hover td, tr.even:hover th {
+  background: #efefef;
+}
+th.actions, td.actions {
+  width: 13em;
+  padding-left: 10px;
+}
+.alternating-rows tr:nth-child(even) {
+  background: #f7f7f7;
+}
+
+/* ----------------------------------------------------------------------
+/* forms
+/* ------------------------------------------------------------------- */
+
+/* clear the floats */
+form:before, form:after {
+  content: " ";
+  display: table;
+}
+form:after {
+  clear: both;
+}
+fieldset { /* override blueprint's settings */
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  max-width: 800px;
+}
+fieldset.leftwise, fieldset.rightwise {
+  margin-right: 0 !important;
+}
+fieldset.noTitle {
+  padding: 0;
+}
+legend {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  margin: -15px -15px 0 -16px;
+  padding: 8px 15px;
+  font-weight: 100;
+  width: 100%;
+}
+legend span {
+  position: relative;
+  width: auto;
+  top: auto;
+}
+legend a {
+  top: 10px;
+}
+input.text, textarea.textarea, select.select {
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  width: 25em;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.select2-container--default .select2-selection--single {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: black;
+  line-height: 19px;
+  padding: 6px 12px;
+}
+.select2-container .select2-selection--single {
+  height: auto;
+  min-height: 30px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  top: 6px;
+}
+label, span.fieldname {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+input, textarea, select {
+  background: #fff;
+  color: #000;
+}
+label {
+  font-size: 1em;
+  color: #333;
+  font-weight: bold;
+}
+input[readonly] {
+	border: 1px solid Lightgrey;
+}
+input.text, input.file {
+  padding: 2px 0;
+}
+input.longtext {
+  width: 50em;
+}
+input[type=text], input[type=number], input[type=password], input.text, input.file, textarea.textarea, select.select, select {
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  margin: 0;
+}
+select {
+  height: 31px;
+  margin-top: 1px;
+  min-width: 324px;
+}
+select[size] {
+  height: auto;
+  padding: 0;
+}
+select[size] option {
+  padding: 6px 9px;
+}
+textarea.textarea {
+  height: 7em;
+  width: 40em;
+  max-width: 98% !important;
+}
+textarea.small {
+  height: 3em;
+}
+textarea.medium {
+  height: 7em;
+}
+input.large, select.large, textarea.large {
+  width: 100%;
+}
+input.checkbox, input.radio {
+  display: block;
+  height: 13px;
+  line-height: 1.5em;
+  margin: 0.6em 0 0 3px;
+  width: 13px;
+}
+input.btTxt {
+  overflow: visible;
+  padding: 0 7px;
+  width: auto;
+}
+input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, input.text:focus, input.file:focus, 
+textarea.textarea:focus, select.select:focus, select:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+div.value, div.value-wide {
+  border: 1px solid #ddd;
+  background: #f1f1f1;
+  padding: 0.2em;
+  width: 25em;
+}
+div.value-wide {
+  width: 100%;
+}
+div.value pre, div.value-wide pre { /* override blueprint's settings */
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------------
+/* buttons
+/* ------------------------------------------------------------------- */
+
+button, .button-group a, .button-group button, input.btnTxt, .paginator a {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 4px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.button-group button {
+  width: auto;
+  overflow: visible;
+}
+button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:hover {
+  background-color: #efefef;
+  text-decoration: none;
+}
+.button-group a.icon, .button-group button.icon {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.button-group a.icon div, .button-group button.icon div {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
+.button-group input {
+  margin-right: 5px;
+}
+.button-group a img, button img {
+  vertical-align: middle;
+  margin: -1px 0.3em -1px 0;
+}
+.button-group a, .button-group button {
+  float: left;
+  margin: 0 0.58em 0 0;
+}
+.button-toolbar {
+  margin-bottom: 5px;
+}
+.button-toolbar a.icon, .button-toolbar button.icon {
+  padding-top: 5px;
+  padding-bottom: 4px;
+}
+
+/* ----------------------------------------------------------------------
+/* icons
+/* ------------------------------------------------------------------- */
+
+.button-group .button-login div {
+  background-image: url(../img/icons/silk/door-in.png);
+  padding-left: 25px;
+}
+.button-group .button-logout span {
+  background: url(../img/icons/silk/door-out.png) no-repeat;
+  display: block;
+  margin: 5px;
+  padding-left: 25px;
+}
+.button-group .button-save div {
+  background-image: url(../img/icons/silk/disk.png);
+  padding-left: 18px;
+}
+.button-group .button-revert div {
+  background-image: url(../img/icons/silk/arrow_redo.png);
+  padding-left: 25px;
+}
+.button-group .button-fullscreen span {
+  background: url(../img/icons/silk/arrow_out.png) no-repeat;
+  display: block;
+}
+.button-group .button-undo span {
+  background: url(../img/icons/silk/arrow_undo.png) no-repeat;
+  display: block;
+}
+.button-group .button-redo span {
+  background: url(../img/icons/silk/arrow_redo.png) no-repeat;
+  display: block;
+}
+.button-group .button-goto span {
+  background: url(../img/icons/silk/xhtml_go.png) no-repeat;
+  display: block;
+}
+.button-group .button-reformat span {
+  background: url(../img/icons/silk/text_align_right.png) no-repeat;
+  display: block;
+}
+
+/* ----------------------------------------------------------------------
+/* wicket popup
+/* ------------------------------------------------------------------- */
+
+div.wicket-modal h3.w_captionText {
+  color: #666;
+  font-size: 12px;
+  font-weight: bold;
+  height: 1.4em;
+}
+div.wicket-modal div.w_blue {
+  border: 1px solid #ddd;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+div.wicket-modal div.w_blue div.w_top, div.wicket-modal div.w_blue div.w_bottom, 
+div.wicket-modal div.w_blue div.w_topLeft, div.wicket-modal div.w_blue div.w_topRight, 
+div.wicket-modal div.w_blue div.w_bottomRight, div.wicket-modal div.w_blue div.w_bottomLeft, div.wicket-modal div.w_blue a.w_close
+div.wicket-modal * {
+  background: #fff;
+  background-image: none;
+}
+div.wicket-modal div.w_right_1, div.wicket-modal div.w_content_1 {
+  margin: 0;
+}
+div.wicket-modal div.w_content_3 {
+  border: 0;
 }
