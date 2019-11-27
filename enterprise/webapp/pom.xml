@@ -209,11 +209,11 @@
     <profile>
       <!-- GeoCat Live -->
       <id>live</id>
+      <properties>
+        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+        <configId>release</configId>
+      </properties>
       <dependencies>
-        <properties>
-          <configDirectory>${basedir}/../../geoserver/data</configDirectory>
-          <configId>release</configId>
-        </properties>
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-wps-core</artifactId>
