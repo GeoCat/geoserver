@@ -6,19 +6,19 @@ The GeoServer Enterprise web application provides a predefined bundle for GeoCat
 mvn package
 ```
 
-`geoserver-enterprise.war` is constructed in in three steps:
+The `geoserver-enterprise.war` is constructed in in three steps:
 
-* pre-package: copy resources from configuDirectory and configId
+* pre-package: copy data directory from configDirectory and configId
 * pre-package: copy resources from gs-web-app dependency
-* package: assemble geoserver-enterprise
+* package: assemble geoserver-enterprise.war
 
-To test `target/geoserver-enterprise.war` locally using Jetty:
+To test `target/geoserver-enterprise.war` using Jetty:
 
 ```bash
 mvn jetty:run-war
 ```
 
-Can zwith running directly from the `target` folder:
+Experiment with running directly from the `target` folder:
 
 ```bash
 mvn jetty:run-exploded
@@ -45,7 +45,7 @@ mvn jetty:run-war -Prelease
 
 # Data Directory
 
-Including a data directory:
+To bundle a data directory use:
 
 * `configId` : data directory (minimal, release, ...) to use
 * `configDirectory` : location of geoserver data directory
@@ -53,5 +53,11 @@ Including a data directory:
 An example of running the GeoServer release configuration:
 
 ```bash
-mvn jetty:run-war -DconfigDirectory=../../geoserver/data -DconfigId=release 
+mvn jetty:run-war -DconfigDirectory=../../geoserver/data -DconfigId=minimal 
+```
+
+To supply an external data directory use `GEOSERVER_DATA_DIR` system property:
+
+```bash
+mvn -DGEOSERVER_DATA_DIR=/tmp/folder jetty:run-exploded
 ```

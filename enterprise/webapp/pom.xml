@@ -100,8 +100,6 @@
                  <available file="${configDirectory}/${configId}" property="configIsAvailable" />
                  
                  <echo message="Data directory not provided." unless:set="configIsAvailable"/>
-                 
-                 
                  <echo message="Data directory: ${configDirectory}/${configId}" if:set="configIsAvailable"/>
                  
                  <copy todir="${project.build.directory}/resources/data" failonerror="false" if:set="configIsAvailable">
@@ -131,21 +129,16 @@
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
-        <executions>
-          <execution>
-            <id>configPackage</id>
-            <phase>package</phase>
-            <configuration>
-              <webResources>
-                <resource>
-                  <directory>target/resources</directory>
-                </resource>
-              </webResources>
-              <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
-            </configuration>
-          </execution>
-        </executions>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>target/resources</directory>
+            </resource>
+          </webResources>
+          <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
+        </configuration>
       </plugin>
+      
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
@@ -154,7 +147,7 @@
           <webApp>
             <contextPath>/geoserver</contextPath>
           </webApp>
-          <resourceBases>target/resources,target/data</resourceBases>
+          <resourceBases>${project.build.directory}/resources</resourceBases>
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>${jetty.port}</port>
@@ -168,6 +161,12 @@
           <stopKey>GEOSERVER_JETTY_STOPKEY</stopKey>
           <daemon>false</daemon>
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
+          <systemProperties>
+            <systemProperty>
+                <name>GEOSERVER_DATA_DIRECTORY</name>
+                <value>${configDirectory}/${configId}</value>
+            </systemProperty>
+          </systemProperties>
         </configuration>
       </plugin>
     </plugins>
