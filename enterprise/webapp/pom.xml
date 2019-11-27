@@ -56,27 +56,57 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
+   
     <plugins>
+
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-dependency-plugin</artifactId>
+      <version>3.1.1</version>
+      <executions>
+        <execution>
+          <id>unpack</id>
+          <phase>prepare-package</phase>
+          <goals>
+            <goal>unpack</goal>
+          </goals>
+          <configuration>
+            <artifactItems>
+              <artifactItem>
+                <groupId>org.geoserver.web</groupId>
+                <artifactId>gs-web-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+                <overWrite>false</overWrite>
+                <outputDirectory>${project.build.directory}/resources</outputDirectory>
+                <excludes>/META-INF/**,data/**,/WEB-INF/lib/**</excludes>
+              </artifactItem>
+            </artifactItems>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+
       <!-- Builds a valid data directory into the web app -->
-      <!--plugin>
+      <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.7</version>
         <executions>
           <execution>
             <id>configPackage</id>
-            <phase>package</phase>
+            <phase>prepare-package</phase>
             <configuration>
-              <tasks>
-  <!- check if config is available, if not fail ->
-  <available file="${configDirectory}/${configId}" property="configIsAvailable" />
-  <fail message="Unable to locate configuration: ${configDirectory}/${configId}" unless="configIsAvailable" />
+              <target>
+                <available file="${configDirectory}/${configId}"
+                           property="configIsAvailable" />
 
-  <!- copy the files from the config dir to the webapp dir ->
-  <echo message="Copying data dir from ${configDirectory}/${configId}" />
-  <copy todir="${webappSourceDirectory}/data">
-     <fileset dir="${configDirectory}/${configId}" includes="**/**" />
-  </copy>
-              </tasks>
+                <fail message="Unable to locate configuration: ${configDirectory}/${configId}" unless="configIsAvailable"/>
+
+                <echo message="Copying data dir from ${configDirectory}/${configId}"/>
+                <copy todir="${project.build.directory}/resources/data">
+                   <fileset dir="${configDirectory}/${configId}" includes="**/**" />
+                </copy>
+              </target>
             </configuration>
             <goals>
               <goal>run</goal>
@@ -86,20 +116,26 @@
             <id>configClean</id>
             <phase>clean</phase>
             <configuration>
-              <tasks>
-  <delete dir="${webappSourceDirectory}/data" />
-              </tasks>
+              <target>
+  <delete dir="${project.build.directory}/resources/data" />
+              </target>
             </configuration>
             <goals>
               <goal>run</goal>
             </goals>
           </execution>
         </executions>
-      </plugin-->
+      </plugin>
+      
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
+          <webResources>
+            <resource>
+              <directory>target/resources</directory>
+            </resource>
+          </webResources>
           <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
         </configuration>
       </plugin>
@@ -111,6 +147,7 @@
           <webApp>
             <contextPath>/geoserver</contextPath>
           </webApp>
+          <resourceBases>target/resources,target/data</resourceBases>
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>${jetty.port}</port>
@@ -126,7 +163,7 @@
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
         </configuration>
       </plugin>
-      <!--plugin>
+      <!-- plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>1.8</version>
@@ -153,8 +190,8 @@
 
   <properties>
     <configId>minimal</configId>
+<jetty.version>9.4.12.v20180830</jetty.version>
     <configDirectory>${basedir}/../../geoserver/data</configDirectory>
-    <webappSourceDirectory>${basedir}/src/main/webapp</webappSourceDirectory>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
   </properties>
@@ -168,10 +205,15 @@
         <configId>release</configId>
       </properties>
     </profile>
+    
     <profile>
       <!-- GeoCat Live -->
       <id>live</id>
       <dependencies>
+        <properties>
+          <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+          <configId>release</configId>
+        </properties>
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-wps-core</artifactId>
