@@ -59,53 +59,54 @@
    
     <plugins>
 
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-dependency-plugin</artifactId>
-      <version>3.1.1</version>
-      <executions>
-        <execution>
-          <id>unpack</id>
-          <phase>prepare-package</phase>
-          <goals>
-            <goal>unpack</goal>
-          </goals>
-          <configuration>
-            <artifactItems>
-              <artifactItem>
-                <groupId>org.geoserver.web</groupId>
-                <artifactId>gs-web-app</artifactId>
-                <version>${project.version}</version>
-                <type>jar</type>
-                <overWrite>false</overWrite>
-                <outputDirectory>${project.build.directory}/resources</outputDirectory>
-                <excludes>/META-INF/**,data/**,/WEB-INF/lib/**</excludes>
-              </artifactItem>
-            </artifactItems>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.geoserver.web</groupId>
+                  <artifactId>gs-web-app</artifactId>
+                  <version>${project.version}</version>
+                  <type>jar</type>
+                  <overWrite>false</overWrite>
+                  <outputDirectory>${project.build.directory}/resources</outputDirectory>
+                  <excludes>/META-INF/**,data/**,/WEB-INF/lib/**</excludes>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <!-- Builds a valid data directory into the web app -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
+        <version>1.8</version>
         <executions>
           <execution>
-            <id>configPackage</id>
+            <id>dataDirectory</id>
             <phase>prepare-package</phase>
             <configuration>
-              <target>
-                <available file="${configDirectory}/${configId}"
-                           property="configIsAvailable" />
-
-                <fail message="Unable to locate configuration: ${configDirectory}/${configId}" unless="configIsAvailable"/>
-
-                <echo message="Copying data dir from ${configDirectory}/${configId}"/>
-                <copy todir="${project.build.directory}/resources/data">
-                   <fileset dir="${configDirectory}/${configId}" includes="**/**" />
-                </copy>
+              <target xmlns:if="ant:if" xmlns:unless="ant:unless">
+                 <available file="${configDirectory}/${configId}" property="configIsAvailable" />
+                 
+                 <echo message="Data directory not provided." unless:set="configIsAvailable"/>
+                 
+                 
+                 <echo message="Data directory: ${configDirectory}/${configId}" if:set="configIsAvailable"/>
+                 
+                 <copy todir="${project.build.directory}/resources/data" failonerror="false" if:set="configIsAvailable">
+                    <fileset dir="${configDirectory}/${configId}" includes="**/**" />
+                 </copy>
               </target>
             </configuration>
             <goals>
@@ -113,11 +114,11 @@
             </goals>
           </execution>
           <execution>
-            <id>configClean</id>
+            <id>dataDirectoryClean</id>
             <phase>clean</phase>
             <configuration>
               <target>
-  <delete dir="${project.build.directory}/resources/data" />
+                <delete dir="${project.build.directory}/resources/data" />
               </target>
             </configuration>
             <goals>
@@ -130,14 +131,20 @@
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
-        <configuration>
-          <webResources>
-            <resource>
-              <directory>target/resources</directory>
-            </resource>
-          </webResources>
-          <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
-        </configuration>
+        <executions>
+          <execution>
+            <id>configPackage</id>
+            <phase>package</phase>
+            <configuration>
+              <webResources>
+                <resource>
+                  <directory>target/resources</directory>
+                </resource>
+              </webResources>
+              <packagingExcludes>WEB-INF/lib/gs-web-app-*.jar</packagingExcludes>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
@@ -163,35 +170,14 @@
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
         </configuration>
       </plugin>
-      <!-- plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <version>1.8</version>
-          <executions>
-              <execution>
-                  <id>attach-war</id>
-                  <phase>package</phase>
-                  <goals>
-                      <goal>attach-artifact</goal>
-                  </goals>
-                  <configuration>
-                      <artifacts>
-                          <artifact>
-                              <file>${project.build.directory}/geoserver.war</file>
-                              <type>war</type>
-                          </artifact>
-                      </artifacts>
-                  </configuration>
-              </execution>
-          </executions>
-      </plugin-->
     </plugins>
   </build>
 
   <properties>
-    <configId>minimal</configId>
-<jetty.version>9.4.12.v20180830</jetty.version>
-    <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>9.4.12.v20180830</jetty.version>
+    <!--configDirectory>${basedir}/../../geoserver/data</configDirectory>
+    <configId>minimal</configId-->
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
   </properties>
