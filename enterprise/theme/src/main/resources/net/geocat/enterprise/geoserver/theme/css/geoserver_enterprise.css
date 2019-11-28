@@ -69,8 +69,13 @@ a:hover  {
   font-size: 14px;
   font-weight: 100;
 }
+.palette-theme-default .palette-choices > div {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
 .palette-theme-default .palette-buttons {
-  margin-top: 26px;
+  margin-top: 32px;
 }
 .palette-theme-default .palette-buttons button div {
   height: 20px;
@@ -96,7 +101,9 @@ a:hover  {
 .selfclear {
   display: block;
 }
-
+fieldset.leftwise, fieldset.rightwise {
+  margin-right: 5px !important;
+}
 /* ----------------------------------------------------------------------
 /* feedback
 /* ------------------------------------------------------------------- */
@@ -130,7 +137,7 @@ a:hover  {
 .feedbackPanelINFO a:hover {
   color: #fff;
 }
-.feedbackPanelWARNING {
+.feedbackPanelWARNING, .feedbackPanelERROR {
   padding: 8px 10px;
   border-radius: 2px;
 }
@@ -148,6 +155,9 @@ a:hover  {
 }
 #header .wrap {
   width: 100%;
+}
+#header input {
+  padding: 6px 12px;
 }
 #main {
   background: none;
@@ -167,6 +177,11 @@ a:hover  {
   margin: 0 0 -250px 21em;
   padding: 25px 0 250px 19px;
   background: none;
+}
+#page.fullscreen {
+  padding-top: 0px;
+  margin-top: 51px !important;
+  overflow: auto;
 }
 #page .page-header {
   background: none;
@@ -295,7 +310,7 @@ li.nav-administer-service a:hover img {
 
 #capabilities {
   float: right;
-  padding-right: 50px;
+  padding-right: 10px;
   margin-top: -60px;
   width: 250px;
 }
@@ -345,6 +360,9 @@ div#capabilities .flat li a:hover {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
+#page.fullscreen .tab-row-compact {
+  margin-top: 0;
+}
 
 /* ----------------------------------------------------------------------
 /* tables
@@ -364,20 +382,28 @@ td {
 tr th, tr td {
   border-bottom: 1px solid #ccc;
   padding: 6px 10px 6px 5px;
+  vertical-align: top;
 }
 thead th {
-  background: #efefef;
+  background: #fff;
   color: #222;
-  border-bottom: 1px solid #ccc;
+  font-weight: 500;
+  border-bottom: 2px solid #ccc;
+}
+thead th a {
+  color: #333;
+}
+thead th a:hover {
+  color: #000;
 }
 tr:hover td, tbody tr:hover th {
   background: #fff;
 }
 tr.even td, tr.even th {
-  background: #fff; /* override blueprint's settings */
+  background: #f9f9f9; /* override blueprint's settings */
 }
 tr.even:hover td, tr.even:hover th {
-  background: #efefef;
+  background: #f9f9f9;
 }
 th.actions, td.actions {
   width: 13em;
@@ -392,11 +418,11 @@ th.actions, td.actions {
 /* ------------------------------------------------------------------- */
 
 /* clear the floats */
-form:before, form:after {
+form:before, form:after, form li:before, form li:after {
   content: " ";
   display: table;
 }
-form:after {
+form:after, form li:after {
   clear: both;
 }
 fieldset { /* override blueprint's settings */
@@ -427,12 +453,8 @@ legend span {
 legend a {
   top: 10px;
 }
-input.text, textarea.textarea, select.select {
-  border: 1px solid #ddd;
-  padding: 6px 12px;
-  width: 350px !important;
-  border-radius: 3px;
-  font-size: 12px;
+.select2-container--default {
+  width: 25em !important;
 }
 .select2-container--default .select2-selection--single {
   border: 1px solid #ddd;
@@ -451,13 +473,18 @@ input.text, textarea.textarea, select.select {
   top: 6px;
 }
 label, span.fieldname {
-  margin-bottom: 5px;
-  margin-top: 5px;
-  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: 600;
 }
 input, textarea, select {
   background: #fff;
-  color: #000;
+  color: #555;
+  font-size: 14px;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  border-color: #ccc;
 }
 label {
   font-size: 1em;
@@ -485,9 +512,9 @@ input[type=text], input[type=number], input[type=password], input.text, input.fi
   margin: 0 5px 0 0;
 }
 select {
-  height: 31px;
-  margin-top: 1px;
-  min-width: 324px;
+  height: 29px;
+  min-width: 60px;
+  font-size: 14px;
 }
 select[size] {
   height: auto;
@@ -495,6 +522,11 @@ select[size] {
 }
 select[size] option {
   padding: 6px 9px;
+}
+/* special select */
+#keywords {
+  float: left;
+  width: 350px !important;
 }
 textarea.textarea {
   height: 7em;
@@ -529,6 +561,9 @@ textarea.textarea:focus, select.select:focus, select:focus {
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 }
+table input, table textarea, table select {
+  margin: 0;
+}
 div.value, div.value-wide {
   border: 1px solid #ddd;
   background: #f1f1f1;
@@ -541,12 +576,25 @@ div.value-wide {
 div.value pre, div.value-wide pre { /* override blueprint's settings */
   margin: 0;
 }
+input[type=checkbox] + label, input[type=radio] + label {
+  display: inline-block;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------------
+/* code
+/* ------------------------------------------------------------------- */
+
+#style-editor * {
+  border-color: #ccc !important;
+}
 
 /* ----------------------------------------------------------------------
 /* buttons
 /* ------------------------------------------------------------------- */
 
-button, .button-group a, .button-group button, input.btnTxt, .paginator a {
+button, .button-group a, .button-group button, input.btnTxt, .paginator a, input[type=button] {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 400;
@@ -573,9 +621,10 @@ button, .button-group a, .button-group button, input.btnTxt, .paginator a {
   width: auto;
   overflow: visible;
 }
-button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:hover {
+button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:hover, .paginator a:hover, input[type=button]:hover {
   background-color: #efefef;
   text-decoration: none;
+  color: #333;;
 }
 .button-group a.icon, .button-group button.icon {
   padding-top: 0px;
@@ -596,7 +645,7 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 }
 .button-group a, .button-group button {
   float: left;
-  margin: 0 0.58em 0 0;
+  margin: 0 5px 0 0;
 }
 .button-toolbar {
   margin-bottom: 5px;
@@ -604,6 +653,9 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 .button-toolbar a.icon, .button-toolbar button.icon {
   padding-top: 5px;
   padding-bottom: 4px;
+}
+.button-toolbar select {
+  min-width: auto;
 }
 /* special */
 .add-link {
@@ -688,4 +740,12 @@ div.wicket-modal div.w_right_1, div.wicket-modal div.w_content_1 {
 }
 div.wicket-modal div.w_content_3 {
   border: 0;
+}
+
+/* ----------------------------------------------------------------------
+/* status bar
+/* ------------------------------------------------------------------- */
+
+.status_bar {
+  border-color: #bbb;
 }
