@@ -11,9 +11,11 @@ build/              build and jenkins scripts
 bundle/             assembly bundles for distirbution
 data/               precofnigured data directory options
 geoserver           submodule (mostly used for data directory options)
-enterprise/web      GeoServer Enterprise theme
-enterprise/web-app  GeoServer Enterprise application
+enterprise/theme    GeoServer Enterprise theme
+enterprise/webapp   GeoServer Enterprise application
 ```
+
+### Branching and Submodules
 
 The branches and version numbers follow the release of GeoServer being distributed:
 
@@ -36,17 +38,54 @@ git checkout 1.16.x
 git submodule update --remote
 ```
 
+#### Updating GeoServer version
+
 To update a submodule to a new tag:
 
-```bash
-cd geoserver
-git fetch --all --tags --prune
-git checkout tags/1.16.0
-cd ..
-git add GeoServer
-git commit -m "Update geoserver to 1.16.0"
-git push
-```
+1. Change the submodule tag
+
+   ```bash
+   cd geoserver
+   git fetch --all --tags --prune
+   git checkout tags/2.16.1
+   cd ..
+   ```
+
+2. Update `enterprise/pom.xml` to reflect this new `geoserver.version` number.
+   
+   ```xml
+    <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
+    <gs.version>2.16.1</gs.version>
+    <gwc.version>1.15.1</gwc.version>
+    <gt.version>21.1</gt.version>
+    <spring.version>5.1.1.RELEASE</spring.version>
+    <spring.security.version>5.1.1.RELEASE</spring.security.version>
+   ```
+
+3. Test the change
+   
+   ```bash
+   cd enterprise
+   mvn clean install
+   cd webapp
+   mvn package jetty:run-exploded -Prelease
+   ```
+   
+   Check:
+   
+   * [localhost:8080/geoserver/](http://localhost:8080/geoserver/)
+   * [About Geoserver Page]( http://localhost:8080/geoserver/web/wicket/bookmarkable/org.geoserver.web.AboutGeoServerPage)
+   
+   
+4. Commit the change:
+
+   ```bash
+   git add geoServer
+   git commit -m "Update geoserver to 1.16.1"
+   git push
+   ```
+
+
 
 Use tags to mark releases:
 
@@ -56,11 +95,9 @@ git tag 1.16.0 -a -m "GeoServer Enterprise 1.16.0 release"
 
 ## Build Instructions
 
-Building uses the latest [ant](https://ant.apache.org/) and [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.
+Building uses the [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.
 
 We make heavy use of maven and maven repositories from [geotools](https://download.osgeo.org/webdav/geotools/) and [geoserver](https://repo.boundlessgeo.com/release/) for release artifacts and do not build everything ourself. 
-
-Versions are managed in `versions.properties` and included in maven `pom.xml` file and ant `build.xml` files as required.
 
 To build:
 

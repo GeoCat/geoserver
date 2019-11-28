@@ -161,12 +161,12 @@
           <stopKey>GEOSERVER_JETTY_STOPKEY</stopKey>
           <daemon>false</daemon>
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
-          <systemProperties>
+          <!--systemProperties>
             <systemProperty>
                 <name>GEOSERVER_DATA_DIRECTORY</name>
                 <value>${configDirectory}/${configId}</value>
             </systemProperty>
-          </systemProperties>
+          </systemProperties-->
         </configuration>
       </plugin>
     </plugins>

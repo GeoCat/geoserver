@@ -50,13 +50,6 @@
      <enabled>true</enabled>
    </releases>
   </repository>
-  
-  <!--
-    To save build time we are relying on geoserver repository above to cache the following:
-    
-    - geosolutions repository used by imageio-ext and jai-ext
-  -->
-  
   <repository>
     <id>osgeo</id>
     <name>Open Source Geospatial Foundation Repository</name>
@@ -76,11 +69,11 @@
  </repositories>
  
   <properties>
-    <!-- dependencyManagement versions -->
-    <project.version>1.0-SNAPSHOT</project.version>
-    <gs.version>2.16.0</gs.version>
-    <gwc.version>1.15.0</gwc.version>
-    <gt.version>21.0</gt.version>
+    <project.version>2.16-SNAPSHOT</project.version>
+    <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
+    <gs.version>2.16.1</gs.version>
+    <gwc.version>1.15.1</gwc.version>
+    <gt.version>21.1</gt.version>
     <spring.version>5.1.1.RELEASE</spring.version>
     <spring.security.version>5.1.1.RELEASE</spring.security.version>
     <!-- build maven-compiler-plugin -->
