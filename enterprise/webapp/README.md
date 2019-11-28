@@ -2,9 +2,13 @@
 
 The GeoServer Enterprise web application provides a predefined bundle for GeoCat Live and select customers.
 
+To quickly run:
+
 ```bash
-mvn package
+mvn clean package jetty:run-exploded -Plive
 ```
+
+## GeoServer Enterprise WAR
 
 The `geoserver-enterprise.war` is constructed in in three steps:
 
@@ -24,7 +28,7 @@ Experiment with running directly from the `target` folder:
 mvn jetty:run-exploded
 ```
 
-# Preconfigured
+## Preconfigured
 
 Profiles are used to provide prepackaged bundles defining both the GeoServer extensions and data directory included.
 
@@ -43,7 +47,7 @@ Example of running with GeoServer `release` configuration:
 mvn jetty:run-war -Prelease
 ```
 
-# Data Directory
+## Data Directory
 
 To bundle a data directory use:
 
