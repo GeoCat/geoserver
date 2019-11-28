@@ -10,20 +10,11 @@ Directory structure:
 build/              build and jenkins scripts
 bundle/             assembly bundles for distirbution
 data/               precofnigured data directory options
+docs/               documentation and installation instructions
 geoserver           submodule (mostly used for data directory options)
 enterprise/theme    GeoServer Enterprise theme
 enterprise/webapp   GeoServer Enterprise application
 ```
-
-### Branching and Submodules
-
-The branches and version numbers follow the release of GeoServer being distributed:
-
-* master: live development, unpublished, nightly builds used for quality assurance
-* 2.16.x: stable branch, nightly builds, "next" stable release available for our customers
-* 2.10.x: branch maintained for RWS
-
-While nightly builds can be provided as a temporary fix. We only support tagged releases (released upstream in GeoServer).
 
 This repository uses git submodules, clone using ``--recursive``:
 
@@ -31,11 +22,62 @@ This repository uses git submodules, clone using ``--recursive``:
 git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterprise.git
 ```
 
+The branches and version numbers follow the release of GeoServer being distributed:
+
+* master: live development, unpublished, nightly builds used for quality assurance
+* 2.16.x: stable branch, nightly builds, "next" stable release available for our customers
+* 2.10.x: branch maintained for RWS
+
 Update when changing branches:
 
 ```bash
 git checkout 1.16.x
 git submodule update --remote
+```
+
+### Build Instructions
+
+Building uses the [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.
+
+We make heavy use of maven and maven repositories from [geotools](https://download.osgeo.org/webdav/geotools/) and [geoserver](https://repo.boundlessgeo.com/release/) for release artifacts and do not build everything ourself. 
+
+To build:
+
+```bash
+cd enterprise
+mvn clean install 
+```
+
+To run `webapp` locally using jetty:
+```java
+cd webapp
+mvn package jetty:run-exploded -Plive
+```
+
+Profiles, like `live` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
+
+```java
+mvn jetty:run-exploded -Prelease
+```
+
+An external GEOSERVER_DATA_DIR can be used:
+
+```java
+mvn jetty:run-exploded -DGEOSERVER_DATA_DIR=../../geoserver/data/release
+```
+
+### Release Instructions (Pending)
+
+The ``bundle`` directory provides scripts packaging the `web-app/target` for use.
+
+```
+mvn assembly
+```
+
+The default build is for GeoCat Live, preconfigured distribution for customers or specific data directory are available:
+
+```java
+mvn assembly -Pne_data
 ```
 
 #### Updating GeoServer version
@@ -80,58 +122,14 @@ To update a submodule to a new tag:
 4. Commit the change:
 
    ```bash
-   git add geoServer
+   git add geoserver
+   git add enterprise/pom.xml
    git commit -m "Update geoserver to 1.16.1"
    git push
    ```
 
-
-
 Use tags to mark releases:
 
 ```bash
-git tag 1.16.0 -a -m "GeoServer Enterprise 1.16.0 release"
-```
-
-## Build Instructions
-
-Building uses the [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.
-
-We make heavy use of maven and maven repositories from [geotools](https://download.osgeo.org/webdav/geotools/) and [geoserver](https://repo.boundlessgeo.com/release/) for release artifacts and do not build everything ourself. 
-
-To build:
-
-```bash
-cd enterprise
-mvn clean install 
-```
-
-To run locally using jetty:
-```java
-cd enterprise/web-app
-mvn jetty:run
-```
-
-The default build is used for GeoCat Live, preconfigured distributions for customers or specific data directories are also available:
-
-```java
-mvn jetty:run -Prws 
-```
-
-```java
-mvn jetty:run -Pne_data
-```
-
-## Release Instructions
-
-The ``bundle`` directory provides scripts packaging the `web-app/target` for use.
-
-```
-mvn assembly
-```
-
-The default build is for GeoCat Live, preconfigured distribution for customers or specific data directory are available:
-
-```java
-mvn assembly -Pne_data
+git tag 1.16.1 -a -m "GeoServer Enterprise 1.16.1 release"
 ```
