@@ -27,6 +27,17 @@
      Web Application used for enterprise branding, with profiles selecting modules to prepackage for GeoCat Live hosting and GeoCat customers.
   </description>
   
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>9.4.12.v20180830</jetty.version>
+    <!--
+    <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+    <configId>minimal</configId>
+    -->
+    <jetty.port>8080</jetty.port>
+    <jetty.run.daemon>false</jetty.run.daemon>
+  </properties>
+  
   <dependencies>
     <!-- GeoServer Enterprise modules -->
     <dependency>
@@ -58,15 +69,15 @@
     </resources>
    
     <plugins>
-
+      <!-- Extract web-app contents from gs-web-app jar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>3.1.1</version>
         <executions>
           <execution>
-            <id>unpack</id>
-            <phase>prepare-package</phase>
+            <id>gs-web-app-resources</id>
+            <phase>process-resources</phase>
             <goals>
               <goal>unpack</goal>
             </goals>
@@ -79,14 +90,13 @@
                   <type>jar</type>
                   <overWrite>false</overWrite>
                   <outputDirectory>${project.build.directory}/resources</outputDirectory>
-                  <excludes>/META-INF/**,data/**,/WEB-INF/lib/**</excludes>
+                  <excludes>/META-INF/**,/data/**,/WEB-INF/lib/**</excludes>
                 </artifactItem>
               </artifactItems>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
       <!-- Builds a valid data directory into the web app -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -94,7 +104,7 @@
         <executions>
           <execution>
             <id>dataDirectory</id>
-            <phase>prepare-package</phase>
+            <phase>process-resources</phase>
             <configuration>
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                  <available file="${configDirectory}/${configId}" property="configIsAvailable" />
@@ -116,7 +126,7 @@
             <phase>clean</phase>
             <configuration>
               <target>
-                <delete dir="${project.build.directory}/resources/data" />
+                <delete dir="${project.build.directory}/resources" />
               </target>
             </configuration>
             <goals>
@@ -125,7 +135,7 @@
           </execution>
         </executions>
       </plugin>
-      
+      <!-- war packaging using target/resource and excluding gs-web-app jar -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
@@ -146,8 +156,10 @@
         <configuration>
           <webApp>
             <contextPath>/geoserver</contextPath>
+            <descriptor>${project.basedir}/resources/WEB-INF/web.xml</descriptor>
           </webApp>
-          <resourceBases>${project.build.directory}/resources</resourceBases>
+          <webAppSourceDirectory>${project.build.directory}/resources</webAppSourceDirectory>
+          <!--resourceBases>${project.build.directory}/resources</resourceBases-->
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>${jetty.port}</port>
@@ -161,26 +173,10 @@
           <stopKey>GEOSERVER_JETTY_STOPKEY</stopKey>
           <daemon>false</daemon>
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
-          <!--systemProperties>
-            <systemProperty>
-                <name>GEOSERVER_DATA_DIRECTORY</name>
-                <value>${configDirectory}/${configId}</value>
-            </systemProperty>
-          </systemProperties-->
         </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jetty.version>9.4.12.v20180830</jetty.version>
-    <!--configDirectory>${basedir}/../../geoserver/data</configDirectory>
-    <configId>minimal</configId-->
-    <jetty.port>8080</jetty.port>
-    <jetty.run.daemon>false</jetty.run.daemon>
-  </properties>
-  
 
   <profiles>
     <profile>
