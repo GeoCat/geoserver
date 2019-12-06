@@ -85,7 +85,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'geocat'
+# html_theme = 'geocat'
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = ['../themes']

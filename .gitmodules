@@ -2,6 +2,3 @@
 	path = geoserver
 	url = https://github.com/geoserver/geoserver.git
 	branch = 2.16.x
-[submodule "docs/geocat"]
-	path = docs/themes/geocat
-	url = https://eos.geocat.net/gitlab/geocat/geocat_sphinx_template.git

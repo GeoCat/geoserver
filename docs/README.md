@@ -10,7 +10,7 @@ Documentation is written using the sphinx documentation system using restructure
 
 Pavement is a python build tool equivalent to make or ant.
 
-* `builddocs` generate documentation in `build/html` folder.
+* `paver builddocs` generate documentation in `build/html` folder.
 
 For more information please see [geocat-documentation](https://github.com/volaya/geocat-documentation).
 
@@ -18,6 +18,6 @@ For more information please see [geocat-documentation](https://github.com/volaya
 
 A number of sphinx themes are available:
 
-* [geocat_sphinx_template](https://eos.geocat.net/gitlab/geocat/geocat_sphinx_template/tree/master)
+* [geocat_sphinx_template](https://eos.geocat.net/gitlab/geocat/geocat_sphinx_template/tree/master) (currently unavailable due to git permission issues)
 
 These themes are managed as git submodules for ease of maintenance.
