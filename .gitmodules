@@ -1,6 +1,6 @@
 [submodule "geoserver"]
 	path = geoserver
-	url = git@github.com:geoserver/geoserver.git
+	url = https://github.com/geoserver/geoserver.git
 	branch = 2.16.x
 [submodule "docs/geocat"]
 	path = docs/themes/geocat
