@@ -233,6 +233,10 @@ fieldset.leftwise, fieldset.rightwise {
   float: right;
   margin: -5px 0 0 1em;
 }
+/* loader */
+#ajaxFeedback {
+  top: 65px;
+}
 
 /* ----------------------------------------------------------------------
 /* sidebar
@@ -591,6 +595,14 @@ input[type=checkbox] + label, input[type=radio] + label {
 }
 
 /* ----------------------------------------------------------------------
+/* maps
+/* ------------------------------------------------------------------- */
+
+div#olPreview {
+  border: 1px solid #ccc !important;
+}
+
+/* ----------------------------------------------------------------------
 /* buttons
 /* ------------------------------------------------------------------- */
 
@@ -675,7 +687,7 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 /* icons
 /* ------------------------------------------------------------------- */
 
-.button-group .button-login div {
+/* .button-group .button-login div {
   background-image: url(../img/icons/silk/door-in.png);
   padding-left: 25px;
 }
@@ -712,7 +724,7 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 .button-group .button-reformat span {
   background: url(../img/icons/silk/text_align_right.png) no-repeat;
   display: block;
-}
+} */
 
 /* ----------------------------------------------------------------------
 /* wicket popup
