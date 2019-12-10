@@ -33,7 +33,7 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
      .. literalinclude:: files/setenv.sh
         :language: shell
    
-   * Windows :download:<setenv.bat>`:
+   * Windows :download:`setup.bat <files/setenv.bat>`:
      
      .. literalinclude:: files/setenv.bat
         :language: batch
