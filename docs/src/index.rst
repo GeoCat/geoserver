@@ -6,6 +6,7 @@ GeoServer Enterprise
    :caption: Contents:
    
    install/index
+   production/index
    
 Indices and tables
 ==================

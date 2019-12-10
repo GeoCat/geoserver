@@ -49,7 +49,8 @@ release = '2.16.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-  'sphinx.ext.ifconfig'
+  'sphinx.ext.ifconfig',
+  'sphinx.ext.extlinks'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -80,6 +81,11 @@ exclude_patterns = []
 pygments_style = None
 
 
+# -- Extension External Links ------------------------------------------------
+
+extlinks = { 
+    'geoserver': ('http://docs.geoserver.org/latest/en/user/%s',''),
+}
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
