@@ -2,3 +2,6 @@
 	path = geoserver
 	url = https://github.com/geoserver/geoserver.git
 	branch = 2.16.x
+[submodule "docs/themes"]
+	path = docs/themes
+	url = https://github.com/GeoCat/geocat-themes.git
