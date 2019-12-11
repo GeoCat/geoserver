@@ -78,7 +78,7 @@ def getrefs():
 def buildref(refname, ref, deploy):
     print("Building project '%s' at version '%s'..." % (NAME, refname)) 
     sh("git checkout -f {}".format(ref))
-    sourcedir = os.path.join(os.getcwd(), "source")
+    sourcedir = os.path.join(os.getcwd(), "src")
     if deploy:
         builddir = os.path.join(central_docs_path(), NAME, refname)
     else:
@@ -86,9 +86,6 @@ def buildref(refname, ref, deploy):
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
-    sh("pip3 install --user sphinx")
-    sh("pip3 install --user recommonmark")
-    sh("pip3 install --user sphinx-markdown-tables")
     sh("sphinx-build -a {} {}".format(sourcedir, builddir))
     if deploy:
         deploydocs(refname)
