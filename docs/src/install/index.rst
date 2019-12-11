@@ -141,15 +141,15 @@ Notes and warnings
 
 .. Tip:: 15% if the service is good.
 
-    +---------+
-    | Example |
-    +=========+
-    | Thing1  |
-    +---------+
-    | Thing2  |
-    +---------+
-    | Thing3  |
-    +---------+
+    +---------+---------+---------+
+    | Example | Example | Example |
+    +=========+=========+=========+
+    | Thing1  | Thing1  | Thing1  |
+    +---------+---------+---------+
+    | Thing2  | Thing2  | Thing2  |
+    +---------+---------+---------+
+    | Thing3  | Thing3  | Thing3  |
+    +---------+---------+---------+
 
 .. WARNING:: Strong prose may provoke extreme mental exertion.
    Reader discretion is strongly advised.
@@ -173,10 +173,10 @@ Figures
    A figure is an image with a caption and/or a legend:
 
 Blocks
-======
+------
 
 Literal Blocks
---------------
+^^^^^^^^^^^^^^
 
 Literal blocks are indicated with a double-colon ("::") at the end of
 the preceding paragraph (over there ``-->``).  They can be indented::
@@ -193,7 +193,7 @@ Or they can be quoted without indentation::
 > Why didn't I think of that?
 
 Line Blocks
------------
+^^^^^^^^^^^
 
 You can use line blocks, but block quotes are easier.
 
@@ -226,7 +226,7 @@ Take it away, Eric the Orchestra Leader!
     | Singing...
 
 Block Quotes
-------------
+^^^^^^^^^^^^
 
 Block quotes consist of indented body elements:
 
@@ -239,7 +239,7 @@ Block quotes consist of indented body elements:
     -- Anne Elk (Miss)
 
 Doctest Blocks
---------------
+^^^^^^^^^^^^^^
 
 >>> print 'Python-specific usage examples; begun with ">>>"'
 Python-specific usage examples; begun with ">>>"
@@ -247,7 +247,7 @@ Python-specific usage examples; begun with ">>>"
 (cut and pasted from interactive Python sessions)
 
 Code Blocks
------------
+^^^^^^^^^^^
 
 .. parsed-literal::
 
@@ -292,11 +292,23 @@ Emphasized lines with line numbers
        print 'This one is not...'
        print '...but this one is.'
 
+This is done with the following code::
+
+   .. code-block:: python
+      :linenos:
+      :emphasize-lines: 3,5
+
+      def some_function():
+         interesting = False
+         print 'This line is highlighted.'
+         print 'This one is not...'
+         print '...but this one is.'
+
 References
-==========
+----------
 
 Footnotes
----------
+^^^^^^^^^
 
 .. [1] A footnote contains body elements, consistently indented by at
    least 3 spaces.
@@ -321,7 +333,7 @@ Footnotes
    nonexistent footnote: [5]_.
 
 Citations
----------
+^^^^^^^^^
 
 .. [11] This is the citation I made, let's make this extremely long so that we can tell that it doesn't follow the normal responsive table stuff.
 
@@ -336,7 +348,7 @@ Here's a reference to the above, [12]_, and a [nonexistent]_ citation.
 Here is another type of citation: `citation`
 
 Glossary
---------
+^^^^^^^^
 
 This is a glossary with definition terms for thing like :term:`Writing`:
 
@@ -352,7 +364,7 @@ This is a glossary with definition terms for thing like :term:`Writing`:
       The process of putting thoughts into a medium for other people to :term:`read <Reading>`.
 
 Targets
--------
+^^^^^^^
 
 .. _example:
 
