@@ -86,7 +86,7 @@
                 <artifactItem>
                   <groupId>org.geoserver.web</groupId>
                   <artifactId>gs-web-app</artifactId>
-                  <version>${project.version}</version>
+                  <version>${gs.version>}</version>
                   <type>jar</type>
                   <overWrite>false</overWrite>
                   <outputDirectory>${project.build.directory}/resources</outputDirectory>
@@ -192,7 +192,7 @@
       <id>live</id>
       <properties>
         <configDirectory>${basedir}/../../geoserver/data</configDirectory>
-        <configId>release</configId>
+        <configId>minimal</configId>
       </properties>
       <dependencies>
         <dependency>
