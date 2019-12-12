@@ -33,11 +33,11 @@ project = 'GeoServer Enterprise'
 copyright = u'{}, GeoCat BV'.format(year)
 author = 'GeoCat BV'
 
-# The short X.Y version
-version = '2,16'
 # The full version, including alpha/beta/rc tags
 release = '2.16.1'
 
+# The short X.Y version
+version = release[0:release.rfind('.')]
 
 # -- General configuration ---------------------------------------------------
 
@@ -78,7 +78,7 @@ language = None
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'sphinx'
 
 
 # -- Extension External Links ------------------------------------------------
@@ -101,13 +101,19 @@ html_theme_path = ['../themes']
 # documentation.
 #
 html_theme_options = {
-    'logo_only': True,
-    'display_version': False
+    'logo_only': True,                  # product logo contains name already
+    'display_version': False,           # no version number
+    'prev_next_buttons_location': None, # table of contents navigation
+    'style_external_links': False,      # user guide links common
+    'includehidden': False,
+    'titles_only': False,
+    'collapse_navigation': True,
+    'show_sphinx': 'Green'
 }
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '../themes/' + html_theme + '/static/img/gc_geocat_logo_text_500.png'
+html_logo = 'geoserver.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -129,6 +135,7 @@ html_favicon = 'favicon.ico'
 #
 # html_sidebars = {}
 
+html_show_sourcelink = False
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
