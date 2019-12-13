@@ -269,6 +269,37 @@
       <artifactId>gs-web-app</artifactId>
       <version>${gs.version}</version>
     </dependency>
+    <!-- extensions for inclusion in webapp profiles -->
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-oracle</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-charts</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-vectortiles</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-geopkg</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-wps-core</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-web-wps</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
     <!-- Use of gt.version for GeoTools modules -->
     <dependency>
      <groupId>org.geotools</groupId>
@@ -565,6 +596,12 @@
      <groupId>org.geotools</groupId>
      <artifactId>gt-mongodb</artifactId>
      <version>${gt.version}</version>
+    </dependency>
+    <!-- oracle dirver -->
+    <dependency>
+     <groupId>com.oracle.ojdbc</groupId>
+     <artifactId>ojdbc8</artifactId>
+     <version>19.3.0.0</version>
     </dependency>
    </dependencies>
   </dependencyManagement>
