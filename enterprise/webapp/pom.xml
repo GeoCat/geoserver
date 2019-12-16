@@ -18,7 +18,7 @@
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>2.16-SNAPSHOT</version>
   <name>GeoServer Enterprise Application</name>
   <description>
@@ -28,7 +28,6 @@
   </description>
   
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <war.varient></war.varient>
     <jetty.version>9.4.12.v20180830</jetty.version>
     <!--
@@ -62,6 +61,40 @@
   </dependencies>
 
   <build>
+    <!--
+      LIFECYCLE
+      
+      clean
+         clean                               target/resources
+      
+      process-resources
+         unpack gs-web-app into              target/resources
+         run ant to copy data directory into target/resources/data
+         
+      compile
+      
+      process-test-resources
+      
+      test-compile
+      
+      test
+      
+      package
+         jar                                 target/resources
+         
+      
+      install
+      
+      deploy
+      
+      GOALS
+      
+      war:war
+      jetty:run
+      jetty:run-war
+      jetty:run-exploded
+      
+    -->
     <finalName>geoserver-enterprise${war.varient}</finalName>
     <resources>
       <resource>
@@ -83,6 +116,7 @@
               <goal>unpack</goal>
             </goals>
             <configuration>
+              <encoding>UTF-8</encoding>
               <artifactItems>
                 <artifactItem>
                   <groupId>org.geoserver.web</groupId>
@@ -110,7 +144,7 @@
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                  <available file="${configDirectory}/${configId}" property="configIsAvailable" />
                  
-                 <echo message="Data directory not provided." unless:set="configIsAvailable"/>
+                 <!--echo message="Data directory not provided." unless:set="configIsAvailable"/-->
                  <echo message="Data directory: ${configDirectory}/${configId}" if:set="configIsAvailable"/>
                  
                  <copy todir="${project.build.directory}/resources/data" failonerror="false" if:set="configIsAvailable">
@@ -136,6 +170,19 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!-- jar packaging (to prevent storing large wars in nexus) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+           <classesDirectory>${project.build.directory}/resources</classesDirectory>
+           <excludes>WEB-INF/lib/*</excludes>
+           <skipIfEmpty>true</skipIfEmpty>
+        </configuration>
+      </plugin>
+      
       <!-- war packaging using target/resource and excluding gs-web-app jar -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
@@ -150,6 +197,7 @@
         </configuration>
       </plugin>
       
+      <!-- jetty -->
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
@@ -160,7 +208,6 @@
             <descriptor>${project.basedir}/resources/WEB-INF/web.xml</descriptor>
           </webApp>
           <webAppSourceDirectory>${project.build.directory}/resources</webAppSourceDirectory>
-          <!--resourceBases>${project.build.directory}/resources</resourceBases-->
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>${jetty.port}</port>
@@ -168,7 +215,7 @@
             </connector>
           </connectors>
           <supportedPackagings>
-            <supportedPackaging>war</supportedPackaging>
+            <supportedPackaging>jar</supportedPackaging>
           </supportedPackagings>
           <stopPort>${jetty.stopPort}</stopPort>
           <stopKey>GEOSERVER_JETTY_STOPKEY</stopKey>
@@ -176,11 +223,22 @@
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
         </configuration>
       </plugin>
+      
+      <!-- deploy -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
   <profiles>
     <profile>
+      <!-- GeoCat Release Data Directory -->
       <id>release</id>
       <properties>
         <war.varient>-release</war.varient>
@@ -191,7 +249,7 @@
     
     <profile>
       <!-- GeoCat Live -->
-      <!-- wps,geopkg,vectortiles,charts,oracle -->
+      <!-- wps,geopkg,vectortiles,charts -->
       <id>live</id>
       <properties>
         <configDirectory>${basedir}/../../geoserver/data</configDirectory>
@@ -223,7 +281,44 @@
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-charts</artifactId>
         </dependency>
-        <!-- from -PoracleDriver -->
+      </dependencies>
+    </profile>
+    
+    <profile>
+      <!-- GeoServer Enterprise Standard -->
+      <!-- wps,geopkg,vectortiles,charts,oracle -->
+      <id>standard</id>
+      <properties>
+        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+        <configId>minimal</configId>
+        <war.varient>-standard</war.varient>
+      </properties>
+      <dependencies>
+        <!-- from -Pwps -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-wps-core</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-web-wps</artifactId>
+        </dependency>
+        <!-- from -Pgeopkg -->
+        <dependency>
+          <groupId>org.geoserver.community</groupId>
+          <artifactId>gs-geopkg</artifactId>
+        </dependency>
+        <!-- from -Pvectortiles -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-vectortiles</artifactId>
+        </dependency>
+        <!-- from -Pcharts -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-charts</artifactId>
+        </dependency>
+        <!-- from -Poracle -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-oracle</artifactId>
@@ -234,8 +329,49 @@
         </dependency>
       </dependencies>
     </profile>
+    
+    <profile>
+      <!-- GeoServer Enterprise Premium RWS -->
+      <!-- charts,gdal,inspire,oracle,pyramid -->
+      <id>rws</id>
+      <properties>
+        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
+        <configId>minimal</configId>
+        <war.varient>-rws</war.varient>
+      </properties>
+      <dependencies>
+        <!-- from -Pcharts -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-charts</artifactId>
+        </dependency>
+        <!-- from -Pgdal -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-gdal</artifactId>
+        </dependency>
+        <!-- from -Pinspire -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-inspire</artifactId>
+        </dependency>
+        <!-- from -Poracle -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-oracle</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.oracle.ojdbc</groupId>
+          <artifactId>ojdbc8</artifactId>
+        </dependency>
+        <!-- from -Ppyramid -->
+        <dependency>
+          <groupId>org.geotools</groupId>
+          <artifactId>gt-imagepyramid</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    
   </profiles>
-  
-  
   
 </project>

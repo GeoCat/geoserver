@@ -69,6 +69,7 @@
  </repositories>
  
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.version>2.16-SNAPSHOT</project.version>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
     <gs.version>2.16.1</gs.version>
@@ -299,6 +300,16 @@
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-web-wps</artifactId>
       <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-inspire</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-gdal</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <!-- Use of gt.version for GeoTools modules -->
     <dependency>
