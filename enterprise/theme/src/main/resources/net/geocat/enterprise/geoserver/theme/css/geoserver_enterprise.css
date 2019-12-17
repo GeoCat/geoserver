@@ -206,10 +206,11 @@ fieldset.leftwise, fieldset.rightwise {
   float: left;
   height: 34px;
   width: 200px;
-  background: url(../enterprise/gc-geoserver-logo.png) no-repeat;
+  background: url(../enterprise/gc-geoserver-logo.svg) no-repeat;
   overflow: hidden;
   text-indent: -9999em;
   margin: 3px 0 0 15px;
+  background-size: 200px 34px;
 }
 #header h2 a span {
   display: none;
@@ -684,74 +685,56 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 }
 
 /* ----------------------------------------------------------------------
-/* icons
-/* ------------------------------------------------------------------- */
-
-/* .button-group .button-login div {
-  background-image: url(../img/icons/silk/door-in.png);
-  padding-left: 25px;
-}
-.button-group .button-logout span {
-  background: url(../img/icons/silk/door-out.png) no-repeat;
-  display: block;
-  margin: 5px;
-  padding-left: 25px;
-}
-.button-group .button-save div {
-  background-image: url(../img/icons/silk/disk.png);
-  padding-left: 18px;
-}
-.button-group .button-revert div {
-  background-image: url(../img/icons/silk/arrow_redo.png);
-  padding-left: 25px;
-}
-.button-group .button-fullscreen span {
-  background: url(../img/icons/silk/arrow_out.png) no-repeat;
-  display: block;
-}
-.button-group .button-undo span {
-  background: url(../img/icons/silk/arrow_undo.png) no-repeat;
-  display: block;
-}
-.button-group .button-redo span {
-  background: url(../img/icons/silk/arrow_redo.png) no-repeat;
-  display: block;
-}
-.button-group .button-goto span {
-  background: url(../img/icons/silk/xhtml_go.png) no-repeat;
-  display: block;
-}
-.button-group .button-reformat span {
-  background: url(../img/icons/silk/text_align_right.png) no-repeat;
-  display: block;
-} */
-
-/* ----------------------------------------------------------------------
 /* wicket popup
 /* ------------------------------------------------------------------- */
 
+div.wicket-modal div.w_caption {
+  border-bottom: 1px solid #bbb;
+  padding: 12px 10px 10px 10px;
+  background: #f7f7f7;
+}
 div.wicket-modal h3.w_captionText {
-  color: #666;
-  font-size: 12px;
-  font-weight: bold;
-  height: 1.4em;
+  color: #404040;
+  font-size: 16px !important;
+  font-weight: normal !important;
+  position: relative;
+  margin: 0;
 }
 div.wicket-modal div.w_blue {
   border: 1px solid #ddd;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
 }
-div.wicket-modal div.w_blue div.w_top, div.wicket-modal div.w_blue div.w_bottom, 
-div.wicket-modal div.w_blue div.w_topLeft, div.wicket-modal div.w_blue div.w_topRight, 
-div.wicket-modal div.w_blue div.w_bottomRight, div.wicket-modal div.w_blue div.w_bottomLeft, div.wicket-modal div.w_blue a.w_close
-div.wicket-modal * {
+div.wicket-modal div.w_blue div.w_bottom, div.wicket-modal div.w_blue div.w_bottomRight, div.wicket-modal div.w_blue div.w_bottomLeft,
+div.wicket-modal div.w_blue div.w_left, div.wicket-modal div.w_blue div.w_right {
   background: #fff;
-  background-image: none;
+  background-image: none !important;
+}
+div.wicket-modal div.w_top_1, div.wicket-modal div.w_bottom_1 {
+  display: none;
 }
 div.wicket-modal div.w_right_1, div.wicket-modal div.w_content_1 {
   margin: 0;
 }
+div.wicket-modal div.w_content_2 {
+  margin-top: 10px;
+}
 div.wicket-modal div.w_content_3 {
-  border: 0;
+  border: 0 !important;
+}
+div.wicket-modal div.w_content_container {
+  line-height: 1.7;
+  margin: 0;
+  padding: 10px;
+}
+div.wicket-modal a.w_close {
+  right: 10px;
+  background: url('../img/times-solid.svg') no-repeat center center !important;
+}
+div.wicket-modal a.w_close:hover {
+  /* red */
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+
+  /* more filter: https://codepen.io/sosuke/pen/Pjoqqp */
 }
 
 /* ----------------------------------------------------------------------
