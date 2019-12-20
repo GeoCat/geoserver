@@ -225,6 +225,7 @@
       </plugin>
       
       <!-- deploy -->
+      <!-- See release_gse where use of mvn deploy:deploy-file -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
@@ -252,8 +253,7 @@
       <!-- wps,geopkg,vectortiles,charts -->
       <id>live</id>
       <properties>
-        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
-        <configId>minimal</configId>
+         <!-- see: https://eos.geocat.net/gitlab/live/live_compose_data/tree/master/geoserver_data_dir --> 
         <war.varient>-live</war.varient>
       </properties>
       <dependencies>
