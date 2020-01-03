@@ -52,11 +52,16 @@
       <artifactId>gs-web-app</artifactId>
     </dependency>
     
+    <!-- GeoServer extensions -->
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-control-flow</artifactId>
+    </dependency>
+    
     <!-- GeoServer community plugins -->
     <dependency>
       <groupId>org.geoserver.community</groupId>
       <artifactId>gs-web-resource</artifactId>
-      <version>${gs.version}</version>
     </dependency>
   </dependencies>
 

@@ -51,20 +51,12 @@ mvn clean install
 To run `webapp` locally using jetty:
 ```java
 cd webapp
-mvn package jetty:run-exploded -Plive
+mvn jetty:run -Plive
 ```
 
 Profiles, like `live` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
 
-```java
-mvn jetty:run-exploded -Prelease
-```
-
-An external GEOSERVER_DATA_DIR can be used:
-
-```java
-mvn jetty:run-exploded -DGEOSERVER_DATA_DIR=../../geoserver/data/release
-```
+See web app [README](enterprise/webapp/README.md) for further instructions.
 
 ### Release Instructions (Pending)
 

@@ -273,17 +273,17 @@
     <!-- extensions for inclusion in webapp profiles -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-oracle</artifactId>
-      <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-charts</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-vectortiles</artifactId>
+      <artifactId>gs-control-flow</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-gdal</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <dependency>
@@ -293,8 +293,23 @@
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-wps-core</artifactId>
+      <artifactId>gs-inspire</artifactId>
       <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-oracle</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-vectortiles</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-web-resource</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
@@ -303,13 +318,8 @@
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-inspire</artifactId>
+      <artifactId>gs-wps-core</artifactId>
       <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-gdal</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <!-- Use of gt.version for GeoTools modules -->
     <dependency>
