@@ -51,10 +51,10 @@ mvn clean install
 To run `webapp` locally using jetty:
 ```java
 cd webapp
-mvn jetty:run -Plive
+mvn jetty:run -Pstandard
 ```
 
-Profiles, like `live` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
+Profiles, like `standard` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
 
 See web app [README](enterprise/webapp/README.md) for further instructions.
 
@@ -89,9 +89,9 @@ To update a submodule to a new tag:
    
    ```xml
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
-    <gs.version>2.16.1</gs.version>
-    <gwc.version>1.15.1</gwc.version>
-    <gt.version>21.1</gt.version>
+    <gs.version>2.16.2</gs.version>
+    <gwc.version>1.16.2</gwc.version>
+    <gt.version>21.2</gt.version>
     <spring.version>5.1.1.RELEASE</spring.version>
     <spring.security.version>5.1.1.RELEASE</spring.security.version>
    ```
@@ -116,12 +116,12 @@ To update a submodule to a new tag:
    ```bash
    git add geoserver
    git add enterprise/pom.xml
-   git commit -m "Update geoserver to 1.16.1"
+   git commit -m "Update geoserver to 1.16.2"
    git push
    ```
 
 Use tags to mark releases:
 
 ```bash
-git tag 1.16.1 -a -m "GeoServer Enterprise 1.16.1 release"
+git tag 1.16.1 -a -m "GeoServer Enterprise 1.16.2 release"
 ```
