@@ -744,3 +744,45 @@ div.wicket-modal a.w_close:hover {
 .status_bar {
   border-color: #bbb;
 }
+
+/* ----------------------------------------------------------------------
+/* treeview and toolbar
+/* ------------------------------------------------------------------- */
+.menu {
+	background-color: #fff;
+  border: 0;
+  padding: 0;
+  height: auto;
+}
+.menu a {
+  margin: 0 5px 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  padding: 4px 8px;
+}
+.menu a.disabled {
+  border-color: #eee;
+}
+.menu a:hover {
+  background-color: #efefef;
+  color: #333;
+}
+.menu a.disabled:hover {
+  background: none;
+}
+.menu a .button-content {
+  height: 18px;
+  line-height: 18px;
+}
+.treeview {
+  border: 1px solid #ccc;
+  font-size: 13px;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.treeview li {
+  padding: 3px;
+}
+.treeview li .leaf span {
+  padding: 3px;
+}
