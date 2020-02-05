@@ -1,6 +1,16 @@
 Installation
 ============
 
+Before you start
+----------------
+
+These setup instructions required administrator access.
+
+Downloads:
+
+* `geoserver-enterprise-standard.war` - web archive
+* `geoserver-enterprise-data.zip` - data directory
+
 Java Runtime Environment
 ------------------------
 
@@ -37,9 +47,65 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
      
      .. literalinclude:: files/setenv.bat
         :language: batch
+        
+   * Windows service, add the following lines to :guilabel:`Java Options` (in :command:`Tomcat Properties`):
+     
+     .. code-block:: bat
+        :emphasize-lines: 6-9
+         
+        -Dcatalina.home=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+        -Dcatalina.base=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+        -Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\Tomcat 9.0\temp
+        -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+        -Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\logging.properties
+        -XX:SoftRefLRUPolicyMSPerMB=36000
+        -XX:-UsePerfData
+        -Dorg.geotools.referencing.forceXY=true
+        -Dorg.geotoools.render.lite.scale.unitCompensation=true
+     
       
 .. only:: premium
 
    .. note:: GeoServer Enterprise Premium customers may also make use of their own application server.
   
       When making use of your own application server please pay special attention to the JVM options required for the GeoServer application.
+
+Data Directory
+--------------
+
+#. Create a folder to hold your GeoServer Enterprise configuraiton:
+   
+   * Window: :file:`C:\\ProgramData\\GeoServer\\Data`
+   
+   * Linux: TBD
+
+#. Create folder structure:
+
+   * Create manually two empty folders::
+     
+        data
+        data/tilecache 
+     
+     GeoServer will save configuration to these files the first time it runs.
+   
+   * Use prepackaged data directory.
+
+#. Update tomcat configuration (file:`conf\Catalina\localhost`) with this data directory location.
+   
+   * Create :file:`geoserver.xml`:
+   
+     .. code-block:: xml
+    
+        <Context docBase="geoserver.war">
+          <Parameter name="GEOSERVER_DATA_DIR"
+                     value="C:\ProgramData\GeoServer\data" override="false"/>
+          <Parameter name="GEOSERVER_REQUIRE_FILE"
+                     value="C:\ProgramData\GeoServer\data\global.xml" override="false"/>
+          <Parameter name="GEOWEBCACHE_CACHE_DIR"
+                     value="C:\ProgramData\GeoServer\tilecache" override="false"/>
+        </Context>
+
+GeoServer Enterprise
+--------------------
+
+#. Copy war to webapps folder, double check permissions

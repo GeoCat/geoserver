@@ -3,6 +3,8 @@ Standard
 
 :command:`GeoServer Enterprise Standard` with long-term-support up to three years with a selection of the most popular extensions as requested by our customers.
 
+.. See internal document: https://docs.google.com/document/d/1FHiYkE4WEUtUY5y8iFGhbwzY2dTdh33pH8sQWqsUt1I/edit?usp=sharing
+
 Web Services
 ------------
 
