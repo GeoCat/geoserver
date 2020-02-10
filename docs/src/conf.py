@@ -50,7 +50,8 @@ version = release[0:release.rfind('.')]
 # ones.
 extensions = [
   'sphinx.ext.ifconfig',
-  'sphinx.ext.extlinks'
+  'sphinx.ext.extlinks',
+  'sphinx.ext.todo',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -82,10 +83,11 @@ pygments_style = 'sphinx'
 
 
 # -- Extension External Links ------------------------------------------------
-
+'''
 extlinks = { 
     'geoserver': ('http://docs.geoserver.org/latest/en/user/%s',''),
 }
+'''
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for

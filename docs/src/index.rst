@@ -24,6 +24,13 @@ We are pleased to offer :command:`GeoServer Enterprise Standard` with long-term-
    
    standard/index
    premium/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Community documentation
+   
+   community/index
+   
    
 Indices and tables
 ==================

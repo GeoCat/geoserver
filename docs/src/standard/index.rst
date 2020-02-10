@@ -8,15 +8,15 @@ Web Services
 
 GeoServer Enterprise Standard publishes your information using a selection of open standards and industry standards:
 
-* :geoserver:`Web Map Service (WMS) <services/wms/index.html>`
+* :ref:`wms`
   
   Shares information visually as cartographic data products generated from geospatial data and styling.
   
-* :geoserver:`Web Feature Service (WFS) <services/wfs/index.html>`
+* :ref:`wfs`
 
   Publish vector information as geographic features for use in Desktop GIS, Web Mapping and Processing and Analysis.
   
-* :geoserver:`Web Coverage Service (WCS) <services/wcs/index.html>`
+* :ref:`wcs`
 
   Access raster information as a geographic coverage, generating and data products for analysis, processing and visualization.
 

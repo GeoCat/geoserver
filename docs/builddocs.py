@@ -29,18 +29,31 @@ def sh(commands):
     stdout, stderr = out.communicate()
     return stdout.decode("utf-8")
 
-def builddocs(version, deploy, folder):
-    if folder is None:
-        folder = os.path.join(os.getcwd(), "build")
-    if version == "dev":
-        buildref("latest", "master", deploy, folder)
-    else:
-        refs = getrefs()
-        if refs:
-            if version == "stable":
-                refs = refs[:1]
-            for refname, ref in refs:
-                buildref(refname, ref, deploy, folder)
+def clean(folder):
+    print("Cleaning output folder")
+    shutil.rmtree(folder, ignore_errors=True)
+
+def builddocs(version, folder):
+    if version in ["dev", "all"]:
+        buildref(None, folder, versionname="latest")
+    if version != "dev":
+        if version == "stable":
+            refs = getlatest()
+        else:
+            refs = getrefs()
+        if refs: 
+            for ref in refs:
+                buildref(ref, folder)
+
+def getlatest():
+    refs = []
+    try:
+        description = sh("git describe --tags")
+        tag = description.split("-")[0]
+        refs.append(tag)
+    except:
+        pass # in case no tags exist yet
+    return refs
 
 def getrefs():
     refs = []
@@ -48,42 +61,51 @@ def getrefs():
         tags = sh("git show-ref --tags").splitlines()
         for line in tags:
             ref, tag = line.split(" ")
-            refs.append((tag.replace("refs/tags/", ""), ref))
+            refs.append(tag.replace("refs/tags/", ""))
     except:
         pass # in case no tags exist yet
     return refs
 
-def buildref(refname, ref, deploy, folder):
-    print("Building project '%s' at version '%s'..." % (NAME, refname)) 
-    sh("git checkout {}".format(ref))
+def buildref(ref, folder, versionname=None):
+    print("Building project '%s' at version '%s'..." % (NAME, versionname or ref)) 
+    if ref is not None:
+        sh("git checkout {}".format(ref))
+
+    #copy geoserver community docs
+    gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
+    gsdocsdest = os.path.join(os.getcwd(), "src", "community")
+    if os.path.exists(gsdocsdest):
+        shutil.rmtree(gsdocsdest)
+    shutil.copytree(gsdocssource, gsdocsdest)
+    conffile = os.path.join(gsdocsdest, "conf.py")
+    os.remove(conffile)
     sourcedir = os.path.join(os.getcwd(), "src")
-    builddir = os.path.join(folder, refname)
+    builddir = os.path.join(folder, versionname or ref)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
-    print("sphinx-build -a {} {}".format(sourcedir, builddir))
     sh("sphinx-build -a {} {}".format(sourcedir, builddir))
-    if deploy:
-        deploydocs(refname)
-
-def deploydocs(refname):
-    pass
 
 def main():
-    parser = argparse.ArgumentParser(description='Build and deploy documentation.')
+    parser = argparse.ArgumentParser(description='Build documentation.')
     parser.add_argument('--version',
                         help='Version to build',
                         choices=["all", "stable", "dev"],
                         default="dev")
-    parser.add_argument('--deploy',
-                        help='Deploy built docs to server',
-                        action="store_true")
     parser.add_argument('--output',
                         help='Output folder to save documentation')
 
+    parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
+    parser.set_defaults(clean=False)
+
     args = parser.parse_args()
 
-    builddocs(args.version, args.deploy, args.output)
+    folder = args.output or os.path.join(os.getcwd(), "build")
+
+    if args.clean:
+        clean(folder)
+
+    builddocs(args.version, folder)
     sh("git checkout master")
 
 if __name__ == "__main__":
