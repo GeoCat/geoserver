@@ -5,6 +5,8 @@ Premium
 
 .. note:: GeoServer Enterprise Premium is offered as a preconfigured WAR to match your needs and requirements. 
 
+.. See internal document: https://docs.google.com/document/d/1FHiYkE4WEUtUY5y8iFGhbwzY2dTdh33pH8sQWqsUt1I/edit?usp=sharing
+
 Web Services
 ------------
 
