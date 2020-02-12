@@ -33,6 +33,16 @@ def clean(folder):
     print("Cleaning output folder")
     shutil.rmtree(folder, ignore_errors=True)
 
+def copycommunity():
+    print("Copying community docs")    
+    gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
+    gsdocsdest = os.path.join(os.getcwd(), "src", "community")
+    if os.path.exists(gsdocsdest):
+        shutil.rmtree(gsdocsdest)
+    shutil.copytree(gsdocssource, gsdocsdest)
+    conffile = os.path.join(gsdocsdest, "conf.py")
+    os.remove(conffile)
+
 def builddocs(version, folder):
     if version in ["dev", "all"]:
         buildref(None, folder, versionname="latest")
@@ -48,8 +58,8 @@ def builddocs(version, folder):
 def getlatest():
     refs = []
     try:
-        description = sh("git describe --tags")
-        tag = description.split("-")[0]
+        description = sh("git describe --tags")        
+        tag = description.split("-")[0].rstrip()        
         refs.append(tag)
     except:
         pass # in case no tags exist yet
@@ -71,14 +81,6 @@ def buildref(ref, folder, versionname=None):
     if ref is not None:
         sh("git checkout {}".format(ref))
 
-    #copy geoserver community docs
-    gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
-    gsdocsdest = os.path.join(os.getcwd(), "src", "community")
-    if os.path.exists(gsdocsdest):
-        shutil.rmtree(gsdocsdest)
-    shutil.copytree(gsdocssource, gsdocsdest)
-    conffile = os.path.join(gsdocsdest, "conf.py")
-    os.remove(conffile)
     sourcedir = os.path.join(os.getcwd(), "src")
     builddir = os.path.join(folder, versionname or ref)
     if os.path.exists(builddir):
@@ -98,12 +100,18 @@ def main():
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
     parser.set_defaults(clean=False)
 
+    parser.add_argument('--nocopy', dest='nocopy', action='store_true', help='Do not copy community docs to source docs folder')
+    parser.set_defaults(nocopy=False)
+
     args = parser.parse_args()
 
     folder = args.output or os.path.join(os.getcwd(), "build")
 
     if args.clean:
         clean(folder)
+
+    if not args.nocopy:
+        copycommunity()
 
     builddocs(args.version, folder)
     sh("git checkout master")
