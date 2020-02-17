@@ -70,7 +70,6 @@
  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.version>2.16-SNAPSHOT</project.version>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
     <gs.version>2.16.2</gs.version>
     <gwc.version>1.16.2</gwc.version>
@@ -309,7 +308,7 @@
     <dependency>
       <groupId>org.geoserver.community</groupId>
       <artifactId>gs-web-resource</artifactId>
-      <version>${project.version}</version>
+      <version>${gs.version}</version>
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
