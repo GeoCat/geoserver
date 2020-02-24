@@ -3,24 +3,24 @@ import shutil
 import subprocess
 import argparse
 
+
 '''
 This script generates documentation based on the content of the current
-repo, for the current master HEAD (if run with '--version dev' argument or
-without arguments), all available tags (if run with the '--version all' argument), 
-or the latest available tag (if the '--version latest' argument is used)
+repo, for all the documentation branches (named "docs-[version_name]")
 
-The script file should be located in the documentation folder (with sphinx files
-under ./source folder)
- 
-If the '--deploy' argument is used, it adds the built documents to the corresponding 
-folder in the central GeoCat documentation site.
+If the '--addmaster' option is used, a version corresponding to the current
+development version is also generated, and created in a folder named "latest"
 
-You can specify the output folder in which docs are to be produced, by using the 
-'--output [path]' argument. If not used, the documentation will be created under the 
-./build folder. 
+The script file should be located in the documentation folder (with sphinx 
+files under ./source folder)
+
+You can specify the output folder in which docs are to be produced, by using 
+the '--output [path]' argument. If not used, the documentation will be created 
+under the ./build folder. 
 '''
 
 NAME = "geoserver-enterprise"
+DOC_BRANCH_PREFIX = "docs-"
 
 def sh(commands):
     if isinstance(commands, str):
@@ -43,40 +43,25 @@ def copycommunity():
     conffile = os.path.join(gsdocsdest, "conf.py")
     os.remove(conffile)
 
-def builddocs(version, folder):
-    if version in ["dev", "all"]:
-        buildref(None, folder, versionname="latest")
-    if version != "dev":
-        if version == "stable":
-            refs = getlatest()
-        else:
-            refs = getrefs()
-        if refs: 
-            for ref in refs:
-                buildref(ref, folder)
-
-def getlatest():
-    refs = []
-    try:
-        description = sh("git describe --tags")        
-        tag = description.split("-")[0].rstrip()        
-        refs.append(tag)
-    except:
-        pass # in case no tags exist yet
-    return refs
+def builddocs(addmaster, folder):
+    refs = getrefs()
+    if addmaster:
+        buildref("master", folder, "latest")
+    for ref in refs:
+        buildref(ref, folder)
 
 def getrefs():
     refs = []
-    try:
-        tags = sh("git show-ref --tags").splitlines()
-        for line in tags:
-            ref, tag = line.split(" ")
-            refs.append(tag.replace("refs/tags/", ""))
-    except:
-        pass # in case no tags exist yet
+    branches = sh("git branch -r").splitlines()
+    for line in branches:
+        fullname = line.strip().split(" ")[0]
+        name = fullname.split("/")[-1]
+        if name.startswith(DOC_BRANCH_PREFIX):          
+            refs.append(fullname)
     return refs
 
 def buildref(ref, folder, versionname=None):
+    versionname = versionname or ref.split("/")[-1].split(DOC_BRANCH_PREFIX)[-1]
     print("Building project '%s' at version '%s'..." % (NAME, versionname or ref)) 
     if ref is not None:
         sh("git checkout {}".format(ref))
@@ -90,16 +75,10 @@ def buildref(ref, folder, versionname=None):
 
 def main():
     parser = argparse.ArgumentParser(description='Build documentation.')
-    parser.add_argument('--version',
-                        help='Version to build',
-                        choices=["all", "stable", "dev"],
-                        default="dev")
-    parser.add_argument('--output',
-                        help='Output folder to save documentation')
-
+    parser.add_argument('--output', help='Output folder to save documentation')
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
     parser.set_defaults(clean=False)
-
+    parser.add_argument('--addmaster', dest='addmaster', action='store_true', help='Build also master branch')
     parser.add_argument('--nocopy', dest='nocopy', action='store_true', help='Do not copy community docs to source docs folder')
     parser.set_defaults(nocopy=False)
 
@@ -113,7 +92,7 @@ def main():
     if not args.nocopy:
         copycommunity()
 
-    builddocs(args.version, folder)
+    builddocs(args.addmaster, folder)
     sh("git checkout master")
 
 if __name__ == "__main__":
