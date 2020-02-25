@@ -219,7 +219,7 @@ To set the production logging level, follow these steps:
 
 2. In the :guilabel:`Loggin profile` field, select the :guilabel:`PRODUCTION_LOGGING.properties` option.
 
-	.. figure:: img/production_logging.png
+	.. figure:: img/productionlogging.png
 
 3. Click on the :guilabel:`Submit` button to save your changes.
 
