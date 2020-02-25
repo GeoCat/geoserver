@@ -8,8 +8,9 @@ import argparse
 This script generates documentation based on the content of the current
 repo, for all the documentation branches (named "docs-[version_name]")
 
-If the '--addmaster' option is used, a version corresponding to the current
-development version is also generated, and created in a folder named "latest"
+If the '--current' option is used, a version corresponding to the current
+development version is generated instead, and created in a folder named 
+"latest"
 
 The script file should be located in the documentation folder (with sphinx 
 files under ./source folder)
@@ -43,12 +44,13 @@ def copycommunity():
     conffile = os.path.join(gsdocsdest, "conf.py")
     os.remove(conffile)
 
-def builddocs(addmaster, folder):
+def builddocs(current, folder):
     refs = getrefs()
-    if addmaster:
-        buildref("master", folder, "latest")
-    for ref in refs:
-        buildref(ref, folder)
+    if current:
+        buildref(None, folder, "latest")
+    else:
+        for ref in refs:
+            buildref(ref, folder)
 
 def getrefs():
     refs = []
@@ -77,10 +79,8 @@ def main():
     parser = argparse.ArgumentParser(description='Build documentation.')
     parser.add_argument('--output', help='Output folder to save documentation')
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
-    parser.set_defaults(clean=False)
-    parser.add_argument('--addmaster', dest='addmaster', action='store_true', help='Build also master branch')
+    parser.add_argument('--current', dest='current', action='store_true', help='Build current branch')
     parser.add_argument('--nocopy', dest='nocopy', action='store_true', help='Do not copy community docs to source docs folder')
-    parser.set_defaults(nocopy=False)
 
     args = parser.parse_args()
 
@@ -92,8 +92,7 @@ def main():
     if not args.nocopy:
         copycommunity()
 
-    builddocs(args.addmaster, folder)
-    sh("git checkout master")
+    builddocs(args.current, folder)
 
 if __name__ == "__main__":
     main()
