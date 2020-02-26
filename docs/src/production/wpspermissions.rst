@@ -7,7 +7,7 @@ Two processes are to be edited: `gs:Import` and `gs:StoreCoverage`.
 
 Follow this steps to restrict the access to the these processes:
 
-1. From the main page of the GeoServer web interface, click on the :guilabel:`WPS Security` link.
+1. From the main page of the Geoserver web interface, click on the :guilabel:`WPS Security` link.
 
 	.. figure:: img/wpssecurity.png
 

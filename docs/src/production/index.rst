@@ -4,18 +4,18 @@ Production
 The following operations are required to setup GeoServer enterprise in order to be used in a production environment.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    
-	adminpassword
-	masterpassword
-	javastartup
-	marlin   
-	wpspermissions
-	datadirectory
-	controlflow
-	diskquota
-	logginglevels
-	wmslimits
+   adminpassword
+   masterpassword
+   javastartup
+   marlin   
+   wpspermissions
+   datadirectory
+   controlflow
+   diskquota
+   logginglevels
+   wmslimits
 
 
 Recommend:

@@ -37,7 +37,7 @@ To install and configure the Control Flow extension, follow these steps:
 
 	.. figure:: img/controlflowproperties.png
 
-7. In the :guilabel:`Content` field enter the following text:
+7. In the :guilabel:`Content` field enter the following text::
 
 	# if a request waits in queue for more than 60 seconds it's not worth executing,
 	# the client will  likely have given up by then

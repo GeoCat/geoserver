@@ -3,7 +3,7 @@ Changing the default admin password
 
 GeoServer has a predefined admin user, which can be used to access GeoServer with full administration priviledges. The default password for the `admin` user must be changed to avoid unauthorized access to your GeoServer instance. To change the password of the `admin` user, follow these steps:
 
-1. Go to the GeoServer administration web page at `[your GeoServer root url]/web` (for instance: `http://localhost:8080/geoserver/web)
+1. Go to the GeoServer administration web page at `[your GeoServer root url]/web` (for instance: `http://localhost:8080/geoserver/web`)
 
 	.. figure:: img/geoserverlandpage.png
 		:alt: GeoServer administration web page
