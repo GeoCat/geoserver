@@ -10,8 +10,11 @@ For the rather common case of having a low volume of requests and wanting a high
 
 2. Click :guilabel:`Configure` and select the :guilabel:`Java` tab.
 
-3. At the bottom of the :guilabel:`Java Options` field, enter the following:
+3. At the bottom of the :guilabel:`Java Options` field, enter the following lines::
 
-XXXXXXXXXX
+	-XX:SoftRefLRUPolicyMSPerMB=36000
+	-XX:-UsePerfData
+	-Dorg.geotools.referencing.forceXY=true
+	-Dorg.geotoools.render.lite.scale.unitCompensation=true
 
-4. If your application server is currently running, stop and restart it.
+4. If your application server is currently running, stop it and restart it.

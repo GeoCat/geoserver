@@ -1,7 +1,11 @@
 Changing the master password
 ----------------------------
 
-GeoServer has a root user configured with a master password. Changing that master password is also recommended to avoid security issues.
+GeoServer has a root user configured with a master password. Changing that master password is recommended to avoid security issues.
+
+It is also recommened to change setup the master password before you edit any other of the security setting in yous Geoserver instance.
+
+To change the master password, follow these steps:
 
 1. Go to the GeoServer administration web page at `[your GeoServer root url]/web` (for instance: `http://localhost:8080/geoserver/web`)
 
