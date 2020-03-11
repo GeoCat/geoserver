@@ -13,6 +13,6 @@ Follow these steps to set a disk quota:
 
 	.. figure:: img/enablediskquota.png
 
-3. The default space allocated for cached tiles is 500 MiB. If you want to set a different size, enter it in the :guilable:`Maximum tile cache size` box.
+3. The default space allocated for cached tiles is 500 MiB. If you want to set a different size, enter it in the :guilabel:`Maximum tile cache size` box.
 
 4. Click the :guilabel:`Submit` button to save your changes.

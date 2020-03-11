@@ -19,11 +19,11 @@ If you do not have GDAL installed in your syste, or you prefer to use a UI inste
 
 2. In the :guilabel:`Processing Toolbox`, find the :guilabel:`GDAL/Translate (convert format)` algorithm. Double click on it.
 
-.. figure:: translateqgis.png
+.. figure:: img/translateqgis.png
 
 3. Select the layer to process in the :guilabel:` Input layer` field, add an option named ``TILED`` with a value equal to ``YES`` in the :guilabel:`Additional creation options` field, and enter the path for the output file to create in the :guilabel:`Converted` field.
 
-.. figure:: translateqgisdialog.png
+.. figure:: img/translateqgisdialog.png
 
 4. Click on :guilabel:`Run` and the new layer will be created.
 
@@ -42,7 +42,8 @@ Overviews can also be created using QGIS.
 
 2. In the :guilabel:`Processing Toolbox`, find the :guilabel:`Build overviews (pyramids)` algorithm. Double click on it.
 
-.. figure:: translateqgisdialog.png
+.. figure:: img/pyramidsqgis.png
 
 3. Select your layer in the :guilabel:` Input layer` field and type :kbd:`2 4 8 16` in the :guilabel:`Overview levels` field
 
+.. figure:: img/pyramidsqgisdialog.png

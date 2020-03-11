@@ -12,14 +12,14 @@ To install the library in a Windows machine, follow these steps:
 
 2. Execute the installer and follow the installation instructions.
 
-.. figure:: installlibjpegturbo.png
+.. figure:: img/installlibjpegturbo.png
 
 Installing the Map Encoder extension
 -------------------------------------
 
-1. Download the extension for the Geoserver version contained in Geoserver Enterprise from `this download link <https://sourceforge.net/projects/geoserver/files/GeoServer/2.16.2/extensions/geoserver-2.16.2-libjpeg-turbo-plugin.zip/download`_ 
+1. Download the extension for the Geoserver version contained in Geoserver Enterprise from `this download link <https://sourceforge.net/projects/geoserver/files/GeoServer/2.16.2/extensions/geoserver-2.16.2-libjpeg-turbo-plugin.zip/download>`_ 
 
 2. Unzip the downloaded zip file in the ``WEB-INF/lib`` directory of the GeoServer installation.
 
-3. Restart you Geoserver instance for the changes to take effect.
+3. Restart you GeoServer instance for the changes to take effect.
 
