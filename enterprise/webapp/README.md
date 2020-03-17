@@ -43,10 +43,11 @@ Profiles are used to provide prepackaged bundles defining both the GeoServer ext
 * `release`: Uses geoserver release data directory
 * `live`: GeoCat Live distribution, including WPS extensions.
 
-Example of packaging `geoserver-enterprise.war` for GeoCat Live:
+Example of packaging `geoserver-enterprise-standard.war` for customers:
 
 ```bash
-mvn clean install -Plive
+mvn clean install -Pstandard
+mvn war:war -Pstandard
 ```
 
 Example of running with GeoServer `release` configuration:
