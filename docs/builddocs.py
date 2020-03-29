@@ -37,12 +37,14 @@ def clean(folder):
 def copycommunity():
     print("Copying community docs")    
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
-    gsdocsdest = os.path.join(os.getcwd(), "src", "community")
+    gsdocsdest = os.path.join(os.getcwd(), "src")
     if os.path.exists(gsdocsdest):
         shutil.rmtree(gsdocsdest)
     shutil.copytree(gsdocssource, gsdocsdest)
     conffile = os.path.join(gsdocsdest, "conf.py")
     os.remove(conffile)
+    conffileunderscore = os.path.join(gsdocsdest, "conf_.py")
+    shutil.copyfile(conffileunderscore, conffile)
 
 def builddocs(current, folder):
     refs = getrefs()
