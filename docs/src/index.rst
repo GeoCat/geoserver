@@ -29,7 +29,23 @@ We are pleased to offer :command:`GeoServer Enterprise Standard` with long-term-
    :maxdepth: 2
    :caption: Community documentation
    
+   introduction/index
+   installation/index
+   gettingstarted/index
+   webadmin/index
+   data/index
+   styling/index
+   services/index
+   filter/index
+   configuration/index
+   datadirectory/index
+   production/index
+   rest/index
+   security/index
+   geowebcache/index
+   extensions/index
    community/index
+   tutorials/index
    
    
 Indices and tables

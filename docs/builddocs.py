@@ -23,6 +23,9 @@ under the ./build folder.
 NAME = "geoserver-enterprise"
 DOC_BRANCH_PREFIX = "docs-"
 
+toreplace = {"introduction/license.rst": [("/../../../../", "/../../geoserver/")],
+            "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../geoserver/")]}
+
 def sh(commands):
     if isinstance(commands, str):
         commands = commands.split(" ")
@@ -38,13 +41,22 @@ def copycommunity():
     print("Copying community docs")    
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
     gsdocsdest = os.path.join(os.getcwd(), "src")
-    if os.path.exists(gsdocsdest):
-        shutil.rmtree(gsdocsdest)
-    shutil.copytree(gsdocssource, gsdocsdest)
-    conffile = os.path.join(gsdocsdest, "conf.py")
-    os.remove(conffile)
-    conffileunderscore = os.path.join(gsdocsdest, "conf_.py")
-    shutil.copyfile(conffileunderscore, conffile)
+    for path in os.listdir(gsdocssource):
+        src = os.path.join(gsdocssource, path)
+        if os.path.isdir(src):            
+            dst = os.path.join(gsdocsdest, path)
+            if os.path.exists(dst):
+                shutil.rmtree(dst)
+            shutil.copytree(src, dst)
+    for path, changes in toreplace.items():
+        filepath = os.path.join(gsdocsdest, path)
+        with open(filepath) as f:
+            txt = f.read()
+        for old, new in changes:
+            txt = txt.replace(old, new)
+        with open(filepath, "w") as f:
+            f.write(txt)
+    
 
 def builddocs(current, folder):
     refs = getrefs()
