@@ -102,7 +102,8 @@ To update a submodule to a new tag:
    cd enterprise
    mvn clean install
    cd webapp
-   mvn package jetty:run-exploded -Prelease
+   mvn package -Prelease
+   mvn package jetty:run -Prelease
    ```
    
    Check:
