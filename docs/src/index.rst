@@ -16,7 +16,7 @@ We are pleased to offer :command:`GeoServer Enterprise Standard` with long-term-
    :caption: Instructions
    
    install/index
-   production/index
+   productionenterprise/index
 
 .. toctree::
    :maxdepth: 2
