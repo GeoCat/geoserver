@@ -10,6 +10,7 @@
 
 import datetime
 import os
+import xml.etree.ElementTree as ET
 
 now = datetime.datetime.now()
 
@@ -34,10 +35,12 @@ copyright = u'{}, GeoCat BV'.format(year)
 author = 'GeoCat BV'
 
 # The full version, including alpha/beta/rc tags
-release = '2.16.1'
+pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "geoserver", "src", "pom.xml")
+pomtree = ET.parse(pompath)
+release = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}version").text
 
 # The short X.Y version
-version = release[0:release.rfind('.')]
+version = ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 
