@@ -10,12 +10,15 @@ pip install sphinx
 
 ## builddocs.py
 
-The python script ``builddocs.puy`` is used to build our documentation:
+The python script ``builddocs.puy`` is used to build documentation:
 
 ```
-python builddocs.py
+python builddocs.py --latest
 open build/html/index.html
 ```
+
+This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual. The flag ``--latest`` above is used for the 
+
 
 For more information please see [geocat-documentation](https://github.com/volaya/geocat-documentation).
 

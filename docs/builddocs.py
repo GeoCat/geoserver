@@ -34,11 +34,11 @@ def sh(commands):
     return stdout.decode("utf-8")
 
 def clean(folder):
-    print("Cleaning output folder")
+    print("Cleaning build folder")
     shutil.rmtree(folder, ignore_errors=True)
 
 def copycommunity():
-    print("Copying community docs")    
+    print("Copying geoserver user guide to staging")    
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
     gsdocsdest = os.path.join(os.getcwd(), "staging")
     for path in os.listdir(gsdocssource):
@@ -58,7 +58,7 @@ def copycommunity():
             f.write(txt)
 
 def copyenterprise():
-    print("Copying enterprise docs")    
+    print("Copying enterprise docs to staging")    
     docssource = os.path.join(os.getcwd(), "src")
     docsdest = os.path.join(os.getcwd(), "staging")
     if os.path.exists(docsdest):
@@ -91,17 +91,20 @@ def buildref(ref, folder, versionname=None):
 
     sourcedir = os.path.join(os.getcwd(), "staging")
     builddir = os.path.join(folder, versionname or ref)
+    doctrees = os.path(join, builddir, ".doctrees"+versionname)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
-    sh("sphinx-build -a {} {}".format(sourcedir, builddir))
+    sphinxbuild = "sphinx-build -a -j auto -d {} {} {}".format(doctrees, sourcedir, builddir)
+    print(sphinxbuild);
+    sh(sphinxbuild)
 
 def main():
     parser = argparse.ArgumentParser(description='Build documentation.')
     parser.add_argument('--output', help='Output folder to save documentation')
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
     parser.add_argument('--current', dest='current', action='store_true', help='Build current branch')
-    parser.add_argument('--nocopy', dest='nocopy', action='store_true', help='Do not copy community docs to source docs folder')
+    parser.add_argument('--nocopy', dest='nocopy', action='store_true', help='Do not copy user guide docs to staging docs folder')
 
     args = parser.parse_args()
 
