@@ -40,7 +40,7 @@ def clean(folder):
 def copycommunity():
     print("Copying community docs")    
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
-    gsdocsdest = os.path.join(os.getcwd(), "src")
+    gsdocsdest = os.path.join(os.getcwd(), "staging")
     for path in os.listdir(gsdocssource):
         src = os.path.join(gsdocssource, path)
         if os.path.isdir(src):            
@@ -56,7 +56,14 @@ def copycommunity():
             txt = txt.replace(old, new)
         with open(filepath, "w") as f:
             f.write(txt)
-    
+
+def copyenterprise():
+    print("Copying enterprise docs")    
+    docssource = os.path.join(os.getcwd(), "src")
+    docsdest = os.path.join(os.getcwd(), "staging")
+    if os.path.exists(docsdest):
+        shutil.rmtree(docsdest)   
+    shutil.copytree(docssource, docsdest)
 
 def builddocs(current, folder):
     refs = getrefs()
@@ -82,7 +89,7 @@ def buildref(ref, folder, versionname=None):
     if ref is not None:
         sh("git checkout {}".format(ref))
 
-    sourcedir = os.path.join(os.getcwd(), "src")
+    sourcedir = os.path.join(os.getcwd(), "staging")
     builddir = os.path.join(folder, versionname or ref)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
@@ -104,6 +111,7 @@ def main():
         clean(folder)
 
     if not args.nocopy:
+        copyenterprise()
         copycommunity()
 
     builddocs(args.current, folder)
