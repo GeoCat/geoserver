@@ -91,11 +91,11 @@ def buildref(ref, folder, versionname=None):
 
     sourcedir = os.path.join(os.getcwd(), "staging")
     builddir = os.path.join(folder, versionname or ref)
-    doctrees = os.path(join, builddir, ".doctrees"+versionname)
+    # doctrees = os.path.join(builddir, ".doctrees"+versionname)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
-    sphinxbuild = "sphinx-build -a -j auto -d {} {} {}".format(doctrees, sourcedir, builddir)
+    sphinxbuild = "sphinx-build -a -j auto {} {}".format(sourcedir, builddir)
     print(sphinxbuild);
     sh(sphinxbuild)
 
