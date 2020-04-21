@@ -4,20 +4,17 @@
 
 Documentation is written using the sphinx documentation system using restructured text. Extensive use of directives are used to capture intent (command, menu-selection,gui-label,kbd) rather than marking text in italic or bold.
 
-## Pavement 
+```
+pip install sphinx
+```
 
-Pavement is a python build tool equivalent to make or ant:
+## builddocs.py
+
+The python script ``builddocs.puy`` is used to build our documentation:
 
 ```
-paver builddocs
+python builddocs.py
 open build/html/index.html
-```
-
-
-
-Before use, install paver:
-```
-pip install paver
 ```
 
 For more information please see [geocat-documentation](https://github.com/volaya/geocat-documentation).

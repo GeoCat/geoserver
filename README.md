@@ -25,13 +25,13 @@ git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterpr
 The branches and version numbers follow the release of GeoServer being distributed:
 
 * master: live development, unpublished, nightly builds used for quality assurance
-* 2.16.x: stable branch, nightly builds, "next" stable release available for our customers
+* 2.17.x: stable branch, nightly builds, "next" stable release available for our customers
 * 2.10.x: branch maintained for RWS
 
 Update when changing branches:
 
 ```bash
-git checkout 1.16.x
+git checkout 1.17.x
 git submodule update --remote
 ```
 
@@ -81,7 +81,7 @@ To update a submodule to a new tag:
    ```bash
    cd geoserver
    git fetch --all --tags --prune
-   git checkout tags/2.16.1
+   git checkout tags/2.17.1
    cd ..
    ```
 
@@ -89,9 +89,9 @@ To update a submodule to a new tag:
    
    ```xml
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
-    <gs.version>2.16.2</gs.version>
-    <gwc.version>1.16.2</gwc.version>
-    <gt.version>21.2</gt.version>
+    <gs.version>2.17.2</gs.version>
+    <gwc.version>1.17.2</gwc.version>
+    <gt.version>23.2</gt.version>
     <spring.version>5.1.1.RELEASE</spring.version>
     <spring.security.version>5.1.1.RELEASE</spring.security.version>
    ```
@@ -117,12 +117,12 @@ To update a submodule to a new tag:
    ```bash
    git add geoserver
    git add enterprise/pom.xml
-   git commit -m "Update geoserver to 1.16.2"
+   git commit -m "Update geoserver to 1.17.2"
    git push
    ```
 
 Use tags to mark releases:
 
 ```bash
-git tag 1.16.1 -a -m "GeoServer Enterprise 1.16.2 release"
+git tag 1.16.1 -a -m "GeoServer Enterprise 1.17.2 release"
 ```
