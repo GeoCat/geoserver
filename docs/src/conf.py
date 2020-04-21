@@ -99,6 +99,17 @@ extlinks = {
 #    'download_community': (download_community,None)
 }
 
+# Common substitutions
+
+rst_epilog = "\n" \
+ ".. |install_directory_winXP| replace:: :file:`C:\\\\Program Files\\\\GeoServer "+release+"`\n" \
+ ".. |install_directory_win| replace:: :file:`C:\\\\Program Files (x86)\\\\GeoServer "+release+"`\n" \
+ ".. |install_directory_linux| replace:: :file:`/var/lib/tomcat8/webapps/geoserver`\n" \
+ ".. |install_directory_mac| replace:: :file:`/Applications`\n" \
+ ".. |data_directory_winXP| replace:: :file:`C:\\\\ProgramData\\\\GeoServer\\\\Data`\n" \
+ ".. |data_directory_win| replace:: :file:`C:\\\\ProgramData\\\\GeoServer\\\\\Data`\n" \
+ ".. |data_directory_linux| replace:: :file:`/var/lib/tomcat8/webapps/geoserver/data`\n" \
+ ".. |data_directory_mac| replace:: :file:`/Application Support/GeoServer/Data`"
 
 # -- Options for HTML output -------------------------------------------------
 
