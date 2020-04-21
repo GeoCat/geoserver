@@ -84,13 +84,22 @@ exclude_patterns = []
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
-
 # -- Extension External Links ------------------------------------------------
-'''
 extlinks = { 
-    'geoserver': ('http://docs.geoserver.org/latest/en/user/%s',''),
+    'wiki': ('https://github.com/geoserver/geoserver/wiki/%s',''),
+    'website': ('http://geoserver.org/%s',''),
+    'user': ('https://www.geocat.net/docs/geoserver-enterprise/v'+version+'/%s',''),
+    'developer': ('http://docs.geoserver.org/latest/en/developer/%s',''),
+    'docguide': ('http://docs.geoserver.org/latest/en/docguide/%s',''),
+    'geos': ('https://osgeo-org.atlassian.net/browse/GEOS-%s','GEOS-'),
+    'geot': ('https://osgeo-org.atlassian.net/browse/GEOT-%s','GEOT-'),
+    'api': ('http://docs.geoserver.org/latest/en/api/#1.0.0/%s','')
+#    'download_release': (download_release,None),
+#    'download_extension': (download_extension,None),
+#    'download_community': (download_community,None)
 }
-'''
+
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
