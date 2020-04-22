@@ -23,8 +23,8 @@ under the ./build folder.
 NAME = "geoserver-enterprise"
 DOC_BRANCH_PREFIX = "docs-"
 
-toreplace = {"introduction/license.rst": [("/../../../../", "/../../geoserver/")],
-            "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../geoserver/")]}
+toreplace = {"introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
+            "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]}
 
 def sh(commands):
     if isinstance(commands, str):
@@ -37,10 +37,10 @@ def clean(folder):
     print("Cleaning build folder")
     shutil.rmtree(folder, ignore_errors=True)
 
-def copycommunity():
+def copycommunity(versionname):
     print("Copying geoserver user guide to staging")    
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
-    gsdocsdest = os.path.join(os.getcwd(), "staging")
+    gsdocsdest = os.path.join(os.getcwd(), "staging", versionname)
     for path in os.listdir(gsdocssource):
         src = os.path.join(gsdocssource, path)
         if os.path.isdir(src):            
@@ -57,17 +57,22 @@ def copycommunity():
         with open(filepath, "w") as f:
             f.write(txt)
 
-def copyenterprise():
+def copyenterprise(versionname):
     print("Copying enterprise docs to staging")    
     docssource = os.path.join(os.getcwd(), "src")
-    docsdest = os.path.join(os.getcwd(), "staging")
-    if os.path.exists(docsdest):
-        shutil.rmtree(docsdest)   
+    docsdest = os.path.join(os.getcwd(), "staging", versionname)  
     shutil.copytree(docssource, docsdest)
 
-def builddocs(current, folder):
+def copytostaging(versionname):
+    docsdest = os.path.join(os.getcwd(), "staging", versionname)
+    if os.path.exists(docsdest):
+        shutil.rmtree(docsdest)
+    copyenterprise(versionname)
+    copycommunity(versionname)
+
+def builddocs(allbranches, folder):
     refs = getrefs()
-    if current:
+    if not allbranches:
         buildref(None, folder, "latest")
     else:
         for ref in refs:
@@ -83,14 +88,14 @@ def getrefs():
             refs.append(fullname)
     return refs
 
-def buildref(ref, folder, versionname=None):
+def buildref(ref, folder, versionname=None):    
     versionname = versionname or ref.split("/")[-1].split(DOC_BRANCH_PREFIX)[-1]
-    print("Building project '%s' at version '%s'..." % (NAME, versionname or ref)) 
+    print("Building project '%s' at version '%s'..." % (NAME, versionname)) 
     if ref is not None:
         sh("git checkout {}".format(ref))
-
-    sourcedir = os.path.join(os.getcwd(), "staging")
-    builddir = os.path.join(folder, versionname or ref)
+    copytostaging(versionname)    
+    sourcedir = os.path.join(os.getcwd(), "staging", versionname)
+    builddir = os.path.join(folder, versionname)
     # doctrees = os.path.join(builddir, ".doctrees"+versionname)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
@@ -103,22 +108,21 @@ def main():
     parser = argparse.ArgumentParser(description='Build documentation.')
     parser.add_argument('--output', help='Output folder to save documentation')
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
-    parser.add_argument('--current', dest='current', action='store_true', help='Build current branch')
-    parser.add_argument('--nocopy', dest='nocopy', action='store_true', help='Do not copy user guide docs to staging docs folder')
+    parser.add_argument('--all', dest='allbranches', action='store_true', help='Build all doc branches, not just the current one')
 
     args = parser.parse_args()
+
+    currentHead = sh("git rev-parse --abbrev-ref HEAD").splitlines()[0]
 
     folder = args.output or os.path.join(os.getcwd(), "build")
 
     if args.clean:
         clean(folder)
 
-    copyenterprise()
-    
-    if not args.nocopy:
-        copycommunity()
+    builddocs(args.allbranches, folder)
 
-    builddocs(args.current, folder)
+    if args.allbranches:
+        sh("git checkout {}".format(currentHead))
 
 if __name__ == "__main__":
     main()

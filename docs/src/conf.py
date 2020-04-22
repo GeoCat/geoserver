@@ -35,7 +35,7 @@ copyright = u'{}, GeoCat BV'.format(year)
 author = 'GeoCat BV'
 
 # The full version, including alpha/beta/rc tags
-pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "geoserver", "src", "pom.xml")
+pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "geoserver", "src", "pom.xml")
 pomtree = ET.parse(pompath)
 release = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}version").text
 
@@ -119,7 +119,7 @@ rst_epilog = "\n" \
 html_theme = 'geocat_rtd'
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = ['../themes']
+html_theme_path = ['../../themes']
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
