@@ -10,20 +10,10 @@ We are pleased to offer :command:`GeoServer Enterprise Standard` with long-term-
    :caption: GeoServer Enterprise
    
    welcome/index
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Instructions
-   
    install/index
-   productionenterprise/index
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Reference
-   
    standard/index
    premium/index
+   productionenterprise/index
 
 .. toctree::
    :maxdepth: 2

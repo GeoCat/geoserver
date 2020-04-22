@@ -25,7 +25,10 @@ Installation of GeoServer Enterprise requires 3 main steps:
 
 As some of these operations are different depending on the operating system, we have splitted this section in three different documents. Select the one corresponding to your OS from the links below:
 
-* :ref:`installation_on_windows`
-* :ref:`installation_on_linux`
-
 .. * :ref:`installation_on_macos`
+
+.. toctree::
+   :maxdepth: 1
+   
+   installwin
+   installlinux

@@ -131,7 +131,7 @@ html_theme_options = {
     'prev_next_buttons_location': None, # table of contents navigation
     'style_external_links': False,      # user guide links common
     'includehidden': False,
-    'titles_only': False,
+    'titles_only': True,
     'collapse_navigation': True,
     'show_sphinx': 'Green'
 }
