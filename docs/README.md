@@ -24,13 +24,12 @@ pip install sphinx_rtd_theme
 
 ## builddocs.py
 
-The python script ``builddocs.puy`` is used to build documentation:
+The python script ``builddocs.py`` is used to build documentation:
 
 ```
-python builddocs.py --current
+python builddocs.py
 open build/latest/index.html
 ```
 
-This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual. The flag ``--current`` above is used package the current GeoServer user manual. 
+This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual.
 
-For more information please see [geocat-documentation](https://github.com/volaya/geocat-documentation).
