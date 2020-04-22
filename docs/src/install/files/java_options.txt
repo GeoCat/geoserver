@@ -1,0 +1,9 @@
+-Dcatalina.home=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+-Dcatalina.base=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+-Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\Tomcat 9.0\temp
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+-Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\logging.properties
+-XX:SoftRefLRUPolicyMSPerMB=36000
+-XX:-UsePerfData
+-Dorg.geotools.referencing.forceXY=true
+-Dorg.geotoools.render.lite.scale.unitCompensation=true
