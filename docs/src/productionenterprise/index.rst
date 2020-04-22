@@ -1,7 +1,7 @@
 Production
 ==========
 
-The following operations are required to setup GeoServer enterprise in order to be used in a production environment.
+The following operations are required to setup GeoServer enterprise for use in a production environment:
 
 .. toctree::
    :maxdepth: 1
@@ -17,8 +17,7 @@ The following operations are required to setup GeoServer enterprise in order to 
    logginglevels
    wmslimits
 
-
-It's also recommended to take into account the following recommendations and make the corresponding adjustments:
+GetCat recommends the following best practices:
 
 .. toctree::
    :maxdepth: 1
@@ -28,7 +27,6 @@ It's also recommended to take into account the following recommendations and mak
    tilingoverviews
    deprecatedwps
    libjpegturbo
-
 
 References:
 

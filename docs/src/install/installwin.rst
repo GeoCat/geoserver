@@ -85,38 +85,32 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
 
 To install Tomcat, follow these steps:
 
-* Download the `Tomcat Windows Service Installer <https://apache.brunneis.com/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.exe>`_
+#. Visit the `Apache Tomcat Download <https://tomcat.apache.org/download-90.cgi>`__ page.
 
-* Run the installer file. When prompted for the elements to install, check the :guilabel:`Native` and :guilabel:`Service Startup` options.
+#. Under :guilabel:`Binary Distirbutions` download :guilabel:`32-bit/64-bit Windows Service Installer (pgp, sha512)`.
+   
+   .. figure:: img/tomcat_download.png
 
-  .. figure:: img/tomcatinstalloptions.png
+#. Run the installer file. When prompted for the elements to install, check the :guilabel:`Native` and :guilabel:`Service Startup` options.
 
-* Once installed, Tomcat has to be correctly configured to provide a better performance when running GeoServer Enterprise. The first thing to configure are its Java Virtual Machine runtime parameters. Open the Tomcat Program folder by selecting the :menuselection:`Apache Tomcat --> Tomcat Program Directory` menu entry in the :guilabel:`Windows Start` menu.
+   .. figure:: img/tomcatinstalloptions.png
 
-  .. figure:: img/tomcatprogramfolder.png
+#. Once installed, Tomcat has to be correctly configured to provide a better performance when running GeoServer Enterprise. The first thing to configure are its Java Virtual Machine runtime parameters. Open the Tomcat Program folder by selecting the :menuselection:`Apache Tomcat --> Tomcat Program Directory` menu entry in the :guilabel:`Windows Start` menu.
 
-* Download this :download:`setup.bat <files/setenv.bat>` file and put it in the :file:`bin` folder under the Tomcat Program Folder
+   .. figure:: img/tomcatprogramfolder.png
 
-  .. figure:: img/setenvbat.png
+#. Download this :download:`setup.bat <files/setenv.bat>` file and put it in the :file:`bin` folder under the Tomcat Program Folder
+
+   .. figure:: img/setenvbat.png
      
-* Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
+#. Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
 
-  .. figure:: img/tomcatproperties.png
+   .. figure:: img/tomcatproperties.png
         
-* Add the highlighted lines below to :guilabel:`Java Options`:
+#. Add the highlighted lines below to :guilabel:`Java Options`:
      
-   .. code-block:: bat
+   .. literalinclude: files/java_options.txt
       :emphasize-lines: 6-9
-       
-      -Dcatalina.home=C:\Program Files\Apache Software Foundation\Tomcat 9.0
-      -Dcatalina.base=C:\Program Files\Apache Software Foundation\Tomcat 9.0
-      -Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\Tomcat 9.0\temp
-      -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
-      -Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\logging.properties
-      -XX:SoftRefLRUPolicyMSPerMB=36000
-      -XX:-UsePerfData
-      -Dorg.geotools.referencing.forceXY=true
-      -Dorg.geotoools.render.lite.scale.unitCompensation=true          
       
 .. only:: premium
 

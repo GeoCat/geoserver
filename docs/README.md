@@ -8,20 +8,6 @@ Documentation is written using the sphinx documentation system using restructure
 pip install sphinx
 ```
 
-## builddocs.py
-
-The python script ``builddocs.puy`` is used to build documentation:
-
-```
-python builddocs.py --latest
-open build/html/index.html
-```
-
-This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual. The flag ``--latest`` above is used for the 
-
-
-For more information please see [geocat-documentation](https://github.com/volaya/geocat-documentation).
-
 ## Themes
 
 A number of sphinx themes are available:
@@ -36,4 +22,15 @@ Before use please install the `read-the-docs theme <https://sphinx-rtd-theme.rea
 pip install sphinx_rtd_theme
 ```
 
+## builddocs.py
 
+The python script ``builddocs.puy`` is used to build documentation:
+
+```
+python builddocs.py --current
+open build/latest/index.html
+```
+
+This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual. The flag ``--current`` above is used package the current GeoServer user manual. 
+
+For more information please see [geocat-documentation](https://github.com/volaya/geocat-documentation).

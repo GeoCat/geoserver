@@ -8,7 +8,9 @@ Standard
 Web Services
 ------------
 
-GeoServer Enterprise Standard publishes your information using a selection of open standards and industry standards:
+GeoServer Enterprise Standard publishes your information using a selection of open standards and industry standards.
+
+GeoServer enterprise:
 
 * :ref:`wms`
   
@@ -22,18 +24,119 @@ GeoServer Enterprise Standard publishes your information using a selection of op
 
   Access raster information as a geographic coverage, generating and data products for analysis, processing and visualization.
 
-Vector
-------
+* WMTS / TMS / WMS-C
+  
+  Integrated GeoWebCache supports a range of tileset based protocols for mobile and web mapping applications.
 
+GeoServer extensions:
 
-Database
+* :ref:`wps` 
+
+  Publishing of geospatial processes, algorithms, and calculations
+
+* :ref:`csw`
+  
+  Retrieving records describing data products published by GeoServer.
+
+Cartography
+-----------
+
+GeoServer enterprise:
+
+* Style Layer Descriptor (SLD)
+* Symbology Encoding (SE)
+
+GeoServer extension:
+
+* Chart symbolizer
+* YSLD styling
+* MapBox Styling
+
+Configuration
+-------------
+
+GeoServer enterprise:
+
+* Web Administration
+* REST Configuration
+* Web-resource tool page
+
+GeoServer extension:
+
+* Importer
+
+Security
 --------
 
+GeoServer enterprise:
+
+* LDAP
+* Digest
+* X.509
+
+Vector Data
+-----------
+
+GeoServer enterprise:
+
+* GeoPkg
+* Shapefile / Directory
+
+GeoServer extensions:
+
+* GML
+* CSV
 
 Raster
 ------
 
+GeoServer enterprise:
+
+* GeoTIFF
+
+GeoServer extensions:
+
+* Image Mosaic
+
+Database
+--------
+
+GeoServer enterprise:
+
+* PostGIS / JNDI
+
+GeoServer extensions:
+
+* Oracle / JNDI
+
+Data service
+------------
+
+GeoServer enterprise:
+
+* WMS Cascade
+* WMTS Cascade
+
+Data Integration
+----------------
+
+GeoServer extension:
+
+* Pregeneralized features
+* INSPIRE
+
+Quality of service
+------------------
+
+GeoServer enterprise:
+
+* Control flow
 
 Output Formats
 --------------
 
+GeoServer extension:
+
+* Excel
+* Printing
+* Vector Tiles

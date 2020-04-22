@@ -113,8 +113,9 @@ def main():
     if args.clean:
         clean(folder)
 
+    copyenterprise()
+    
     if not args.nocopy:
-        copyenterprise()
         copycommunity()
 
     builddocs(args.current, folder)
