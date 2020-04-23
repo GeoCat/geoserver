@@ -4,11 +4,7 @@
   <name>GeoServer Enterprise WCS</name>
   <title>GeoServer Enterprise Web Coverage Service</title>
   <maintainer>https://www.geocat.net/</maintainer>
-  <abstrct>
-    Web Coverage Service providing raster and imagery data access.
-    
-    Direct raw data is provided as a grid coverage, where measurements are represent information from digital imagery, elevation data, or other models.
-  </abstrct>
+  <abstrct>Web Coverage Service providing raster and imagery data access. Direct raw data is provided as a grid coverage, where measurements are represent information from digital imagery, elevation data, or other models.</abstrct>
   <accessConstraints>NONE</accessConstraints>
   <fees>NONE</fees>
   <versions>
@@ -17,6 +13,9 @@
     </org.geotools.util.Version>
     <org.geotools.util.Version>
       <version>1.1.1</version>
+    </org.geotools.util.Version>
+    <org.geotools.util.Version>
+      <version>2.0.1</version>
     </org.geotools.util.Version>
   </versions>
   <keywords>
@@ -33,4 +32,7 @@
   <schemaBaseURL>http://schemas.opengis.net</schemaBaseURL>
   <verbose>false</verbose>
   <gmlPrefixing>false</gmlPrefixing>
+  <latLon>false</latLon>
+  <maxInputMemory>0</maxInputMemory>
+  <maxOutputMemory>0</maxOutputMemory>
 </wcs>
