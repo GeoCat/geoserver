@@ -1,5 +1,5 @@
 <wmts>
-  <id>WMTSInfoImpl-14e8eba4:171a545ba94:-7fff</id>
+  <id>wmts</id>
   <enabled>true</enabled>
   <name>GeoServer Enterprise WMTS</name>
   <title>GeoServer Enterprise Web Map Tile Service</title>
