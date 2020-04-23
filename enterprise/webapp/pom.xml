@@ -293,8 +293,8 @@
       <!-- wps,geopkg,vectortiles,charts,oracle -->
       <id>standard</id>
       <properties>
-        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
-        <configId>minimal</configId>
+        <configDirectory>${basedir}/../../data</configDirectory>
+        <configId>default</configId>
         <war.varient>-standard</war.varient>
       </properties>
       <dependencies>
