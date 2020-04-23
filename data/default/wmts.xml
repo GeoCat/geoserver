@@ -1,7 +1,7 @@
 <wmts>
   <id>WMTSInfoImpl-14e8eba4:171a545ba94:-7fff</id>
   <enabled>true</enabled>
-  <name>WMTS</name>
+  <name>GeoServer Enterprise WMTS</name>
   <title>GeoServer Enterprise Web Map Tile Service</title>
   <maintainer>http://geoserver.org/com</maintainer>
   <abstrct>Web Map Tile Service (WMTS) publishing TileSets. Contents are published as TileSets for use by mobile and web clients.</abstrct>
@@ -17,7 +17,7 @@
     <string>GeoServer</string>
   </keywords>
   <citeCompliant>false</citeCompliant>
-  <onlineResource>http://geoserver.org</onlineResource>
+  <onlineResource>https://www.geocat.net/geoserver/</onlineResource>
   <schemaBaseURL>http://schemas.opengis.net</schemaBaseURL>
   <verbose>false</verbose>
 </wmts>

@@ -1,12 +1,10 @@
 <csw>
   <id>csw</id>
   <enabled>true</enabled>
-  <name>My GeoServer CSW</name>
-  <title>My GeoServer CSW</title>
-  <maintainer>http://geoserver.org/comm</maintainer>
-  <abstrct>
-This is a description of your Catalog Services For The Web.
-   </abstrct>
+  <name>GeoServer Enterprise CSW</name>
+  <title>GeoSever Enterprise Catalogue Service</title>
+  <maintainer>https://www.geocat.net/</maintainer>
+  <abstrct>Catalogue Services (CSW) describing server contents as records.</abstrct>
   <accessConstraints>NONE</accessConstraints>
   <fees>NONE</fees>
   <versions>
@@ -16,11 +14,10 @@ This is a description of your Catalog Services For The Web.
   </versions>
   <keywords>
     <string>CSW</string>
-    <string>Catalog Services For The Web</string>
-    <string>GEOSERVER</string>
+    <string>GeoServer</string>
   </keywords>
   <citeCompliant>false</citeCompliant>
-  <onlineResource>http://geoserver.org</onlineResource>
+  <onlineResource>https://www.geocat.net/geoserver/</onlineResource>
   <schemaBaseURL>http://schemas.opengis.net</schemaBaseURL>
   <verbose>false</verbose>  
 </csw>
