@@ -25,8 +25,9 @@ GetCat recommends the following best practices:
    storeinownfolder
    postgisspatialindex
    tilingoverviews
-   deprecatedwps
    libjpegturbo
+
+.. add deprecatedwps to the above list
 
 References:
 
