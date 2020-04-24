@@ -1,11 +1,16 @@
+# data downloads
+download
+
 # Default data directory
 default/data
+default/demo
 default/logs
 default/security
 default/styles
 default/workspaces
 
 # Standard data directory
+standard/data/ne
 standard/logs
 standard/security
-default/workspaces
+standard/styles

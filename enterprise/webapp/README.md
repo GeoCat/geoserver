@@ -53,11 +53,11 @@ mvn -DGEOSERVER_DATA_DIR=/tmp/folder jetty:run
 Or use environmental `GEOSERVER_DATA_DIR` environmental variable:
 
 ```bash
-export GEOSERVER_DATA_DIRECTORY=`cd ../../data/default; pwd`
+export GEOSERVER_DATA_DIRECTORY=`cd ../../data/standard; pwd`
 mvn jetty:run
 ```
 
-The above example is used to edit the `default` configuration.
+The above example is used to edit the `standard` configuration.
 
 ## GeoServer Enterprise WAR
 
@@ -87,9 +87,11 @@ mvn jetty:run-exploded`
 
 Profiles are used to provide prepackaged bundles defining both the GeoServer extensions and data directory included.
 
-* `release`: Uses geocat `release` release data directory
-* `standard`: 
-* `live`: GeoCat Live distribution, including WPS extensions.
+* `standard`: GeoServer Enterprise standard distribution with GeoCat default data directory
+* `live`: GeoCat Live distribution, does not include a data directory
+* `release`: Uses GeoServer `release` release data directory
+* `rws`: Preconfigured for RWS, includes GeoCat default minimal data directory
+
 
 Example of packaging `geoserver-enterprise-standard.war` for customers:
 
