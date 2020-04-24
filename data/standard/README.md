@@ -1,21 +1,27 @@
-Default Data Directory
+Standard Data Directory
 ======================
 
-A default empty GeoServer Enterprise data directory.
+Standard GeoServer Enterprise data directory including Natural Earth sample data.
 
 This data directory requires provides default configuration for:
 
+* control-flow
 * csw
+* demo
+* gwc
+* user_projections
 * wcs
 * wds
 * wms and wmts
 * wps
-* control-flow
+
+And include Natural Earth sample data:
+
+* data/ne
+* workspaces/ne
 
 Several folders are created and populated as needed by GeoServer:
 
-* data
-* gwc
 * logs
 * security
 * styles

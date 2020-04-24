@@ -1,5 +1,11 @@
-# Allow GeoServer to generate defaults
-
+# Default data directory
+default/data
 default/logs
 default/security
 default/styles
+default/workspaces
+
+# Standard data directory
+standard/logs
+standard/security
+default/workspaces
