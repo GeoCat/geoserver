@@ -339,8 +339,8 @@
       <!-- charts,gdal,inspire,oracle,pyramid -->
       <id>rws</id>
       <properties>
-        <configDirectory>${basedir}/../../geoserver/data</configDirectory>
-        <configId>minimal</configId>
+        <configDirectory>${basedir}/../../data</configDirectory>
+        <configId>default</configId>
         <war.varient>-rws</war.varient>
       </properties>
       <dependencies>
