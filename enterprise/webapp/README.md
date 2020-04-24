@@ -26,21 +26,69 @@ To test using jetty:
 mvn jetty:run
 ```
 
+## Bundled Data Directory
+
+The profiles such as `-Plive` and `-Pstnadard` bundle a data directory using the following properties:
+
+* `configId` : data directory (minimal, release, ...)
+* `configDirectory` : location of geoserver data directory
+
+These can be used on the command line also:
+
+```bash
+mvn jetty:run -DconfigDirectory=../../geoserver/data -DconfigId=minimal 
+```
+```bash
+mvn jetty:run -DconfigDirectory=../../data -DconfigId=default 
+```
+
+## External Data Directory
+
+To supply an external data directory use `GEOSERVER_DATA_DIR` system property:
+
+```bash
+mvn -DGEOSERVER_DATA_DIR=/tmp/folder jetty:run
+```
+
+Or use environmental `GEOSERVER_DATA_DIR` environmental variable:
+
+```bash
+export GEOSERVER_DATA_DIRECTORY=`cd ../../data/default; pwd`
+mvn jetty:run
+```
+
+The above example is used to edit the `default` configuration.
+
 ## GeoServer Enterprise WAR
 
 The `geoserver-enterprise.war` is constructed in in three steps:
 
-* pre-package: copy data directory from configDirectory and configId
-* pre-package: copy resources from gs-web-app dependency
+* pre-package: copy data directory from `configDirectory` and `configId`
+* pre-package: copy resources from `gs-web-app` dependency
 * package: assemble geoserver-enterprise.war
 
-Use `jetty:run-war` or `jetty:run-exploded` to quickly test the war.
+To create a war:
+
+```bash
+mvn war:war
+```
+
+To quickly test the war:
+
+``bash
+mvn jetty:run-war
+```
+
+```bash
+mvn jetty:run-exploded`
+```
 
 ## Preconfigured
 
 Profiles are used to provide prepackaged bundles defining both the GeoServer extensions and data directory included.
 
-* `release`: Uses geoserver release data directory
+* `release`: Uses geocat `release` release data directory
+* `standard`: 
 * `live`: GeoCat Live distribution, including WPS extensions.
 
 Example of packaging `geoserver-enterprise-standard.war` for customers:
@@ -54,23 +102,4 @@ Example of running with GeoServer `release` configuration:
 
 ```bash
 mvn jetty:run -Prelease
-```
-
-## Data Directory
-
-To bundle a data directory use:
-
-* `configId` : data directory (minimal, release, ...) to use
-* `configDirectory` : location of geoserver data directory
-
-An example of running the GeoServer `minimal` configuration:
-
-```bash
-mvn jetty:run -DconfigDirectory=../../geoserver/data -DconfigId=minimal 
-```
-
-To supply an external data directory use `GEOSERVER_DATA_DIR` system property:
-
-```bash
-mvn -DGEOSERVER_DATA_DIR=/tmp/folder jetty:run-exploded
 ```

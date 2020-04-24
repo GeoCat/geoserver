@@ -1,0 +1,5 @@
+# Allow GeoServer to generate defaults
+
+default/logs
+default/security
+default/styles
