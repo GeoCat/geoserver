@@ -1,78 +1,196 @@
-<project name="data_directory" default="download"
+<project name="data_directory" default="default"
  xmlns:if="ant:if" xmlns:unless="ant:unless"
 >
   <property name="download" location="download"/>
-  <property name="data" location="standard/data/ne"/>
+  <property name="target" location="target"/>
+  <property name="standard" location="standard/data/"/>
   
   <target name="init">
      <mkdir dir="${download}"/>
+     <mkdir dir="${target}"/>
+     <mkdir dir="${standard}"/>
   </target>
 
-  <target name="clean">
-     <delete dir="${data}"/>
+  <target name="clean"
+          description="clean data directories">
+     <delete dir="${target}"/>
+     <delete dir="${standard}"/>
   </target>
   
-  <target name="download" description="Download Natural Earth sample data" depends="init">
+  <target name="clean_download"
+          description="clean downloads ">
+     <delete dir="${download}"/>
+  </target>
+
+  <target name="default" depends="init"
+          description="Package default data directory">
+    <zip destfile="${target}/geoserver_data_dir_default.zip"
+         level="9"
+         basedir="default"
+         includes="**"
+         excludes="**/.gitignore, .DS_Store"/>
+  </target>
+
+
+  <target name="standard" depends="init"
+          description="Package standard data directory">
+    <property name="data" value="${standard}"/>
+
+    <antcall target="ne1"/>
+    <antcall target="gray"/>
     
-    <!-- https://www.naturalearthdata.com/downloads/10m-natural-earth-1/10m-natural-earth-1-with-shaded-relief-water-and-drainages/ -->
-    <get skipexisting="true"
-       src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
-       dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
-    <unzip overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/raster_data"/>
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/roads/</echo>
+    <antcall target="_cultural"><param name="features" value="roads"/></antcall>
     
-    <!-- https://www.naturalearthdata.com/downloads/10m-gray-earth/gray-earth-with-shaded-relief-and-water/ -->
-    <get skipexisting="true"
-       src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
-       dest="${download}/GRAY_HR_SR_W.zip"/>
-    <unzip overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/raster_data">
-       <patternset>
-          <include name="*/GRAY_HR_SR_W.*"/>
-       </patternset>
-       <mapper type="flatten"/>
-    </unzip>
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/</echo>
+    <antcall target="_cultural"><param name="features" value="airports"/></antcall>
+
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/ports/</echo>
+    <antcall target="_cultural"><param name="features" value="ports"/></antcall>
     
-    <!-- https://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/ -->
-    <get skipexisting="true"
-       src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_airports.zip"
-       dest="${download}/ne_10m_airports.zip"/>
-    <unzip overwrite="false" src="${download}/ne_10m_airports.zip" dest="${data}/cultural"/> 
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-breakaway-disputed-areas/</echo>
+    <antcall target="_cultural"><param name="features" value="admin_0_boundary_breakaway_disputed_areas"/></antcall>
     
-    <!-- https://www.naturalearthdata.com/downloads/10m-cultural-vectors/ports/ -->
-    <get skipexisting="true"
-       src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_ports.zip"
-       dest="${download}/ne_10m_ports.zip"/>
-    <unzip overwrite="false" src="${download}/ne_10m_ports.zip" dest="${data}/cultural"/>
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-boundary-lines/</echo>
+    <antcall target="_cultural"><param name="features" value="admin_0_boundary_lines_land"/></antcall>
+    <antcall target="_cultural"><param name="features" value="admin_0_boundary_lines_maritime_indicator"/></antcall>
+
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/</echo>
+    <antcall target="_cultural"><param name="features" value="admin_0_map_units"/></antcall>
+    <antcall target="_cultural"><param name="features" value="admin_0_scale_ranks_with_minor_islands"/></antcall>
     
-    <!-- https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-graticules/ -->
-    <get skipexisting="true"
-       src="http://naciscdn.org/naturalearth/10m/physical/ne_10m_graticules_all.zip"
-       dest="${download}/ne_10m_graticules_all.zip"/>
-    <unzip overwrite="false" src="${download}/ne_10m_graticules_all.zip" dest="${data}/graticules"/>
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-breakaway-disputed-areas/</echo>
+    <antcall target="_cultural"><param name="features" value="admin_0_disputed_areas"/></antcall>
+
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/</echo>
+    <antcall target="_cultural"><param name="features" value="admin_1_states_provinces_lines"/></antcall>
+    <antcall target="_cultural"><param name="features" value="admin_1_states_provinces"/></antcall>
     
-    <!-- https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-geographic-lines/ -->
-    <get skipexisting="true"
-       src="http://naciscdn.org/naturalearth/10m/physical/ne_10m_geographic_lines.zip"
-       dest="${download}/ne_10m_geographic_lines.zip"/>
-    <unzip overwrite="false" src="${download}/ne_10m_geographic_lines.zip" dest="${data}/geographic_lines"/>
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/</echo>
+    <antcall target="_cultural"><param name="features" value="populated_places"/></antcall>
     
-    <!-- https://www.naturalearthdata.com/downloads/ -->
-    <get skipexisting="true"
-       src="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
-       dest="${download}/natural_earth_vector.gpkg.zip"/>
-    <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/">
-       <patternset>
-          <include name="CHANGELOG"/>
-          <include name="README.md"/>
-          <include name="VERSION"/>
-       </patternset>
-       <mapper type="flatten"/>
-    </unzip>
-    <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/">
-       <patternset>
-          <include name="packages/*"/>
-       </patternset>
-       <mapper type="flatten"/>
-    </unzip>
+    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-urban-area/</echo>
+    <antcall target="_cultural"><param name="features" value="urban_areas"/></antcall>
+    
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/</echo>
+    <antcall target="_physical"><param name="features" value="coastline"/></antcall>
+    
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-physical-labels/</echo>
+    <antcall target="_physical"><param name="features" value="geography_marine_polys"/></antcall>
+    <antcall target="_physical"><param name="features" value="geography_regions_elevation_points"/></antcall>
+    
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-lakes/</echo>
+    <antcall target="_physical"><param name="features" value="lakes"/></antcall>
+    
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-ocean/</echo>
+    <antcall target="_physical"><param name="features" value="ocean"/></antcall>
+    
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-rivers-lake-centerlines/</echo>
+    <antcall target="_physical"><param name="features" value="rivers_lake_centerlines_scale_rank"/></antcall>    
+
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-graticules/</echo>
+    <antcall target="_physical"><param name="features" value="graticules_all"/></antcall> 
+    
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-geographic-lines/</echo>
+    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
+    
+    <echo>packaging ${target}/geoserver_data_dir_standard.zip</echo>
+    <zip destfile="${target}/geoserver_data_dir_standard.zip"
+         level="9"
+         basedir="standard"
+         includes="**"
+         excludes="**/.gitignore, .DS_Store"/>
+  </target>
+
+  <target name="ne1">
+      <echo>https://www.naturalearthdata.com/downloads/10m-natural-earth-1/10m-natural-earth-1-with-shaded-relief-water-and-drainages</echo>
+      <echo>Download and install NE1_HR_LC_SR_W_DR.zip into ${data}/ne/raster</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
+         dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
+      <mkdir dir="${data}"/>
+      <unzip overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
+  </target>
+
+  <target name="gray">
+      <echo>https://www.naturalearthdata.com/downloads/10m-gray-earth/gray-earth-with-shaded-relief-and-water</echo>
+      <echo>Download and install GRAY_HR_SR_W.zip into ${data}/ne/raster</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
+         dest="${download}/GRAY_HR_SR_W.zip"/>
+      <unzip overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
+         <patternset>
+            <include name="*/GRAY_HR_SR_W.*"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
   </target>
   
+  <target name="_cultural">
+      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_${features}.zip"
+         dest="${download}/ne_10m_${features}.zip"/>
+      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/cultural"/> 
+  </target>
+  
+  <target name="_physical">
+      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
+         dest="${download}/ne_10m_${features}.zip"/>
+      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/physical"/> 
+  </target>
+  
+  <target name="quickstart">
+      <echo>https://www.naturalearthdata.com/downloads/</echo>
+      <echo>Download and install natural_earth_vector.zip into ${data}/ne</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
+         dest="${download}/natural_earth_vector.gpkg.zip"/>
+      <unzip overwrite="false" src="${download}/natural_earth_vector.zip" dest="${data}/ne">
+         <patternset>
+            <include name="CHANGELOG"/>
+            <include name="README.md"/>
+            <include name="VERSION"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/natural_earth_vector.zip" dest="${data}/ne">
+         <patternset>
+            <include name="packages/*"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+  </target>
+  
+  <target name="geopackage">
+      <echo>https://www.naturalearthdata.com/downloads/</echo>
+      <echo>Download and install natural_earth_vector.gpkg.zip into ${data}/ne</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
+         dest="${download}/natural_earth_vector.gpkg.zip"/>
+      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/ne">
+         <patternset>
+            <include name="CHANGELOG"/>
+            <include name="README.md"/>
+            <include name="VERSION"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/ne">
+         <patternset>
+            <include name="packages/*"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+  </target>
+  
+  <target name="dem">
+      <!-- https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5 -->
+      <get skipexisting="true"
+         src="https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/at_download/file"
+         dest="${download}/dem_geotiff.zip"/>
+      <unzip overwrite="false" src="${download}/dem_geotiff.zip" dest="${data}/eaa"/>
+  </target>
 </project>
