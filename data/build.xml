@@ -142,13 +142,62 @@
       <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/physical"/> 
   </target>
   
-  <target name="quickstart">
+  <target name="faststart" description="download quickstart" depends="init">
+      <property name="data" value="${standard}"/>
+    
       <echo>https://www.naturalearthdata.com/downloads/</echo>
       <echo>Download and install natural_earth_vector.zip into ${data}/ne</echo>
       <get skipexisting="true"
          src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
-         dest="${download}/natural_earth_vector.gpkg.zip"/>
-      <unzip overwrite="false" src="${download}/natural_earth_vector.zip" dest="${data}/ne">
+         dest="${download}/Natural_Earth_quick_start.zip"/>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/CHANGELOG"/>
+            <include name="packages/Natural_Earth_quick_start/README.md"/>
+            <include name="packages/Natural_Earth_quick_start/VERSION"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/cultural">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_**"/>
+         </patternset>
+         <globmapper from="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_*" to="*"
+            handledirsep="true"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/physical">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/10m_physical/ne_10m_**"/>
+         </patternset>
+         <globmapper from="packages/Natural_Earth_quick_start/10m_physical/ne_10m_*" to="*"
+            handledirsep="true"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/raster">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/**"/>
+         </patternset>
+         <globmapper from="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/*" to="*"
+            handledirsep="true"/>
+      </unzip>
+      
+    <echo>packaging ${target}/geoserver_data_dir_sample.zip</echo>
+    <zip destfile="${target}/geoserver_data_dir_sample.zip"
+         level="9"
+         basedir="standard"
+         includes="**"
+         excludes="**/.gitignore, .DS_Store"/>
+         
+  </target>
+  
+  <target name="quickstart" description="download quickstart" depends="init">
+      <property name="data" value="${standard}"/>
+    
+      <echo>https://www.naturalearthdata.com/downloads/</echo>
+      <echo>Download and install natural_earth_vector.zip into ${data}/ne</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
+         dest="${download}/Natural_Earth_quick_start.zip"/>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
          <patternset>
             <include name="CHANGELOG"/>
             <include name="README.md"/>
@@ -156,15 +205,18 @@
          </patternset>
          <mapper type="flatten"/>
       </unzip>
-      <unzip overwrite="false" src="${download}/natural_earth_vector.zip" dest="${data}/ne">
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
          <patternset>
-            <include name="packages/*"/>
+            <include name="packages/Natural_Earth_quick_start/**"/>
          </patternset>
-         <mapper type="flatten"/>
+         <globmapper from="packages/Natural_Earth_quick_start/*" to="*"
+            handledirsep="true"/>
       </unzip>
   </target>
   
-  <target name="geopackage">
+  <target name="geopackage" description="download geopackage quickstart" depends="init">
+      <property name="data" value="${standard}"/>
+    
       <echo>https://www.naturalearthdata.com/downloads/</echo>
       <echo>Download and install natural_earth_vector.gpkg.zip into ${data}/ne</echo>
       <get skipexisting="true"
