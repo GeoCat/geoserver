@@ -93,10 +93,10 @@ extlinks = {
     'docguide': ('http://docs.geoserver.org/latest/en/docguide/%s',''),
     'geos': ('https://osgeo-org.atlassian.net/browse/GEOS-%s','GEOS-'),
     'geot': ('https://osgeo-org.atlassian.net/browse/GEOT-%s','GEOT-'),
-    'api': ('http://docs.geoserver.org/latest/en/api/#1.0.0/%s','')
-#    'download_release': (download_release,None),
-#    'download_extension': (download_extension,None),
-#    'download_community': (download_community,None)
+    'api': ('http://docs.geoserver.org/latest/en/api/#1.0.0/%s',''),
+    'download_release': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/geoserver-'+release+'-%s.zip',None),
+    'download_extension': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/extensions/geoserver-'+release+'-%s-plugin.zip',None),
+    'download_community': ('https://github.com/geoserver/geoserver/tree/'+version+'/src/community/%s',None)
 }
 
 # Common substitutions

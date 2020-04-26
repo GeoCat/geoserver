@@ -1,0 +1,18 @@
+# data downloads
+download
+
+# Default data directory
+default/data
+default/demo
+standard/gwc/tmp
+default/logs
+default/security
+default/styles
+default/workspaces
+
+# Standard data directory
+standard/data/ne
+standard/gwc/tmp
+standard/logs
+standard/security
+standard/styles

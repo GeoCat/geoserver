@@ -35,5 +35,5 @@ Linux and macOS :file:`setenv.sh`:
 
 1. Java options are managed in :file:`setenv.sh`:
 
-   .. literalinclude:: /install/files/setup.sh
+   .. literalinclude:: /install/files/setenv.sh
       :language: bash
