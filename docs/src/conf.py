@@ -133,7 +133,8 @@ html_theme_options = {
     'includehidden': False,
     'titles_only': True,
     'collapse_navigation': True,
-    'show_sphinx': 'Green'
+    'show_sphinx': 'Green',
+    'is_prerelease': False
 }
 
 # The name of an image file (relative to this directory) to place at the top

@@ -101,7 +101,6 @@ def buildref(ref, folder, versionname=None):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
     sphinxbuild = "sphinx-build -a -j auto {} {}".format(sourcedir, builddir)
-    print(sphinxbuild);
     sh(sphinxbuild)
 
 def main():
