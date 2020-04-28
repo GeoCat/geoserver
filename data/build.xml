@@ -33,12 +33,104 @@
 
 
   <target name="standard" depends="init"
-          description="Package standard data directory">
+          description="Package data directory with Natural Earth shapefiles">
     <property name="data" value="${standard}"/>
 
-    <antcall target="ne1"/>
-    <antcall target="gray"/>
+    <antcall target="install_ne1"/>
+    <antcall target="install_dem"/>
+
+    <antcall target="install_custom_geopackage"/>
+
+    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-geographic-lines/</echo>
+    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
+
+    <!--
+
+    <antcall target="install_quickstart"/>
     
+    -->
+  
+    <echo>packaging ${target}/geoserver_data_dir_standard.zip</echo>
+    <!--zip destfile="${target}/geoserver_data_dir_standard.zip"
+         level="9"
+         basedir="standard"
+         includes="**"
+         excludes="**/.gitignore, .DS_Store"/-->
+  </target>
+
+  <target name="install_ne1">
+      <echo>https://www.naturalearthdata.com/downloads/10m-natural-earth-1/10m-natural-earth-1-with-shaded-relief-water-and-drainages</echo>
+      <echo>Download and install NE1_HR_LC_SR_W_DR.zip into ${data}/ne/raster</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
+         dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
+      <mkdir dir="${data}"/>
+      <unzip overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
+  </target>
+
+  <target name="install_gray">
+      <echo>https://www.naturalearthdata.com/downloads/10m-gray-earth/gray-earth-with-shaded-relief-and-water</echo>
+      <echo>Download and install GRAY_HR_SR_W.zip into ${data}/ne/raster</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
+         dest="${download}/GRAY_HR_SR_W.zip"/>
+      <unzip overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
+         <patternset>
+            <include name="*/GRAY_HR_SR_W.*"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+  </target>
+  
+  <target name="install_dem">
+      <!-- https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5 -->
+      <get skipexisting="true"
+         src="https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/at_download/file"
+         dest="${download}/dem_geotiff.zip"/>
+      <unzip overwrite="false" src="${download}/dem_geotiff.zip" dest="${data}/eaa"/>
+  </target>
+  
+  <target name="install_quickstart_shapefiles" depends="init">
+      <property name="data" value="${standard}"/>
+    
+      <echo>https://www.naturalearthdata.com/downloads/</echo>
+      <echo>Download and install Natural_Earth_quick_start.zip and extract 10m data into ${data}/ne</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
+         dest="${download}/Natural_Earth_quick_start.zip"/>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/CHANGELOG"/>
+            <include name="packages/Natural_Earth_quick_start/README.md"/>
+            <include name="packages/Natural_Earth_quick_start/VERSION"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/cultural">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_**"/>
+         </patternset>
+         <globmapper from="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_*" to="*"
+            handledirsep="true"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/physical">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/10m_physical/ne_10m_**"/>
+         </patternset>
+         <globmapper from="packages/Natural_Earth_quick_start/10m_physical/ne_10m_*" to="*"
+            handledirsep="true"/>
+      </unzip>
+      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/raster">
+         <patternset>
+            <include name="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/**"/>
+         </patternset>
+         <globmapper from="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/*" to="*"
+            handledirsep="true"/>
+      </unzip>
+  </target>
+  
+<target name="install_custom_shapefiles" depends="init">
+          
     <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/roads/</echo>
     <antcall target="_cultural"><param name="features" value="roads"/></antcall>
     
@@ -94,106 +186,12 @@
     <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-geographic-lines/</echo>
     <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
     
-    <echo>packaging ${target}/geoserver_data_dir_standard.zip</echo>
-    <zip destfile="${target}/geoserver_data_dir_standard.zip"
-         level="9"
-         basedir="standard"
-         includes="**"
-         excludes="**/.gitignore, .DS_Store"/>
   </target>
-
-  <target name="ne1">
-      <echo>https://www.naturalearthdata.com/downloads/10m-natural-earth-1/10m-natural-earth-1-with-shaded-relief-water-and-drainages</echo>
-      <echo>Download and install NE1_HR_LC_SR_W_DR.zip into ${data}/ne/raster</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
-         dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
-      <mkdir dir="${data}"/>
-      <unzip overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
-  </target>
-
-  <target name="gray">
-      <echo>https://www.naturalearthdata.com/downloads/10m-gray-earth/gray-earth-with-shaded-relief-and-water</echo>
-      <echo>Download and install GRAY_HR_SR_W.zip into ${data}/ne/raster</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
-         dest="${download}/GRAY_HR_SR_W.zip"/>
-      <unzip overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
-         <patternset>
-            <include name="*/GRAY_HR_SR_W.*"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-  </target>
-  
-  <target name="_cultural">
-      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_${features}.zip"
-         dest="${download}/ne_10m_${features}.zip"/>
-      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/cultural"/> 
-  </target>
-  
-  <target name="_physical">
-      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
-         dest="${download}/ne_10m_${features}.zip"/>
-      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/physical"/> 
-  </target>
-  
-  <target name="faststart" description="download quickstart" depends="init">
-      <property name="data" value="${standard}"/>
+    
+  <target name="install_quickstart_shapefiles_all" depends="init">
     
       <echo>https://www.naturalearthdata.com/downloads/</echo>
-      <echo>Download and install natural_earth_vector.zip into ${data}/ne</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
-         dest="${download}/Natural_Earth_quick_start.zip"/>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/CHANGELOG"/>
-            <include name="packages/Natural_Earth_quick_start/README.md"/>
-            <include name="packages/Natural_Earth_quick_start/VERSION"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/cultural">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_*" to="*"
-            handledirsep="true"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/physical">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/10m_physical/ne_10m_**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/10m_physical/ne_10m_*" to="*"
-            handledirsep="true"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/raster">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/*" to="*"
-            handledirsep="true"/>
-      </unzip>
-      
-    <echo>packaging ${target}/geoserver_data_dir_sample.zip</echo>
-    <zip destfile="${target}/geoserver_data_dir_sample.zip"
-         level="9"
-         basedir="standard"
-         includes="**"
-         excludes="**/.gitignore, .DS_Store"/>
-         
-  </target>
-  
-  <target name="quickstart" description="download quickstart" depends="init">
-      <property name="data" value="${standard}"/>
-    
-      <echo>https://www.naturalearthdata.com/downloads/</echo>
-      <echo>Download and install natural_earth_vector.zip into ${data}/ne</echo>
+      <echo>Download and install Natural_Earth_quick_start.zip into ${data}/ne</echo>
       <get skipexisting="true"
          src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
          dest="${download}/Natural_Earth_quick_start.zip"/>
@@ -214,7 +212,7 @@
       </unzip>
   </target>
   
-  <target name="geopackage" description="download geopackage quickstart" depends="init">
+  <target name="install_quickstart_geopackage" depends="init">
       <property name="data" value="${standard}"/>
     
       <echo>https://www.naturalearthdata.com/downloads/</echo>
@@ -238,11 +236,250 @@
       </unzip>
   </target>
   
-  <target name="dem">
-      <!-- https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5 -->
-      <get skipexisting="true"
-         src="https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/at_download/file"
-         dest="${download}/dem_geotiff.zip"/>
-      <unzip overwrite="false" src="${download}/dem_geotiff.zip" dest="${data}/eaa"/>
+  <target name="install_custom_geopackage" depends="custom_geopackage, init">
+      <echo>https://www.naturalearthdata.com/downloads/</echo>
+      <echo>Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
+      <copy file="${target}/natural_earth.gpkg" todir="${data}/ne"/>
   </target>
+  
+  <target name="check-gpkg">
+      <available file="${target}/natural_earth.gpkg" property="gpkg.present"/>
+  </target>
+  
+  <target name="custom_geopackage" depends="init,check-gpkg" unless="gpkg.present">
+  
+      <echo>https://www.naturalearthdata.com/downloads/</echo>
+      <echo>Download natural_earth_vector.gpkg.zip into ${download}</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
+         dest="${download}/natural_earth_vector.gpkg.zip"/>
+      <echo>Unzip into ${download}</echo>
+      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${download}">
+         <patternset>
+            <include name="packages/*"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <echo>Use ogr2ogr create natural_earth.gpkg</echo>
+      <property name="input" location="${download}/natural_earth_vector.gpkg"/>
+      <property name="output" location="${target}/natural_earth.gpkg"/>
+      <property name="options" location="-update"/>
+      
+      <!-- CULTRUAL -->
+      <!-- admin0 -->
+      <antcall target="_ogr_lines">
+        <param name="table" value="boundary_lines_disputed"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_disputed_areas"/>
+        <param name="title" value="Disputed boundary lines"/>
+        <param name="description" value="Disputed areas and breakaway regions"/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="boundary_lines_land"/>
+        <param name="title" value="Boundary lines"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_land"/>
+        <param name="description" value="Country boundaries on land."/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="boundary_lines_map_units"/>
+        <param name="title" value="Interior boundary lines"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_map_units"/>
+        <param name="description" value="Groups of individual territories"/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="boundary_lines_maritime"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_maritime_indicator"/>
+        <param name="title" value="Maritime boundary lines"/>
+        <param name="description" value="Country boundaries offshore."/>
+      </antcall>
+      <antcall target="_ogr_point">
+        <param name="table" value="label_points"/>
+        <param name="from" value="ne_10m_admin_1_label_points"/>
+        <param name="title" value="Label points"/>
+        <param name="description" value="Country labels"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="countries"/>
+        <param name="from" value="ne_10m_admin_0_countries_lakes"/>
+        <param name="title" value="Countries"/>
+        <param name="description" value="Sovereign states, lakes removed"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="disputed_areas"/>
+        <param name="from" value="ne_10m_admin_0_disputed_areas"/>
+        <param name="title" value="Disputed areas"/>
+        <param name="description" value="Disputed areas and breakaway regions"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="map_subunits"/>
+        <param name="from" value="ne_10m_admin_0_map_subunits"/>
+        <param name="title" value="Subunits"/>
+        <param name="description" value="Countries subdivided by non-contiguous units"/>
+      </antcall>
+      
+      <!-- admin1 -->
+      <antcall target="_ogr_polygons">
+        <param name="table" value="states_provinces"/>
+        <param name="from" value="ne_10m_admin_1_states_provinces_lakes"/>
+        <param name="title" value=""/>
+        <param name="description" value="Internal administrative boundaries"/>
+      </antcall>
+      <antcall target="_ogr_point">
+        <param name="table" value="states_provinces_labels"/>
+        <param name="from" value="ne_10m_admin_1_label_points"/>
+        <param name="title" value=""/>
+        <param name="title" value="States and provinces labels"/>
+        <param name="description" value="Internal administrative boundaries"/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="states_provinces_lines"/>
+        <param name="from" value="ne_10m_admin_1_states_provinces_lines"/>
+        <param name="title" value="States and province boundaries"/>
+        <param name="description" value="Internal administrative boundaries"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="states_provinces_scale"/>
+        <param name="from" value="ne_10m_admin_1_states_provinces_scale_rank"/>
+        <param name="title" value="States and provinces"/>
+        <param name="description" value="Internal administrative boundaries, subdivided with scalerank"/>
+      </antcall>
+      
+      <!-- humanity -->
+      <antcall target="_ogr_point">
+        <param name="table" value="populated_places"/>
+        <param name="from" value="ne_10m_populated_places"/>
+        <param name="title" value="Populated places"/>
+        <param name="description" value="City and town points"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="urban_areas"/>
+        <param name="from" value="ne_10m_urban_areas"/>
+        <param name="title" value="Urban areas"/>
+        <param name="description" value="Area of dense human habitation"/>
+      </antcall>
+      
+      <!-- transport -->
+      <antcall target="_ogr_point">
+        <param name="table" value="airports"/>
+        <param name="from" value="ne_10m_airports"/>
+        <param name="title" value="Airports"/>
+        <param name="description" value=""/>
+      </antcall>
+      <antcall target="_ogr_point">
+        <param name="table" value="ports"/>
+        <param name="from" value="ne_10m_ports"/>
+        <param name="title" value="Ports"/>
+        <param name="description" value="Transportation. Derives from High Seas, a detailed GIS compilation of world wide ports that is in the public domain."/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="roads"/>
+        <param name="from" value="ne_10m_roads"/>
+        <param name="title" value="Roads"/>
+        <param name="description" value="Transportation. Derives from High Seas, a detailed GIS compilation of world wide ports that is in the public domain."/>
+      </antcall>
+      
+
+      
+      <!-- PHYSICAL -->
+      <antcall target="_ogr_polygons">
+        <param name="table" value="ocean"/>
+        <param name="from" value="ne_10m_ocean"/>
+        <param name="title" value="Ocean"/>
+        <param name="description" value="Ocean"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="ocean_scale"/>
+        <param name="from" value="ne_10m_ocean_scale_rank"/>
+        <param name="title" value="Oceans"/>
+        <param name="description" value="Ocean polygon split into contiguous pieces"/>
+      </antcall>
+      <antcall target="_ogr_polygons">
+        <param name="table" value="lakes"/>
+        <param name="from" value="ne_10m_lakes"/>
+        <param name="title" value="Lakes and reservoirs"/>
+        <param name="description" value="Natural and artificial lakes."/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="coastline"/>
+        <param name="from" value="ne_10m_coastline"/>
+        <param name="title" value="Coastline"/>
+        <param name="description" value="Ocean coastline, including major islands."/>
+      </antcall>
+      <antcall target="_ogr_lines">
+        <param name="table" value="rivers_lake_centerlines"/>
+        <param name="from" value="ne_10m_rivers_lake_centerlines_scale_rank"/>
+        <param name="title" value="Rivers and lakes"/>
+        <param name="description" value="River and lake centerlines, subdivided with scalerank"/>
+      </antcall>
+      
+      <antcall target="_ogr_lines">
+        <param name="table" value="geographic_lines"/>
+        <param name="from" value="ne_10m_geographic_lines"/>
+        <param name="title" value="Geographic lines"/>
+        <param name="description" value=""/>
+      </antcall>
+
+  </target>
+  
+  <target name="_cultural">
+      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_${features}.zip"
+         dest="${download}/ne_10m_${features}.zip"/>
+      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/cultural"/> 
+  </target>
+  
+  <target name="_physical">
+      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
+      <get skipexisting="true"
+         src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
+         dest="${download}/ne_10m_${features}.zip"/>
+      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/physical"/> 
+  </target>
+  
+  <target name="_ogr_lines">
+      <exec executable="ogr2ogr">
+        <arg line="-f 'GPKG'"/>
+        <arg path="${output}"/>
+        <arg path="${input}"/>
+        <arg line="-lco IDENTIFIER='${title}'"/>
+        <arg line="-lco DESCRIPTION='${description}'"/>
+        <arg line="${options}"/>
+        <arg line="-nlt MULTILINESTRING"/>
+        <arg line="-nln ${table}"/>
+        <arg value="-sql"/>
+        <arg value="SELECT * FROM ${from}"/>
+      </exec>
+  </target>
+  
+  <target name="_ogr_polygons">
+      <exec executable="ogr2ogr">
+        <arg line="-f 'GPKG'"/>
+        <arg path="${output}"/>
+        <arg path="${input}"/>
+        <arg line="-lco IDENTIFIER='${title}'"/>
+        <arg line="-lco DESCRIPTION='${description}'"/>
+        <arg line="${options}"/>
+        <arg line="-nlt MULTIPOLYGON"/>
+        <arg line="-nln ${table}"/>
+        <arg value="-sql"/>
+        <arg value="SELECT * FROM ${from}"/>
+      </exec>
+  </target>
+  <target name="_ogr_point">
+      <exec executable="ogr2ogr">
+        <arg line="-f 'GPKG'"/>
+        <arg path="${output}"/>
+        <arg path="${input}"/>
+        <arg line="-lco IDENTIFIER='${title}'"/>
+        <arg line="-lco DESCRIPTION='${description}'"/>
+        <arg line="${options}"/>
+        <arg line="-nlt POINT"/>
+        <arg line="-nln ${table}"/>
+        <arg value="-sql"/>
+        <arg value="SELECT * FROM ${from}"/>
+      </exec>
+  </target>
+  
+
+  
 </project>

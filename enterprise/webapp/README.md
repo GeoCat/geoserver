@@ -53,7 +53,7 @@ mvn -DGEOSERVER_DATA_DIR=/tmp/folder jetty:run
 Or use environmental `GEOSERVER_DATA_DIR` environmental variable:
 
 ```bash
-export GEOSERVER_DATA_DIRECTORY=`cd ../../data/standard; pwd`
+export GEOSERVER_DATA_DIR=`cd ../../data/standard; pwd`
 mvn jetty:run
 ```
 
