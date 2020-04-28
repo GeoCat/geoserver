@@ -5,13 +5,13 @@
             <sld:FeatureTypeConstraint/>
         </sld:LayerFeatureConstraints>
         <sld:UserStyle>
-            <sld:Name>10m populated places</sld:Name>
+            <sld:Name>populated_places</sld:Name>
             <sld:Title/>
             <sld:FeatureTypeStyle>
                 <sld:Name>group 0</sld:Name>
                 <sld:FeatureTypeName>Feature</sld:FeatureTypeName>
                 <sld:Rule>
-                    <sld:Name>Citites 5M Scale Rank 1</sld:Name>
+                    <sld:Name>Citites 5M</sld:Name>
                     <ogc:Filter>
                         <ogc:PropertyIsLessThanOrEqualTo>
                             <ogc:PropertyName>SCALERANK</ogc:PropertyName>
@@ -269,4 +269,3 @@
         </sld:UserStyle>
     </sld:UserLayer>
 </sld:StyledLayerDescriptor>
-

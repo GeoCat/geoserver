@@ -6,12 +6,12 @@
     xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd"
     xmlns:se="http://www.opengis.net/se">
   <NamedLayer>
-    <se:Name>10m_admin_0_boundary_breakaway_disputed_areas</se:Name>
+    <se:Name>boundary_breakaway_disputed_areas</se:Name>
     <UserStyle>
-      <se:Name>10m_admin_0_boundary_breakaway_disputed_areas</se:Name>
+      <se:Name>boundary_breakaway_disputed_areas</se:Name>
       <se:FeatureTypeStyle>
         <se:Rule>
-          <se:Name>Single symbol</se:Name>
+          <se:Name>Boundary (Disputed)</se:Name>
           <se:LineSymbolizer>
             <se:Stroke>
               <se:SvgParameter name="stroke">#ff0000</se:SvgParameter>
