@@ -2,6 +2,8 @@
   <id>LayerGroupInfoImpl--50f64f89:171bfada2a6:-7fd9</id>
   <name>basemap</name>
   <mode>SINGLE</mode>
+  <title>Basemap</title>
+  <abstractTxt>Natural earth basemap</abstractTxt>
   <publishables>
     <published type="layer">
       <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fda</id>
@@ -38,4 +40,5 @@
     <crs>EPSG:4326</crs>
   </bounds>
   <dateCreated>2020-04-28 07:50:16.750 UTC</dateCreated>
+  <dateModified>2020-04-28 07:53:38.369 UTC</dateModified>
 </layerGroup>

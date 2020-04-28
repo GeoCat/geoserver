@@ -74,13 +74,6 @@
                     </ogc:Filter>
                     <sld:MaxScaleDenominator>2.0E7</sld:MaxScaleDenominator>
                     <sld:PointSymbolizer>
-                        <sld:Geometry>
-                            <ogc:Function name="offset">
-                                <ogc:PropertyName>the_geom</ogc:PropertyName>
-                                <ogc:Literal>0.0</ogc:Literal>
-                                <ogc:Literal>0.0</ogc:Literal>
-                            </ogc:Function>
-                        </sld:Geometry>
                         <sld:Graphic>
                             <sld:Mark>
                                 <sld:WellKnownName>star</sld:WellKnownName>
