@@ -13,6 +13,7 @@ default/workspaces
 
 # Standard data directory
 standard/data/ne
+standard/data/eaa
 standard/gwc/tmp
 standard/logs
 standard/security
