@@ -263,55 +263,63 @@
       <echo>Use ogr2ogr create natural_earth.gpkg</echo>
       <property name="input" location="${download}/natural_earth_vector.gpkg"/>
       <property name="output" location="${target}/natural_earth.gpkg"/>
-      <property name="options" location="-update"/>
+      <property name="options" location="-append -update"/>
       
       <!-- CULTRUAL -->
       <!-- admin0 -->
       <antcall target="_ogr_lines">
         <param name="table" value="boundary_lines_disputed"/>
         <param name="from" value="ne_10m_admin_0_boundary_lines_disputed_areas"/>
+        <param name="options" value=""/>
         <param name="title" value="Disputed boundary lines"/>
         <param name="description" value="Disputed areas and breakaway regions"/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="boundary_lines_land"/>
-        <param name="title" value="Boundary lines"/>
         <param name="from" value="ne_10m_admin_0_boundary_lines_land"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Boundary lines"/>
         <param name="description" value="Country boundaries on land."/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="boundary_lines_map_units"/>
-        <param name="title" value="Interior boundary lines"/>
         <param name="from" value="ne_10m_admin_0_boundary_lines_map_units"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Interior boundary lines"/>
         <param name="description" value="Groups of individual territories"/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="boundary_lines_maritime"/>
         <param name="from" value="ne_10m_admin_0_boundary_lines_maritime_indicator"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Maritime boundary lines"/>
         <param name="description" value="Country boundaries offshore."/>
       </antcall>
       <antcall target="_ogr_point">
         <param name="table" value="label_points"/>
         <param name="from" value="ne_10m_admin_1_label_points"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Label points"/>
         <param name="description" value="Country labels"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="countries"/>
         <param name="from" value="ne_10m_admin_0_countries_lakes"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Countries"/>
         <param name="description" value="Sovereign states, lakes removed"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="disputed_areas"/>
         <param name="from" value="ne_10m_admin_0_disputed_areas"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Disputed areas"/>
         <param name="description" value="Disputed areas and breakaway regions"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="map_subunits"/>
         <param name="from" value="ne_10m_admin_0_map_subunits"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Subunits"/>
         <param name="description" value="Countries subdivided by non-contiguous units"/>
       </antcall>
@@ -320,25 +328,28 @@
       <antcall target="_ogr_polygons">
         <param name="table" value="states_provinces"/>
         <param name="from" value="ne_10m_admin_1_states_provinces_lakes"/>
+        <param name="options" value="-update"/>
         <param name="title" value=""/>
         <param name="description" value="Internal administrative boundaries"/>
       </antcall>
       <antcall target="_ogr_point">
         <param name="table" value="states_provinces_labels"/>
         <param name="from" value="ne_10m_admin_1_label_points"/>
-        <param name="title" value=""/>
+        <param name="options" value="-update"/>
         <param name="title" value="States and provinces labels"/>
         <param name="description" value="Internal administrative boundaries"/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="states_provinces_lines"/>
         <param name="from" value="ne_10m_admin_1_states_provinces_lines"/>
+        <param name="options" value="-update"/>
         <param name="title" value="States and province boundaries"/>
         <param name="description" value="Internal administrative boundaries"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="states_provinces_scale"/>
         <param name="from" value="ne_10m_admin_1_states_provinces_scale_rank"/>
+        <param name="options" value="-update"/>
         <param name="title" value="States and provinces"/>
         <param name="description" value="Internal administrative boundaries, subdivided with scalerank"/>
       </antcall>
@@ -347,12 +358,14 @@
       <antcall target="_ogr_point">
         <param name="table" value="populated_places"/>
         <param name="from" value="ne_10m_populated_places"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Populated places"/>
         <param name="description" value="City and town points"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="urban_areas"/>
         <param name="from" value="ne_10m_urban_areas"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Urban areas"/>
         <param name="description" value="Area of dense human habitation"/>
       </antcall>
@@ -361,52 +374,58 @@
       <antcall target="_ogr_point">
         <param name="table" value="airports"/>
         <param name="from" value="ne_10m_airports"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Airports"/>
-        <param name="description" value=""/>
+        <param name="description" value="Transportation. Derives from Mile High Club, a detailed GIS compilation of world wide airports that is in the public domain."/>
       </antcall>
       <antcall target="_ogr_point">
         <param name="table" value="ports"/>
         <param name="from" value="ne_10m_ports"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Ports"/>
         <param name="description" value="Transportation. Derives from High Seas, a detailed GIS compilation of world wide ports that is in the public domain."/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="roads"/>
         <param name="from" value="ne_10m_roads"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Roads"/>
-        <param name="description" value="Transportation. Derives from High Seas, a detailed GIS compilation of world wide ports that is in the public domain."/>
+        <param name="description" value="Transportation."/>
       </antcall>
-      
-
       
       <!-- PHYSICAL -->
       <antcall target="_ogr_polygons">
         <param name="table" value="ocean"/>
         <param name="from" value="ne_10m_ocean"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Ocean"/>
         <param name="description" value="Ocean"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="ocean_scale"/>
         <param name="from" value="ne_10m_ocean_scale_rank"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Oceans"/>
         <param name="description" value="Ocean polygon split into contiguous pieces"/>
       </antcall>
       <antcall target="_ogr_polygons">
         <param name="table" value="lakes"/>
         <param name="from" value="ne_10m_lakes"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Lakes and reservoirs"/>
         <param name="description" value="Natural and artificial lakes."/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="coastline"/>
         <param name="from" value="ne_10m_coastline"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Coastline"/>
         <param name="description" value="Ocean coastline, including major islands."/>
       </antcall>
       <antcall target="_ogr_lines">
         <param name="table" value="rivers_lake_centerlines"/>
         <param name="from" value="ne_10m_rivers_lake_centerlines_scale_rank"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Rivers and lakes"/>
         <param name="description" value="River and lake centerlines, subdivided with scalerank"/>
       </antcall>
@@ -414,6 +433,7 @@
       <antcall target="_ogr_lines">
         <param name="table" value="geographic_lines"/>
         <param name="from" value="ne_10m_geographic_lines"/>
+        <param name="options" value="-update"/>
         <param name="title" value="Geographic lines"/>
         <param name="description" value=""/>
       </antcall>
@@ -456,6 +476,7 @@
         <arg line="-f 'GPKG'"/>
         <arg path="${output}"/>
         <arg path="${input}"/>
+        <arg line="-lco OVERWRITE=YES"/>
         <arg line="-lco IDENTIFIER='${title}'"/>
         <arg line="-lco DESCRIPTION='${description}'"/>
         <arg line="${options}"/>

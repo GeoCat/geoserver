@@ -1,0 +1,54 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--50f64f89:171bfada2a6:-7fe4</id>
+  <name>states_provinces_scale</name>
+  <nativeName>states_provinces_scale</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--68e6e130:171aaf396ce:-7fff</id>
+  </namespace>
+  <title>States and Provinces</title>
+  <abstract>Internal administrative boundaries, subdivided with scalerank</abstract>
+  <keywords>
+    <string>features</string>
+    <string>states_provinces_scale</string>
+  </keywords>
+  <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
+  DATUM[&quot;World Geodetic System 1984&quot;, 
+    SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], 
+    AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], 
+  PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], 
+  UNIT[&quot;degree&quot;, 0.017453292519943295], 
+  AXIS[&quot;Geodetic longitude&quot;, EAST], 
+  AXIS[&quot;Geodetic latitude&quot;, NORTH], 
+  AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>-179.99999999999991</minx>
+    <maxx>180.0</maxx>
+    <miny>-89.99999999999994</miny>
+    <maxy>83.63410065300008</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>-179.99999999999991</minx>
+    <maxx>180.0</maxx>
+    <miny>-89.99999999999994</miny>
+    <maxy>83.63410065300008</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="cachingEnabled">false</entry>
+  </metadata>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl-5f5ea890:171bdcc3fe3:-7fff</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <padWithZeros>false</padWithZeros>
+  <forcedDecimal>false</forcedDecimal>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+</featureType>
