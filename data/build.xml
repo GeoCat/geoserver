@@ -51,11 +51,11 @@
     -->
   
     <echo>packaging ${target}/geoserver_data_dir_standard.zip</echo>
-    <!--zip destfile="${target}/geoserver_data_dir_standard.zip"
+    <zip destfile="${target}/geoserver_data_dir_standard.zip"
          level="9"
          basedir="standard"
          includes="**"
-         excludes="**/.gitignore, .DS_Store"/-->
+         excludes="**/.gitignore, .DS_Store"/>
   </target>
 
   <target name="install_ne1">
@@ -329,7 +329,7 @@
         <param name="table" value="states_provinces"/>
         <param name="from" value="ne_10m_admin_1_states_provinces_lakes"/>
         <param name="options" value="-update"/>
-        <param name="title" value=""/>
+        <param name="title" value="State and province boundaries"/>
         <param name="description" value="Internal administrative boundaries"/>
       </antcall>
       <antcall target="_ogr_point">
