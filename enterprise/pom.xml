@@ -16,7 +16,8 @@
  <artifactId>geoserver</artifactId>
  <packaging>pom</packaging>
  <version>2.17-SNAPSHOT</version>
- <name>GeoServer Enterprise</name>
+
+ <name>GeoServer Enterprise 2020.5</name>
  <description>
     GeoCat is pleased to offer our customers an enterprise distribution of GeoServer offering a long-term-support solution for this popular open source product.
  </description>
@@ -34,12 +35,11 @@
  <licenses>
   <license>
    <name>General Public License (GPL)</name>
-   <url>http://www.gnu.org/copyleft/gpl.txt</url>
+   <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
   </license>
  </licenses>
 
  <repositories>
-  
   <repository>
    <id>osgeo-releases</id>
    <name>OSGeo Nexus Release Repository</name>
@@ -306,6 +306,11 @@
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-wps-core</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-ysld</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <!-- Use of gt.version for GeoTools modules -->

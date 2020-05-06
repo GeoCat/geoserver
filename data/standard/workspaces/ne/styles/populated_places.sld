@@ -1,264 +1,1013 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sld:StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:sld="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" version="1.0.0">
-    <sld:UserLayer>
-        <sld:LayerFeatureConstraints>
-            <sld:FeatureTypeConstraint/>
-        </sld:LayerFeatureConstraints>
-        <sld:UserStyle>
-            <sld:Name>populated_places</sld:Name>
-            <sld:Title/>
-            <sld:FeatureTypeStyle>
-                <sld:Name>group 0</sld:Name>
-                <sld:FeatureTypeName>Feature</sld:FeatureTypeName>
-                <sld:Rule>
-                    <sld:Name>Citites 5M</sld:Name>
-                    <ogc:Filter>
-                        <ogc:PropertyIsLessThanOrEqualTo>
-                            <ogc:PropertyName>SCALERANK</ogc:PropertyName>
-                            <ogc:Literal>1</ogc:Literal>
-                        </ogc:PropertyIsLessThanOrEqualTo>
-                    </ogc:Filter>
-                    <sld:PointSymbolizer>
-                        <sld:Graphic>
-                            <sld:Mark>
-                                <sld:WellKnownName>circle</sld:WellKnownName>
-                                <sld:Fill>
-                                    <sld:CssParameter name="fill">#E92524</sld:CssParameter>
-                                </sld:Fill>
-                                <sld:Stroke/>
-                            </sld:Mark>
-                            <sld:Size>2</sld:Size>
-                        </sld:Graphic>
-                    </sld:PointSymbolizer>
-                    <sld:TextSymbolizer>
-                        <sld:Label>
-                            <ogc:PropertyName>NAME</ogc:PropertyName>
-                        </sld:Label>
-                        <sld:Font>
-                            <sld:CssParameter name="font-family">Arial</sld:CssParameter>
-                            <sld:CssParameter name="font-size">10.0</sld:CssParameter>
-                            <sld:CssParameter name="font-style">normal</sld:CssParameter>
-                            <sld:CssParameter name="font-weight">bold</sld:CssParameter>
-                        </sld:Font>
-                        <sld:LabelPlacement>
-                            <sld:PointPlacement>
-                                <sld:AnchorPoint>
-                                    <sld:AnchorPointX>0.0</sld:AnchorPointX>
-                                    <sld:AnchorPointY>0.0</sld:AnchorPointY>
-                                </sld:AnchorPoint>
-                                <sld:Displacement>
-                                    <sld:DisplacementX>0.0</sld:DisplacementX>
-                                    <sld:DisplacementY>0.0</sld:DisplacementY>
-                                </sld:Displacement>
-                            </sld:PointPlacement>
-                        </sld:LabelPlacement>
-                        <sld:Halo>
-                            <sld:Radius>1</sld:Radius>
-                            <sld:Fill>
-                                <sld:CssParameter name="fill">#FFFFFF</sld:CssParameter>
-                            </sld:Fill>
-                        </sld:Halo>
-                        <sld:Fill>
-                            <sld:CssParameter name="fill">#000000</sld:CssParameter>
-                        </sld:Fill>
-                        <sld:VendorOption name="maxDisplacement">10</sld:VendorOption>
-                    </sld:TextSymbolizer>
-                </sld:Rule>
-                <sld:Rule>
-                    <sld:Name>Capital 20M</sld:Name>
-                    <ogc:Filter>
-                        <ogc:PropertyIsEqualTo>
-                            <ogc:PropertyName>FEATURECLA</ogc:PropertyName>
-                            <ogc:Literal>Admin-0 capital</ogc:Literal>
-                        </ogc:PropertyIsEqualTo>
-                    </ogc:Filter>
-                    <sld:MaxScaleDenominator>2.0E7</sld:MaxScaleDenominator>
-                    <sld:PointSymbolizer>
-                        <sld:Graphic>
-                            <sld:Mark>
-                                <sld:WellKnownName>star</sld:WellKnownName>
-                                <sld:Fill>
-                                    <sld:CssParameter name="fill">#000000</sld:CssParameter>
-                                </sld:Fill>
-                                <sld:Stroke>
-                                    <sld:CssParameter name="stroke-width">0.5</sld:CssParameter>
-                                </sld:Stroke>
-                            </sld:Mark>
-                            <sld:Size>8</sld:Size>
-                        </sld:Graphic>
-                    </sld:PointSymbolizer>
-                    <sld:TextSymbolizer>
-                        <sld:Label>
-                            <ogc:PropertyName>NAME</ogc:PropertyName>
-                        </sld:Label>
-                        <sld:Font>
-                            <sld:CssParameter name="font-family">Arial</sld:CssParameter>
-                            <sld:CssParameter name="font-size">12.0</sld:CssParameter>
-                            <sld:CssParameter name="font-style">normal</sld:CssParameter>
-                            <sld:CssParameter name="font-weight">bold</sld:CssParameter>
-                        </sld:Font>
-                        <sld:LabelPlacement>
-                            <sld:PointPlacement>
-                                <sld:AnchorPoint>
-                                    <sld:AnchorPointX>0.0</sld:AnchorPointX>
-                                    <sld:AnchorPointY>0.0</sld:AnchorPointY>
-                                </sld:AnchorPoint>
-                                <sld:Displacement>
-                                    <sld:DisplacementX>0.0</sld:DisplacementX>
-                                    <sld:DisplacementY>0.0</sld:DisplacementY>
-                                </sld:Displacement>
-                            </sld:PointPlacement>
-                        </sld:LabelPlacement>
-                        <sld:Halo>
-                            <sld:Radius>2</sld:Radius>
-                            <sld:Fill>
-                                <sld:CssParameter name="fill">#FFFFFF</sld:CssParameter>
-                            </sld:Fill>
-                        </sld:Halo>
-                        <sld:Fill>
-                            <sld:CssParameter name="fill">#000000</sld:CssParameter>
-                        </sld:Fill>
-                    </sld:TextSymbolizer>
-                </sld:Rule>
-                <sld:Rule>
-                    <sld:Name>Cities 5M</sld:Name>
-                    <ogc:Filter>
-                        <ogc:And>
-                            <ogc:And>
-                                <ogc:PropertyIsGreaterThan>
-                                    <ogc:PropertyName>SCALERANK</ogc:PropertyName>
-                                    <ogc:Literal>1</ogc:Literal>
-                                </ogc:PropertyIsGreaterThan>
-                                <ogc:PropertyIsLessThanOrEqualTo>
-                                    <ogc:PropertyName>SCALERANK</ogc:PropertyName>
-                                    <ogc:Literal>3</ogc:Literal>
-                                </ogc:PropertyIsLessThanOrEqualTo>
-                            </ogc:And>
-                            <ogc:Not>
-                                <ogc:PropertyIsEqualTo>
-                                    <ogc:PropertyName>FEATURECLA</ogc:PropertyName>
-                                    <ogc:Literal>Admin-0 capital</ogc:Literal>
-                                </ogc:PropertyIsEqualTo>
-                            </ogc:Not>
-                        </ogc:And>
-                    </ogc:Filter>
-                    <sld:MinScaleDenominator>1.0</sld:MinScaleDenominator>
-                    <sld:MaxScaleDenominator>5000000.0</sld:MaxScaleDenominator>
-                    <sld:PointSymbolizer>
-                        <sld:Graphic>
-                            <sld:Mark>
-                                <sld:WellKnownName>circle</sld:WellKnownName>
-                                <sld:Fill>
-                                    <sld:CssParameter name="fill">#E92524</sld:CssParameter>
-                                </sld:Fill>
-                                <sld:Stroke/>
-                            </sld:Mark>
-                            <sld:Size>6</sld:Size>
-                        </sld:Graphic>
-                    </sld:PointSymbolizer>
-                    <sld:TextSymbolizer>
-                        <sld:Label>
-                            <ogc:PropertyName>NAME</ogc:PropertyName>
-                        </sld:Label>
-                        <sld:Font>
-                            <sld:CssParameter name="font-family">Arial</sld:CssParameter>
-                            <sld:CssParameter name="font-size">10.0</sld:CssParameter>
-                            <sld:CssParameter name="font-style">normal</sld:CssParameter>
-                            <sld:CssParameter name="font-weight">bold</sld:CssParameter>
-                        </sld:Font>
-                        <sld:LabelPlacement>
-                            <sld:PointPlacement>
-                                <sld:AnchorPoint>
-                                    <sld:AnchorPointX>0.0</sld:AnchorPointX>
-                                    <sld:AnchorPointY>0.0</sld:AnchorPointY>
-                                </sld:AnchorPoint>
-                                <sld:Displacement>
-                                    <sld:DisplacementX>0.0</sld:DisplacementX>
-                                    <sld:DisplacementY>0.0</sld:DisplacementY>
-                                </sld:Displacement>
-                            </sld:PointPlacement>
-                        </sld:LabelPlacement>
-                        <sld:Halo>
-                            <sld:Radius>1</sld:Radius>
-                            <sld:Fill>
-                                <sld:CssParameter name="fill">#FFFFFF</sld:CssParameter>
-                            </sld:Fill>
-                        </sld:Halo>
-                        <sld:Fill>
-                            <sld:CssParameter name="fill">#000000</sld:CssParameter>
-                        </sld:Fill>
-                    </sld:TextSymbolizer>
-                </sld:Rule>
-                <sld:Rule>
-                    <sld:Name>Cities 10M</sld:Name>
-                    <ogc:Filter>
-                        <ogc:And>
-                            <ogc:And>
-                                <ogc:PropertyIsGreaterThan>
-                                    <ogc:PropertyName>SCALERANK</ogc:PropertyName>
-                                    <ogc:Literal>1</ogc:Literal>
-                                </ogc:PropertyIsGreaterThan>
-                                <ogc:PropertyIsLessThanOrEqualTo>
-                                    <ogc:PropertyName>SCALERANK</ogc:PropertyName>
-                                    <ogc:Literal>8</ogc:Literal>
-                                </ogc:PropertyIsLessThanOrEqualTo>
-                            </ogc:And>
-                            <ogc:Not>
-                                <ogc:PropertyIsEqualTo>
-                                    <ogc:PropertyName>FEATURECLA</ogc:PropertyName>
-                                    <ogc:Literal>Admin-0 capital</ogc:Literal>
-                                </ogc:PropertyIsEqualTo>
-                            </ogc:Not>
-                        </ogc:And>
-                    </ogc:Filter>
-                    <sld:MinScaleDenominator>1.0</sld:MinScaleDenominator>
-                    <sld:MaxScaleDenominator>1.0E7</sld:MaxScaleDenominator>
-                    <sld:PointSymbolizer>
-                        <sld:Graphic>
-                            <sld:Mark>
-                                <sld:WellKnownName>circle</sld:WellKnownName>
-                                <sld:Fill>
-                                    <sld:CssParameter name="fill">#E92524</sld:CssParameter>
-                                </sld:Fill>
-                                <sld:Stroke/>
-                            </sld:Mark>
-                            <sld:Size>6</sld:Size>
-                        </sld:Graphic>
-                    </sld:PointSymbolizer>
-                    <sld:TextSymbolizer>
-                        <sld:Label>
-                            <ogc:PropertyName>NAME</ogc:PropertyName>
-                        </sld:Label>
-                        <sld:Font>
-                            <sld:CssParameter name="font-family">Arial</sld:CssParameter>
-                            <sld:CssParameter name="font-size">10.0</sld:CssParameter>
-                            <sld:CssParameter name="font-style">normal</sld:CssParameter>
-                            <sld:CssParameter name="font-weight">normal</sld:CssParameter>
-                        </sld:Font>
-                        <sld:LabelPlacement>
-                            <sld:PointPlacement>
-                                <sld:AnchorPoint>
-                                    <sld:AnchorPointX>0.0</sld:AnchorPointX>
-                                    <sld:AnchorPointY>0.0</sld:AnchorPointY>
-                                </sld:AnchorPoint>
-                                <sld:Displacement>
-                                    <sld:DisplacementX>0.0</sld:DisplacementX>
-                                    <sld:DisplacementY>0.0</sld:DisplacementY>
-                                </sld:Displacement>
-                            </sld:PointPlacement>
-                        </sld:LabelPlacement>
-                        <sld:Halo>
-                            <sld:Radius>0</sld:Radius>
-                            <sld:Fill>
-                                <sld:CssParameter name="fill">#FFFFFF</sld:CssParameter>
-                            </sld:Fill>
-                        </sld:Halo>
-                        <sld:Fill>
-                            <sld:CssParameter name="fill">#000000</sld:CssParameter>
-                        </sld:Fill>
-                    </sld:TextSymbolizer>
-                </sld:Rule>
-            </sld:FeatureTypeStyle>
-        </sld:UserStyle>
-    </sld:UserLayer>
+<sld:StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" version="1.0.0">
+  <sld:NamedLayer>
+    <sld:Name />
+    <sld:UserStyle>
+      <sld:Name />
+      <sld:FeatureTypeStyle>
+        <sld:Name>
+          populated places
+        </sld:Name>
+        <sld:Rule>
+          <ogc:Filter>
+            <ogc:PropertyIsLessThan>
+              <ogc:PropertyName>
+                SCALERANK
+              </ogc:PropertyName>
+              <ogc:Literal>
+                7
+              </ogc:Literal>
+            </ogc:PropertyIsLessThan>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>
+            4000000.0
+          </sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>
+            8000000.0
+          </sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <ogc:Filter>
+            <ogc:PropertyIsLessThan>
+              <ogc:PropertyName>
+                SCALERANK
+              </ogc:PropertyName>
+              <ogc:Literal>
+                5
+              </ogc:Literal>
+            </ogc:PropertyIsLessThan>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>
+            8000000.0
+          </sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>
+            1.7E7
+          </sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <ogc:Filter>
+            <ogc:PropertyIsLessThan>
+              <ogc:PropertyName>
+                SCALERANK
+              </ogc:PropertyName>
+              <ogc:Literal>
+                4
+              </ogc:Literal>
+            </ogc:PropertyIsLessThan>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>
+            1.7E7
+          </sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>
+            3.5E7
+          </sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <ogc:Filter>
+            <ogc:PropertyIsLessThan>
+              <ogc:PropertyName>
+                SCALERANK
+              </ogc:PropertyName>
+              <ogc:Literal>
+                3
+              </ogc:Literal>
+            </ogc:PropertyIsLessThan>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>
+            3.5E7
+          </sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>
+            7.0E7
+          </sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <ogc:Filter>
+            <ogc:PropertyIsLessThan>
+              <ogc:PropertyName>
+                SCALERANK
+              </ogc:PropertyName>
+              <ogc:Literal>
+                2
+              </ogc:Literal>
+            </ogc:PropertyIsLessThan>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>
+            7.0E7
+          </sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>
+            1.4E8
+          </sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <ogc:Filter>
+            <ogc:PropertyIsLessThan>
+              <ogc:PropertyName>
+                SCALERANK
+              </ogc:PropertyName>
+              <ogc:Literal>
+                1
+              </ogc:Literal>
+            </ogc:PropertyIsLessThan>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>
+            1.4E8
+          </sld:MinScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:MaxScaleDenominator>
+            4000000.0
+          </sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>
+                  <ogc:Function name="if_then_else">
+                    <ogc:Function name="equalTo">
+                      <ogc:PropertyName>
+                        FEATURECLA
+                      </ogc:PropertyName>
+                      <ogc:Literal>
+                        Admin-0 capital
+                      </ogc:Literal>
+                    </ogc:Function>
+                    <ogc:Literal>
+                      star
+                    </ogc:Literal>
+                    <ogc:Literal>
+                      circle
+                    </ogc:Literal>
+                  </ogc:Function>
+                </sld:WellKnownName>
+                <sld:Fill /><sld:Stroke />
+              </sld:Mark>
+              <sld:Size>
+                <ogc:Sub>
+                  <ogc:Literal>
+                    10
+                  </ogc:Literal>
+                  <ogc:Div>
+                    <ogc:PropertyName>
+                      SCALERANK
+                    </ogc:PropertyName>
+                    <ogc:Literal>
+                      2
+                    </ogc:Literal>
+                  </ogc:Div>
+                </ogc:Sub>
+              </sld:Size>
+            </sld:Graphic>
+            <sld:VendorOption name="labelObstacle">
+              true
+            </sld:VendorOption>
+          </sld:PointSymbolizer>
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>
+                NAME
+              </ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">
+                Arial
+              </sld:CssParameter>
+              <sld:CssParameter name="font-size">
+                10
+              </sld:CssParameter>
+              <sld:CssParameter name="font-style">
+                normal
+              </sld:CssParameter>
+              <sld:CssParameter name="font-weight">
+                normal
+              </sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorPointX>
+                    0.5
+                  </sld:AnchorPointX>
+                  <sld:AnchorPointY>
+                    0
+                  </sld:AnchorPointY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>
+                    0
+                  </sld:DisplacementX>
+                  <sld:DisplacementY>
+                    <ogc:Sub>
+                      <ogc:Literal>
+                        10
+                      </ogc:Literal>
+                      <ogc:Div>
+                        <ogc:PropertyName>
+                          SCALERANK
+                        </ogc:PropertyName>
+                        <ogc:Literal>
+                          2
+                        </ogc:Literal>
+                      </ogc:Div>
+                    </ogc:Sub>
+                  </sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Halo>
+              <sld:Radius>
+                1
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">
+                  #FFFFFF
+                </sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+            <sld:Fill>
+              <sld:CssParameter name="fill">
+                #000000
+              </sld:CssParameter>
+            </sld:Fill>
+            <sld:Priority>
+              <ogc:Sub>
+                <ogc:Literal>
+                  10
+                </ogc:Literal>
+                <ogc:PropertyName>
+                  LABELRANK
+                </ogc:PropertyName>
+              </ogc:Sub>
+            </sld:Priority>
+            <sld:VendorOption name="maxDisplacement">
+              90
+            </sld:VendorOption>
+            <sld:VendorOption name="spaceAround">
+              2
+            </sld:VendorOption>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+      </sld:FeatureTypeStyle>
+    </sld:UserStyle>
+  </sld:NamedLayer>
 </sld:StyledLayerDescriptor>

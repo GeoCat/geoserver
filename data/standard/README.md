@@ -20,6 +20,10 @@ And include Natural Earth sample data:
 * data/ne
 * workspaces/ne
 
+Styles from the GeoServer styling workshop:
+
+* workspace/ne/style
+
 Several folders are created and populated as needed by GeoServer:
 
 * logs
