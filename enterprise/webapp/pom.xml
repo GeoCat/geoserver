@@ -250,14 +250,26 @@
     
     <profile>
       <!-- GeoCat Live -->
-      <!-- wps,geopkg,vectortiles,charts -->
       <id>live</id>
       <properties>
-         <!-- see: https://eos.geocat.net/gitlab/live/live_compose_data/tree/master/geoserver_data_dir --> 
+        <!-- recommend default data directory -->
+        <!-- see: https://eos.geocat.net/gitlab/live/live_compose_data/tree/master/geoserver_data_dir --> 
         <war.varient>-live</war.varient>
       </properties>
+      <!-- charts, mbstyle, vectortiles, wps -->
       <dependencies>
-        <!-- from -Pwps -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-charts</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-mbstyle</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-vectortiles</artifactId>
+        </dependency>
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-wps-core</artifactId>
@@ -265,35 +277,35 @@
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-web-wps</artifactId>
-        </dependency>
-        <!-- from -Pgeopkg -->
-        <dependency>
-          <groupId>org.geoserver.community</groupId>
-          <artifactId>gs-geopkg</artifactId>
-        </dependency>
-        <!-- from -Pvectortiles -->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-vectortiles</artifactId>
-        </dependency>
-        <!-- from -Pcharts -->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
         </dependency>
       </dependencies>
     </profile>
     
     <profile>
       <!-- GeoServer Enterprise Standard -->
-      <!-- wps,geopkg,vectortiles,charts,oracle -->
       <id>standard</id>
       <properties>
-        <config>${basedir}/../../data/default</config>
+        <!-- recommend default data directory -->
         <war.varient>-standard</war.varient>
       </properties>
+      <!-- charts, mbstyle, oracle, wps, vectortiles -->
       <dependencies>
-        <!-- from -Pwps -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-charts</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-mbstyle</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-oracle</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.oracle.ojdbc</groupId>
+          <artifactId>ojdbc8</artifactId>
+        </dependency>
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-wps-core</artifactId>
@@ -302,58 +314,34 @@
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-web-wps</artifactId>
         </dependency>
-        <!-- from -Pgeopkg -->
-        <dependency>
-          <groupId>org.geoserver.community</groupId>
-          <artifactId>gs-geopkg</artifactId>
-        </dependency>
-        <!-- from -Pvectortiles -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-vectortiles</artifactId>
-        </dependency>
-        <!-- from -Pcharts -->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
-        </dependency>
-        <!-- from -Poracle -->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-oracle</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>com.oracle.ojdbc</groupId>
-          <artifactId>ojdbc8</artifactId>
         </dependency>
       </dependencies>
     </profile>
     
     <profile>
       <!-- GeoServer Enterprise Premium RWS -->
-      <!-- charts,gdal,inspire,oracle,pyramid -->
       <id>rws</id>
       <properties>
         <config>${basedir}/../../data/default</config>
         <war.varient>-rws</war.varient>
       </properties>
+      <!-- charts,gdal,inspire,oracle,pyramid -->
       <dependencies>
-        <!-- from -Pcharts -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-charts</artifactId>
         </dependency>
-        <!-- from -Pgdal -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-gdal</artifactId>
         </dependency>
-        <!-- from -Pinspire -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-inspire</artifactId>
         </dependency>
-        <!-- from -Poracle -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-oracle</artifactId>
@@ -362,7 +350,6 @@
           <groupId>com.oracle.ojdbc</groupId>
           <artifactId>ojdbc8</artifactId>
         </dependency>
-        <!-- from -Ppyramid -->
         <dependency>
           <groupId>org.geotools</groupId>
           <artifactId>gt-imagepyramid</artifactId>
@@ -372,14 +359,26 @@
     
     <profile>
       <!-- GeoServer Enterprise Training -->
-      <!-- wps,geopkg,vectortiles,charts,ysld -->
       <id>training</id>
       <properties>
+        <!-- includes a data directory for ease of instruction -->
         <config>${basedir}/../../data/standard</config>
         <war.varient>-training</war.varient>
       </properties>
+      <!-- charts,geopkg,mbstyle,vectortiles,wps,ysld -->
       <dependencies>
-        <!-- from -Pwps -->
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-charts</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-mbstyle</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.geoserver.extension</groupId>
+          <artifactId>gs-vectortiles</artifactId>
+        </dependency>
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-wps-core</artifactId>
@@ -388,22 +387,6 @@
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-web-wps</artifactId>
         </dependency>
-        <!-- from -Pgeopkg -->
-        <dependency>
-          <groupId>org.geoserver.community</groupId>
-          <artifactId>gs-geopkg</artifactId>
-        </dependency>
-        <!-- from -Pvectortiles -->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-vectortiles</artifactId>
-        </dependency>
-        <!-- from -Pcharts -->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
-        </dependency>
-        <!-- from -Pysld -->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-ysld</artifactId>
