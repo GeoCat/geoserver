@@ -183,6 +183,12 @@ fieldset.leftwise, fieldset.rightwise {
   margin-top: 51px !important;
   overflow: auto;
 }
+.page-pane-fullscreen {
+  height: auto;
+}
+.tab-panel .selfclear.clearBoth {
+  padding-top: 0 !important;
+}
 #page .page-header {
   background: none;
   margin: 0 0 10px 0;
