@@ -6,11 +6,7 @@ import argparse
 
 '''
 This script generates documentation based on the content of the current
-repo, for all the documentation branches (named "docs-[version_name]")
-
-If the '--current' option is used, a version corresponding to the current
-development version is generated instead, and created in a folder named 
-"latest"
+repo.
 
 The script file should be located in the documentation folder (with sphinx 
 files under ./source folder)
@@ -20,8 +16,7 @@ the '--output [path]' argument. If not used, the documentation will be created
 under the ./build folder. 
 '''
 
-NAME = "geoserver-enterprise"
-DOC_BRANCH_PREFIX = "docs-"
+VERSIONNAME = "latest"
 
 toreplace = {"introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
             "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]}
@@ -70,29 +65,10 @@ def copytostaging(versionname):
     copyenterprise(versionname)
     copycommunity(versionname)
 
-def builddocs(allbranches, folder):
-    refs = getrefs()
-    if not allbranches:
-        buildref(None, folder, "latest")
-    else:
-        for ref in refs:
-            buildref(ref, folder)
+def builddocs(folder):
+    currentHead = sh("git rev-parse --abbrev-ref HEAD").splitlines()[0]
+    versionname = "latest" if currentHead == "master" else currentHead
 
-def getrefs():
-    refs = []
-    branches = sh("git branch -r").splitlines()
-    for line in branches:
-        fullname = line.strip().split(" ")[0]
-        name = fullname.split("/")[-1]
-        if name.startswith(DOC_BRANCH_PREFIX):          
-            refs.append(fullname)
-    return refs
-
-def buildref(ref, folder, versionname=None):    
-    versionname = versionname or ref.split("/")[-1].split(DOC_BRANCH_PREFIX)[-1]
-    print("Building project '%s' at version '%s'..." % (NAME, versionname)) 
-    if ref is not None:
-        sh("git checkout {}".format(ref))
     copytostaging(versionname)    
     sourcedir = os.path.join(os.getcwd(), "staging", versionname)
     builddir = os.path.join(folder, versionname)
@@ -107,21 +83,16 @@ def main():
     parser = argparse.ArgumentParser(description='Build documentation.')
     parser.add_argument('--output', help='Output folder to save documentation')
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
-    parser.add_argument('--all', dest='allbranches', action='store_true', help='Build all doc branches, not just the current one')
 
     args = parser.parse_args()
-
-    currentHead = sh("git rev-parse --abbrev-ref HEAD").splitlines()[0]
 
     folder = args.output or os.path.join(os.getcwd(), "build")
 
     if args.clean:
         clean(folder)
 
-    builddocs(args.allbranches, folder)
+    builddocs(folder)
 
-    if args.allbranches:
-        sh("git checkout {}".format(currentHead))
 
 if __name__ == "__main__":
     main()

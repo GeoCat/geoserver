@@ -4,9 +4,9 @@
 
 Documentation is written using the sphinx documentation system using restructured text. Extensive use of directives are used to capture intent (command, menu-selection,gui-label,kbd) rather than marking text in italic or bold.
 
-```
-pip install sphinx
-```
+
+	pip install sphinx
+
 
 ## Themes
 
@@ -16,20 +16,31 @@ A number of sphinx themes are available:
 
 These themes are managed as git submodules for ease of maintenance.
 
-Before use please install the `read-the-docs theme <https://sphinx-rtd-theme.readthedocs.io/en/stable/>`__, to install:
 
-```
-pip install sphinx_rtd_theme
-```
+## Building the documentation
 
-## builddocs.py
 
-The python script ``builddocs.py`` is used to build documentation:
+To build the documentation, run
 
-```
-python builddocs.py
-open build/latest/index.html
-```
+
+	$ python builddocs.py
+
+That builds the docs as they are in the current branch
+
+Resulting docs are stored in the ``build`` folder.
 
 This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual.
+
+
+### Creating a release version of the documentation
+
+To create a new release version of the documentation, follow these steps:
+
+- Create a new branch at the desired point (ensure that the submodules point to the correct commits in their corresponding repos).
+
+- The name of the folder that indicates the version is taken from the ``VERSIONNAME`` constant in the builddocs.py script. In the ``master`` branch, it should be ``latest``. Modify it to reflect the version name of the newly created branch.
+
+- The documentation in the ``master`` branch, when built, shows a ribbon that indicates that it is a pre-release version. To remove that in the release branch, edit the ``conf.py`` file in the docs root folder and modify the following line, setting the value to ``False``:
+
+	html_context = {'theme_is_prerelease': True}
 
