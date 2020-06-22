@@ -5,7 +5,7 @@ WPS processes have permissions that can be configured individually for each proc
 
 Two processes are to be edited: `gs:Import` and `gs:StoreCoverage`.
 
-Follow this steps to restrict the access to the these processes:
+Follow these steps to restrict the access to those processes:
 
 1. From the main page of the Geoserver web interface, click on the :guilabel:`WPS Security` link.
 
