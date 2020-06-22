@@ -32,10 +32,10 @@ def clean(folder):
     print("Cleaning build folder")
     shutil.rmtree(folder, ignore_errors=True)
 
-def copycommunity(versionname):
+def copycommunity():
     print("Copying geoserver user guide to staging")    
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
-    gsdocsdest = os.path.join(os.getcwd(), "staging", versionname)
+    gsdocsdest = os.path.join(os.getcwd(), "staging", VERSIONNAME)
     for path in os.listdir(gsdocssource):
         src = os.path.join(gsdocssource, path)
         if os.path.isdir(src):            
@@ -52,27 +52,23 @@ def copycommunity(versionname):
         with open(filepath, "w") as f:
             f.write(txt)
 
-def copyenterprise(versionname):
+def copyenterprise():
     print("Copying enterprise docs to staging")    
     docssource = os.path.join(os.getcwd(), "src")
-    docsdest = os.path.join(os.getcwd(), "staging", versionname)  
+    docsdest = os.path.join(os.getcwd(), "staging", VERSIONNAME)  
     shutil.copytree(docssource, docsdest)
 
-def copytostaging(versionname):
-    docsdest = os.path.join(os.getcwd(), "staging", versionname)
+def copytostaging():
+    docsdest = os.path.join(os.getcwd(), "staging", VERSIONNAME)
     if os.path.exists(docsdest):
         shutil.rmtree(docsdest)
-    copyenterprise(versionname)
-    copycommunity(versionname)
+    copyenterprise()
+    copycommunity()
 
 def builddocs(folder):
-    currentHead = sh("git rev-parse --abbrev-ref HEAD").splitlines()[0]
-    versionname = "latest" if currentHead == "master" else currentHead
-
-    copytostaging(versionname)    
-    sourcedir = os.path.join(os.getcwd(), "staging", versionname)
-    builddir = os.path.join(folder, versionname)
-    # doctrees = os.path.join(builddir, ".doctrees"+versionname)
+    copytostaging()    
+    sourcedir = os.path.join(os.getcwd(), "staging", VERSIONNAME)
+    builddir = os.path.join(folder, VERSIONNAME)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
