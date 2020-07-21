@@ -9,13 +9,7 @@ pipeline {
     }
 
     stages{
-    /*
-        stage('INIT') {
-            steps {
-                sh "apt update && apt install ant"
-            }
-        }
-        */
+
         stage('BUILD') {
             steps {
                 withMaven(
@@ -33,20 +27,14 @@ pipeline {
                 }
             }
         }
-        /*
+        
         stage('DATA') {
             steps {
-
-                withEnv([
-                    'HOME=.'
-                ]) {
-                    withAnt() {
-                        sh "ant -f ./data/build.xml default"
-                    }
-                }
+                sh "ant -f ./data/build.xml default"
             }
         }
-        */
+        
+        
     /*
         stage('RELEASE') {
             environment {
@@ -89,7 +77,7 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
                         }
                     }
-                    /*
+                    
                     script {
                         def files = findFiles excludes: '', glob: 'data/target/*.zip'
                         def prefix = 'data/target/'
@@ -103,7 +91,6 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
                         }
                     }
-                    */
                 }
             }
         }
@@ -133,7 +120,7 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
-                    /*
+                    
                     script {
                         def files = findFiles excludes: '', glob: 'data/target/*.zip'
                         def prefix = 'data/target/'
@@ -147,7 +134,7 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
                         }
                     }
-                    */
+                    
                 }
             }
         }
