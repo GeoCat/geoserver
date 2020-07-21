@@ -10,7 +10,7 @@ pipeline {
 
     stages{
 
-        stage('BUILD') {
+        stage('Build') {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
@@ -25,35 +25,24 @@ pipeline {
                     mavenSettingsConfig: 'nexusProxies') {
                     sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Pstandard"
                 }
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Plive"
+                }
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Prws"
+                }
             }
         }
         
-        stage('DATA') {
+        stage('Data') {
             steps {
                 sh "ant -f ./data/build.xml default"
             }
         }
         
-        
-    /*
-        stage('RELEASE') {
-            environment {
-                pom = readMavenPom file: './enterprise/pom.xml'
-                version = pom.getVersion()
-            }
-            steps {
-            
-              withEnv([
-                  'HOME=.' 
-              ]) {
-                   withMaven(mavenSettingsConfig: 'nexusProxies') {
-                       sh "export PATH=$MVN_CMD_DIR:$PATH && mvn deploy:deploy-file -DartifactId=geoserver-enterprise-${params.flavour} -DgroupId=net.geocat.enterprise.geoserver -Dversion=${version} -Durl=https://nexus.geocat.net/repository/geoserver-geocat -DrepositoryId=nexus.proxy -Dfile=enterprise/webapp/target/geoserver-enterprise-${params.flavour}.war"
-                   }
-              }
-            }
-        }
-    */
-        stage ('Deploy to Development repo') {
+        stage ('Deploy (Development)') {
             environment {
                 ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise-dev-releases'
@@ -95,14 +84,14 @@ pipeline {
             }
         }
         
-        stage("Deploy to RELEASE repo") {
+        stage("Deploy (Release)") {
             when { buildingTag() }
             environment {
                 ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise'
             }
             steps {
-                echo "This would deploy to RELEASE raw folder"
+                echo "This deploys to RELEASE raw folder"
                 withCredentials([
                         string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
                         variable: 'NEXUS_BASIC_AUTH')]) {
