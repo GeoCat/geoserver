@@ -648,14 +648,12 @@
     <repository>
       <id>geocat</id>
       <name>GeoCat Release Repository</name>
-      <url>https://repo.geocat.net/release/</url>
-      <uniqueVersion>false</uniqueVersion>
+      <url>https://nexus.geocat.net/repository/geoserver-geocat/</url>
     </repository>
     <snapshotRepository>
       <id>geocat</id>
-      <uniqueVersion>false</uniqueVersion>
       <name>GeoCat Snapshot Repository</name>
-      <url>https://repo.geocat.net/snapshot/</url>
+      <url>https://nexus.geocat.net/repository/geoserver-geocat/</url>
     </snapshotRepository>
   </distributionManagement>
 
