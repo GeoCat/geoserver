@@ -10,16 +10,39 @@ pipeline {
 
     stages{
 
+        stage('Data') {
+            steps {
+                sh "ant -f ./data/build.xml default"
+            }
+        }
+
         stage('Build') {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests -Pstandard"
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean"
+                }
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml install -DskipTests"
+                }
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml deploy -DskipTests"
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml deploy"
                 }
             }
         }
 
-        stage('WAR') {
+        stage('WAR Bundles') {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
@@ -36,13 +59,7 @@ pipeline {
             }
         }
         
-        stage('Data') {
-            steps {
-                sh "ant -f ./data/build.xml default"
-            }
-        }
-        
-        stage ('Deploy (Development)') {
+        stage ('Downloads (Development)') {
             environment {
                 ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise-dev-releases'
@@ -80,11 +97,12 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
                         }
                     }
+                    
                 }
             }
         }
         
-        stage("Deploy (Release)") {
+        stage("Downloads (Release)") {
             when { buildingTag() }
             environment {
                 ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
