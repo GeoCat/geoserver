@@ -81,7 +81,7 @@ To update a submodule to a new tag:
    ```bash
    cd geoserver
    git fetch --all --tags --prune
-   git checkout tags/2.17.1
+   git checkout tags/2.17.3
    cd ..
    ```
 
@@ -89,11 +89,11 @@ To update a submodule to a new tag:
    
    ```xml
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
-    <gs.version>2.17.2</gs.version>
-    <gwc.version>1.17.2</gwc.version>
-    <gt.version>23.2</gt.version>
-    <spring.version>5.1.1.RELEASE</spring.version>
-    <spring.security.version>5.1.1.RELEASE</spring.security.version>
+    <gs.version>2.17.3</gs.version>
+    <gwc.version>1.17.3</gwc.version>
+    <gt.version>23.3</gt.version>
+    <spring.version>5.1.16.RELEASE</spring.version>
+    <spring.security.version>5.1.11.RELEASE</spring.security.version>
    ```
 
 3. Test the change
