@@ -20,15 +20,7 @@ pipeline {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean"
-                }
-                withMaven(
-                    mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml install -DskipTests"
-                }
-                withMaven(
-                    mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml deploy -DskipTests"
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests"
                 }
             }
         }
