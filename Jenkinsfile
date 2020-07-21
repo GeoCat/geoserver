@@ -8,9 +8,8 @@ pipeline {
     }
 
     stages{
-stage('BUILD') {
+        stage('BUILD') {
             steps {
-
                 withEnv([
                     'HOME=.'
                 ]) {
@@ -37,7 +36,20 @@ stage('BUILD') {
 
             }
         }
+        
+        stage('DATA') {
+            steps {
 
+                withEnv([
+                    'HOME=.'
+                ]) {
+                    withAnt() {
+                        sh "ant -f ./data/build.xml default"
+                    }
+                }
+            }
+        }
+    /*
         stage('RELEASE') {
             environment {
                 pom = readMavenPom file: './enterprise/pom.xml'
@@ -55,4 +67,60 @@ stage('BUILD') {
             }
         }
     }
+    */
+        stage ('Deploy to Development repo') {
+            environment {
+                ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise-dev-releases'
+            }
+
+            steps {
+                withCredentials([
+                        string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
+                        variable: 'NEXUS_BASIC_AUTH')]) {
+
+                    script {
+                        def files = findFiles excludes: '', glob: 'enterprise/webapp/target/*.war'
+                        def prefix = 'enterprise/webapp/target/'
+                        
+                        println "Staging ${files.size()} files for publishing"
+                        
+                        files.each { File file ->
+                            println "pushing ${file}"
+                            def sufix = file.getPath().substring(prefix.length())
+                            
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
+                        }
+                    }
+                }
+            }
+        }
+        stage("Deploy to RELEASE repo") {
+            when { buildingTag() }
+            environment {
+                ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise'
+            }
+            steps {
+                echo "This would deploy to RELEASE raw folder"
+                withCredentials([
+                        string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
+                        variable: 'NEXUS_BASIC_AUTH')]) {
+
+                    script {
+                        def files = findFiles excludes: '', glob: 'enterprise/webapp/target/*.war'
+                        def prefix = 'enterprise/webapp/target/'
+                                                
+                        println "Staging ${files.size()} files for publishing"
+                        
+                        files.each { File file ->
+                            println "pushing ${file}"
+                            def sufix = file.getPath().substring(prefix.length())
+                            
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
+                        }
+                    }
+                }
+            }
+        }
 }
