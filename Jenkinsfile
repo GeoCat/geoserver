@@ -25,6 +25,7 @@ pipeline {
             }
         }
         
+        /*
         stage('Deploy') {
             steps {
             withCredentials([
@@ -37,6 +38,7 @@ pipeline {
                 }
             }
         }
+        */
 
         stage('WAR Bundles') {
             steps {
