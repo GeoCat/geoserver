@@ -2,7 +2,7 @@ import static groovy.io.FileType.FILES
 
 pipeline {
     agent {
-        docker {
+        dockerfile {
             filename 'Dockerfile.build'
             dir 'builtools'
             label 'geoserver-build-tools'
