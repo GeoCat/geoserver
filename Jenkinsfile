@@ -8,32 +8,26 @@ pipeline {
     }
 
     stages{
+        stage('INIT') {
+            steps {
+                sh "apt update && apt install ant"
+            }
+        }
         stage('BUILD') {
             steps {
-                withEnv([
-                    'HOME=.'
-                ]) {
-                    withMaven(
-                        mavenSettingsConfig: 'nexusProxies') {
-                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests -Pstandard"
-                    }
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests -Pstandard"
                 }
-
             }
         }
 
         stage('WAR') {
             steps {
-
-                withEnv([
-                    'HOME=.'
-                ]) {
-                    withMaven(
-                        mavenSettingsConfig: 'nexusProxies') {
-                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Pstandard"
-                    }
+                withMaven(
+                    mavenSettingsConfig: 'nexusProxies') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Pstandard"
                 }
-
             }
         }
         
