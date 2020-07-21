@@ -3,7 +3,9 @@ import static groovy.io.FileType.FILES
 pipeline {
     agent {
         docker {
-            image 'maven:3.5.2-jdk-8'
+            filename 'Dockerfile.build'
+            dir 'builtools'
+            label 'geoserver-build-tools'
         }
     }
 
