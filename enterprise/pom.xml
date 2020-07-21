@@ -59,17 +59,17 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
-    <gs.version>2.17.0</gs.version>
-    <gwc.version>1.17.0</gwc.version>
-    <gt.version>23.0</gt.version>
-    <spring.version>5.1.13.RELEASE</spring.version>
-    <spring.security.version>5.1.8.RELEASE</spring.security.version>
+    <gs.version>2.17.2</gs.version>
+    <gwc.version>1.17.2</gwc.version>
+    <gt.version>23.2</gt.version>
+    <spring.version>5.1.16.RELEASE</spring.version>
+    <spring.security.version>5.1.11.RELEASE</spring.security.version>
     <!-- build maven-compiler-plugin -->
     <fork.javac>false</fork.javac>
     <javac.maxHeapSize>256M</javac.maxHeapSize>
     <!-- build jetty -->
     <jetty.version>9.4.18.v20190429</jetty.version>
-    <jetty.servlet-api.version>3.0.1</jetty.servlet-api.version>
+    <jetty.servlet-api.version>3.1.0</jetty.servlet-api.version>
   </properties>
 
   <!--
