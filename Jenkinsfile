@@ -15,7 +15,7 @@ pipeline {
                 ]) {
                     withMaven(
                         mavenSettingsConfig: 'nexusProxies') {
-                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests -P${params.flavour}"
+                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests -Pstandard"
                     }
                 }
 
@@ -30,7 +30,7 @@ pipeline {
                 ]) {
                     withMaven(
                         mavenSettingsConfig: 'nexusProxies') {
-                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -P${params.flavour}"
+                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Pstandard"
                     }
                 }
 
@@ -66,7 +66,6 @@ pipeline {
               }
             }
         }
-    }
     */
         stage ('Deploy to Development repo') {
             environment {
@@ -92,9 +91,23 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
                         }
                     }
+                    script {
+                        def files = findFiles excludes: '', glob: 'data/target/*.zip'
+                        def prefix = 'data/target/'
+                        
+                        println "Staging ${files.size()} files for publishing"
+                        
+                        files.each { File file ->
+                            println "pushing ${file}"
+                            def sufix = file.getPath().substring(prefix.length())
+                            
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
+                        }
+                    }
                 }
             }
         }
+        
         stage("Deploy to RELEASE repo") {
             when { buildingTag() }
             environment {
@@ -120,7 +133,21 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
+                    script {
+                        def files = findFiles excludes: '', glob: 'data/target/*.zip'
+                        def prefix = 'data/target/'
+                        
+                        println "Staging ${files.size()} files for publishing"
+                        
+                        files.each { File file ->
+                            println "pushing ${file}"
+                            def sufix = file.getPath().substring(prefix.length())
+                            
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
+                        }
+                    }
                 }
             }
         }
+    }
 }
