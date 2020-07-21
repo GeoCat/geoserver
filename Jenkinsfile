@@ -5,7 +5,6 @@ pipeline {
         dockerfile {
             filename 'Dockerfile.build'
             dir 'builtools'
-            label 'geoserver-build-tools'
         }
     }
 
