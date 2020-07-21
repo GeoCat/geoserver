@@ -4,7 +4,7 @@ pipeline {
     agent {
         dockerfile {
             filename 'Dockerfile.build'
-            dir 'builtools'
+            dir 'buildtools'
         }
     }
 
