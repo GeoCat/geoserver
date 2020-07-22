@@ -19,6 +19,8 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   text-align:left !important; /* override blueprint's ie.css */
+  padding-top: 25px;
+  margin: 0;
 }
 body.help form, body.help ul li {
   padding: 0;
@@ -152,9 +154,14 @@ fieldset.leftwise, fieldset.rightwise {
   padding: 5px;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  padding: 5px 10px;
+  top: 0;
+  z-index: 1000;
 }
 #header .wrap {
-  width: 100%;
+  width: calc(100% - 20px);
 }
 #header input {
   padding: 6px 12px;
@@ -211,15 +218,20 @@ fieldset.leftwise, fieldset.rightwise {
 #header h2 a {
   float: left;
   height: 34px;
-  width: 200px;
+  width: 400px;
   background: url(../enterprise/gc-geoserver-logo.svg) no-repeat;
   overflow: hidden;
   text-indent: -9999em;
   margin: 3px 0 0 15px;
   background-size: 200px 34px;
+  text-indent: inherit;
 }
 #header h2 a span {
-  display: none;
+  text-indent: inherit;
+  margin-left: 155px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
 }
 #header .button-group {
   padding: 0.2em 0 0.2em;
