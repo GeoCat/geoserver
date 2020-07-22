@@ -25,20 +25,14 @@ pipeline {
             }
         }
         
-        /*
         stage('Deploy') {
             steps {
-            withCredentials([
-                        string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
-                        variable: 'NEXUS_BASIC_AUTH')]) {
-                    withMaven(
-                        mavenSettingsConfig: 'nexusProxies') {
-                        sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml deploy"
-                    }
+                withMaven(
+                    mavenSettingsConfig: 'geocat.nexus.geoserver_enterprise') {
+                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml deploy"
                 }
             }
         }
-        */
 
         stage('WAR Bundles') {
             steps {
