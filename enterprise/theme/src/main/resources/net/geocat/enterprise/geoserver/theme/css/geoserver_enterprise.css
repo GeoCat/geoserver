@@ -218,7 +218,7 @@ fieldset.leftwise, fieldset.rightwise {
 #header h2 a {
   float: left;
   height: 34px;
-  width: 400px;
+  width: 147px;
   background: url(../enterprise/gc-geoserver-logo.svg) no-repeat;
   overflow: hidden;
   text-indent: -9999em;
@@ -228,10 +228,11 @@ fieldset.leftwise, fieldset.rightwise {
 }
 #header h2 a span {
   text-indent: inherit;
-  margin-left: 155px;
-  font-size: 12px;
+  float: right;
+  font-size: 11px;
   font-weight: bold;
   color: #333;
+  margin-top: 21px;
 }
 #header .button-group {
   padding: 0.2em 0 0.2em;
