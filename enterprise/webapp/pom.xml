@@ -298,14 +298,15 @@
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-mbstyle</artifactId>
         </dependency>
-        <dependency>
+        <!-- oracle support pending online tests -->
+        <!--dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-oracle</artifactId>
         </dependency>
         <dependency>
           <groupId>com.oracle.ojdbc</groupId>
           <artifactId>ojdbc8</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
           <groupId>org.geoserver.extension</groupId>
           <artifactId>gs-wps-core</artifactId>

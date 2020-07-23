@@ -23,5 +23,10 @@
       <!-- identifies css file to include -->
       <property name="CSSFilename" value="css/geoserver_enterprise.css"/>
   </bean>
+  
+  <bean class="org.geoserver.platform.ModuleStatusImpl">
+    <constructor-arg index="0" value="gs-enterprise-theme"/>
+    <constructor-arg index="1" value="GeoServer Enterprise (GeoCat) 2020.5"/>
+  </bean>
  
 </beans>
