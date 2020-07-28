@@ -18,7 +18,7 @@
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp</artifactId>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <name>GeoServer Enterprise Application</name>
   <description>
      GeoServer Web Application for GeoCat distribution. 
