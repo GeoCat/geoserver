@@ -61,7 +61,7 @@ pipeline {
                 withCredentials([
                         string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
                         variable: 'NEXUS_BASIC_AUTH')]) {
-
+                    /*
                     script {
                         def files = findFiles excludes: '', glob: 'enterprise/webapp/target/*.war'
                         def prefix = 'enterprise/webapp/target/'
@@ -89,7 +89,7 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
-
+                    */
                     script {
                         def files = findFiles excludes: '', glob: 'enterprise/release/target/release/*.zip'
                         def prefix = 'enterprise/release/target/release/'
@@ -119,7 +119,7 @@ pipeline {
                 withCredentials([
                         string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
                         variable: 'NEXUS_BASIC_AUTH')]) {
-
+                    /*
                     script {
                         def files = findFiles excludes: '', glob: 'enterprise/webapp/target/*.war'
                         def prefix = 'enterprise/webapp/target/'
@@ -147,7 +147,7 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
-
+                    */
                     script {
                         def files = findFiles excludes: '', glob: 'enterprise/release/target/release/*.zip'
                         def prefix = 'enterprise/release/target/release/'
