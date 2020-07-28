@@ -72,7 +72,7 @@ pipeline {
                             println "pushing ${file}"
                             def sufix = file.getPath().substring(prefix.length())
                             
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
                     
@@ -86,7 +86,7 @@ pipeline {
                             println "pushing ${file}"
                             def sufix = file.getPath().substring(prefix.length())
                             
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
                     
@@ -130,7 +130,7 @@ pipeline {
                             println "pushing ${file}"
                             def sufix = file.getPath().substring(prefix.length())
                             
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geosever/${sufix}"
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
                     

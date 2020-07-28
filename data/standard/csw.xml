@@ -2,7 +2,7 @@
   <id>csw</id>
   <enabled>true</enabled>
   <name>GeoServer Enterprise CSW</name>
-  <title>GeoSever Enterprise Catalogue Service</title>
+  <title>GeoServer Enterprise Catalogue Service</title>
   <maintainer>https://www.geocat.net/</maintainer>
   <abstrct>Catalogue Services (CSW) describing server contents as records.</abstrct>
   <accessConstraints>NONE</accessConstraints>
