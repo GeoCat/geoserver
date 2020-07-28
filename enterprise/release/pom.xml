@@ -27,7 +27,7 @@
   <properties>
     <data.default.dir>${project.build.directory}/../data/default</data.default.dir>
     <data.standard.dir>${project.build.directory}/../data/standard</data.standard.dir>
-    <release.dir>${project.build.directory}/release/</release.dir>
+    <release.dir>${project.build.directory}/</release.dir>
   </properties>
  
   <build>

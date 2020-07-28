@@ -44,40 +44,11 @@ pipeline {
                 withCredentials([
                         string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
                         variable: 'NEXUS_BASIC_AUTH')]) {
-                    /*
                     script {
-                        def files = findFiles excludes: '', glob: 'enterprise/webapp/target/*.war'
-                        def prefix = 'enterprise/webapp/target/'
-                        
-                        println "Staging ${files.size()} files for publishing"
-                        
-                        files.each { File file ->
-                            println "pushing ${file}"
-                            def sufix = file.getPath().substring(prefix.length())
-                            
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
-                        }
-                    }
-                    
-                    script {
-                        def files = findFiles excludes: '', glob: 'data/target/*.zip'
-                        def prefix = 'data/target/'
-                        
-                        println "Staging ${files.size()} files for publishing"
-                        
-                        files.each { File file ->
-                            println "pushing ${file}"
-                            def sufix = file.getPath().substring(prefix.length())
-                            
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
-                        }
-                    }
-                    */
-                    script {
-                        def prefix = 'enterprise/webapp-standard/target/release/'
+                        def prefix = 'enterprise/webapp-standard/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
-                        println "Staging ${files.size()} distribution bundles for publishing"
+                        println "Staging standard ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
@@ -85,10 +56,10 @@ pipeline {
                         }
                     }
                     script {
-                        def prefix = 'enterprise/webapp-live/target/release/'
+                        def prefix = 'enterprise/webapp-live/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
-                        println "Staging ${files.size()} distribution bundles for publishing"
+                        println "Staging live ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
@@ -96,10 +67,10 @@ pipeline {
                         }
                     }
                     script {
-                        def prefix = 'enterprise/webapp-rws/target/release/'
+                        def prefix = 'enterprise/webapp-rws/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
-                        println "Staging ${files.size()} distribution bundles for publishing"
+                        println "Staging rws ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
@@ -107,17 +78,16 @@ pipeline {
                         }
                     }
                     script {
-                        def prefix = 'enterprise/release/target/release/'
+                        def prefix = 'enterprise/release/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
 
-                        println "Staging ${files.size()} distribution bundles for publishing"
+                        println "Staging data ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
                         }
                     }
-                    
                 }
             }
         }
@@ -133,46 +103,48 @@ pipeline {
                 withCredentials([
                         string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
                         variable: 'NEXUS_BASIC_AUTH')]) {
-                    /*
                     script {
-                        def files = findFiles excludes: '', glob: 'enterprise/webapp/target/*.war'
-                        def prefix = 'enterprise/webapp/target/'
-                                                
-                        println "Staging ${files.size()} files for publishing"
+                        def prefix = 'enterprise/webapp-standard/target/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
-                        files.each { File file ->
-                            println "pushing ${file}"
-                            def sufix = file.getPath().substring(prefix.length())
-                            
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
-                        }
-                    }
-                    
-                    script {
-                        def files = findFiles excludes: '', glob: 'data/target/*.zip'
-                        def prefix = 'data/target/'
-                        
-                        println "Staging ${files.size()} files for publishing"
-                        
-                        files.each { File file ->
-                            println "pushing ${file}"
-                            def sufix = file.getPath().substring(prefix.length())
-                            
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
-                        }
-                    }
-                    */
-                    script {
-                        def files = findFiles excludes: '', glob: 'enterprise/release/target/release/*.zip'
-                        def prefix = 'enterprise/release/target/release/'
-
-                        println "Staging ${files.size()} bundles for publishing"
-
+                        println "Staging standard ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
-                            def sufix = file.getPath().substring(prefix.length())
-                            
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/webapp-live/target/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging live ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/webapp-rws/target/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging rws ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/release/target/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+
+                        println "Staging data ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
                         }
                     }
                     
