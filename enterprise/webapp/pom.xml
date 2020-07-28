@@ -27,7 +27,6 @@
   </description>
   
   <properties>
-    <war.varient></war.varient>
     <jetty.version>9.4.12.v20180830</jetty.version>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
@@ -96,7 +95,7 @@
       jetty:run-exploded
       
     -->
-    <finalName>geoserver-enterprise${war.varient}</finalName>
+    <finalName>geoserver</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -143,13 +142,15 @@
             <phase>process-resources</phase>
             <configuration>
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
-                 <available file="${config}/global.xml" property="configIsAvailable" />
+                 <available file="${data.directory}/global.xml" property="dataDirAvaialble" />
                  
                  <!--echo message="Data directory not provided." unless:set="configIsAvailable"/-->
-                 <echo message="Data directory: ${config}" if:set="configIsAvailable"/>
+                 <echo message="Data directory: ${data.directory}"
+                       if:set="dataDirAvaialble"/>
                  
-                 <copy todir="${project.build.directory}/resources/data" failonerror="true" if:set="configIsAvailable">
-                    <fileset dir="${config}" includes="**/**" />
+                 <copy todir="${project.build.directory}/resources/data" failonerror="true" 
+                       if:set="dataDirAvaialble">
+                    <fileset dir="${data.directory}" includes="**/**" />
                  </copy>
               </target>
             </configuration>
@@ -198,7 +199,7 @@
         </configuration>
         <executions>
           <execution>
-            <id>generate-geoserver-war</id>
+            <id>geoserver-war</id>
             <phase>package</phase>
             <goals><goal>war</goal></goals>
           </execution>
@@ -246,133 +247,13 @@
   </build>
 
   <profiles>
-    <profile>
-      <!-- GeoServer release data directory -->
-      <!-- Example of how to use a custom dat a directory -->
-      <id>release</id>
-      <properties>
-        <war.varient>-release</war.varient>
-        <config>${basedir}/../../geoserver/data/release</config>
-      </properties>
-    </profile>
-    
-    <profile>
-      <!-- GeoCat Live -->
-      <id>live</id>
-      <properties>
-        <!-- recommend default data directory -->
-        <!-- see: https://eos.geocat.net/gitlab/live/live_compose_data/tree/master/geoserver_data_dir --> 
-        <war.varient>-live</war.varient>
-      </properties>
-      <!-- charts, mbstyle, vectortiles, wps -->
-      <dependencies>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-mbstyle</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-vectortiles</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-wps-core</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-web-wps</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-    
-    <profile>
-      <!-- GeoServer Enterprise Standard -->
-      <id>standard</id>
-      <properties>
-        <!-- recommend default data directory -->
-        <war.varient>-standard</war.varient>
-      </properties>
-      <!-- charts, mbstyle, oracle, wps, vectortiles -->
-      <dependencies>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-mbstyle</artifactId>
-        </dependency>
-        <!-- oracle support pending online tests -->
-        <!--dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-oracle</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>com.oracle.ojdbc</groupId>
-          <artifactId>ojdbc8</artifactId>
-        </dependency-->
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-wps-core</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-web-wps</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-vectortiles</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-    
-    <profile>
-      <!-- GeoServer Enterprise Premium RWS -->
-      <id>rws</id>
-      <properties>
-        <config>${basedir}/../../data/default</config>
-        <war.varient>-rws</war.varient>
-      </properties>
-      <!-- charts,gdal,inspire,oracle,pyramid -->
-      <dependencies>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-gdal</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-inspire</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-oracle</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>com.oracle.ojdbc</groupId>
-          <artifactId>ojdbc8</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geotools</groupId>
-          <artifactId>gt-imagepyramid</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
     
     <profile>
       <!-- GeoServer Enterprise Training -->
       <id>training</id>
       <properties>
         <!-- includes a data directory for ease of instruction -->
-        <config>${basedir}/../../data/standard</config>
-        <war.varient>-training</war.varient>
+        <data.directory>${basedir}/../../data/standard</data.directory>
       </properties>
       <!-- charts,geopkg,mbstyle,vectortiles,wps,ysld -->
       <dependencies>

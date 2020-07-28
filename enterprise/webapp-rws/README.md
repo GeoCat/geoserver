@@ -1,6 +1,6 @@
-# GeoServer Enterprise Live
+# GeoServer Enterprise Premium RWS
 
-GeoCat Live offers a solid Spatial Data Infrastructure (SDI) to store, describe, discover and publish your data. 
+GeoServer Enterprise Premium prepackaged WAR for RWS.
 
 ## WebApp Directory Structure
 
@@ -15,7 +15,7 @@ This web application is defined as an overlay of base `webapp`:
 
 ## Data Directory
 
-The default data directory is staged into `target/data` during `prepare-package` stage for test with with jetty.
+The default data directory is staged into `target/data` during `prepare-package` stage for test with with jetty:
 
 ```bash
 mvn jetty:run

@@ -7,18 +7,17 @@
   <files>
     <!-- war -->
     <file>
-      <source>../webapp/target/geoserver-enterprise.war</source>
+      <source>target/geoserver.war</source>
       <outputDirectory></outputDirectory>
-      <destName>geoserver.war</destName>
     </file>
     <!-- license -->
     <file>
-      <source>src/license/GPL.md</source>
+      <source>../../GPL.md</source>
       <outputDirectory></outputDirectory>
       <destName>GPL.txt</destName>
     </file>
     <file>
-      <source>src/license/NOTICE.md</source>
+      <source>../../LICENSE.md</source>
       <outputDirectory></outputDirectory>
       <destName>LICENSE.txt</destName>
     </file>

@@ -1,6 +1,6 @@
 # GeoServer Enterprise Web Application
 
-The GeoServer Enterprise web application provides a predefined bundle for GeoCat Live and select customers.
+The GeoServer Enterprise web application providing a baseline used to define bundles for GeoServer Enterprise Standard, GeoCat Live, and GeoServer Enterprise Premium customers.
 
 To quickly run:
 
@@ -26,20 +26,20 @@ To test using jetty:
 mvn jetty:run
 ```
 
-## Bundled Data Directory
+## Data Directory Testing
 
-The profiles such as `-Plive` and `-Pstnadard` bundle a data directory using the following properties:
+The profiles such as `-Pdefault` and `-Pstandards` bundle a data directory using the following property:
 
-* `configId` : data directory (minimal, release, ...)
-* `configDirectory` : location of geoserver data directory
+* `data.directory` : data directory (minimal, release, ...)
 
 These can be used on the command line also:
 
 ```bash
-mvn jetty:run -DconfigDirectory=../../geoserver/data -DconfigId=minimal 
+mvn jetty:run -Ddata.directory=../../geoserver/data/minimal 
 ```
+
 ```bash
-mvn jetty:run -DconfigDirectory=../../data -DconfigId=default 
+mvn jetty:run -Ddata.directory=../../data/default 
 ```
 
 ## External Data Directory
@@ -61,7 +61,7 @@ The above example is used to edit the `standard` configuration.
 
 ## GeoServer Enterprise WAR
 
-The `geoserver-enterprise.war` is constructed in in three steps:
+The `geoserver.war` is constructed in in three steps:
 
 * pre-package: copy data directory from `configDirectory` and `configId`
 * pre-package: copy resources from `gs-web-app` dependency
@@ -75,7 +75,7 @@ mvn war:war
 
 To quickly test the war:
 
-``bash
+```bash
 mvn jetty:run-war
 ```
 
@@ -83,25 +83,12 @@ mvn jetty:run-war
 mvn jetty:run-exploded`
 ```
 
-## Preconfigured
+## Preconfigured Wars
 
-Profiles are used to provide prepackaged bundles defining both the GeoServer extensions and data directory included.
+War overlays are used to define prepackaged bundles defining both the GeoServer extensions and data directory included. Please see examples:
 
-* `standard`: GeoServer Enterprise standard distribution with GeoCat default data directory
-* `live`: GeoCat Live distribution, does not include a data directory
-* `release`: Uses GeoServer `release` release data directory
-* `rws`: Preconfigured for RWS, includes GeoCat default minimal data directory
+* `webapp-standard`: GeoServer Enterprise standard distribution with GeoCat default data directory
+* `webapp-live`: GeoCat Live distribution, does not include a data directory
+* `webapp-rws`: Preconfigured for RWS, includes GeoCat default minimal data directory
 
-
-Example of packaging `geoserver-enterprise-standard.war` for customers:
-
-```bash
-mvn clean install -Pstandard
-mvn war:war -Pstandard
-```
-
-Example of running with GeoServer `release` configuration:
-
-```bash
-mvn jetty:run -Prelease
-```
+These projects use an assembly to package `geoserver.war` with appropriate license information and installation files from our documentation.

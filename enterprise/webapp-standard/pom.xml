@@ -17,13 +17,13 @@
   </parent>
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
-  <artifactId>gs-enterprise-webapp-live</artifactId>
+  <artifactId>gs-enterprise-webapp-standard</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise WebApp Live</name>
+  <name>GeoServer Enterprise Standard</name>
   <description>
-     GeoServer Web Application for GeoCat Live distribution. 
+     GeoServer Enterprise Standard
      
-     Web Application used for enterprise branding, with selected modules to prepackage for GeoCat Live customers.
+     Web Application used for enterprise branding, with selected modules for GeoServer Enterprise Standard.
   </description>
   
   <properties>
@@ -43,8 +43,8 @@
       <scope>runtime</scope>
     </dependency>
     
-    <!-- GeoCat Live additions -->
-    <!-- charts, mbstyle, vectortiles, wps -->
+    <!-- GeoCat standard additions -->
+    <!-- charts, mbstyle, oracle, wps, vectortiles -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-charts</artifactId>
@@ -53,10 +53,15 @@
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-mbstyle</artifactId>
     </dependency>
-    <dependency>
+    <!-- oracle support pending online tests -->
+    <!--dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-vectortiles</artifactId>
+      <artifactId>gs-oracle</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.oracle.ojdbc</groupId>
+      <artifactId>ojdbc8</artifactId>
+    </dependency-->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-wps-core</artifactId>
@@ -65,14 +70,15 @@
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-web-wps</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-vectortiles</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>geoserver</finalName>
-
     <plugins>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -97,17 +103,17 @@
          <artifactId>maven-assembly-plugin</artifactId>
          <executions>
            <execution>
-             <id>gse-live</id>
+             <id>gse-standard</id>
              <phase>package</phase>
              <goals><goal>single</goal></goals>
              <configuration>
                <recompressZippedFiles>false</recompressZippedFiles>
                <descriptors>
-                 <descriptor>src/assembly/gse-live.xml</descriptor>
+                 <descriptor>src/assembly/gse-standard.xml</descriptor>
                </descriptors>
                <appendAssemblyId>false</appendAssemblyId>
                <outputDirectory>${release.dir}</outputDirectory>
-               <finalName>geoserver-enterprise-live-${geocat.enterprise}-${project.version}</finalName>
+               <finalName>geoserver-enterprise-standard-${geocat.enterprise}-${project.version}</finalName>
              </configuration>
            </execution>
          </executions>

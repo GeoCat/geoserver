@@ -34,23 +34,6 @@ pipeline {
             }
         }
 
-        stage('WAR Bundles') {
-            steps {
-                withMaven(
-                    mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Pstandard"
-                }
-                withMaven(
-                    mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Plive"
-                }
-                withMaven(
-                    mavenSettingsConfig: 'nexusProxies') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/webapp/pom.xml war:war -Prws"
-                }
-            }
-        }
-        
         stage ('Downloads (Development)') {
             environment {
                 ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
@@ -91,16 +74,47 @@ pipeline {
                     }
                     */
                     script {
-                        def files = findFiles excludes: '', glob: 'enterprise/release/target/release/*.zip'
-                        def prefix = 'enterprise/release/target/release/'
-
-                        println "Staging ${files.size()} bundles for publishing"
-
+                        def prefix = 'enterprise/webapp-standard/target/release/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
-                            def sufix = file.getPath().substring(prefix.length())
-                            
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/webapp-live/target/release/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/webapp-rws/target/release/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/release/target/release/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+
+                        println "Staging ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
                         }
                     }
                     
