@@ -1,0 +1,52 @@
+<assembly>
+  <id>gse-standard</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>src/license</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+         <include>geoserver-enterprise.war</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+  <files>
+    <!-- war -->
+    <file>
+      <source>../webapp/target/geoserver-enterprise.war</source>
+      <outputDirectory></outputDirectory>
+      <destName>geoserver.war</destName>
+    </file>
+    <!-- license -->
+    <file>
+      <source>src/license/GPL.md</source>
+      <outputDirectory></outputDirectory>
+      <destName>GPL.txt</destName>
+    </file>
+    <file>
+      <source>src/license/NOTICE.md</source>
+      <outputDirectory></outputDirectory>
+      <destName>LICENSE.txt</destName>
+    </file>
+    <!-- install -->
+    <file>
+      <source>../../docs/src/install/files/windows/geoserver.xml</source>
+      <outputDirectory>windows</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/files/setenv.bat</source>
+      <outputDirectory>windows</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/files/linux/geoserver.xml</source>
+      <outputDirectory>linux</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/files/setenv.sh</source>
+      <outputDirectory>linux</outputDirectory>
+    </file>
+  </files>
+</assembly>
