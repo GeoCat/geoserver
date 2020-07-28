@@ -1,0 +1,8 @@
+<Context docBase="geoserver.war">
+  <Parameter name="GEOSERVER_DATA_DIR"
+             value="/var/opt/geoserver/data" override="false"/>
+  <Parameter name="GEOSERVER_REQUIRE_FILE"
+             value="/var/opt/geoserver/data/global.xml" override="false"/>
+  <Parameter name="GEOWEBCACHE_CACHE_DIR"
+             value="/var/opt/geoserver/tilecache" override="false"/>
+</Context>

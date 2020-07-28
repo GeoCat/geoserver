@@ -78,10 +78,9 @@ To install the OpenJDK JRE, follow these steps:
 Apache Tomcat
 -------------
 
-`Apache Tomcat <https://tomcat.apache.org>`_ is the leading open source application server.
+`Apache Tomcat <https://tomcat.apache.org>`__ is the leading open source application server.
 
 GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
-
 
 To install Tomcat, follow these steps:
 
@@ -99,15 +98,17 @@ To install Tomcat, follow these steps:
 
    .. figure:: img/tomcatprogramfolder.png
 
-#. Download this :download:`setup.bat <files/setenv.bat>` file and put it in the :file:`bin` folder under the Tomcat Program Folder
+#. There are two ways to configure startup options:
+   
+   * Download this :download:`setup.bat <files/setenv.bat>` file and put it in the :file:`bin` folder under the Tomcat Program Folder
 
-   .. figure:: img/setenvbat.png
+     .. figure:: img/setenvbat.png
      
-#. Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
+   * Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
 
-   .. figure:: img/tomcatproperties.png
+     .. figure:: img/tomcatproperties.png
         
-#. Add the highlighted lines below to :guilabel:`Java Options`:
+     Add the highlighted lines below to :guilabel:`Java Options`:
      
    .. literalinclude: files/java_options.txt
       :emphasize-lines: 6-9
@@ -125,9 +126,9 @@ GeoServer places all its required configuration files in a so-called data direct
 
 #. Create a folder to hold your GeoServer Enterprise configuration. A recommended location is :file:`C:\\ProgramData\\GeoServer\\Data`
    
-#. Create a suitable folder structure. To do this, you should manually create two empty folders: :file:`data` and :file:`data\\tilecache`. GeoServer will save configuration to these files the first time it runs.
+#. Create a suitable folder structure. To do this, you should manually create two empty folders: :file:`data` and :file:`tilecache`. GeoServer will save configuration to these files the first time it runs.
    
-   You can also use a prepackaged data directory (for instance, from an existing GeoServer instance), just copying it under your data folder. The provided :file:`geoserver-enterprise-data.zip` file contains such a structure, and you can use it have your GeoServer instance already populated with test data and configurations.
+   You can also use a prepackaged data directory (for instance, from an existing GeoServer instance), copying it under your data folder. The provided :file:`geoserver-enterprise-data.zip` file contains such a structure, and you can use it have your GeoServer instance already populated with test data and configurations.
 
 #. Update the Tomcat configuration with this data directory location.
    
@@ -135,25 +136,16 @@ GeoServer places all its required configuration files in a so-called data direct
 
    * Navigate to the :file:`conf\\catalina\\localhost` subfolder.
 
-   * In that folder, create a :file:`geoserver.xml` file, with the following content:
+   * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/windows/geoserver.xml>` file, with the following content:
    
-     .. code-block:: xml
-    
-        <Context docBase="geoserver.war">
-          <Parameter name="GEOSERVER_DATA_DIR"
-                     value="C:\ProgramData\GeoServer\data" override="false"/>
-          <Parameter name="GEOSERVER_REQUIRE_FILE"
-                     value="C:\ProgramData\GeoServer\data\global.xml" override="false"/>
-          <Parameter name="GEOWEBCACHE_CACHE_DIR"
-                     value="C:\ProgramData\GeoServer\tilecache" override="false"/>
-        </Context>
+     .. literalinclude:: files/windows/geoserver.xml
 
 GeoServer Enterprise
 --------------------
 
 To install GeoServer on your existing Tomcat instance, follow these steps:
 
-#. Copy the provide war file to the to :file:`[Tomcat_folder]\\webapps` folder.
+#. Copy the provide :file:`geoserver.war` file to the to :file:`[Tomcat_folder]\\webapps` folder.
 
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 

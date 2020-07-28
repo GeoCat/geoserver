@@ -11,11 +11,13 @@ The following operations are required to setup GeoServer enterprise for use in a
    javastartup
    marlin   
    wpspermissions
+   deprecatedwps
    datadirectory
    controlflow
    diskquota
    logginglevels
    wmslimits
+
 
 GetCat recommends the following best practices:
 

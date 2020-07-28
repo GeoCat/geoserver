@@ -66,7 +66,7 @@ GeoServer is a class-leading application for the publishing of spatial informati
 Release Notes
 -------------
 
-The latest release notes are available on MyGeoCat:
+The latest release notes are available on MyGeoCat Portal:
 
-* GeoServer Enterprise 2.17 Release Notes
+* `GeoServer Enterprise 2.17 Release Notes <https://my.geocat.net/knowledgebase/101/GeoServer-Enterprise-217-Release-Notes.html>`__
 * `GeoServer Enterprise 2.16 Release Notes <https://my.geocat.net/knowledgebase/101/GeoServer-Enterprise-216-Release-Notes.html>`__
