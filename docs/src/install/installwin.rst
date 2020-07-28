@@ -14,60 +14,60 @@ OpenJDK is now the lead project for the Java ecosystem. As an open-source compan
 
 To install the OpenJDK JRE, follow these steps:
 
-* Navigate to the `AdoptOpenJDK download page <https://adoptopenjdk.net/releases.html>`_
+#. Navigate to the `AdoptOpenJDK download page <https://adoptopenjdk.net/releases.html>`_
 
-* Select :guilabel:`OpenJDK 8 (LTS)` as the version to download.
+#. Select :guilabel:`OpenJDK 8 (LTS)` as the version to download.
 
-  .. figure:: img/openjdk8.png
+   .. figure:: img/openjdk8.png
 
-* Select :guilabel:`Windows` as your Operating System.
+#. Select :guilabel:`Windows` as your Operating System.
 
-  .. figure:: img/openjdkwindows.png
+   .. figure:: img/openjdkwindows.png
 
-* Select the corresponding architecture for your system in the :guilabel:`Architecture` field.
+#. Select the corresponding architecture for your system in the :guilabel:`Architecture` field.
 
-  .. figure:: img/openjdkarchitecture.png
+   .. figure:: img/openjdkarchitecture.png
 
-* Click on the available JRE zip file download link for the above selected options, to download the OpenJDK prebuilt binary.
+#. Click on the available JRE zip file download link for the above selected options, to download the OpenJDK prebuilt binary.
 
-  .. figure:: img/openjdkdownloadlink.png
+   .. figure:: img/openjdkdownloadlink.png
 
-* In your system, create a folder called :file:`java` under your :file:`Program files` folder.
+#. In your system, create a folder called :file:`java` under your :file:`Program files` folder.
 
-* Extract the content of the downloaded zip file into that folder. Your folder structure under the :file:`Program Files` folder should now look like this:
+#. Extract the content of the downloaded zip file into that folder. Your folder structure under the :file:`Program Files` folder should now look like this:
 
-  .. figure:: img/jdkfilestructure.png
+   .. figure:: img/jdkfilestructure.png
 
-* Open the :guilabel:`Windows System configuration` by going to :menuselection:`Start Menu --> Control Panel --> System` and then click on the :guilabel:`Advanced system settings` link. Move to the :guilabel:`Advanced` tab.
+#. Open the :guilabel:`Windows System configuration` by going to :menuselection:`Start Menu --> Control Panel --> System` and then click on the :guilabel:`Advanced system settings` link. Move to the :guilabel:`Advanced` tab.
 
-  .. figure:: img/winsystemsettings.png
+   .. figure:: img/winsystemsettings.png
 
-* Click on the :guilabel:`Environment variables` button.
+#. Click on the :guilabel:`Environment variables` button.
 
-  .. figure:: img/winenvvariables.png
+   .. figure:: img/winenvvariables.png
 
-* In the :guilabel:`System variables` section, click on :guilabel:`New` to create a new variable. Enter the following values to configure the new variable:
+#. In the :guilabel:`System variables` section, click on :guilabel:`New` to create a new variable. Enter the following values to configure the new variable:
 
-  .. figure:: img/winjavahome.png
+   .. figure:: img/winjavahome.png
 
-* Edit the `Path` variable by selecting it and clicking on :guilabel:`Edit`. 
+#. Edit the `Path` variable by selecting it and clicking on :guilabel:`Edit`. 
 
-  .. figure:: img/winpathvariable.png
+   .. figure:: img/winpathvariable.png
 
-* Click on :guilabel:`New` to add a new line to the variable and enter `%JAVA_HOME%\bin` to add the Java JRE folder to your system PATH.
+#. Click on :guilabel:`New` to add a new line to the variable and enter `%JAVA_HOME%\bin` to add the Java JRE folder to your system PATH.
 
-  .. figure:: img/winpathvariable2.png
+   .. figure:: img/winpathvariable2.png
 
-* Close the :guilabel:`Environment variables` and :guilabel:`Windows System configuration` dialog.
+#. Close the :guilabel:`Environment variables` and :guilabel:`Windows System configuration` dialog.
 
-* To ensure that Java is now correctly installed, open a console and type `java -version`. The output should look something like this:
+#. To ensure that Java is now correctly installed, open a console and type `java -version`. The output should look something like this:
 
-  .. code-block:: console
+   .. code-block:: console
 
-    > java -version
-    openjdk version "1.8.0_242"
-    OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_242-b08)
-    OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.242-b08, mixed mode)
+     > java -version
+     openjdk version "1.8.0_242"
+     OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_242-b08)
+     OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.242-b08, mixed mode)
 
 .. tip: Oracle customers are welcome to continue using `Oracle JDK <https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`__ (keeping in mind that license terms have changed and this is no longer available free of chrage).
 
