@@ -660,6 +660,7 @@
  <modules>
   <module>theme</module>
   <module>webapp</module>
+  <module>release</module>
  </modules>
 
 </project>

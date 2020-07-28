@@ -4,15 +4,6 @@
     <format>zip</format>
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
-  <fileSets>
-    <fileSet>
-      <directory>src/license</directory>
-      <outputDirectory></outputDirectory>
-      <includes>
-         <include>geoserver-enterprise.war</include>
-      </includes>
-    </fileSet>
-  </fileSets>
   <files>
     <!-- war -->
     <file>

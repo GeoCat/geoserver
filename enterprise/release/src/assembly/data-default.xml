@@ -1,0 +1,27 @@
+<assembly>
+  <id>data-default</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <files>
+    <file>
+      <source>../../data/target/geoserver_data_dir_default.zip</source>
+      <outputDirectory></outputDirectory>
+      <destName>data.zip</destName>
+    </file>
+    <!-- install -->
+    <file>
+      <source>../../docs/src/install/files/windows/geoserver.xml</source>
+      <outputDirectory>windows</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/files/linux/geoserver.xml</source>
+      <outputDirectory>linux</outputDirectory>
+    </file>
+    <file>
+      <source>../../data/default/README.md</source>
+      <destName>README.txt</destName>
+    </file>
+  </files>
+</assembly>
