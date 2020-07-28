@@ -89,6 +89,20 @@ pipeline {
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
                         }
                     }
+
+                    script {
+                        def files = findFiles excludes: '', glob: 'enterprise/release/target/release/*.zip'
+                        def prefix = 'enterprise/release/target/release/'
+
+                        println "Staging ${files.size()} bundles for publishing"
+
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def sufix = file.getPath().substring(prefix.length())
+                            
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
+                        }
+                    }
                     
                 }
             }
@@ -128,6 +142,20 @@ pipeline {
                         
                         files.each { File file ->
                             println "pushing ${file}"
+                            def sufix = file.getPath().substring(prefix.length())
+                            
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
+                        }
+                    }
+
+                    script {
+                        def files = findFiles excludes: '', glob: 'enterprise/release/target/release/*.zip'
+                        def prefix = 'enterprise/release/target/release/'
+
+                        println "Staging ${files.size()} bundles for publishing"
+
+                        files.each { File file ->
+                            println "Pushing ${file}"
                             def sufix = file.getPath().substring(prefix.length())
                             
                             sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${sufix}"
