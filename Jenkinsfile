@@ -115,17 +115,6 @@ pipeline {
                         }
                     }
                     script {
-                        def prefix = 'enterprise/webapp-live/target/'
-                        def files = findFiles excludes: '', glob: prefix + '*.zip'
-                        
-                        println "Staging live ${files.size()} distribution bundles for publishing"
-                        files.each { File file ->
-                            println "Pushing ${file}"
-                            def archive = file.getPath().substring(prefix.length())
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
-                        }
-                    }
-                    script {
                         def prefix = 'enterprise/webapp-rws/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
