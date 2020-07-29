@@ -192,6 +192,7 @@ fieldset.leftwise, fieldset.rightwise {
 }
 .page-pane-fullscreen {
   height: auto;
+  padding-bottom: 50px;
 }
 .tab-panel .selfclear.clearBoth {
   padding-top: 0 !important;
