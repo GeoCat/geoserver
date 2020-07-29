@@ -44,3 +44,7 @@ To create a new release version of the documentation, follow these steps:
 
 	html_context = {'theme_is_prerelease': True}
 
+### Automatic build and deployment
+
+There is a [Jenkins job](https://eos.geocat.net/jenkins/job/build-geoserver-enterprise-docs-pipeline) that watches for the `docs` folder changes and build and publish the branch that has the latest change.
+
