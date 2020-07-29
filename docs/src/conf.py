@@ -137,7 +137,7 @@ html_theme_options = {
     'is_prerelease': False
 }
 
-html_context = {'theme_is_prerelease': True}
+html_context = {'theme_is_prerelease': False}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
