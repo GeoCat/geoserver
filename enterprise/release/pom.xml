@@ -19,7 +19,7 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-release</artifactId>
   <packaging>jar</packaging>
-  <name>GeoServer Enterprise 2020.5 Release</name>
+  <name>GeoServer Enterprise 2020.11 Release</name>
   <description>
    Release packaging, using a combination of dependencies to ensure version compatibility
    and assemblies to provide control over distribution bundles generated for customers.
