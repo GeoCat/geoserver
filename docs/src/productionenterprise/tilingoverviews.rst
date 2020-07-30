@@ -13,7 +13,7 @@ A new Tiff file with internal tiles can be created using the GDAL command tool `
 
 	gdal_translate -of GTiff -co "TILED=YES" myTiff.tiff myTiledTiff.tiff
 
-If you do not have GDAL installed in your syste, or you prefer to use a UI instead of a console, you can created a tiled Tiff using QGIS.
+If you do not have GDAL installed in your system, or you prefer to use a UI instead of a console, you can created a tiled Tiff using QGIS.
 
 1. Open your layer in QGIS.
 
