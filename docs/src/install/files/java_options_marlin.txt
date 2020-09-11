@@ -5,4 +5,6 @@
 -Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\logging.properties
 -XX:SoftRefLRUPolicyMSPerMB=36000
 -XX:-UsePerfData
+-Xbootclasspath/a:lib/marlin-0.9.4.3-Unsafe.jar
 -Dorg.geotools.referencing.forceXY=true
+-Dsun.java2d.renderer=org.marlin.pisces.MarlinRenderingEngine

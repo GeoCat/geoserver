@@ -114,6 +114,9 @@ To install Tomcat, follow these steps:
 #. To configure startup options:
   
    * Download this :download:`setup.env <files/setenv.sh>` file and put it in the :file:`bin` folder under the Tomcat Program Folder
+   
+   .. literalinclude:: files/setenv.sh
+      :language: bash
 
 #. Start Tomcat:
 
