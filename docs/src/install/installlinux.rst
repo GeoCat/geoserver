@@ -5,75 +5,183 @@ Installation on Linux
 
 To install GeoServer Enterprise in Linux, follow these steps.
 
-Java Runtime Environment
-------------------------
+Java
+----
 
-GeoServer Enterprise requires a Java 8 runtime Environment.
+GeoServer Enterprise requires a Java 8 environment.
 
 OpenJDK is now the lead project for the Java ecosystem. As an open-source company GeoCat is pleased to see OpenJDK supported by a number of different distributions.
 
-We recommend using OpenJDK 8 provided by your operating system:
+1. We recommend using OpenJDK 8 provided by your operating system:
 
-* Ubuntu
+   * Ubuntu
 
-  .. code-block:: console
+     .. code-block:: console
 
-     $ sudo apt-get install openjdk-8-jdk
+        sudo apt-get install openjdk-8-jdk
 
-* RedHat:
+   * RedHat:
 
-  .. code-block:: console
+     .. code-block:: console
 
-    $ sudo yum install java-1.8.0-openjdk-devel
+        sudo yum install java-1.8.0-openjdk-devel
+        
+   * To manually install Java, see :ref:`Manual Linux Java Install`
 
-Verify that java is available:
+2. Verify that java is available:
 
-.. code-block:: console
+   .. code-block:: console
 
-  $ java -version
-
-  openjdk version "1.8.0_262"
-  OpenJDK Runtime Environment (build 1.8.0_262-b10)
-  OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
-
-.. note:: To manually install Java, see :ref:`Manual Linux Java Install`
+      java -version
+   
+   :: 
+   
+      openjdk version "1.8.0_262"
+      OpenJDK Runtime Environment (build 1.8.0_262-b10)
+      OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
 
 Apache Tomcat
 -------------
 
 `Apache Tomcat <https://tomcat.apache.org>`_ is the leading open source application server.
 
-GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
+GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x. 
 
-See :ref:`Manual Linux Tomcat Install` for install instructions.
+1. Installation options:
 
+   .. toctree::
+
+      install_tomcat_ubuntu
+      installTomcatLinux
+
+2. Verify that tomcat is available as a service:
+   
+   * Ubuntu
+
+     .. code-block:: console
+        
+        sudo service tomcat9 status
+   
+   * CentOS
+   
+     .. code-block:: console
+        
+        sudo service tomcat9 status
+   
+        $ systemctl status tomcat
+
+2. The application server, and tomcat manager, application are available on port 8080:
+   
+   * http://localhost:8080/
+   * http://localhost:8080/manager
+   
 Data Directory
 --------------
 
 GeoServer places all its required configuration files in a so-called data directory. It's recommended to change its default location and set up a new one explicitely. To do so, follow these steps:
 
-#. Create a folder to hold your GeoServer Enterprise configuration.
+#. Create a folder to hold your GeoServer Enterprise configuration:
+   
+   .. code-block:: bash
+   
+      mkdir /var/opt/geoserver/
 
-   ```
-   mkdir /var/opt/geoserver/
-   ```
+#. We have three options for creating an initial GeoServer data directory:
+   
+   * Use the default data directory with recommended service configuration settings.
+     
+     Login to `nexus.geocat.net <https://nexus.geocat.net/>`__ and browse to the enterprise folder:
+     
+     * https://nexus.geocat.net/#browse/browse:enterprise
+     
+     Navigate to the latest `geoserver` release and select the :file:`geoserver-data-default` zip archive.
+     
+     .. figure:: img/data_directory_default_download.png
+        
+        Locate latest geoserver-data-default zip archive
+     
+     Copy the download URL from the asset summary :guilabel:`Path` link.
+     
+     .. figure:: img/data_directory_default_path.png
+        
+        Latest geoserver-data-default zip URL
+        
+     Use :command:`wget` to download the URL:
+     
+     .. code-block:: 
+        
+        cd ~/Downloads
+        wget --http-user='USERNAME' --http-password='PASSWORD' https://nexus.geocat.net/repository/enterprise/2020.5/geoserver/geoserver-data-default-2020.5-2.17.2.zip
+        
+     :: 
+        
+        geoserver-data-default-2020.5-2.17. 100%[================================================================>]  10.41K  --.-KB/s    in 0.002s  
 
-#. Create a suitable folder structure. To do this, you should manually create two empty folders: :file:`data` and :file:`tilecache`. GeoServer will save configuration to these files the first time it runs.
+        2020-09-11 09:11:00 (5.03 MB/s) - ‘geoserver-data-default-2020.5-2.17.2.zip.1’ saved [10663/10663]
+    
+     Unzip this archive:
+    
+     .. code-block:: 
+    
+        cd ~/Downloads
+        unzip geoserver-data-default*.zip
+    
+     ::
 
-   ```
-   cd /var/opt/geoserver/
-   mkdir data
-   mkdir tilecache
-   ```
+        extracting: data.zip                
+         inflating: windows/geoserver.xml   
+         inflating: linux/geoserver.xml     
+         inflating: README.txt 
+        
+     Unzip the :file:`data.zip`:
+     
+     .. code-block:: 
+    
+        unzip data.zip -d /var/opt/geoserver/data
+   
+   * Use the standard data directory with recommended service configuration settings, and a selection of example layers.
 
-   You can also use a prepackaged data directory (for instance, from an existing GeoServer instance), just copying it under your data folder. The provided :file:`geoserver-enterprise-data.zip` file contains such a structure, and you can use it have your GeoServer instance already populated with test data and configurations.
+     .. code-block:: bash
+     
+        unzip :file:`geoserver-enterprise-data.zip`
+     
+     ::
+
+        extracting: data.zip                
+         inflating: windows/geoserver.xml   
+         inflating: linux/geoserver.xml     
+         inflating: README.txt
+         
+     Unzip the :file:`data.zip`:
+     
+     .. code-block:: 
+    
+        unzip data.zip -d /var/opt/geoserver/data
+
+   * Use an empty folder, GeoServer will generate configuration files to this folder the first time it runs:
+
+     .. code-block:: bash
+  
+        cd /var/opt/geoserver/
+        mkdir data
+     
+     This approach is often used in automated workflow where GeoServer is configured via REST API scripts.
+
+#. Create an empty :file:`tilecache` folder.
+
+   .. code-block:: bash
+   
+      cd /var/opt/geoserver/
+      mkdir tilecache
+      
+   The :command:`GeoWebCache` tile server will use this empty folder to manage generated tiles.
 
 #. Ensure the tomcat user has permission to access the above directories.
 
-   ```
-   chown tomcat:tomcat /var/opt/geoserver
-   chmod +r+w -R /var/opt/geoserver
-   ```
+   .. code-block:: bash
+   
+      chown tomcat:tomcat /var/opt/geoserver
+      chmod +r+w -R /var/opt/geoserver
 
 #. Update the Tomcat configuration with this data directory location.
 
@@ -97,3 +205,47 @@ To install GeoServer on your existing Tomcat instance, follow these steps:
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 
 	.. figure:: img/gserunning.png
+
+Web Server
+----------
+
+GeoCat recommends use of NGINX or Apache HTTP Server to manage HTTP and HTTPS connections. The web server is configured as a reverse proxy forwarding requests to Apache Tomcat.
+
+1. Installation options
+   
+   * NGINX
+   * Apache HTTP Server
+
+2. HTTPS configuration
+   
+   * Certificate Generation
+   * NGINX
+   * Apache HTTP Server
+   
+3. Reverse proxy
+   
+   * NGINX
+   * Apache HTTP Server
+
+
+   .. code-block:: text
+
+      server {
+        listen 80;
+
+        server_name    example.com;
+        access_log /var/log/nginx/tomcat-access.log;
+        error_log /var/log/nginx/tomcat-error.log;
+
+        location / {
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Forwarded-Server $host;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_pass http://127.0.0.1:8080/;
+        }
+      }
+
+2. HTTP and HTTPS can now be used:
+   
+   * http://localhost/
+   * https://localhost/
