@@ -54,6 +54,10 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
       install_tomcat_ubuntu
       installTomcatLinux
 
+.. raw:: html
+
+    <br>
+
 2. Verify that tomcat is available as a service:
    
    * Ubuntu
@@ -65,10 +69,8 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
    * CentOS
    
      .. code-block:: console
-        
-        sudo service tomcat9 status
-   
-        $ systemctl status tomcat
+
+        systemctl status tomcat
 
 2. The application server, and tomcat manager, application are available on port 8080:
    
