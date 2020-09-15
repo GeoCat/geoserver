@@ -216,7 +216,7 @@ GeoServer places all its required configuration files in a so-called data direct
 
    Note the :file:`conf/Catalina/localhost/` folder is created when you first run Tomcat.
 
-#. If your Tomcat is sandboxes (the default on recent Ubuntu), you will need to give read/write permissions to the Geoserver Data Directory and the GWC tile directory.
+#. The default on recent Ubuntu is to provide and operating system :command:`systemd`  sandbox for services, you will need to give the :command:`tomcat9` service read/write permissions to the GeoServer Data Directory and the GeoWebCache tile cache directory.
 
    #. Edit the Tomcat systemd configuration.  This is likely in :file:`/etc/systemd/system/multi-user.target.wants/tomcat9.service`
 
