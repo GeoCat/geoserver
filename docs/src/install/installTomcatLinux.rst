@@ -47,7 +47,7 @@ Manual Linux Tomcat Install
        User=tomcat
        Group=tomcat
 
-       Environment="JAVA_HOME=/usr/lib/jvm/jre"
+       Environment="JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre"
        Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
 
        Environment="CATALINA_BASE=/opt/tomcat/latest"

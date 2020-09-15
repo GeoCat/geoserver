@@ -72,10 +72,9 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
 
         systemctl status tomcat
 
-2. The application server, and tomcat manager, application are available on port 8080:
+2. The application server is available on port 8080:
    
    * http://localhost:8080/
-   * http://localhost:8080/manager
    
 Data Directory
 --------------
@@ -114,7 +113,8 @@ GeoServer places all its required configuration files in a so-called data direct
      
      .. code-block:: 
         
-        cd ~/Downloads
+        mkdir /tmp/geoserver-enterprise
+        cd /tmp/geoserver-enterprise
         wget --http-user='USERNAME' --http-password='PASSWORD' https://nexus.geocat.net/repository/enterprise/2020.5/geoserver/geoserver-data-default-2020.5-2.17.2.zip
         
      :: 
@@ -127,7 +127,7 @@ GeoServer places all its required configuration files in a so-called data direct
     
      .. code-block:: 
     
-        cd ~/Downloads
+        cd /tmp/geoserver-enterprise
         unzip geoserver-data-default*.zip
     
      ::
@@ -160,7 +160,7 @@ GeoServer places all its required configuration files in a so-called data direct
 
      .. code-block:: bash
      
-        unzip :file:`geoserver-enterprise-data.zip`
+        unzip geoserver-enterprise-data.zip
      
      ::
 
@@ -208,7 +208,7 @@ GeoServer places all its required configuration files in a so-called data direct
 
 #. Update the Tomcat configuration with this data directory location.
 
-   * Open the Tomcat folder (:file:`/var/lib/tomcat9/` or :file:`/opt/tomcat/latest`) and navigate to the :file:`conf/Catalina/localhost` subfolder.
+   * Open the Tomcat folder (:file:`/var/lib/tomcat9/`, :file:`/opt/tomcat/latest` or :file:`/etc/tomcat9`) and navigate to the :file:`conf/Catalina/localhost` subfolder.
 
    * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/linux/geoserver.xml>` file, with the following content:
 
