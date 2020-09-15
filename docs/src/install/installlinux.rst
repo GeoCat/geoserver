@@ -54,6 +54,10 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
       install_tomcat_ubuntu
       installTomcatLinux
 
+.. raw:: html
+
+    <br>
+
 2. Verify that tomcat is available as a service:
    
    * Ubuntu
@@ -65,10 +69,8 @@ GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x.
    * CentOS
    
      .. code-block:: console
-        
-        sudo service tomcat9 status
-   
-        $ systemctl status tomcat
+
+        systemctl status tomcat
 
 2. The application server, and tomcat manager, application are available on port 8080:
    
@@ -84,11 +86,13 @@ GeoServer places all its required configuration files in a so-called data direct
    
    .. code-block:: bash
    
-      mkdir /var/opt/geoserver/
+      sudo mkdir /var/opt/geoserver/
 
 #. We have three options for creating an initial GeoServer data directory:
-   
-   * Use the default data directory with recommended service configuration settings.
+
+   .. _Nexus Info:
+
+   * Alternative 1 - Use the default data directory with recommended service configuration settings.
      
      Login to `nexus.geocat.net <https://nexus.geocat.net/>`__ and browse to the enterprise folder:
      
@@ -138,8 +142,21 @@ GeoServer places all its required configuration files in a so-called data direct
      .. code-block:: 
     
         unzip data.zip -d /var/opt/geoserver/data
-   
-   * Use the standard data directory with recommended service configuration settings, and a selection of example layers.
+
+     .. note:: If `wget` or `unzip` are not installed, you can install the packages;
+
+        .. code-block:: console
+
+           # Ubuntu
+           sudo apt-get install wget
+           sudo apt-get install unzip
+
+           # CentOS
+           sudo yum install wget
+           sudo yum install unzip
+
+
+   * Alternative 2 - Use the standard data directory with recommended service configuration settings, and a selection of example layers.
 
      .. code-block:: bash
      
@@ -158,21 +175,27 @@ GeoServer places all its required configuration files in a so-called data direct
     
         unzip data.zip -d /var/opt/geoserver/data
 
-   * Use an empty folder, GeoServer will generate configuration files to this folder the first time it runs:
+   * Alternative 3 - Use an empty folder, GeoServer will generate configuration files to this folder the first time it runs:
 
      .. code-block:: bash
-  
+
         cd /var/opt/geoserver/
         mkdir data
-     
+
      This approach is often used in automated workflow where GeoServer is configured via REST API scripts.
+
+     .. note:: You must also remove this line from your Geoserver Tomcat context file;
+
+        .. code-block:: xml
+
+          <Parameter name="GEOSERVER_REQUIRE_FILE"
+             value="/var/opt/geoserver/data/global.xml" override="false"/>
 
 #. Create an empty :file:`tilecache` folder.
 
    .. code-block:: bash
    
-      cd /var/opt/geoserver/
-      mkdir tilecache
+      sudo mkdir /var/opt/geoserver/tilecache
       
    The :command:`GeoWebCache` tile server will use this empty folder to manage generated tiles.
 
@@ -180,12 +203,12 @@ GeoServer places all its required configuration files in a so-called data direct
 
    .. code-block:: bash
    
-      chown tomcat:tomcat /var/opt/geoserver
-      chmod +r+w -R /var/opt/geoserver
+      sudo chown -R tomcat:tomcat /var/opt/geoserver
+      sudo chmod +r+w -R /var/opt/geoserver
 
 #. Update the Tomcat configuration with this data directory location.
 
-   * Open the Tomcat folder and navigate to the :file:`conf/catalina/localhost` subfolder.
+   * Open the Tomcat folder (:file:`/var/lib/tomcat9/` or :file:`/opt/tomcat/latest`) and navigate to the :file:`conf/Catalina/localhost` subfolder.
 
    * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/linux/geoserver.xml>` file, with the following content:
 
@@ -193,14 +216,38 @@ GeoServer places all its required configuration files in a so-called data direct
 
    Note the :file:`conf/Catalina/localhost/` folder is created when you first run Tomcat.
 
+#. The default on recent Ubuntu is to provide and operating system :command:`systemd`  sandbox for services, you will need to give the :command:`tomcat9` service read/write permissions to the GeoServer Data Directory and the GeoWebCache tile cache directory.
+
+   #. Edit the Tomcat systemd configuration.  This is likely in :file:`/etc/systemd/system/multi-user.target.wants/tomcat9.service`
+
+   #. In the :file:`[Service]` section, add these lines:
+
+      .. code-block:: console
+
+         ReadWritePaths=/var/opt/geoserver/data
+         ReadWritePaths=/var/opt/geoserver/tilecache
+
+   #. If you will be writing anywhere else on the file system, also add those directories here.
+
+   #. Get Systemd to read the changes, and restart Tomcat
+
+      .. code-block:: console
+
+         sudo systemctl daemon-reload
+         sudo service tomcat9 restart
+
+
+
 GeoServer Enterprise
 --------------------
 
 To install GeoServer on your existing Tomcat instance, follow these steps:
 
-#. Copy the provide war file to the to :file:`[Tomcat_folder]/webapps` folder.
+#. Copy the provide war file to the to :file:`[Tomcat_folder]/webapps` folder. The :file:`[Tomcat_folder]` will be either :file:`/var/lib/tomcat9/` or :file:`/opt/tomcat/latest`.
 
    Tomcat will unpack :file:`geoserver.war` into the folder `webapps/geoserver` when you first run Tomcat.
+
+   .. note:: You can get the geoserver.war file from Nexus (See :ref:`Nexus Login, above <Nexus Info>` ).  The :file:`geoserver.war` file is inside the :file:`geoserver-enterprise-standard-2020.5-2.17.2.zip` zip.
 
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 
