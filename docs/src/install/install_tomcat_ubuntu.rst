@@ -18,27 +18,6 @@ To install `tomcat9` package:
    
       sudo apt install tomcat9
 
-#. The `tomcat9` user requires permission and ownership of its configuration directory:
-   
-   .. code-block:: bash
-     
-      sudo chgrp -R tomcat /etc/tomcat9
-      sudo chmod -R g+w /etc/tomcat9 
-     
-#. To install the tomcat manager web application:
-
-   .. code-block:: bash
-   
-      sudo apt install tomcat9-admin
-     
-#. Define `gui-manager` role for use by tomcat manager, edit :file:`/etc/tomcat9/tomcat-users/xml`:
-
-   .. code-block:: xml
-   
-      <role rolename="manager-gui"/>
-      <user username="tomcat" password="s3cret" roles="manager-gui"/>
-
-   .. note:: You will need to restart tomcat after doing this -  :file:`sudo service tomcat9 restart`
 
 #. Tomcat's default port number is 8080.  It can be modified in :file:`/etc/tomcat9/server.xml`.
    
@@ -62,4 +41,3 @@ To install `tomcat9` package:
    .. code-block:: bash
 
       http://<hostname>:8080
-      http://<hostname>:8080/manager   (user `tomcat` and password `s3cret`)
