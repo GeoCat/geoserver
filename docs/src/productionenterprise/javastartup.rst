@@ -1,5 +1,5 @@
 Set Java startup options
---------------------------
+========================
 
 The Apache Tomcat application server is optimized for a high number of operations, each with a low amount of data exchanged. This default configuration is not optimal for GeoServer which works with much larger GeoSpatial data.
 
@@ -7,9 +7,10 @@ Follow these steps to set up your Java configuration in a much more efficient wa
 
 Java options:
 
-.. list-table:
-   :widths: 30, 70
-
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+   
    * - Java Option
      - Description
    * - ``-XX:SoftRefLRUPolicyMSPerMB=36000``
@@ -19,11 +20,12 @@ Java options:
 
 System properties:
 
-.. list-table:
-   :widths: 30, 70
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
 
-   * - Prameters
-
+   * - Parameters
+     - Description 
    * - ``-Dorg.geotools.referencing.forceXY=true``
      - Default to interpreting coordinate reference systems in easting/northing order for greater compatibility with web clients
    * - ``-Dorg.geotoools.render.lite.scale.unitCompensation=true``
