@@ -93,6 +93,7 @@ extlinks = {
     'docguide': ('http://docs.geoserver.org/latest/en/docguide/%s',''),
     'geos': ('https://osgeo-org.atlassian.net/browse/GEOS-%s','GEOS-'),
     'geot': ('https://osgeo-org.atlassian.net/browse/GEOT-%s','GEOT-'),
+    'geotools': ('https://docs.geotools.org/stable/userguide/%s',''),
     'api': ('http://docs.geoserver.org/latest/en/api/#1.0.0/%s',''),
     'download_release': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/geoserver-'+release+'-%s.zip',None),
     'download_extension': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/extensions/geoserver-'+release+'-%s-plugin.zip',None),

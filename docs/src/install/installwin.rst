@@ -90,29 +90,58 @@ To install Tomcat, follow these steps:
    
    .. figure:: img/tomcat_download.png
 
-#. Run the installer file. When prompted for the elements to install, check the :guilabel:`Native` and :guilabel:`Service Startup` options.
+#. Run the installer file.
 
-   .. figure:: img/tomcatinstalloptions.png
+   * :guilabel:`Choose Components` page, select the ``Native`` and ``Service Startup``, and ``Manager`` options.
 
-#. Once installed, Tomcat has to be correctly configured to provide a better performance when running GeoServer Enterprise. The first thing to configure are its Java Virtual Machine runtime parameters. Open the Tomcat Program folder by selecting the :menuselection:`Apache Tomcat --> Tomcat Program Directory` menu entry in the :guilabel:`Windows Start` menu.
-
-   .. figure:: img/tomcatprogramfolder.png
-
-#. There are two ways to configure startup options:
+     .. figure:: img/tomcatinstalloptions.png
+     
+   * :guilabel:`Configuration` page: provide **Tomcat Administrator Login** credentials:
+     
+     .. list-table::
+        :widths: 30 70
+  
+        * - User Name
+          - :kbd:`admin`
+        * - Password:
+          - :kbd:`tomcat` (example)
+        * - Roles
+          - :kbd:`manager-gui`
    
-   * Download this :download:`setup.bat <files/setenv.bat>` file and put it in the :file:`bin` folder under the Tomcat Program Folder
+     .. figure:: img/wintomcatconfiguration.png
 
-     .. figure:: img/setenvbat.png
-     
-   * Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
+#. Once installed, Tomcat has to be correctly configured to provide a better performance when running GeoServer Enterprise. The first thing to configure are its Java Virtual Machine runtime parameters.
+   
+   Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
 
-     .. figure:: img/tomcatproperties.png
-        
-     Add the highlighted lines below to :guilabel:`Java Options`:
-     
-   .. literalinclude: files/java_options.txt
-      :emphasize-lines: 6-9
+   .. figure:: img/tomcatproperties.png
       
+   * Add the highlighted lines below to :guilabel:`Java Options`:
+   
+     .. literalinclude:: files/java_options.txt
+        :emphasize-lines: 6-8
+
+   * Set the memory options to:
+
+     .. list-table::
+        :widths: 30 70
+  
+        * - Initial memory pool:
+          - :kbd:`512` MB
+        * - Maximum memory pool:
+          - :kbd:`1536` MB
+          
+   Restart the service for these changes to take effect.
+
+.. note:: Optional
+   
+   Environment variables can be managed using the optional :download:`bin/setup.bat <files/setenv.bat>` file:
+   
+   * `JAVA_HOME`
+   * `CATALINA_OPTS`: additional Java startup options used when launching Tomcat
+  
+   .. literalinclude:: files/setenv.bat
+       
 .. only:: premium
 
    .. note:: GeoServer Enterprise Premium customers may also make use of their own application server.
@@ -124,12 +153,29 @@ Data Directory
 
 GeoServer places all its required configuration files in a so-called data directory. It's recommended to change its default location and set up a new one explicitely. To do so, follow these steps:
 
-#. Create a folder to hold your GeoServer Enterprise configuration. A recommended location is :file:`C:\\ProgramData\\GeoServer\\Data`
-   
-#. Create a suitable folder structure. To do this, you should manually create two empty folders: :file:`data` and :file:`tilecache`. GeoServer will save configuration to these files the first time it runs.
-   
-   You can also use a prepackaged data directory (for instance, from an existing GeoServer instance), copying it under your data folder. The provided :file:`geoserver-enterprise-data.zip` file contains such a structure, and you can use it have your GeoServer instance already populated with test data and configurations.
+#. Create a folder to hold your GeoServer Enterprise configuration:
 
+   * :file:`C:\\ProgramData\\GeoServer\\`
+
+#. Login to `nexus.geocat.net <https://nexus.geocat.net/>`__ and browse to the enterprise folder:
+     
+   * https://nexus.geocat.net/#browse/browse:enterprise
+   
+   Navigate to the latest `geoserver` release, we have a choice of two ready to use data directories to download:
+
+   * :file:`geoserver-data-standard` - services setup, includes sample layers
+   * :file:`geoserver-data-default` - services setup only
+     
+   .. figure:: img/nexus-download.png
+        
+      Locate latest geoserver data zip archives
+    
+#. Unzip, and copy the :file:`data` folder to :file:`C:\\ProgramData\\GeoServer\\data`.
+
+#. Create the :file:`tilecache` folder.
+   
+   * :file:`C:\\ProgramData\\GeoServer\\tilecache`
+   
 #. Update the Tomcat configuration with this data directory location.
    
    * Open the Tomcat folder, by selecting the :menuselection:`Apache Tomcat --> Tomcat Program Directory` menu entry in the Windows Start menu.
@@ -140,13 +186,50 @@ GeoServer places all its required configuration files in a so-called data direct
    
      .. literalinclude:: files/windows/geoserver.xml
 
+.. note:: Starting with an empty data directory
+
+   GeoServer can also be configured to start with an empty folder, GeoServer will generate configuration files to this folder the first time it runs:
+
+   * Create an empty folder :file:`C:\\ProgramData\\GeoServer\\data`
+   
+   * Remove the `GEOSERVER_REQUIRE_FILE` startup check for `global.xml`:
+
+     .. code-block:: xml
+
+        <Parameter name="GEOSERVER_REQUIRE_FILE"
+           value="/var/opt/geoserver/data/global.xml" override="false"/>
+   
+   This approach is often used in automated workflow where GeoServer is configured via REST API scripts.
+
 GeoServer Enterprise
 --------------------
 
 To install GeoServer on your existing Tomcat instance, follow these steps:
 
-#. Copy the provide :file:`geoserver.war` file to the to :file:`[Tomcat_folder]\\webapps` folder.
+#. Login to `nexus.geocat.net <https://nexus.geocat.net/>`__ and browse to the enterprise folder:
+   
+   * https://nexus.geocat.net/#browse/browse:enterprise
+     
+   Navigate to the latest `geoserver` release and select the :file:`geoserver-standard` zip archive.
+   
+   .. figure:: img/nexus-download.png
+
+#. Unzip this file containing:
+
+   * :file:`windows` - sample configuration files   
+   * :file:`geoserver.war` - geoserver enterprise web application
+   * :file:`GPL` and :file:`LICENSE.txt` open source license information
+
+#. Open the Tomcat Program folder by using the :guilabel:`Start` menu to select  :menuselection:`Apache Tomcat --> Tomcat Program Directory`.
+
+   .. figure:: img/tomcatprogramfolder.png
+
+#. Open the :file:`webapps` folder.
+
+#. Copy the :file:`geoserver.war` file to the to tomcat :file:`webapps` folder.
+
+   Tomcat will deploy :file:`geosever.war` web application, creating `geoserver` folder for the running application.
 
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 
-  .. figure:: img/gserunning.png
+   .. figure:: img/gserunning.png
