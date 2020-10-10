@@ -32,3 +32,11 @@ As some of these operations are different depending on the operating system, we 
    
    installwin
    installlinux
+
+.. toctree::
+   :caption: Appendix
+
+   installJavaManualLinux
+   installTomcatLinux
+
+

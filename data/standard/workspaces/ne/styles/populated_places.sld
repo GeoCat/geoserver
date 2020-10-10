@@ -29,22 +29,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>
@@ -174,22 +159,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>
@@ -319,22 +289,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>
@@ -464,22 +419,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>
@@ -609,22 +549,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>
@@ -751,22 +676,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>
@@ -883,22 +793,7 @@
             <sld:Graphic>
               <sld:Mark>
                 <sld:WellKnownName>
-                  <ogc:Function name="if_then_else">
-                    <ogc:Function name="equalTo">
-                      <ogc:PropertyName>
-                        FEATURECLA
-                      </ogc:PropertyName>
-                      <ogc:Literal>
-                        Admin-0 capital
-                      </ogc:Literal>
-                    </ogc:Function>
-                    <ogc:Literal>
-                      star
-                    </ogc:Literal>
-                    <ogc:Literal>
-                      circle
-                    </ogc:Literal>
-                  </ogc:Function>
+                  ${if_then_else(equalTo(FEATURECLA,'Admin-0 capital'),'star','circle')}
                 </sld:WellKnownName>
                 <sld:Fill /><sld:Stroke />
               </sld:Mark>

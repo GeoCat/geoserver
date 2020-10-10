@@ -13,17 +13,17 @@
   <parent>
     <groupId>net.geocat.enterprise</groupId>    
     <artifactId>geoserver</artifactId>
-    <version>2.17-SNAPSHOT</version>
+    <version>2.18.0</version>
   </parent>
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp-rws</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Premium RWS</name>
+  <name>GeoServer Enterprise Premium ${geocat.enterprise} RWS  WebApp</name>
   <description>
-     GeoServer Enterprise Premium preppackaged for RWS. 
+     GeoServer Enterprise Premium, web application uses GeoCat Enterprise branding, along with selected modules prepackage for RWS.
      
-     Web Application used for enterprise branding, with selected modules to prepackage for RWS.
+     This module includes its own assembly responsible for zip bundle provided to RWS.
   </description>
   
   <properties>
@@ -74,6 +74,53 @@
   <build>
     <finalName>geoserver</finalName>
     <plugins>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>com.ruleoftech</groupId>
+        <artifactId>markdown-page-generator-plugin</artifactId>
+        <version>2.2.0</version>
+        <executions>
+          <execution>
+            <id>md-license</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}/../../</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>md-readme</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}/src/main/markdown</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>md-release-notes</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}/../../docs/src/welcome</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>

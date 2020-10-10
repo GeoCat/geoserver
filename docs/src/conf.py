@@ -38,6 +38,7 @@ author = 'GeoCat BV'
 pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "geoserver", "src", "pom.xml")
 pomtree = ET.parse(pompath)
 release = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}version").text
+snapshot = release.find('SNAPSHOT') != -1
 
 # The short X.Y version
 version = ".".join(release.split(".")[:2])
@@ -54,7 +55,8 @@ version = ".".join(release.split(".")[:2])
 extensions = [
   'sphinx.ext.ifconfig',
   'sphinx.ext.extlinks',
-  'sphinx.ext.todo',
+  'sphinx.ext.todo'
+  # 'recommonmark'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -64,7 +66,10 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = {
+    '.rst': 'restructuredtext'
+    # '.md': 'markdown',
+}
 
 # The master toctree document.
 master_doc = 'index'
@@ -93,6 +98,7 @@ extlinks = {
     'docguide': ('http://docs.geoserver.org/latest/en/docguide/%s',''),
     'geos': ('https://osgeo-org.atlassian.net/browse/GEOS-%s','GEOS-'),
     'geot': ('https://osgeo-org.atlassian.net/browse/GEOT-%s','GEOT-'),
+    'geotools': ('https://docs.geotools.org/stable/userguide/%s',''),
     'api': ('http://docs.geoserver.org/latest/en/api/#1.0.0/%s',''),
     'download_release': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/geoserver-'+release+'-%s.zip',None),
     'download_extension': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/extensions/geoserver-'+release+'-%s-plugin.zip',None),
@@ -137,7 +143,7 @@ html_theme_options = {
     'is_prerelease': False
 }
 
-html_context = {'theme_is_prerelease': False}
+html_context = {'theme_is_prerelease': snapshot}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.

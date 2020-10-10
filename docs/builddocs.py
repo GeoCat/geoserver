@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 import argparse
-
+import distutils.dir_util
 
 '''
 This script generates documentation based on the content of the current
@@ -18,8 +18,10 @@ under the ./build folder.
 
 VERSIONNAME = "2020.5"
 
-toreplace = {"introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
-            "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]}
+toreplace = {
+  "introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
+  "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]
+}
 
 def sh(commands):
     if isinstance(commands, str):
@@ -28,9 +30,36 @@ def sh(commands):
     stdout, stderr = out.communicate()
     return stdout.decode("utf-8")
 
+def run(commands):
+    if isinstance(commands, str):
+        commands = commands.split(" ")
+    proc = subprocess.Popen(commands)
+    proc.communicate()
+
 def clean(folder):
     print("Cleaning build folder")
     shutil.rmtree(folder, ignore_errors=True)
+
+def rebuild(folder):
+    sourcedir = os.path.join(os.getcwd(), "staging", VERSIONNAME)
+    if not os.path.exists(sourcedir):
+        print("Rebuild content requires initial build")
+        return 0
+    builddir = os.path.join(folder, VERSIONNAME)
+    if not os.path.exists(builddir):
+        print("Rebuild content requires initial build")
+        return 0
+    
+    docssource = os.path.join(os.getcwd(), "src")
+    distutils.dir_util.copy_tree(
+        docssource,
+        sourcedir,
+        update=1
+    )
+
+    print("Rebuild content")
+    sphinxbuild = "sphinx-build -j auto -W --keep-going {} {}".format(sourcedir, builddir)
+    run(sphinxbuild)
 
 def copycommunity():
     print("Copying geoserver user guide to staging")    
@@ -72,11 +101,12 @@ def builddocs(folder):
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
-    sphinxbuild = "sphinx-build -a -j auto {} {}".format(sourcedir, builddir)
+    sphinxbuild = "sphinx-build -a -j auto -W --keep-going {} {}".format(sourcedir, builddir)
     sh(sphinxbuild)
 
 def main():
     parser = argparse.ArgumentParser(description='Build documentation.')
+    parser.add_argument('--rebuild', dest='rebuild', action='store_true', help='Quickly rebuild wihtout recopying')
     parser.add_argument('--output', help='Output folder to save documentation')
     parser.add_argument('--clean', dest='clean', action='store_true', help='Clean output folder')
 
@@ -87,7 +117,10 @@ def main():
     if args.clean:
         clean(folder)
 
-    builddocs(folder)
+    if args.rebuild:
+        rebuild(folder)
+    else:
+        builddocs(folder)
 
 
 if __name__ == "__main__":

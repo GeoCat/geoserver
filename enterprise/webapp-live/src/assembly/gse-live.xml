@@ -12,14 +12,23 @@
     </file>
     <!-- license -->
     <file>
-      <source>../../GPL.md</source>
+      <source>target/html/GPL.html</source>
       <outputDirectory></outputDirectory>
-      <destName>GPL.txt</destName>
     </file>
     <file>
-      <source>../../LICENSE.md</source>
+      <source>target/html/LICENSE.html</source>
       <outputDirectory></outputDirectory>
-      <destName>LICENSE.txt</destName>
+    </file>
+    <!-- docs -->
+    <file>
+      <source>target/html/instructions.html</source>
+      <outputDirectory></outputDirectory>
+      <destName>readme.html</destName>
+    </file>
+    <file>
+      <source>target/html/release_notes_218.html</source>
+      <outputDirectory></outputDirectory>
+      <destName>release_notes.html</destName>
     </file>
     <!-- install -->
     <file>
