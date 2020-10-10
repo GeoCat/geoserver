@@ -38,6 +38,7 @@ author = 'GeoCat BV'
 pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "geoserver", "src", "pom.xml")
 pomtree = ET.parse(pompath)
 release = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}version").text
+snapshot = release.find('SNAPSHOT') != -1
 
 # The short X.Y version
 version = ".".join(release.split(".")[:2])
@@ -142,7 +143,7 @@ html_theme_options = {
     'is_prerelease': False
 }
 
-html_context = {'theme_is_prerelease': True}
+html_context = {'theme_is_prerelease': snapshot}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
