@@ -16,10 +16,12 @@ the '--output [path]' argument. If not used, the documentation will be created
 under the ./build folder. 
 '''
 
-VERSIONNAME = "latest"
+VERSIONNAME = "2020.5.1"
 
-toreplace = {"introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
-            "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]}
+toreplace = {
+  "introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
+  "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]
+}
 
 def sh(commands):
     if isinstance(commands, str):
