@@ -81,6 +81,52 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>com.ruleoftech</groupId>
+        <artifactId>markdown-page-generator-plugin</artifactId>
+        <version>2.2.0</version>
+        <executions>
+          <execution>
+            <id>md-license</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}/../../</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>md-readme</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}/src/main/markdown</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>md-release-notes</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}/../../docs/src/welcome</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>
           <overlays>
