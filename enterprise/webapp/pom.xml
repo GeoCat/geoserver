@@ -19,7 +19,7 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Application</name>
+  <name>GeoServer Enterprise ${geocat.enterprise} Base WebApp</name>
   <description>
      GeoServer Web Application for GeoCat distribution. 
      

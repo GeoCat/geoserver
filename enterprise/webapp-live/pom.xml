@@ -19,11 +19,11 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp-live</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise WebApp Live</name>
+  <name>GeoServer Enterprise Live ${geocat.enterprise} WebApp</name>
   <description>
-     GeoServer Web Application for GeoCat Live distribution. 
+     GeoServer Web Application for GeoCat Live distribution.  Web Application used for enterprise branding, with selected modules to prepackage for GeoCat Live customers.
      
-     Web Application used for enterprise branding, with selected modules to prepackage for GeoCat Live customers.
+     This module includes its own assembly responsible for zip bundle provided to customers.
   </description>
   
   <properties>

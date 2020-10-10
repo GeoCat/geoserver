@@ -19,11 +19,11 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp-rws</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Premium RWS</name>
+  <name>GeoServer Enterprise Premium ${geocat.enterprise} RWS  WebApp</name>
   <description>
-     GeoServer Enterprise Premium preppackaged for RWS. 
+     GeoServer Enterprise Premium, web application uses GeoCat Enterprise branding, along with selected modules prepackage for RWS.
      
-     Web Application used for enterprise branding, with selected modules to prepackage for RWS.
+     This module includes its own assembly responsible for zip bundle provided to RWS.
   </description>
   
   <properties>

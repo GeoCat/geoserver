@@ -1,7 +1,7 @@
 GeoServer Enterprise 2.18 Release Notes
 =======================================
 
-Update your GeoServer with GeoCat latest 2020.5.1 distribution of GeoServer Enterprise.
+Update your GeoServer with GeoCat latest 2020.5 distribution of GeoServer Enterprise.
 
 Overview
 --------
@@ -22,7 +22,7 @@ General
 GeoServer Enterprise 2.18:
 
 * Updated visual refresh with a clean appearance.
-* GeoCat 2020.5.1 distribution of GeoServer 2.18.0
+* GeoCat 2020.5 distribution of GeoServer 2.18.0
 
 GeoServer release notes:
 
@@ -41,7 +41,7 @@ Security considerations:
 
 Documentation:
 
-* [GeoServer Enterprise Documentation](https://www.geocat.net/docs/geoserver-enterprise/2020.5.1/)
+* [GeoServer Enterprise Documentation](https://www.geocat.net/docs/geoserver-enterprise/2020.5/)
 
 GeoServer Enterprise Standard
 -----------------------------

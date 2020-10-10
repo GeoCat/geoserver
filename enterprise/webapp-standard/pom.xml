@@ -19,11 +19,11 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp-standard</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Standard</name>
+  <name>GeoServer Enterprise Standard ${geocat.enterprise} WebApp</name>
   <description>
-     GeoServer Enterprise Standard
+     Web Application uses GeoCat enterprise branding, with selected modules for GeoServer Enterprise Standard distribution.
      
-     Web Application used for enterprise branding, with selected modules for GeoServer Enterprise Standard.
+     This module includes its own assembly responsible for zip bundle provided to customers.
   </description>
   
   <properties>

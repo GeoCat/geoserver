@@ -17,7 +17,7 @@
  <packaging>pom</packaging>
  <version>2.18.0</version>
 
- <name>GeoServer Enterprise 2020.11</name>
+ <name>GeoServer Enterprise ${geocat.enterprise}</name>
  <description>
     GeoCat is pleased to offer our customers an enterprise distribution of GeoServer offering a long-term-support solution for this popular open source product.
  </description>
@@ -58,7 +58,7 @@
  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <geocat.enterprise>2020.5.1</geocat.enterprise>
+    <geocat.enterprise>2020.5</geocat.enterprise>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
     <gs.version>2.18.0</gs.version>
     <gwc.version>1.18.0</gwc.version>

@@ -19,10 +19,11 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-release</artifactId>
   <packaging>jar</packaging>
-  <name>GeoServer Enterprise 2020.11 Release</name>
+  <name>GeoServer Enterprise ${geocat.enterprise} Release</name>
   <description>
-   Release packaging, using a combination of dependencies to ensure version compatibility
-   and assemblies to provide control over distribution bundles generated for customers.
+   Release packaging, using assemblies to provide control over distribution bundles generated for customers.
+   
+   This module bundles up data and extensions as required. For ease of maintenance each webapp module is responsible for its own release assembly.
   </description>
   <properties>
     <data.default.dir>${project.build.directory}/../data/default</data.default.dir>
