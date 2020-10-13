@@ -55,8 +55,8 @@ version = ".".join(release.split(".")[:2])
 extensions = [
   'sphinx.ext.ifconfig',
   'sphinx.ext.extlinks',
-  'sphinx.ext.todo'
-  # 'recommonmark'
+  'sphinx.ext.todo',
+  'recommonmark'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -67,8 +67,8 @@ templates_path = ['_templates']
 #
 # source_suffix = ['.rst', '.md']
 source_suffix = {
-    '.rst': 'restructuredtext'
-    # '.md': 'markdown',
+    '.rst': 'restructuredtext',
+    '.md': 'markdown'
 }
 
 # The master toctree document.
