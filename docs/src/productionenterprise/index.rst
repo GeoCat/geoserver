@@ -9,7 +9,7 @@ The following operations are required to setup GeoServer enterprise for use in a
    adminpassword
    masterpassword
    javastartup
-   marlin   
+   marlin
    wpspermissions
    deprecatedwps
    datadirectory
@@ -18,12 +18,12 @@ The following operations are required to setup GeoServer enterprise for use in a
    logginglevels
    wmslimits
 
-
 GetCat recommends the following best practices:
 
 .. toctree::
    :maxdepth: 1
    
+   cors
    storeinownfolder
    postgisspatialindex
    tilingoverviews
