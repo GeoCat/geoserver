@@ -1,12 +1,12 @@
-GeoServer Enterprise 2.16 Release Notes
-=======================================
+GeoServer Enterprise 2020.2 Release Notes
+=========================================
 
-Update your GeoServer with GeoCat latest distribution of GeoServer Enterprise.
+GeoCat is pleased to present our latest distribution of GeoServer Enterprise.
 
 Overview
 --------
 
-GeoServer Enterprise 2.16 provides support for publishing geospatial data using open standards.
+GeoServer Enterprise 2020.5 provides support for publishing geospatial data using open standards.
 
 This distribution is made available to GeoCat customers:
 
@@ -14,25 +14,22 @@ This distribution is made available to GeoCat customers:
 * GeoServer Enterprise Premium offers a custom distribution with your selection of extensions backed by GeoCat extended support.
 * GeoCat Live provides a hosted GeoServer environment
 
-GeoServer Enterprise 2.16 is a recommended upgrade for all our customers and is compatible with GeoCat Bridge for both ArcGIS Desktop and QGIS Desktop.
+GeoServer Enterprise 2020.5 is a recommended upgrade for all our customers and is compatible with GeoCat Bridge for both ArcGIS Desktop and QGIS Desktop.
 
 General
 -------
 
-GeoServer Enterprise 2.16 release notes:
+GeoServer Enterprise 2020.2 release notes:
 
 * Now offering our GeoServer Enterprise Premium customers "predefined war" service with a ready to use war including your selection of supported GeoServer extensions.
 * Visual refresh with a clean appearance.
 * Built-in web-resource extension
-* GeoCat distribution of GeoServer 2.16.2
+* GeoServer Enterprise 2020.2 is proudly open source with the latest GeoServer 2.16.2, GeoWebCache 1.16.2, and GeoTools 22.2 technologies. 
 
-GeoServer release notes:
+Detailed change log:
 
-* GeoServer issue tracker [changelog](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20fixVersion%20in%20(2.13.2%2C%202.13.3%2C%202.13.4%2C%202.14-RC%2C%202.14.0%2C%202.14.1%2C%202.14.2%2C%202.14.3%2C%202.14.4%2C%202.14.5%2C%202.15-M0%2C%202.15-RC%2C%202.15.0%2C%202.15.1%2C%202.15.2%2C%202.15.3%2C%202.15.4%2C%202.16-RC%2C%202.16.0%2C%202.16.1%2C%202.16.2)) from GeoServer 2.13.2 to GeoServer 2.16.2
-
-  * GeoServer 2.16: [release announcement](http://geoserver.org/2019/09/18/geoserver-2-16-released.html)
-  * GeoServer 2.15: [release announcement](http://geoserver.org/announcements/2019/03/02/geoserver-2-15-0-released.html)
-  * GeoServer 2.14: [release announcement](http://geoserver.org/2018/09/24/geoserver-2-14-0-released.html)
+* GeoServer issue tracker [changelog](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20fixVersion%20in%20(2.13.2%2C%202.13.3%2C%202.13.4%2C%202.14-RC%2C%202.14.0%2C%202.14.1%2C%202.14.2%2C%202.14.3%2C%202.14.4%2C%202.14.5%2C%202.15-M0%2C%202.15-RC%2C%202.15.0%2C%202.15.1%2C%202.15.2%2C%202.15.3%2C%202.15.4%2C%202.16-RC%2C%202.16.0%2C%202.16.1%2C%202.16.2)) from 2.13.2 to 2.16.2
+* GeoServer posts for [2.16](http://geoserver.org/2019/09/18/geoserver-2-16-released.html), [2.15](http://geoserver.org/announcements/2019/03/02/geoserver-2-15-0-released.html), [2.14](http://geoserver.org/2018/09/24/geoserver-2-14-0-released.html)
 
 Security considerations:
 
@@ -41,7 +38,7 @@ Security considerations:
 
 Known issues:
 
-* GeoServer issue tracker [known issues](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20NOT(%20%20affectedVersion%20is%20EMPTY)%20AND%20affectedVersion%20%3C%3D%202.16-RC%20%20AND%20fixVersion%20%3C%3D%202.16-RC%20AND%20affectedVersion%20%3E%3D%202.16.2)) for GeoServer 2.16.2
+* GeoServer [known issues](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20NOT(%20%20affectedVersion%20is%20EMPTY)%20AND%20affectedVersion%20%3C%3D%202.16-RC%20%20AND%20fixVersion%20%3C%3D%202.16-RC%20AND%20affectedVersion%20%3E%3D%202.16.2) for 2.16.2
 
 GeoServer Enterprise Standard
 -----------------------------
