@@ -141,7 +141,7 @@ html_theme_options = {
     'titles_only': True,
     'collapse_navigation': True,
     'show_sphinx': 'Green',
-    'is_prerelease': False
+    'is_prerelease': snapshot
 }
 
 html_context = {'theme_is_prerelease': snapshot}
