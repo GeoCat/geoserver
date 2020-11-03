@@ -34,14 +34,21 @@ project = 'GeoServer Enterprise'
 copyright = u'{}, GeoCat BV'.format(year)
 author = 'GeoCat BV'
 
+pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "enterprise", "pom.xml")
+pomtree = ET.parse(pompath)
+
+enterprise_properties = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}properties")
+enterprise_version = enterprise_properties.find("{http://maven.apache.org/POM/4.0.0}geocat.enterprise").text
+
 # The full version, including alpha/beta/rc tags
 pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "geoserver", "src", "pom.xml")
 pomtree = ET.parse(pompath)
+
 release = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}version").text
 snapshot = release.find('SNAPSHOT') != -1
 
 # The short X.Y version
-version = ".".join(release.split(".")[:2])
+version = enterprise_version # ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 
@@ -93,7 +100,7 @@ pygments_style = 'sphinx'
 extlinks = { 
     'wiki': ('https://github.com/geoserver/geoserver/wiki/%s',''),
     'website': ('http://geoserver.org/%s',''),
-    'user': ('https://www.geocat.net/docs/geoserver-enterprise/v'+version+'/%s',''),
+    'user': ('https://www.geocat.net/docs/geoserver-enterprise/'+version+'/%s',''),
     'developer': ('http://docs.geoserver.org/latest/en/developer/%s',''),
     'docguide': ('http://docs.geoserver.org/latest/en/docguide/%s',''),
     'geos': ('https://osgeo-org.atlassian.net/browse/GEOS-%s','GEOS-'),
@@ -103,7 +110,7 @@ extlinks = {
     'tomcat': ('https://tomcat.apache.org/tomcat-9.0-doc/%s',''),
     'download_release': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/geoserver-'+release+'-%s.zip',None),
     'download_extension': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/extensions/geoserver-'+release+'-%s-plugin.zip',None),
-    'download_community': ('https://github.com/geoserver/geoserver/tree/'+version+'/src/community/%s',None)
+    'download_community': ('https://github.com/geoserver/geoserver/tree/'+release+'/src/community/%s',None)
 }
 
 # Common substitutions
