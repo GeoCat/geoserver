@@ -5,7 +5,7 @@ Welcome to GeoServer Enterprise, and thank you for being a GeoCat customer.
 
 GeoServer is a class-leading application for the publishing of spatial information using international and industry standards. GeoServer provides direct access to feature and raster content, rich cartographic visualization, and geospatial processing. GeoServer integrates smoothly into your existing GIS infrastructure working with database, file, and cloud storage.
 
-GeoCat is a proud open source company, and a core-contributor of GeoServer project. This GeoServer Enterprise release is built using the latest GeoServer, GeoWebCache, GeoTools, JAT-EXT, and JTS Topology Suite technologies. 
+GeoCat is a proud open source company, and a core-contributor of GeoServer project. This GeoServer Enterprise release includes the latest GeoServer, GeoWebCache, GeoTools, JAT-EXT, and JTS Topology Suite technologies. 
 
 .. contents:: What is New
    :depth: 3
@@ -16,7 +16,7 @@ GeoCat is a proud open source company, and a core-contributor of GeoServer proje
 .. toctree::
    :maxdepth: 1
 
-   release_notes_218
+   release_notes_2020.5.1
 
 Prior releases:
 
@@ -24,11 +24,11 @@ Prior releases:
    :hidden:
    :maxdepth: 1
 
-   release_notes_217
-   release_notes_216
+   release_notes_2020.5
+   release_notes_2020.2
 
-* :doc:`release_notes_217`
-* :doc:`release_notes_216`
+* :doc:`release_notes_2020.5`
+* :doc:`release_notes_2020.2`
 
 `Contact GeoCat BV <http://geocat.net/contact/>`__ for more information on this product and the advantages of commercial open source.
 

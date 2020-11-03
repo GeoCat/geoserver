@@ -1,12 +1,12 @@
-GeoServer Enterprise 2.17 Release Notes
-=======================================
+GeoServer Enterprise 2020.5 Release Notes
+=========================================
 
 Update your GeoServer with GeoCat latest distribution of GeoServer Enterprise.
 
 Overview
 --------
 
-GeoServer Enterprise 2.17 provides support for publishing geospatial data using open standards.
+GeoServer Enterprise 2020.5 provides support for publishing geospatial data using open standards.
 
 This distribution is made available to GeoCat customers:
 
@@ -14,23 +14,22 @@ This distribution is made available to GeoCat customers:
 * GeoServer Enterprise Premium offers a custom distribution with your selection of extensions backed by GeoCat extended support.
 * GeoCat Live provides a hosted GeoServer environment
 
-GeoServer Enterprise 2.17 is a recommended upgrade for all our customers and is compatible with GeoCat Bridge for both ArcGIS Desktop and QGIS Desktop.
+GeoServer Enterprise 2020.5 is a recommended upgrade for all our customers and is compatible with GeoCat Bridge for both ArcGIS Desktop and QGIS Desktop.
 
 General
 -------
 
-GeoServer Enterprise 2.17 release notes:
+GeoServer Enterprise 2020.5 release notes:
 
 * Updated visual refresh with a clean appearance.
 * Built-in web-resource tool for remote management of data directory
 * MapBox Style extension, use the same cartography for both server and web/mobile mapping
-* GeoCat 2020.5 distribution of GeoServer 2.17.2
+* GeoCat 2020.5 distribution is proudly open source with the latest GeoServer 2.17.2, GeoWebCache 1.17.2, and GeoTools 23.2 technologies
 
-GeoServer release notes:
+Detailed changelogs:
 
-* GeoServer issue tracker [changelog](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20fixVersion%20in%20(2.17-RC%2C%202.17.0%2C%202.17.1%2C%202.17.2)) from GeoServer 2.16 to GeoServer 2.17.2
-
-  * GeoServer 2.17: [release announcement](http://geoserver.org/2020/04/21/geoserver-2-17-0-released.html)
+* GeoServer issue tracker [changelog](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20fixVersion%20in%20(2.17-RC%2C%202.17.0%2C%202.17.1%2C%202.17.2)) from 2.16 to 2.17.2
+* GeoServer posts for [2.17](http://geoserver.org/2020/04/21/geoserver-2-17-0-released.html)
 
 Security considerations:
 
@@ -39,7 +38,7 @@ Security considerations:
 
 Known issues:
 
-* GeoServer issue tracker [known issues](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20NOT(%20%20affectedVersion%20is%20EMPTY)%20AND%20affectedVersion%20%3C%3D%202.17-RC%20%20AND%20fixVersion%20%3C%3D%202.17-RC%20AND%20affectedVersion%20%3E%3D%202.17.2)) for GeoServer 2.17.2
+* GeoServer [known issues](https://osgeo-org.atlassian.net/issues/?jql=project%20%3D%20GEOS%20AND%20NOT(%20%20affectedVersion%20is%20EMPTY)%20AND%20affectedVersion%20%3C%3D%202.17-RC%20%20AND%20fixVersion%20%3C%3D%202.17-RC%20AND%20affectedVersion%20%3E%3D%202.17.2)) for 2.17.2
 
 Reference:
 
@@ -65,7 +64,7 @@ New features:
 
 Resolved issues:
 
-* vector tile generation fix for line width
+* Vector tile generation fix for line width
 * Layer Preview page count fixed to account for security permissions
 
 GeoServer Enterprise Premium
