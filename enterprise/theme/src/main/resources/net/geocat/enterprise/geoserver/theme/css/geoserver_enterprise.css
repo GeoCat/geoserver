@@ -147,7 +147,7 @@ fieldset.leftwise, fieldset.rightwise {
 }
 .feedbackPanelWARNING, .feedbackPanelERROR {
   padding: 8px 10px;
-  border-radius: 2px;
+  border-left: 4px solid #c00;
 }
   
 /* ----------------------------------------------------------------------
@@ -272,11 +272,12 @@ fieldset.leftwise, fieldset.rightwise {
   display: none;
 }
 #header .button-group {
-  padding: 20px 0;
-  max-width: 900px;
-  min-width: 800px;
-  margin-left: calc((100% - 300px - 900px + 20px) / 2);
+  position: fixed;
+  background-color: #fff;
+  padding: 20px 0 10px 0;
+  width: calc(100% - 300px - 50px);
   border-bottom: 1px solid #e1e4e5;
+  margin: 0 25px;
 }
 #header label.shown {
   display: inline;
@@ -311,7 +312,9 @@ ul#navigation a {
   text-decoration: none;
 }
 ul#navigation a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  background-color: #ececec;
+}
 }
 ul#navigation .navigation-tab {
   margin: 0;
@@ -324,7 +327,8 @@ ul#navigation .navigation-tab {
   color: #0366d6;
   font-size: 16px;
   margin-bottom: 5px;
-  padding-left: 15px;
+  margin-top: 10px;
+  padding-left: 20px;
   text-transform: uppercase;
 }
 .navigation-tab-single, .navigation-tab-content {
@@ -342,7 +346,7 @@ ul#navigation .navigation-tab {
 .navigation-tab-single a, .navigation-tab-content a {
   display: block;
   color: #333;
-  padding: 5px 5px 5px 1.6em;
+  padding: 5px 5px 5px 2em;
   font-size: 16px;
 }
 .navigation-tab-single a {
@@ -471,7 +475,7 @@ thead th {
   background: #fff;
   color: #222;
   font-weight: 500;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 thead th a {
   color: #333;
@@ -676,6 +680,21 @@ input[type=checkbox] + label, input[type=radio] + label {
   font-weight: normal;
   margin: 0;
 }
+/* ----- login form */
+[action$="j_spring_security_check"] span {
+  display: block;
+}
+#header .button-group [action$="j_spring_security_check"] span {
+  float: left;
+}
+.page-pane [key="rememberMe"] {
+  float: left;
+  display: block;
+  margin: 5px 5px 5px 0;
+}
+.page-pane [action$="j_spring_security_check"] button {
+  clear: both;
+}
 
 /* ----------------------------------------------------------------------
 /* code
@@ -766,6 +785,9 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
   margin: 0;
 }
 /* specials */
+.info-link {
+  color: #31708f;
+}
 .add-link {
   color: #28a745 !important;
   cursor: pointer;
@@ -797,6 +819,10 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
   background: transparent url(../enterprise/icon/ic_info_24px.svg) scroll no-repeat left center;
   padding: 2px 0px 2px 24px;
   background-size: 20px 20px;
+}
+.help-link {
+  background: transparent url(../enterprise/icon/ic_info_24px.svg) scroll no-repeat left center;
+  padding: 2px 0px 2px 20px;
 }
 .add-link {
   background: transparent url(../enterprise/icon/ic_add_24px.svg) scroll no-repeat left center;
@@ -873,6 +899,32 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 .button-group .button-color span {
   background: url(../enterprise/icon/ic_palette_24px.svg) no-repeat;
   background-size: 20px 20px;
+}
+/* ----- login */
+[action$="j_spring_security_check"] button {
+  background: #2bb24c;
+  color: #fff;
+  border: 0;
+}
+[action$="j_spring_security_check"] button:hover {
+  background: #249540;
+  color: #fff;
+}
+[action$="j_spring_security_check"] button img {
+  display: none;
+}
+[action$="j_spring_security_check"] button span {
+  float: none !important;
+}
+/* ----- logout */
+[action$="j_spring_security_logout"] button {
+  background: #ff5722;
+  color: #fff;
+  border: 0;
+}
+[action$="j_spring_security_logout"] button:hover {
+  background: #fd3d00;
+  color: #fff;
 }
 
 /* ----------------------------------------------------------------------
