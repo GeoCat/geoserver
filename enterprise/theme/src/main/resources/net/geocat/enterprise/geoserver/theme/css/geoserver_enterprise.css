@@ -452,6 +452,85 @@ div#capabilities .flat li a:hover {
 }
 
 /* ----------------------------------------------------------------------
+/* responsive layout
+/* ------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  #header {
+    height: 50px;
+  }
+  #main {
+    margin-top: 50px;
+  }
+  #page {
+    margin: 0;
+    padding: 0 15px;
+    max-width: 100%;
+  }
+  #sidebar {
+    margin-left: -290px;
+    background: #f4f4f4;
+    top: 0;
+    transition-duration: 0.5s;
+    height: 100%;
+    z-index: 1100;
+    border-right: 14px double #ddd;
+  }
+  #sidebar:hover {
+    margin-left: 0;
+    background: #fff;
+    border-right: 1px solid #e1e4e5;
+  }
+  #main .wrap {
+    margin-left: -280px;
+    width: auto;
+    min-width: auto;
+  }
+  #header .button-group {
+    width: calc(100% - 20px);
+    margin-left: -290px;
+    padding: 10px 0;
+  }
+  #header h2 {
+    border: 0;
+    width: auto;
+    z-index: 10;
+    margin-left: -275px;
+  }
+  #header h2 a {
+    background-image: url(../enterprise/gc-geoserver-logo-only.svg);
+    margin: 10px;
+    height: 32px;
+    width: 50px;
+    background-size: 188px 32px;
+  }
+  #welcome {
+    max-width: none;
+  }
+  #capabilities {
+    float: none;
+    margin: 0;
+    width: auto;
+  }
+}
+@media (max-width: 580px) {
+  #header .button-group [action$="j_spring_security_check"] {
+    width: calc(100% - 70px);
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  #page {
+    max-width: none;
+    padding: 0 25px;
+    margin: 0;
+  }
+  #capabilities {
+    float: none;
+    margin: 0;
+    width: auto;
+  }
+}
+
+/* ----------------------------------------------------------------------
 /* tables
 /* ------------------------------------------------------------------- */
 
@@ -487,7 +566,7 @@ tr:hover td, tbody tr:hover th {
   background: #fff;
 }
 tr.even td, tr.even th {
-  background: #f9f9f9; /* override blueprint's settings */
+  background: #f9f9f9; 
 }
 tr.even:hover td, tr.even:hover th {
   background: #f9f9f9;
