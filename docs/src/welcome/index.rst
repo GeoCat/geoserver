@@ -11,7 +11,7 @@ GeoCat is a proud open source company, and a core-contributor of GeoServer proje
    :depth: 3
    :local:
 
-2020.5 release:
+Current release:
 
 .. toctree::
    :maxdepth: 1

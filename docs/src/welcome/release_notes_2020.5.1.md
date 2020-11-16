@@ -1,7 +1,7 @@
 GeoServer Enterprise 2020.5.1 Release Notes
 ===========================================
 
-Update your GeoServer with GeoCat latest 2020.5.1 distribution of GeoServer Enterprise.
+Update your GeoServer with our latest GeoServer Enterprise 2020.5.1 distribution.
 
 Overview
 --------
