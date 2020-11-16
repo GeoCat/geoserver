@@ -392,6 +392,21 @@ li.nav-administer-service img {
 }
 
 /* ----------------------------------------------------------------------
+/* security
+/* ------------------------------------------------------------------- */
+
+#encryption .warning-link {
+  display: block;
+  padding: 15px 10px;
+	border-left-width: 4px;
+	border-left-style: solid;
+	margin: 1rem 0 !important;
+  background: #fff7d3;
+  border-color: #e7c000;
+  color: #6b5900;
+}
+
+/* ----------------------------------------------------------------------
 /* capabilities
 /* ------------------------------------------------------------------- */
 
@@ -913,6 +928,50 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
   background-size: 20px 20px;
   padding-left: 24px;
 }
+
+img[src*="/img/icons/silk/tick"] {
+  content: url(../enterprise/icon/ic_done_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/delete"] {
+  content: url(../enterprise/icon/ic_remove_circle_outline_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/arrow_down"] {
+  content: url(../enterprise/icon/ic_arrow_downward_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/arrow_up"] {
+  content: url(../enterprise/icon/ic_arrow_upward_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+.palette-theme-default .palette-buttons button.palette-add div:after {
+  content: url(../enterprise/icon/ic_arrow_forward_24px.svg);
+  width: 20px;
+  height: 20px;
+  margin: -2px 0 0 -2px;
+}
+.palette-theme-default .palette-buttons button.palette-remove div:after {
+  content: url(../enterprise/icon/ic_arrow_back_24px.svg);
+  width: 20px;
+  height: 20px;
+  margin: -2px 0 0 -2px;
+}
+.gwc-clear {
+  background: transparent url(../enterprise/icon/ic_delete_forever_24px.svg) scroll no-repeat left center;
+  background-size: 20px 20px;
+  padding-left: 24px;
+}
+.edit-link {
+  background: transparent url(../enterprise/icon/ic_edit_24px.svg) scroll no-repeat left center;
+  padding: 2px 0px 2px 20px;
+  padding-left: 24px;
+}
+
 /* ----- pagination */
 .paginator a {
   padding: 4px;
