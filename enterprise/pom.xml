@@ -58,11 +58,11 @@
  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <geocat.enterprise>2020.5.1</geocat.enterprise>
+    <geocat.enterprise>2020.5.2</geocat.enterprise>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
-    <gs.version>2.18.0</gs.version>
-    <gwc.version>1.18.0</gwc.version>
-    <gt.version>24.0</gt.version>
+    <gs.version>2.18-SNAPSHOT</gs.version>
+    <gwc.version>1.18-SNAPSHOT</gwc.version>
+    <gt.version>24-SNAPSHOT</gt.version>
     <spring.version>5.1.16.RELEASE</spring.version>
     <spring.security.version>5.1.11.RELEASE</spring.security.version>
     <!-- build maven-compiler-plugin -->
