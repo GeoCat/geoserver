@@ -8,10 +8,15 @@ Documentation is written using the sphinx documentation system using restructure
 pip install sphinx
 ```
 
-We also make use of one sphinx extension, to help process markdown files:
+We also make use of two sphinx extensions, to help process markdown files:
 
 ```
 pip install recommonmark
+```
+
+and to copy code from the `code blocks`:
+```
+pip install sphinx-copybutton
 ```
 
 ## Themes

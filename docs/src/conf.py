@@ -63,7 +63,8 @@ extensions = [
   'sphinx.ext.ifconfig',
   'sphinx.ext.extlinks',
   'sphinx.ext.todo',
-  'recommonmark'
+  'recommonmark',
+  'sphinx_copybutton'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
