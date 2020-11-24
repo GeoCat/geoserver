@@ -22,20 +22,20 @@ This repository uses git submodules, clone using ``--recursive``:
 git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterprise.git
 ```
 
-The branches and version numbers follow the release of GeoServer being distributed:
+The branches follow the release of GeoServer being distributed:
 
 * master: live development, unpublished, nightly builds used for quality assurance
-* 2.17.x: stable branch, nightly builds, "next" stable release available for our customers
+* 2.18.x: stable branch, nightly builds, "next" stable release available for our customers
 * 2.10.x: branch maintained for RWS
 
 Update when changing branches:
 
 ```bash
-git checkout 1.17.x
+git checkout 1.18.x
 git submodule update --remote
 ```
 
-### Build Instructions
+## Build Instructions
 
 Building uses the [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.
 
@@ -47,29 +47,25 @@ To build:
 cd enterprise
 mvn clean install 
 ```
+### Run
 
 To run `webapp` locally using jetty:
 ```java
-cd webapp
-mvn jetty:run -Pstandard
+cd webapp-standard
+mvn jetty:run
 ```
 
-Profiles, like `standard` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
+Individual webapp modules, like `webapp-standard` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
 
 See web app [README](enterprise/webapp/README.md) for further instructions.
 
-### Release Instructions (Pending)
+### Release Bundle
 
-The ``bundle`` directory provides scripts packaging the `web-app/target` for use.
+Each `webapp` has an assembly packaging a predefined `geoserver.war` with appropriate licsense and release notes for download.
 
 ```
+cd webapp-standard
 mvn assembly
-```
-
-The default build is for GeoCat Live, preconfigured distribution for customers or specific data directory are available:
-
-```java
-mvn assembly -Pne_data
 ```
 
 #### Updating GeoServer version
@@ -102,8 +98,8 @@ To update a submodule to a new tag:
    cd enterprise
    mvn clean install
    cd webapp
-   mvn package -Prelease
-   mvn package jetty:run -Prelease
+   mvn package
+   mvn jetty:run -Prelease
    ```
    
    Check:

@@ -224,7 +224,7 @@
             </connector>
           </connectors>
           <supportedPackagings>
-            <supportedPackaging>jar</supportedPackaging>
+            <supportedPackaging>war</supportedPackaging>
           </supportedPackagings>
           <stopPort>${jetty.stopPort}</stopPort>
           <stopKey>GEOSERVER_JETTY_STOPKEY</stopKey>
