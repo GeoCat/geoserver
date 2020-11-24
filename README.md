@@ -22,16 +22,15 @@ This repository uses git submodules, clone using ``--recursive``:
 git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterprise.git
 ```
 
-The branches follow the release of GeoServer being distributed:
+The branches follow the release of GeoServer Enterprise being distributed:
 
 * master: live development, unpublished, nightly builds used for quality assurance
-* 2.18.x: stable branch, nightly builds, "next" stable release available for our customers
-* 2.10.x: branch maintained for RWS
+* 2020.5: stable branch, nightly builds, "next" stable release available for our customers
 
 Update when changing branches:
 
 ```bash
-git checkout 1.18.x
+git checkout 2020.5
 git submodule update --remote
 ```
 
@@ -68,7 +67,7 @@ cd webapp-standard
 mvn assembly
 ```
 
-#### Updating GeoServer version
+## Updating GeoServer version
 
 To update a submodule to a new tag:
 
@@ -117,8 +116,10 @@ To update a submodule to a new tag:
    git push
    ```
 
+## Release
+
 Use tags to mark releases:
 
 ```bash
-git tag 1.16.1 -a -m "GeoServer Enterprise 1.17.2 release"
+git tag 1.16.1 -a -m "GeoServer Enterprise 2020.5.1 release"
 ```
