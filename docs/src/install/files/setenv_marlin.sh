@@ -1,2 +1,2 @@
 #!/bin/sh
-CATALINA_OPTS="-XX:SoftRefLRUPolicyMSPerMB=36000 -XX:-UsePerfData -Xbootclasspath/a=lib/marlin-0.9.4.3-Unsafe.jar -Dorg.geotools.referencing.forceXY=true -Dsun.java2d.renderer=org.marlin.pisces.MarlinRenderingEngine"
+CATALINA_OPTS="${CATALINA_OPTS} -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:-UsePerfData -Xbootclasspath/a=lib/marlin-0.9.4.3-Unsafe.jar -Dorg.geotools.referencing.forceXY=true -Dsun.java2d.renderer=org.marlin.pisces.MarlinRenderingEngine"
