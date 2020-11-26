@@ -28,6 +28,7 @@ Prior releases:
    release_notes_2020.5
    release_notes_2020.2
 
+* :doc:`release_notes_2020.5.1`
 * :doc:`release_notes_2020.5`
 * :doc:`release_notes_2020.2`
 

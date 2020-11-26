@@ -1,6 +1,5 @@
 .. _Manual Linux Java Install:
 
-
 Manual Linux Java Install
 -------------------------
 

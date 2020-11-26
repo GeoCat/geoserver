@@ -33,7 +33,7 @@ OpenJDK is now the lead project for the Java ecosystem. As an open-source compan
 
         sudo yum install java-1.8.0-openjdk-devel
         
-   * To manually install Java, see :ref:`Manual Linux Java Install`
+   * To manually install Java, see :doc:`java`
 
 2. Verify that java is available:
 
@@ -46,10 +46,6 @@ OpenJDK is now the lead project for the Java ecosystem. As an open-source compan
       openjdk version "1.8.0_262"
       OpenJDK Runtime Environment (build 1.8.0_262-b10)
       OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
-
-3. Alternative installation options:
-
-   * :doc:`java`
    
 Apache Tomcat
 -------------
