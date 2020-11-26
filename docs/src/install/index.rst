@@ -30,13 +30,5 @@ As some of these operations are different depending on the operating system, we 
 .. toctree::
    :maxdepth: 1
    
-   installwin
-   installlinux
-
-.. toctree::
-   :caption: Appendix
-
-   installJavaManualLinux
-   installTomcatLinux
-
-
+   windows/index
+   linux/index

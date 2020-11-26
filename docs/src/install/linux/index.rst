@@ -5,6 +5,13 @@ Installation on Linux
 
 To install GeoServer Enterprise in Linux, follow these steps.
 
+.. toctree::
+   :hidden:
+   
+   java
+   tomcat_ubuntu
+   tomcat
+
 Java
 ----
 
@@ -40,6 +47,10 @@ OpenJDK is now the lead project for the Java ecosystem. As an open-source compan
       OpenJDK Runtime Environment (build 1.8.0_262-b10)
       OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
 
+3. Alternative installation options:
+
+   * :doc:`java`
+   
 Apache Tomcat
 -------------
 
@@ -48,15 +59,9 @@ Apache Tomcat
 GeoServer Enterprise supports Apache Tomcat 8.5.x or 9.0.x. 
 
 1. Installation options:
-
-   .. toctree::
-
-      install_tomcat_ubuntu
-      installTomcatLinux
-
-.. raw:: html
-
-    <br>
+   
+   * :doc:`tomcat_ubuntu`
+   * :doc:`tomcat`
 
 2. Verify that tomcat is available as a service:
    
@@ -99,13 +104,13 @@ GeoServer places all its required configuration files in a so-called data direct
      
      Navigate to the latest `geoserver` release and select the :file:`geoserver-data-default` zip archive.
      
-     .. figure:: img/data_directory_default_download.png
+     .. figure:: /install/img/data_directory_default_download.png
         
         Locate latest geoserver-data-default zip archive
      
      Copy the download URL from the asset summary :guilabel:`Path` link.
      
-     .. figure:: img/data_directory_default_path.png
+     .. figure:: /install/img/data_directory_default_path.png
         
         Latest geoserver-data-default zip URL
         
@@ -210,9 +215,9 @@ GeoServer places all its required configuration files in a so-called data direct
 
    * Open the Tomcat folder (:file:`/var/lib/tomcat9/`, :file:`/opt/tomcat/latest` or :file:`/etc/tomcat9`) and navigate to the :file:`conf/Catalina/localhost` subfolder.
 
-   * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/linux/geoserver.xml>` file, with the following content:
+   * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/geoserver.xml>` file, with the following content:
 
-     .. literalinclude:: files/linux/geoserver.xml
+     .. literalinclude:: files/geoserver.xml
 
    Note the :file:`conf/Catalina/localhost/` folder is created when you first run Tomcat.
 
@@ -251,7 +256,7 @@ To install GeoServer on your existing Tomcat instance, follow these steps:
 
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 
-	.. figure:: img/gserunning.png
+	.. figure:: /install/img/gserunning.png
 
 Web Server
 ----------

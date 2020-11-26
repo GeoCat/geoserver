@@ -72,7 +72,7 @@ Install Marlin Rendering Engine: Windows
 
 To install and configure Marlin, follow these steps:
 
-1. Go to the `marlin releases page <https://github.com/bourgesl/marlin-renderer/releases>`__:
+1. Go to the `marlin releases page <https://github.com/bourgesl/marlin-renderer/releases>`_:
 
 2. Scroll down to the :guilabel:`Latest release`, and expand the release :guilabel:`Assets` to locate and download the latest marlin jar.
 
@@ -92,19 +92,19 @@ To install and configure Marlin, follow these steps:
 
    Java option:
 
-   .. literalinclude:: /install/files/java_options_marlin.txt
+   .. literalinclude:: /install/windows/files/java_options_marlin.txt
       :language: text
       :lines: 8
 
    System property:
 
-   .. literalinclude:: /install/files/java_options_marlin.txt
+   .. literalinclude:: /install/windows/files/java_options_marlin.txt
       :language: text
       :lines: 10
 
    Open the :command:`Tomcat configuration tool` using :menuselection:`Start --> All Programs --> Apache Tomcat --> Tomcat Configuration`. Click :guilabel:`Configure` and select the :guilabel:`Java` tab. Locate :guilabel:`Java Options` field, and add the following lines:
 
-   .. literalinclude:: /install/files/java_options_marlin.txt
+   .. literalinclude:: /install/windows/files/java_options_marlin.txt
       :language: text
       :emphasize-lines: 8,10
 
@@ -150,18 +150,6 @@ To install and configure Marlin, follow these steps:
 
 5. Include jar in the boot classpath, and configure sun.java2d.renderer to use Marlin. To do, add the following config line to your `Java` options.   
 
-   Java option:
-
-   .. literalinclude:: /install/files/java_options_marlin.txt
-      :language: text
-      :lines: 8
-
-   System property:
-
-   .. literalinclude:: /install/files/java_options_marlin.txt
-      :language: text
-      :lines: 10
-
    For Tomcat running as a service, edit the service configuration:
 
    .. code-block:: console
@@ -176,7 +164,7 @@ To install and configure Marlin, follow these steps:
 
    For Tomcat running from the command line, the required java option and system property in the :file:`bin/setenv.sh` file:
 
-   .. literalinclude:: /install/files/setenv_marlin.sh
+   .. literalinclude:: /install/linux/files/setenv_marlin.sh
       :language: bash
 
    .. note:: `-X` java options **must be** listed before any `-D` system properties.

@@ -22,7 +22,7 @@ To install the OpenJDK JRE, follow these steps:
 
 #. Select :guilabel:`Windows` as your Operating System.
 
-   .. figure:: img/openjdkwindows.png
+   .. figure:: img/openjdk.png
 
 #. Select the corresponding architecture for your system in the :guilabel:`Architecture` field.
 
@@ -88,7 +88,7 @@ To install Tomcat, follow these steps:
 
 #. Under :guilabel:`Binary Distirbutions` download :guilabel:`32-bit/64-bit Windows Service Installer (pgp, sha512)`.
    
-   .. figure:: img/tomcat_download.png
+   .. figure:: /install/img/tomcat_download.png
 
 #. Run the installer file.
 
@@ -166,7 +166,7 @@ GeoServer places all its required configuration files in a so-called data direct
    * :file:`geoserver-data-standard` - services setup, includes sample layers
    * :file:`geoserver-data-default` - services setup only
      
-   .. figure:: img/nexus-download.png
+   .. figure:: /install/img/nexus-download.png
         
       Locate latest geoserver data zip archives
     
@@ -182,9 +182,9 @@ GeoServer places all its required configuration files in a so-called data direct
 
    * Navigate to the :file:`conf\\catalina\\localhost` subfolder.
 
-   * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/windows/geoserver.xml>` file, with the following content:
+   * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/geoserver.xml>` file, with the following content:
    
-     .. literalinclude:: files/windows/geoserver.xml
+     .. literalinclude:: files/geoserver.xml
 
 .. note:: Starting with an empty data directory
 
@@ -212,7 +212,7 @@ To install GeoServer on your existing Tomcat instance, follow these steps:
      
    Navigate to the latest `geoserver` release and select the :file:`geoserver-standard` zip archive.
    
-   .. figure:: img/nexus-download.png
+   .. figure:: /install/img/nexus-download.png
 
 #. Unzip this file containing:
 
@@ -232,4 +232,4 @@ To install GeoServer on your existing Tomcat instance, follow these steps:
 
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 
-   .. figure:: img/gserunning.png
+   .. figure:: /install/img/gserunning.png

@@ -42,7 +42,7 @@ Apache Tomcat :guilabel:`Java Options`:
 
 3. At the bottom of the :guilabel:`Java Options` field, enter the following lines:
    
-   .. literalinclude:: /install/files/java_options.txt
+   .. literalinclude:: /install/windows/files/java_options.txt
       :language: text
    
    Note `-X` java options are listed before `-D` system properties.
@@ -56,7 +56,7 @@ Linux and macOS :file:`setenv.sh`:
 
 1. Java options are managed in :file:`setenv.sh`:
 
-   .. literalinclude:: /install/files/setenv.sh
+   .. literalinclude:: /install/linux/files/setenv.sh
       :language: bash
    
    Notes:
