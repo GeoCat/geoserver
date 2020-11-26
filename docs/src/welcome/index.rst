@@ -16,7 +16,7 @@ Current release:
 .. toctree::
    :maxdepth: 1
 
-   release_notes_2020.5.1
+   release_notes_2020.5.2.md
 
 Prior releases:
 
@@ -24,15 +24,16 @@ Prior releases:
    :hidden:
    :maxdepth: 1
 
+   release_notes_2020.5.1
    release_notes_2020.5
    release_notes_2020.2
 
 * :doc:`release_notes_2020.5`
 * :doc:`release_notes_2020.2`
 
-`Contact GeoCat BV <http://geocat.net/contact/>`__ for more information on this product and the advantages of commercial open source.
+`Contact GeoCat BV <http://geocat.net/contact/>`_ for more information on this product and the advantages of commercial open source.
 
-.. note:: This document includes `creative commons attribution license <http://creativecommons.org/licenses/by/3.0/>`__ content from the `GeoServer User Manual <https://docs.geoserver.org>`__ , and :website:`GeoServer <blog>` and `GeoTools <http://geotoolsnews.blogspot.com>`__ release announcements. Material has been adapted to reflect the GeoServer Enterprise product and visual appearance.
+.. note:: This document includes `creative commons attribution license <http://creativecommons.org/licenses/by/3.0/>`_ content from the `GeoServer User Manual <https://docs.geoserver.org>`_ , and :website:`GeoServer <blog>` and `GeoTools <http://geotoolsnews.blogspot.com>`_ release announcements. Material has been adapted to reflect the GeoServer Enterprise product and visual appearance.
 
 WMS Improvements
 ----------------
@@ -329,8 +330,7 @@ Java 11 Support
 
 GeoServer Enterprise works with either Java 8 or Java 11. Tomcat 9 or newer is required for the WAR install.
 
-
-The Java ecosystem is now being led by the open source OpenJDK project, with `long term support <https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244`__ available from a range of organizations notably RedHat OpenJDK  and Adopt OpenJDK. The GeoTools user guide provides an :geotools:`overview of Java 8 and Java 11 distributions <build/install/jdk.html>`.
+The Java ecosystem is now being led by the open source OpenJDK project, with `long term support <https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244>`_ available from a range of organizations notably RedHat OpenJDK  and Adopt OpenJDK. The GeoTools user guide provides an :geotools:`overview of Java 8 and Java 11 distributions <build/install/jdk.html>`.
 
 * Java ecosystem is now led by the open-source OpenJDK project
 * Java 8 will continue to be available 
