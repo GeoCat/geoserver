@@ -30,7 +30,7 @@
     <jetty.version>9.4.12.v20180830</jetty.version>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
-    <data.directory>${basedir}/../../data/standard</data.directory>
+    <!--data.directory>${basedir}/../../data/standard</data.directory-->
   </properties>
   
   <dependencies>
@@ -162,7 +162,7 @@
          <artifactId>maven-assembly-plugin</artifactId>
          <executions>
            <execution>
-             <id>gse-standard</id>
+             <id>gse-training</id>
              <phase>package</phase>
              <goals><goal>single</goal></goals>
              <configuration>
@@ -172,7 +172,7 @@
                </descriptors>
                <appendAssemblyId>false</appendAssemblyId>
                <outputDirectory>${release.dir}</outputDirectory>
-               <finalName>geoserver-enterprise-standard-${geocat.enterprise}-${project.version}</finalName>
+               <finalName>geoserver-enterprise-training-${geocat.enterprise}-${project.version}</finalName>
              </configuration>
            </execution>
          </executions>
