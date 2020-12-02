@@ -245,45 +245,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    
-    <profile>
-      <!-- GeoServer Enterprise Training -->
-      <id>training</id>
-      <properties>
-        <!-- includes a data directory for ease of instruction -->
-        <data.directory>${basedir}/../../data/standard</data.directory>
-      </properties>
-      <!-- charts,geopkg,mbstyle,vectortiles,wps,ysld -->
-      <dependencies>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-charts</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-mbstyle</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-vectortiles</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-wps-core</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-web-wps</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.geoserver.extension</groupId>
-          <artifactId>gs-ysld</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-    
-  </profiles>
   
 </project>
