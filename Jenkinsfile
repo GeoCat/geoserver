@@ -78,6 +78,17 @@ pipeline {
                         }
                     }
                     script {
+                        def prefix = 'enterprise/webapp-training/target/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging training ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
                         def prefix = 'enterprise/release/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
 
@@ -119,6 +130,17 @@ pipeline {
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
                         println "Staging rws ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
+                        }
+                    }
+                    script {
+                        def prefix = 'enterprise/webapp-training/target/'
+                        def files = findFiles excludes: '', glob: prefix + '*.zip'
+                        
+                        println "Staging training ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
