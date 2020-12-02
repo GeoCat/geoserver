@@ -45,43 +45,10 @@ pipeline {
                         string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
                         variable: 'NEXUS_BASIC_AUTH')]) {
                     script {
-                        def prefix = 'enterprise/webapp-standard/target/'
+                        def prefix = 'enterprise/webapp-*/target/'
                         def files = findFiles excludes: '', glob: prefix + '*.zip'
                         
-                        println "Staging standard ${files.size()} distribution bundles for publishing"
-                        files.each { File file ->
-                            println "Pushing ${file}"
-                            def archive = file.getPath().substring(prefix.length())
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
-                        }
-                    }
-                    script {
-                        def prefix = 'enterprise/webapp-live/target/'
-                        def files = findFiles excludes: '', glob: prefix + '*.zip'
-                        
-                        println "Staging live ${files.size()} distribution bundles for publishing"
-                        files.each { File file ->
-                            println "Pushing ${file}"
-                            def archive = file.getPath().substring(prefix.length())
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
-                        }
-                    }
-                    script {
-                        def prefix = 'enterprise/webapp-rws/target/'
-                        def files = findFiles excludes: '', glob: prefix + '*.zip'
-                        
-                        println "Staging rws ${files.size()} distribution bundles for publishing"
-                        files.each { File file ->
-                            println "Pushing ${file}"
-                            def archive = file.getPath().substring(prefix.length())
-                            sh "curl -H \"Authorization: Basic ${NEXUS_BASIC_AUTH}\" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}"
-                        }
-                    }
-                    script {
-                        def prefix = 'enterprise/webapp-training/target/'
-                        def files = findFiles excludes: '', glob: prefix + '*.zip'
-                        
-                        println "Staging training ${files.size()} distribution bundles for publishing"
+                        println "Staging webapp ${files.size()} distribution bundles for publishing"
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
