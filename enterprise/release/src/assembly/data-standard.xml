@@ -12,11 +12,11 @@
     </file>
     <!-- install -->
     <file>
-      <source>../../docs/src/install/files/windows/geoserver.xml</source>
+      <source>../../docs/src/install/windows/files/geoserver.xml</source>
       <outputDirectory>windows</outputDirectory>
     </file>
     <file>
-      <source>../../docs/src/install/files/linux/geoserver.xml</source>
+      <source>../../docs/src/install/linux/files/geoserver.xml</source>
       <outputDirectory>linux</outputDirectory>
     </file>
     <file>
