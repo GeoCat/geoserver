@@ -1,5 +1,5 @@
 Installing and configuring the Control Flow extension 
-======================================================
+=====================================================
 
 The control-flow module for GeoServer allows the administrator to control the amount of concurrent requests actually executing inside the server, as well as giving an opportunity to slow down users making too many requests.
 

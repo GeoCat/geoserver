@@ -248,52 +248,9 @@ To install GeoServer on your existing Tomcat instance, follow these steps:
 
    Tomcat will unpack :file:`geoserver.war` into the folder `webapps/geoserver` when you first run Tomcat.
 
-   .. note:: You can get the geoserver.war file from Nexus (See :ref:`Nexus Login, above <Nexus Info>` ).  The :file:`geoserver.war` file is inside the :file:`geoserver-enterprise-standard-2020.5-2.17.2.zip` zip.
+   .. note:: You can get the geoserver.war file from Nexus (See :ref:`Nexus Login, above <Nexus Info>` ).  The :file:`geoserver.war` file is inside the :file:`geoserver-enterprise-standard-2020.5.2-2.18.1.zip` zip.
 
 #. In your web browser, navigate to `localhost:8080/geoserver <localhost:8080/geoserver>`_ to verify that GeoServer Enterprise is correctly working.
 
 	.. figure:: /install/img/gserunning.png
 
-Web Server
-----------
-
-GeoCat recommends use of NGINX or Apache HTTP Server to manage HTTP and HTTPS connections. The web server is configured as a reverse proxy forwarding requests to Apache Tomcat.
-
-1. Installation options
-   
-   * NGINX
-   * Apache HTTP Server
-
-2. HTTPS configuration
-   
-   * Certificate Generation
-   * NGINX
-   * Apache HTTP Server
-   
-3. Reverse proxy
-   
-   * NGINX
-   * Apache HTTP Server
-
-
-   .. code-block:: text
-
-      server {
-        listen 80;
-
-        server_name    example.com;
-        access_log /var/log/nginx/tomcat-access.log;
-        error_log /var/log/nginx/tomcat-error.log;
-
-        location / {
-              proxy_set_header X-Forwarded-Host $host;
-              proxy_set_header X-Forwarded-Server $host;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_pass http://127.0.0.1:8080/;
-        }
-      }
-
-2. HTTP and HTTPS can now be used:
-   
-   * http://localhost/
-   * https://localhost/

@@ -23,6 +23,7 @@ GetCat recommends the following best practices:
 .. toctree::
    :maxdepth: 1
    
+   webserver
    cors
    storeinownfolder
    postgisspatialindex

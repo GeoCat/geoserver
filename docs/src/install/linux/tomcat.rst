@@ -4,14 +4,14 @@
 Manual Linux Tomcat Install
 ---------------------------
 
-#. Download a Tomcat 9 install package
+#. Download a Tomcat 9 install package:
 
    .. code-block:: console
 
       $ sudo yum install wget
       $ wget https://www-eu.apache.org/dist/tomcat/tomcat-9/v9.0.37/bin/apache-tomcat-9.0.37.tar.gz
 
-#. Uncompress the Tomcat 9 install package
+#. Uncompress the Tomcat 9 install package:
 
    .. code-block:: console
 
@@ -20,14 +20,14 @@ Manual Linux Tomcat Install
         $ sudo tar -xf apache-tomcat-9.0.37.tar.gz -C /opt/tomcat
         $ sudo ln -s /opt/tomcat/apache-tomcat-9.0.37 /opt/tomcat/latest
 
-#. Create a Tomcat user and set permissions
+#. Create a Tomcat user and set permissions:
 
    .. code-block:: console
 
         $ sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
         $ sudo chown -R tomcat:tomcat /opt/tomcat
 
-#. Create/Edit the Tomcat service file
+#. Create/Edit the Tomcat service file:
 
    .. code-block:: console
 
@@ -60,6 +60,19 @@ Manual Linux Tomcat Install
 
        [Install]
        WantedBy=multi-user.target
+
+#. Define `CATALINA_OPTS` by creating :download:`/opt/tomcat/latest/bin/setenv.sh <files/setenv.sh>`:
+   
+   .. literalinclude:: files/setenv.sh
+      :language: bash
+   
+   .. note:: `-X` java options **must be** listed before any `-D` system properties.
+   
+#. Optional: By default Tomcat will use 1/4 of system memory, to set a lower limit adjust `CATALINA_OPTS` using  :file:`setenv.sh`.
+
+   .. literalinclude:: files/setenv_memory.sh
+      :emphasize-lines: 9-10
+      :language: bash
 
 #. Setup the Service
 
