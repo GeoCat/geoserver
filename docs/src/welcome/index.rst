@@ -7,10 +7,6 @@ GeoServer is a class-leading application for the publishing of spatial informati
 
 GeoCat is a proud open source company, and a core-contributor of GeoServer project. This GeoServer Enterprise release includes the latest GeoServer, GeoWebCache, GeoTools, JAT-EXT, and JTS Topology Suite technologies. 
 
-.. contents:: What is New
-   :depth: 3
-   :local:
-
 Current release:
 
 .. toctree::
@@ -35,6 +31,15 @@ Prior releases:
 `Contact GeoCat BV <http://geocat.net/contact/>`_ for more information on this product and the advantages of commercial open source.
 
 .. note:: This document includes `creative commons attribution license <http://creativecommons.org/licenses/by/3.0/>`_ content from the `GeoServer User Manual <https://docs.geoserver.org>`_ , and :website:`GeoServer <blog>` and `GeoTools <http://geotoolsnews.blogspot.com>`_ release announcements. Material has been adapted to reflect the GeoServer Enterprise product and visual appearance.
+
+GeoServer Enterprise Theme
+--------------------------
+
+GeoServer Enterprise includes a visual refresh with a fresh clean appearance.
+
+.. figure:: img/geocat_theme.png
+   
+   GeoServer Enterprise Theme
 
 WMS Improvements
 ----------------
