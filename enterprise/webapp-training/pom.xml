@@ -30,7 +30,7 @@
     <jetty.version>9.4.12.v20180830</jetty.version>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
-    <!--data.directory>${basedir}/../../data/standard</data.directory-->
+    <data.directory>${basedir}/../../data/standard</data.directory>
   </properties>
   
   <dependencies>
