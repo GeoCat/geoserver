@@ -1142,7 +1142,7 @@ form ul li div img + a {
 
 /* vector source */
 img[src*="/img/icons/geosilk/page_white_vector"] {
-  content: url(../enterprise/icon/ic_crop_din_24px.svg);
+  content: url(../enterprise/icon/ic_streetview_24px.svg);
 }
 /* vector database */
 img[src*="/img/icons/geosilk/database_vector"] {
