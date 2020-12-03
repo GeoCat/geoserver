@@ -937,27 +937,6 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
   background-size: 20px 20px;
   padding-left: 24px;
 }
-
-img[src*="/img/icons/silk/tick"] {
-  content: url(../enterprise/icon/ic_done_24px.svg);
-  width: 20px;
-  height: 20px;
-}
-img[src*="/img/icons/silk/delete"] {
-  content: url(../enterprise/icon/ic_remove_circle_outline_24px.svg);
-  width: 20px;
-  height: 20px;
-}
-img[src*="/img/icons/silk/arrow_down"] {
-  content: url(../enterprise/icon/ic_arrow_downward_24px.svg);
-  width: 20px;
-  height: 20px;
-}
-img[src*="/img/icons/silk/arrow_up"] {
-  content: url(../enterprise/icon/ic_arrow_upward_24px.svg);
-  width: 20px;
-  height: 20px;
-}
 .palette-theme-default .palette-buttons button.palette-add div:after {
   content: url(../enterprise/icon/ic_arrow_forward_24px.svg);
   width: 20px;
@@ -979,6 +958,27 @@ img[src*="/img/icons/silk/arrow_up"] {
   background: transparent url(../enterprise/icon/ic_edit_24px.svg) scroll no-repeat left center;
   padding: 2px 0px 2px 20px;
   padding-left: 24px;
+}
+
+img[src*="/img/icons/silk/tick"] {
+  content: url(../enterprise/icon/ic_done_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/delete"] {
+  content: url(../enterprise/icon/ic_remove_circle_outline_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/arrow_down"] {
+  content: url(../enterprise/icon/ic_arrow_downward_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/arrow_up"] {
+  content: url(../enterprise/icon/ic_arrow_upward_24px.svg);
+  width: 20px;
+  height: 20px;
 }
 
 /* ----- sidebar */
@@ -1126,6 +1126,31 @@ img[src*="/img/icons/silk/shape_square_key"] {
 /* wps */
 img[src*="/server_key"] {
   content: url(../enterprise/icon/ic_network_locked_24px.svg);
+}
+
+/* geo silk replacement */
+form ul li div {
+  padding: 3px 0;
+}
+form ul li div img {
+  width: 18px;
+  float: left;
+}
+form ul li div img + a {
+  margin-left: 5px;
+}
+
+/* vector source */
+img[src*="/img/icons/geosilk/page_white_vector"] {
+  content: url(../enterprise/icon/ic_crop_din_24px.svg);
+}
+/* vector database */
+img[src*="/img/icons/geosilk/database_vector"] {
+  content: url(../enterprise/icon/ic_storage_24px.svg);
+}
+/* vector source */
+img[src*="/img/icons/geosilk/page_white_raster"] {
+  content: url(../enterprise/icon/ic_grid_on_24px.svg);
 }
 
 /* ----- pagination */
