@@ -154,6 +154,9 @@ fieldset.leftwise, fieldset.rightwise {
 /* structural elements
 /* ------------------------------------------------------------------- */
 
+.wrap {
+  min-width: 0;
+}
 #header {
   color: #777;
   position: absolute;
@@ -176,6 +179,7 @@ fieldset.leftwise, fieldset.rightwise {
   height: calc(100vh - 85px);
 }
 #main .wrap {
+  width: auto;
   background: none;
   padding: 0 0 0 300px;
   margin: 0 0 -300px 0;
@@ -188,12 +192,13 @@ fieldset.leftwise, fieldset.rightwise {
   width: 300px;
   height: calc(100% - 85px);
   padding: 0 0 15px 0;
+  background: #fff;
   border-right: 1px solid #e1e4e5;
   overflow: auto;
 }
 #page {
   margin: 0 auto;
-  padding: 0;
+  padding: 0 20px;
   background: none;
   max-width: 900px;
 }
@@ -367,7 +372,8 @@ li.nav-administer-service img {
 
 #welcome {
   float: left;
-  max-width: 500px;
+  /* full width - width capabilities and some padding */
+  max-width: calc(100% - 300px);
 }
 #welcome table {
   margin-bottom: 1em;
@@ -537,6 +543,9 @@ div#capabilities .flat li a:hover {
     max-width: none;
     padding: 0 25px;
     margin: 0;
+  }
+  #welcome {
+    max-width: none;
   }
   #capabilities {
     float: none;
