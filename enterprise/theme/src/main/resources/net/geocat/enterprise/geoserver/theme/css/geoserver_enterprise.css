@@ -985,6 +985,7 @@ img[src*="/img/icons/silk/arrow_up"] {
 #sidebar img {
   width: 18px;
   height: 18px;
+  margin-top: 1px;
 }
 /* about & status */
 
