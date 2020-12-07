@@ -41,6 +41,61 @@ GeoServer Enterprise includes a visual refresh with a fresh clean appearance.
    
    GeoServer Enterprise Theme
 
+GeoServer Administration
+------------------------
+
+Status Monitoring
+'''''''''''''''''
+
+The :user:`Status Monitoring  <configuration/status.html#system-status>` tab is now included in the GeoServer :guilabel:`Status` page. This provides system statistics so monitor resource use from the Web UI.
+
+.. figure:: img/server_status.png
+   
+   System status
+
+Layer Service Settings
+''''''''''''''''''''''
+
+Often requested functionality, define which services are enabled on a layer-by layer basis directly from the layer editor. Previously this functionality was only available from the data security page.
+
+See Layer :ref:`Service Settings <data_webadmin_layers>`.
+
+.. figure:: img/layer_security.png
+   :figwidth: 80%
+
+Fullscreen style editor
+'''''''''''''''''''''''
+
+* The GeoServer style editor now includes a fullscreen side-by-side editing mode to easily preview appearance while editing a style.
+
+  To toggle fullscreen mode click the fullscreen button at the top-right of the style editor.
+
+.. figure:: img/style_full_screen.png
+   
+   Full screen style editor
+
+Style Editor helpers
+''''''''''''''''''''
+
+Style editor usability improved with:
+
+* Toolbar color picker to select a color and turn it into HEX specification
+  
+  .. figure:: img/style_helpers.png
+     
+     Style helper color picker
+
+* Toolbar file chooser to select an icon and build ExternalGraphic reference.
+  
+  .. figure:: img/style_helper_external_graphic.png
+     :figwidth: 40%
+     
+     Style helper external graphic
+
+* Auto-complete suggestions for SLD 1.0.
+
+  Use :kbd:`control-space` for context aware suggestions.
+
 WMS Improvements
 ----------------
 
@@ -114,6 +169,8 @@ The rendering engine now provides support for an efficient map algebra package k
 
 Jiffle was produced by Michael Bedwards, and has now been upgraded to support Java 8, and integrated in jai-ext. Now available GeoTools `gt-process-raster` module the functionality can be used from either WPS or as a rendering transformation.
 
+See :ref:`rendering_transform`.
+
 WFS Improvements
 ----------------
 
@@ -160,40 +217,10 @@ WPS `Dismiss` vendor operation to cancel the execution of one of the listed proc
 
 See :ref:`WPS Operations <wps_operations>`.
 
-GeoServer Administration
-------------------------
-
-Status Monitoring
-'''''''''''''''''
-
-The :user:`Status Monitoring  <configuration/status.html#system-status>` tab is now included in the GeoServer :guilabel:`Status` page. This provides system statistics so monitor resource use from the Web UI.
-
-Layer Service Settings
-''''''''''''''''''''''
-
-Often requested functionality, define which services are enabled on a layer-by layer basis directly from the layer editor. Previously this functionality was only available from the data security page.
-
-See Layer :ref:`Service Settings <data_webadmin_layers>`.
-
-Style Editor helpers
-''''''''''''''''''''
-
-Style editor usability improved with:
-
-* Toolbar color picker to select a color and turn it into HEX specification
-
-* Toolbar file chooser to select an icon and build ExternalGraphic reference.
-
-* Auto-complete suggestions for SLD 1.0.
-
-  Use :kbd:`control-space` for context aware suggestions.
-
-Fullscreen style editor
-'''''''''''''''''''''''
-
-* The GeoServer style editor now includes a fullscreen side-by-side editing mode to easily preview appearance while editing a style.
-
-  To toggle fullscreen mode click the fullscreen button at the top-right of the style editor.
+.. figure:: img/process-status.png
+   :figwidth: 80%
+     
+   Process status
 
 GeoServer Security
 ------------------
@@ -351,3 +378,7 @@ This release of GeoServer Enterprise defaults to the use of JAI-EXT operations.
 
 The JAI-EXT library offers a pure java implementation enhanced for geospatial functionality supporting NODATA pixels and support for vector footprints.
 
+.. figure:: img/jai-ext.png
+   :figwidth: 80%
+   
+   JAI-EXT Operations
