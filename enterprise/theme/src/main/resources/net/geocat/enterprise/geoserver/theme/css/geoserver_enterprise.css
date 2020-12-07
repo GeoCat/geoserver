@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2019 - GetCat B.V. All rights reserved.
+  Copyright (C) 2020 - GeoCat B.V. All rights reserved.
   Copyright (C) 2014 - 2016 Open Source Geospatial Foundation. All rights reserved.
   This code is licensed under the GPL 2.0 license, available at the root
   application directory.
@@ -18,8 +18,7 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  text-align:left !important; /* override blueprint's ie.css */
-  padding-top: 25px;
+  text-align:left !important; 
   margin: 0;
 }
 body.help form, body.help ul li {
@@ -36,13 +35,16 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  height: auto; /* override blueprint's screen.css */
+  height: auto;
 }
-h1 { /* override blueprint.css */
-  font-size: 2.1em;
+h1 {
+  font-size: 32px;
+  font-weight: 700;
 }
 h3 {
   margin: 1em 0 0.5em 0;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid #eaecef;
 }
 strong, em, dt, b, i {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -50,14 +52,18 @@ strong, em, dt, b, i {
   text-rendering: optimizeLegibility;
 }
 a {
-  color: #418BBF;
+	color: #0366d6;
 }
-a:hover  {
-  color: rgb(40, 108, 156);
+a:hover, a:focus, a:visited {
+	color: #0366d6;
+	text-decoration: underline;
+}
+.page-header p {
+  font-size: 16px;
 }
 .error,
 .notice,
-.success { /* override blueprint.css */
+.success {
   border: 0 none transparent;
   margin-bottom: 0;
   padding: 0;
@@ -141,23 +147,23 @@ fieldset.leftwise, fieldset.rightwise {
 }
 .feedbackPanelWARNING, .feedbackPanelERROR {
   padding: 8px 10px;
-  border-radius: 2px;
+  border-left: 4px solid #c00;
 }
   
 /* ----------------------------------------------------------------------
 /* structural elements
 /* ------------------------------------------------------------------- */
 
+.wrap {
+  min-width: 0;
+}
 #header {
-  background: #f8f8f8;
   color: #777;
-  padding: 5px;
-  border-bottom: 1px solid #e5e5e5;
-  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
-  position: fixed;
+  position: absolute;
   width: 100%;
-  padding: 5px 10px;
+  padding: 0;
   top: 0;
+  height: 85px;
   z-index: 1000;
 }
 #header .wrap {
@@ -169,26 +175,51 @@ fieldset.leftwise, fieldset.rightwise {
 #main {
   background: none;
   border: 0;
+  margin-top: 85px;
+  height: calc(100vh - 85px);
 }
 #main .wrap {
+  width: auto;
   background: none;
+  padding: 0 0 0 300px;
+  margin: 0 0 -300px 0;
+  height: 100%;
 }
 #sidebar {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 85px;
   left: 0;
-  width: 250px;
-  padding: 30px 20px 0;
+  width: 300px;
+  height: calc(100% - 85px);
+  padding: 0 0 15px 0;
+  background: #fff;
+  border-right: 1px solid #e1e4e5;
+  overflow: auto;
 }
 #page {
-  margin: 0 0 -250px 21em;
-  padding: 25px 0 250px 19px;
+  margin: 0 auto;
+  padding: 0 20px;
   background: none;
+  max-width: 900px;
 }
 #page.fullscreen {
   padding-top: 0px;
-  margin-top: 51px !important;
+  margin-top: 35px !important;
   overflow: auto;
+  max-width: 100%;
+  position: absolute;
+  top: -125px;
+  max-width: 100%;
+  background: #fff;
+  z-index: 1100;
+  padding: 20px;
+  height: 100vh;
+}
+.fullscreen #header-title {
+  font-size: 32px;
+}
+.fullscreen .toolbar-sticky {
+  padding-bottom: 25px;
 }
 .page-pane-fullscreen {
   height: auto;
@@ -204,6 +235,12 @@ fieldset.leftwise, fieldset.rightwise {
 .page-header ul {
   margin: 10px 0;
 }
+#page .navigation-tab-header {
+  padding-left: 0 !important;
+}
+.toolbar-sticky {
+  z-index: 1200;
+}
 
 /* ----------------------------------------------------------------------
 /* header
@@ -211,27 +248,41 @@ fieldset.leftwise, fieldset.rightwise {
 
 #header .wrap {
   text-align: right;
+  padding-left: 300px;
 }
 #header h2 {
+  position: fixed;
   margin: 0;
   font-size: 1.76em;
+  width: 300px;
+  border-right: 1px solid #e1e4e5;
+  border-bottom: 1px solid #e1e4e5;
+  margin-left: -300px;
+  float: left;
 }
 #header h2 a {
-  float: left;
-  height: 34px;
-  width: 147px;
+  float: none;
+  display: block;
+  height: 43px;
+  width: 258px;
   background: url(../enterprise/gc-geoserver-logo.svg) no-repeat;
   overflow: hidden;
   text-indent: -9999em;
   margin: 3px 0 0 15px;
-  background-size: 200px 34px;
+  background-size: 258px 43px;
   text-indent: inherit;
+  margin: 20px;
 }
 #header h2 a span {
   display: none;
 }
 #header .button-group {
-  padding: 0.2em 0 0.2em;
+  position: fixed;
+  background-color: #fff;
+  padding: 20px 0 10px 0;
+  width: calc(100% - 300px - 50px);
+  border-bottom: 1px solid #e1e4e5;
+  margin: 0 25px;
 }
 #header label.shown {
   display: inline;
@@ -265,48 +316,59 @@ ul#navigation {
 ul#navigation a {
   text-decoration: none;
 }
+ul#navigation a img {
+  filter: grayscale(100%);
+}
 ul#navigation a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  background-color: #ececec;
+}
+ul#navigation a:hover img {
+  filter: none;
 }
 ul#navigation .navigation-tab {
-  margin: 3px 0;
-  border-bottom: 1px solid #ddd;
+  margin: 0;
+  border: 0;
 }
 .navigation-tab-header {
   padding: 2px 5px;
-  font-weight: 100 !important;
-  font-size: 16px !important;
+  font-weight: 700 !important;
   font-style: normal;
+  color: #0366d6;
+  font-size: 16px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  padding-left: 20px;
+  text-transform: uppercase;
 }
 .navigation-tab-single, .navigation-tab-content {
-  padding: 3px 5px 7px;
+  padding: 0;
 }
-.navigation-tab-single, .navigation-tab-header {
+.navigation-tab-single {
   font-weight: bold;
   font-size: 14px;
   color: #333;
 }
 .navigation-tab-content {
   border-top: none;
+  padding: 0;
 }
-.navigation-tab-single a, .navigation-tab-header a, .navigation-tab-content a {
+.navigation-tab-single a, .navigation-tab-content a {
   display: block;
   color: #333;
-  padding: 5px 3px;
-  font-size: 13px;
+  padding: 5px 5px 5px 2em;
+  font-size: 14px;
+}
+.navigation-tab-single a {
+  padding-left: 15px;
+  color: #0366d6;
+  font-weight: 700;
 }
 li.nav-administer-service {
   clear: left;
 }
 li.nav-administer-service img {
-  float: left;
-  margin-right: 0.5em;
-  height: 16px;
-  width: 16px;
-  filter: grayscale(100%);
-}
-li.nav-administer-service a:hover img {
-  filter: none;
+  /* display: none; */
 }
 
 /* ----------------------------------------------------------------------
@@ -315,13 +377,44 @@ li.nav-administer-service a:hover img {
 
 #welcome {
   float: left;
-  max-width: 500px;
+  /* full width - width capabilities and some padding */
+  max-width: calc(100% - 300px);
 }
 #welcome table {
   margin-bottom: 1em;
 }
 #welcome thead th {
   background-color: #fff !important;
+}
+/* ----- messages */
+#welcome div span p .warning-link, #welcome div span p .warning-link + a {
+  display: block;
+  padding: 15px 10px;
+	border-left-width: 4px;
+	border-left-style: solid;
+	margin: 1rem 0;
+  background: #fff7d3;
+  border-color: #e7c000;
+  color: #6b5900;
+}
+#welcome div span p .warning-link + a {
+  margin-top: -2rem;
+  color: #0366d6;
+}
+
+/* ----------------------------------------------------------------------
+/* security
+/* ------------------------------------------------------------------- */
+
+#encryption .warning-link {
+  display: block;
+  padding: 15px 10px;
+	border-left-width: 4px;
+	border-left-style: solid;
+	margin: 1rem 0 !important;
+  background: #fff7d3;
+  border-color: #e7c000;
+  color: #6b5900;
 }
 
 /* ----------------------------------------------------------------------
@@ -385,12 +478,94 @@ div#capabilities .flat li a:hover {
 }
 
 /* ----------------------------------------------------------------------
+/* responsive layout
+/* ------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  #header {
+    height: 50px;
+  }
+  #main {
+    margin-top: 50px;
+  }
+  #page {
+    margin: 0;
+    padding: 0 15px;
+    max-width: 100%;
+  }
+  #sidebar {
+    margin-left: -290px;
+    background: #f4f4f4;
+    top: 0;
+    transition-duration: 0.5s;
+    height: 100%;
+    z-index: 1100;
+    border-right: 14px double #ddd;
+  }
+  #sidebar:hover {
+    margin-left: 0;
+    background: #fff;
+    border-right: 1px solid #e1e4e5;
+  }
+  #main .wrap {
+    margin-left: -280px;
+    width: auto;
+    min-width: auto;
+  }
+  #header .button-group {
+    width: calc(100% - 20px);
+    margin-left: -290px;
+    padding: 10px 0;
+  }
+  #header h2 {
+    border: 0;
+    width: auto;
+    z-index: 10;
+    margin-left: -275px;
+  }
+  #header h2 a {
+    background-image: url(../enterprise/gc-geoserver-logo-only.svg);
+    margin: 10px;
+    height: 32px;
+    width: 50px;
+    background-size: 188px 32px;
+  }
+  #welcome {
+    max-width: none;
+  }
+  #capabilities {
+    float: none;
+    margin: 0;
+    width: auto;
+  }
+}
+@media (max-width: 580px) {
+  #header .button-group [action$="j_spring_security_check"] {
+    width: calc(100% - 70px);
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  #page {
+    max-width: none;
+    padding: 0 25px;
+    margin: 0;
+  }
+  #welcome {
+    max-width: none;
+  }
+  #capabilities {
+    float: none;
+    margin: 0;
+    width: auto;
+  }
+}
+
+/* ----------------------------------------------------------------------
 /* tables
 /* ------------------------------------------------------------------- */
 
 table {
-  margin-bottom: 10px; /* override blueprint's settings */
-  margin-top: 10px; /* override blueprint's settings */
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 th {
   color: #222;
@@ -408,7 +583,7 @@ thead th {
   background: #fff;
   color: #222;
   font-weight: 500;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 thead th a {
   color: #333;
@@ -420,7 +595,7 @@ tr:hover td, tbody tr:hover th {
   background: #fff;
 }
 tr.even td, tr.even th {
-  background: #f9f9f9; /* override blueprint's settings */
+  background: #f9f9f9; 
 }
 tr.even:hover td, tr.even:hover th {
   background: #f9f9f9;
@@ -445,13 +620,13 @@ form:before, form:after, form li:before, form li:after {
 form:after, form li:after {
   clear: both;
 }
-fieldset { /* override blueprint's settings */
+fieldset {
   padding: 15px;
   margin: 10px 0;
   border: 1px solid #ddd;
-  max-width: 800px;
+  max-width: 900px;
 }
-fieldset.leftwise, fieldset.rightwise {
+fieldset.rightwise {
   margin-right: 0 !important;
 }
 fieldset.noTitle {
@@ -499,8 +674,8 @@ li.select2-results__option {
   padding: 2px 10px;
 }
 label, span.fieldname {
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
   font-weight: 600;
 }
 input, textarea, select {
@@ -536,6 +711,12 @@ input[type=text], input[type=number], input[type=password], input.text, input.fi
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   margin: 0 5px 0 0;
+}
+.rightwise input[type=text], .rightwise input[type=number], .rightwise input[type=password], .rightwise input.text, .rightwise input.file, .rightwise textarea.textarea, .rightwise select.select, .rightwise select {
+  margin: 0 0 0 5px;
+}
+input.text, textarea.textarea, .firefox select.select {
+  width: 25em;
 }
 select {
   height: 29px;
@@ -599,13 +780,28 @@ div.value, div.value-wide {
 div.value-wide {
   width: 100%;
 }
-div.value pre, div.value-wide pre { /* override blueprint's settings */
+div.value pre, div.value-wide pre { 
   margin: 0;
 }
 input[type=checkbox] + label, input[type=radio] + label {
   display: inline-block;
   font-weight: normal;
   margin: 0;
+}
+/* ----- login form */
+[action$="j_spring_security_check"] span {
+  display: block;
+}
+#header .button-group [action$="j_spring_security_check"] span {
+  float: left;
+}
+.page-pane [key="rememberMe"] {
+  float: left;
+  display: block;
+  margin: 5px 5px 5px 0;
+}
+.page-pane [action$="j_spring_security_check"] button {
+  clear: both;
 }
 
 /* ----------------------------------------------------------------------
@@ -628,7 +824,7 @@ div#olPreview {
 /* buttons
 /* ------------------------------------------------------------------- */
 
-button, .button-group a, .button-group button, input.btnTxt, .paginator a, input[type=button] {
+button, .button-group a, .button-group button, input.btnTxt, .paginator a, input[type=button], #fullscreen-div {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 400;
@@ -655,7 +851,7 @@ button, .button-group a, .button-group button, input.btnTxt, .paginator a, input
   width: auto;
   overflow: visible;
 }
-button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:hover, .paginator a:hover, input[type=button]:hover {
+button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:hover, .paginator a:hover, input[type=button]:hover, #fullscreen-div:hover {
   background-color: #efefef;
   text-decoration: none;
   color: #333;;
@@ -685,24 +881,202 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
   margin-bottom: 5px;
 }
 .button-toolbar a.icon, .button-toolbar button.icon {
-  padding-top: 5px;
-  padding-bottom: 4px;
+  padding: 6px;
 }
 .button-toolbar select {
   min-width: auto;
+  height: 34px;
 }
-/* special */
+.button-toolbar span {
+  height: 20px;
+  width: 20px;
+  margin: 0;
+}
+/* specials */
+.info-link {
+  color: #31708f;
+}
 .add-link {
-  color: #28a745;
+  color: #28a745 !important;
+  cursor: pointer;
 }
-.add-link:hover {
+.add-link:hover, .add-link:active, .add-link:visited {
   color: #1e7e34;
 }
 .remove-link, .dismiss-link {
-  color: #dc3545;
+  color: #dc3545 !important;
+  cursor: pointer;
 }
-.remove-link:hover, .dismiss-link:hover {
+.remove-link:hover, .remove-link:active, .remove-link:visited, .dismiss-link:hover, .dismiss-link:active, .dismiss-link:visited {
   color: #c82333;
+}
+.form-button-cancel {
+  color: #dc3545 !important;
+}
+/* ----- full screen */
+#fullscreen-div {
+  width: 24px;
+  height: 24px;
+  padding: 5px;
+}
+
+/* custom icons */
+
+/* ----- general */
+.info-link {
+  background: transparent url(../enterprise/icon/ic_info_24px.svg) scroll no-repeat left center;
+  padding: 2px 0px 2px 24px;
+  background-size: 20px 20px;
+}
+.help-link {
+  background: transparent url(../enterprise/icon/ic_info_24px.svg) scroll no-repeat left center;
+  padding: 2px 0px 2px 20px;
+}
+.add-link {
+  background: transparent url(../enterprise/icon/ic_add_24px.svg) scroll no-repeat left center;
+  background-size: 20px 20px;
+  padding-left: 24px;
+}
+.remove-link, .dismiss-link {
+  background: transparent url(../enterprise/icon/ic_remove_24px.svg) scroll no-repeat left center;
+  background-size: 20px 20px;
+  padding-left: 24px;
+}
+.palette-theme-default .palette-buttons button.palette-add div:after {
+  content: url(../enterprise/icon/ic_arrow_forward_24px.svg);
+  width: 20px;
+  height: 20px;
+  margin: -2px 0 0 -2px;
+}
+.palette-theme-default .palette-buttons button.palette-remove div:after {
+  content: url(../enterprise/icon/ic_arrow_back_24px.svg);
+  width: 20px;
+  height: 20px;
+  margin: -2px 0 0 -2px;
+}
+.gwc-clear {
+  background: transparent url(../enterprise/icon/ic_delete_forever_24px.svg) scroll no-repeat left center;
+  background-size: 20px 20px;
+  padding-left: 24px;
+}
+.edit-link {
+  background: transparent url(../enterprise/icon/ic_edit_24px.svg) scroll no-repeat left center;
+  padding: 2px 0px 2px 20px;
+  padding-left: 24px;
+}
+
+img[src*="/img/icons/silk/tick"] {
+  content: url(../enterprise/icon/ic_done_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/delete"] {
+  content: url(../enterprise/icon/ic_remove_circle_outline_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/arrow_down"] {
+  content: url(../enterprise/icon/ic_arrow_downward_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+img[src*="/img/icons/silk/arrow_up"] {
+  content: url(../enterprise/icon/ic_arrow_upward_24px.svg);
+  width: 20px;
+  height: 20px;
+}
+
+/* ----- pagination */
+.paginator a {
+  padding: 4px;
+  margin-right: 3px;
+}
+.paginator .goto a {
+  padding: 6px 12px;
+}
+.paginator a.first {
+  content: url(../enterprise/icon/ic_first_page_24px.svg);
+}
+.paginator a.prev {
+  content: url(../enterprise/icon/ic_chevron_left_24px.svg);
+}
+.paginator a.next {
+  content: url(../enterprise/icon/ic_chevron_right_24px.svg);
+}
+.paginator a.last {
+  content: url(../enterprise/icon/ic_last_page_24px.svg);
+}
+/* ----- full screen */
+#fullscreen-div img {
+  width: 24px;
+  height: 24px;
+  background: url(../enterprise/icon/ic_fullscreen_24px.svg) no-repeat;
+}
+.fullscreen-image-in {
+  background: url(../enterprise/icon/ic_fullscreen_exit_24px.svg) no-repeat !important;
+}
+/* ----- editor toolbar */
+.button-group .button-undo span {
+  background: url(../enterprise/icon/ic_undo_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-redo span {
+  background: url(../enterprise/icon/ic_redo_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-goto span {
+  background: url(../enterprise/icon/ic_low_priority_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-reformat span {
+  background: url(../enterprise/icon/ic_format_align_right_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-find span {
+  background: url(../enterprise/icon/ic_search_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-find-next span {
+  background: url(../enterprise/icon/ic_zoom_in_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-replace span {
+  background: url(../enterprise/icon/ic_find_replace_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-picture span {
+  background: url(../enterprise/icon/ic_photo_size_select_actual_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+.button-group .button-color span {
+  background: url(../enterprise/icon/ic_palette_24px.svg) no-repeat;
+  background-size: 20px 20px;
+}
+/* ----- login */
+[action$="j_spring_security_check"] button {
+  background: #2bb24c;
+  color: #fff;
+  border: 0;
+}
+[action$="j_spring_security_check"] button:hover {
+  background: #249540;
+  color: #fff;
+}
+[action$="j_spring_security_check"] button img {
+  display: none;
+}
+[action$="j_spring_security_check"] button span {
+  float: none !important;
+}
+/* ----- logout */
+[action$="j_spring_security_logout"] button {
+  background: #ff5722;
+  color: #fff;
+  border: 0;
+}
+[action$="j_spring_security_logout"] button:hover {
+  background: #fd3d00;
+  color: #fff;
 }
 
 /* ----------------------------------------------------------------------
@@ -807,3 +1181,6 @@ div.wicket-modal a.w_close:hover {
 .treeview li .leaf span {
   padding: 3px;
 }
+
+/* custom icons */
+/* @import url("geoserver_icons.css"); */

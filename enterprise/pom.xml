@@ -15,7 +15,7 @@
  <groupId>net.geocat.enterprise</groupId>
  <artifactId>geoserver</artifactId>
  <packaging>pom</packaging>
- <version>2.18.0</version>
+ <version>2.18-SNAPSHOT</version>
 
  <name>GeoServer Enterprise ${geocat.enterprise}</name>
  <description>
@@ -58,11 +58,11 @@
  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <geocat.enterprise>2020.5</geocat.enterprise>
+    <geocat.enterprise>2020.5.2</geocat.enterprise>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
-    <gs.version>2.18.0</gs.version>
-    <gwc.version>1.18.0</gwc.version>
-    <gt.version>24.0</gt.version>
+    <gs.version>2.18.1</gs.version>
+    <gwc.version>1.18.1</gwc.version>
+    <gt.version>24.1</gt.version>
     <spring.version>5.1.16.RELEASE</spring.version>
     <spring.security.version>5.1.11.RELEASE</spring.security.version>
     <!-- build maven-compiler-plugin -->
@@ -258,7 +258,7 @@
       <artifactId>gs-web-app</artifactId>
       <version>${gs.version}</version>
     </dependency>
-    <!-- extensions for inclusion in webapp profiles -->
+    <!-- extensions for inclusion in webapp assemblies -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-charts</artifactId>
@@ -317,6 +317,21 @@
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-ysld</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-web</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-rest</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-core</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <!-- Use of gt.version for GeoTools modules -->
@@ -629,29 +644,33 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <groupId>com.ruleoftech</groupId>
+          <artifactId>markdown-page-generator-plugin</artifactId>
+          <version>2.2.0</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
           <version>3.3.0</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.7</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>3.0.0-M1</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.2.0</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
           <version>3.3.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.7</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -693,6 +712,7 @@
   <module>webapp-standard</module>
   <module>webapp-live</module>
   <module>webapp-rws</module>
+  <module>webapp-training</module>
   <module>release</module>
  </modules>
 

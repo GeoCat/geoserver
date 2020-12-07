@@ -10,6 +10,8 @@ default/legendsamples/
 default/logs
 default/security
 default/styles
+default/temp
+default/tmp
 default/workspaces
 
 # Standard data directory
@@ -20,3 +22,5 @@ standard/legendsamples/
 standard/logs
 standard/security
 standard/styles
+standard/temp
+standard/tmp

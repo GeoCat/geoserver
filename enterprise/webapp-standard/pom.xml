@@ -13,7 +13,7 @@
   <parent>
     <groupId>net.geocat.enterprise</groupId>    
     <artifactId>geoserver</artifactId>
-    <version>2.18.0</version>
+    <version>2.18-SNAPSHOT</version>
   </parent>
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
@@ -53,15 +53,6 @@
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-mbstyle</artifactId>
     </dependency>
-    <!-- oracle support pending online tests -->
-    <!--dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-oracle</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.oracle.ojdbc</groupId>
-      <artifactId>ojdbc8</artifactId>
-    </dependency-->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-wps-core</artifactId>
@@ -79,18 +70,14 @@
   <build>
     <finalName>geoserver</finalName>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      
+
       <plugin>
         <groupId>com.ruleoftech</groupId>
         <artifactId>markdown-page-generator-plugin</artifactId>
-        <version>2.2.0</version>
+        <configuration>
+           <headerHtmlFile>${project.basedir}/../release/src/main/markdown/html/header.html</headerHtmlFile>
+           <footerHtmlFile>${project.basedir}/../release/src/main/markdown/html/footer.html</footerHtmlFile>
+        </configuration>
         <executions>
           <execution>
             <id>md-license</id>
@@ -238,7 +225,6 @@
       <!-- deploy -->
       <!-- no need to install this to local repo -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-install-plugin</artifactId>
         <configuration>
           <skip>true</skip>
@@ -246,7 +232,6 @@
       </plugin>
       <!-- no need to deploy to nexus repo -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
         <configuration>
           <skip>true</skip>

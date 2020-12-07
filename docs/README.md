@@ -4,9 +4,20 @@
 
 Documentation is written using the sphinx documentation system using restructured text. Extensive use of directives are used to capture intent (command, menu-selection,gui-label,kbd) rather than marking text in italic or bold.
 
+```
+pip install sphinx
+```
 
-	pip install sphinx
+We also make use of two sphinx extensions, to help process markdown files:
 
+```
+pip install recommonmark
+```
+
+and to copy code from the `code blocks`:
+```
+pip install sphinx-copybutton
+```
 
 ## Themes
 
@@ -16,21 +27,33 @@ A number of sphinx themes are available:
 
 These themes are managed as git submodules for ease of maintenance.
 
-
 ## Building the documentation
-
 
 To build the documentation, run
 
+```
+python builddocs.py
+```
 
-	$ python builddocs.py
+That builds the docs as they are in the current branch.
 
-That builds the docs as they are in the current branch
+The resulting docs are stored in the ``build`` folder.
 
-Resulting docs are stored in the ``build`` folder.
+This script combines the documentation of the geoserver user guide and the ``src`` folder into a `staging` folder which is built into a single manual.
 
-This script combines the documentation of the geoserver user guide and the ``src`` folder into a single manual.
+To quickly rebuild without recopying:
 
+```
+python builddocs.py --rebuild
+```
+
+To force everything to rebuild:
+
+```
+python builddocs.py --clean
+```
+
+To check for additional commands use `python builddocs.py --help`.
 
 ### Creating a release version of the documentation
 

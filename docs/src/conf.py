@@ -34,14 +34,21 @@ project = 'GeoServer Enterprise'
 copyright = u'{}, GeoCat BV'.format(year)
 author = 'GeoCat BV'
 
+pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "enterprise", "pom.xml")
+pomtree = ET.parse(pompath)
+
+enterprise_properties = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}properties")
+enterprise_version = enterprise_properties.find("{http://maven.apache.org/POM/4.0.0}geocat.enterprise").text
+
 # The full version, including alpha/beta/rc tags
 pompath = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "geoserver", "src", "pom.xml")
 pomtree = ET.parse(pompath)
+
 release = pomtree.getroot().find("{http://maven.apache.org/POM/4.0.0}version").text
 snapshot = release.find('SNAPSHOT') != -1
 
 # The short X.Y version
-version = ".".join(release.split(".")[:2])
+version = enterprise_version # ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 
@@ -55,8 +62,9 @@ version = ".".join(release.split(".")[:2])
 extensions = [
   'sphinx.ext.ifconfig',
   'sphinx.ext.extlinks',
-  'sphinx.ext.todo'
-  # 'recommonmark'
+  'sphinx.ext.todo',
+  'recommonmark',
+  'sphinx_copybutton'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -67,8 +75,8 @@ templates_path = ['_templates']
 #
 # source_suffix = ['.rst', '.md']
 source_suffix = {
-    '.rst': 'restructuredtext'
-    # '.md': 'markdown',
+    '.rst': 'restructuredtext',
+    '.md': 'markdown'
 }
 
 # The master toctree document.
@@ -93,16 +101,17 @@ pygments_style = 'sphinx'
 extlinks = { 
     'wiki': ('https://github.com/geoserver/geoserver/wiki/%s',''),
     'website': ('http://geoserver.org/%s',''),
-    'user': ('https://www.geocat.net/docs/geoserver-enterprise/v'+version+'/%s',''),
+    'user': ('https://www.geocat.net/docs/geoserver-enterprise/'+version+'/%s',''),
     'developer': ('http://docs.geoserver.org/latest/en/developer/%s',''),
     'docguide': ('http://docs.geoserver.org/latest/en/docguide/%s',''),
     'geos': ('https://osgeo-org.atlassian.net/browse/GEOS-%s','GEOS-'),
     'geot': ('https://osgeo-org.atlassian.net/browse/GEOT-%s','GEOT-'),
     'geotools': ('https://docs.geotools.org/stable/userguide/%s',''),
     'api': ('http://docs.geoserver.org/latest/en/api/#1.0.0/%s',''),
+    'tomcat': ('https://tomcat.apache.org/tomcat-9.0-doc/%s',''),
     'download_release': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/geoserver-'+release+'-%s.zip',None),
     'download_extension': ('http://sourceforge.net/projects/geoserver/files/GeoServer/'+release+'/extensions/geoserver-'+release+'-%s-plugin.zip',None),
-    'download_community': ('https://github.com/geoserver/geoserver/tree/'+version+'/src/community/%s',None)
+    'download_community': ('https://github.com/geoserver/geoserver/tree/'+release+'/src/community/%s',None)
 }
 
 # Common substitutions
@@ -110,11 +119,11 @@ extlinks = {
 rst_epilog = "\n" \
  ".. |install_directory_winXP| replace:: :file:`C:\\\\Program Files\\\\GeoServer "+release+"`\n" \
  ".. |install_directory_win| replace:: :file:`C:\\\\Program Files (x86)\\\\GeoServer "+release+"`\n" \
- ".. |install_directory_linux| replace:: :file:`/var/lib/tomcat8/webapps/geoserver`\n" \
+ ".. |install_directory_linux| replace:: :file:`/var/lib/tomcat9/webapps/geoserver`\n" \
  ".. |install_directory_mac| replace:: :file:`/Applications`\n" \
  ".. |data_directory_winXP| replace:: :file:`C:\\\\ProgramData\\\\GeoServer\\\\Data`\n" \
  ".. |data_directory_win| replace:: :file:`C:\\\\ProgramData\\\\GeoServer\\\\\Data`\n" \
- ".. |data_directory_linux| replace:: :file:`/var/lib/tomcat8/webapps/geoserver/data`\n" \
+ ".. |data_directory_linux| replace:: :file:`/var/opt/geoserver/`\n" \
  ".. |data_directory_mac| replace:: :file:`/Application Support/GeoServer/Data`"
 
 # -- Options for HTML output -------------------------------------------------
@@ -135,15 +144,17 @@ html_theme_options = {
     'logo_only': True,                  # product logo contains name already
     'display_version': False,           # no version number
     'prev_next_buttons_location': None, # table of contents navigation
-    'style_external_links': False,      # user guide links common
+    'style_external_links': True,      # user guide links common
     'includehidden': False,
-    'titles_only': True,
+    'titles_only': False,
     'collapse_navigation': True,
     'show_sphinx': 'Green',
-    'is_prerelease': False
+    'is_prerelease': snapshot
 }
 
-html_context = {'theme_is_prerelease': snapshot}
+html_context = {
+  'theme_is_prerelease': snapshot
+}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.

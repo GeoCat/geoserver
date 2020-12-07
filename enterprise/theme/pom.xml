@@ -13,7 +13,7 @@
   <parent>
     <groupId>net.geocat.enterprise</groupId>    
     <artifactId>geoserver</artifactId>
-    <version>2.18.0</version>
+    <version>2.18-SNAPSHOT</version>
   </parent>
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
@@ -32,5 +32,14 @@
       <artifactId>gs-web-app</artifactId>
     </dependency>
   </dependencies>
+  
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
 
 </project>
