@@ -316,10 +316,15 @@ ul#navigation {
 ul#navigation a {
   text-decoration: none;
 }
+ul#navigation a img {
+  filter: grayscale(100%);
+}
 ul#navigation a:hover {
   text-decoration: none;
   background-color: #ececec;
 }
+ul#navigation a:hover img {
+  filter: none;
 }
 ul#navigation .navigation-tab {
   margin: 0;
@@ -981,178 +986,6 @@ img[src*="/img/icons/silk/arrow_up"] {
   height: 20px;
 }
 
-/* ----- sidebar */
-#sidebar img {
-  width: 18px;
-  height: 18px;
-  margin-top: 1px;
-}
-/* about & status */
-
-/* server status */
-img[src*="/img/icons/silk/server_error"] {
-  content: url(../enterprise/icon/ic_info_outline_24px.svg);
-}
-/* logs */
-img[src*="/img/icons/silk/page_white"] {
-  content: url(../enterprise/icon/ic_description_24px.svg);
-}
-/* contact */
-img[src*="/img/icons/silk/vcard"] {
-  content: url(../enterprise/icon/ic_contacts_24px.svg);
-}
-/* about */
-img[src*="/img/icons/silk/help"] {
-  content: url(../enterprise/icon/ic_help_outline_24px.svg);
-}
-/* process status */
-img[src*="/img/icons/silk/cog"] {
-  content: url(../enterprise/icon/ic_settings_24px.svg);
-}
-/* data */
-
-/* layer preview */
-img[src*="/img/icons/geosilk/map"] {
-  content: url(../enterprise/icon/ic_map_24px.svg);
-}
-/* workspace */
-img[src*="/img/icons/silk/folder"] {
-  content: url(../enterprise/icon/ic_folder_open_24px.svg);
-}
-/* stores */
-img[src*="/img/icons/silk/database"] {
-  content: url(../enterprise/icon/ic_storage_24px.svg);
-}
-/* layers */
-img[src*="/img/icons/silk/picture_empty"] {
-  content: url(../enterprise/icon/ic_crop_din_24px.svg);
-}
-/* layer groups */
-img[src*="/img/icons/silk/layers"] {
-  content: url(../enterprise/icon/ic_layers_24px.svg);
-}
-/* styles */
-img[src*="/palette"] {
-  content: url(../enterprise/icon/ic_palette_24px.svg);
-}
-
-/* services */
-
-/* wmts */
-img[src*="/server_tile_map"] {
-  content: url(../enterprise/icon/ic_grid_on_24px.svg);
-}
-/* wcs */
-img[src*="/server_raster"] {
-  content: url(../enterprise/icon/ic_flip_to_front_24px.svg);
-}
-/* wfs */
-img[src*="/server_vector"] {
-  content: url(../enterprise/icon/ic_streetview_24px.svg);
-}
-/* wms */
-img[src*="/server_map"] {
-  content: url(../enterprise/icon/ic_satellite_24px.svg);
-}
-/* wps */
-img[src*="/server_gear"] {
-  content: url(../enterprise/icon/ic_perm_data_setting_24px.svg);
-}
-
-/* settings */
-
-/* global */
-img[src*="/img/icons/silk/server"] {
-  content: url(../enterprise/icon/ic_storage_24px.svg);
-}
-/* image */
-img[src*="/img/icons/silk/cog_photo"] {
-  content: url(../enterprise/icon/ic_photo_library_24px.svg);
-}
-/* raster */
-img[src*="/img/icons/silk/cog_photo"] {
-  content: url(../enterprise/icon/ic_photo_library_24px.svg);
-}
-
-/* tile */
-
-/* layers */
-img[src*="/tilelayer"] {
-  content: url(../enterprise/icon/ic_view_module_24px.svg);
-}
-/* caching */
-img[src*="/geowebcache"] {
-  content: url(../enterprise/icon/ic_language_24px.svg);
-}
-/* grid */
-img[src*="/gridset"] {
-  content: url(../enterprise/icon/ic_view_comfy_24px.svg);
-}
-/* quota */
-img[src*="/diskquota"] {
-  content: url(../enterprise/icon/ic_save_24px.svg);
-}
-/* blob */
-img[src*="/blobstores"] {
-  content: url(../enterprise/icon/ic_dns_24px.svg);
-}
-
-/* security */
-
-/* settings */
-img[src*="/img/icons/silk/wrench"] {
-  content: url(../enterprise/icon/ic_build_24px.svg);
-}
-/* authentication */
-img[src*="/img/icons/silk/shield"] {
-  content: url(../enterprise/icon/ic_security_24px.svg);
-}
-/* passwords */
-img[src*="/img/icons/silk/lock"] {
-  content: url(../enterprise/icon/ic_lock_outline_24px.svg);
-}
-/* users... */
-img[src*="/img/icons/silk/group"] {
-  content: url(../enterprise/icon/ic_people_outline_24px.svg);
-}
-/* data */
-img[src*="/img/icons/silk/database_key"] {
-  content: url(../enterprise/icon/ic_assessment_24px.svg);
-}
-/* services */
-img[src*="/img/icons/silk/shape_square_key"] {
-  content: url(../enterprise/icon/ic_settings_applications_24px.svg);
-}
-/* wps */
-img[src*="/server_key"] {
-  content: url(../enterprise/icon/ic_network_locked_24px.svg);
-}
-
-/* geo silk replacement */
-form ul li div {
-  padding: 3px 0;
-}
-form ul li div img {
-  width: 18px;
-  float: left;
-}
-form ul li div img + a {
-  margin-left: 5px;
-}
-
-/* vector source */
-img[src*="/img/icons/geosilk/page_white_vector"] {
-  content: url(../enterprise/icon/ic_streetview_24px.svg);
-}
-/* vector database */
-img[src*="/img/icons/geosilk/database_vector"] {
-  content: url(../enterprise/icon/ic_storage_24px.svg);
-}
-/* vector source */
-img[src*="/img/icons/geosilk/page_white_raster"] {
-  content: url(../enterprise/icon/ic_grid_on_24px.svg);
-}
-
 /* ----- pagination */
 .paginator a {
   padding: 4px;
@@ -1348,3 +1181,6 @@ div.wicket-modal a.w_close:hover {
 .treeview li .leaf span {
   padding: 3px;
 }
+
+/* custom icons */
+/* @import url("geoserver_icons.css"); */

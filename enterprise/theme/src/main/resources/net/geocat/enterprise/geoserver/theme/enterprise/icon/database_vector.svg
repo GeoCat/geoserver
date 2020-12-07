@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>database_vector</title>
+    <g id="database_vector" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Overlay" transform="translate(1.000000, 3.000000)">
+            <g id="ic_storage_24px" fill="#2B2B2B" fill-rule="nonzero">
+                <path d="M0,29 L36,29 L36,21.75 L0,21.75 L0,29 Z M3.6,23.5625 L7.2,23.5625 L7.2,27.1875 L3.6,27.1875 L3.6,23.5625 Z M0,0 L0,7.25 L36,7.25 L36,0 L0,0 Z M7.2,5.4375 L3.6,5.4375 L3.6,1.8125 L7.2,1.8125 L7.2,5.4375 Z M0,18.125 L36,18.125 L36,10.875 L0,10.875 L0,18.125 Z M3.6,12.6875 L7.2,12.6875 L7.2,16.3125 L3.6,16.3125 L3.6,12.6875 Z" id="Shape"></path>
+            </g>
+            <rect id="Box" stroke="#2B2B2B" stroke-width="2" fill="#FFFFFF" x="12" y="10" width="24" height="24" rx="3"></rect>
+            <g id="ic_streetview_24px" transform="translate(15.000000, 13.000000)" fill="#2B2B2B" fill-rule="nonzero">
+                <path d="M8.604,11.997 C8.298,12.24 8.1,12.627 8.1,13.05 L8.1,18 L14.4,18 C15.39,18 16.2,17.19 16.2,16.2 L16.2,10.818 C15.354,10.521 14.445,10.35 13.5,10.35 C11.673,10.35 9.963,10.98 8.604,11.997 Z" id="Path"></path>
+                <circle id="Oval" cx="13.5" cy="4.5" r="4.5"></circle>
+                <path d="M7.65,4.5 C7.65,3.528 7.893,2.61 8.316,1.8 L1.8,1.8 C0.81,1.8 0,2.61 0,3.6 L0,16.2 C0,16.695 0.207,17.145 0.531,17.469 L9.369,8.631 C8.307,7.578 7.65,6.12 7.65,4.5 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
