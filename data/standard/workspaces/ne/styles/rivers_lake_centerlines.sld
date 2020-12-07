@@ -13,11 +13,11 @@
           <ogc:Filter>
             <ogc:And>
               <ogc:PropertyIsGreaterThan>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0</ogc:Literal>
               </ogc:PropertyIsGreaterThan>
               <ogc:PropertyIsLessThanOrEqualTo>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0.2</ogc:Literal>
               </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
@@ -40,11 +40,11 @@
           <ogc:Filter>
             <ogc:And>
               <ogc:PropertyIsGreaterThan>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0.2001</ogc:Literal>
               </ogc:PropertyIsGreaterThan>
               <ogc:PropertyIsLessThanOrEqualTo>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0.35</ogc:Literal>
               </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
@@ -67,11 +67,11 @@
           <ogc:Filter>
             <ogc:And>
               <ogc:PropertyIsGreaterThan>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0.35001</ogc:Literal>
               </ogc:PropertyIsGreaterThan>
               <ogc:PropertyIsLessThanOrEqualTo>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0.6</ogc:Literal>
               </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
@@ -94,11 +94,11 @@
           <ogc:Filter>
             <ogc:And>
               <ogc:PropertyIsGreaterThan>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>0.6001</ogc:Literal>
               </ogc:PropertyIsGreaterThan>
               <ogc:PropertyIsLessThanOrEqualTo>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>1</ogc:Literal>
               </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
@@ -121,11 +121,11 @@
           <ogc:Filter>
             <ogc:And>
               <ogc:PropertyIsGreaterThan>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>1.001</ogc:Literal>
               </ogc:PropertyIsGreaterThan>
               <ogc:PropertyIsLessThanOrEqualTo>
-                <ogc:PropertyName>StrokeWeig</ogc:PropertyName>
+                <ogc:PropertyName>strokeweig</ogc:PropertyName>
                 <ogc:Literal>2</ogc:Literal>
               </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
