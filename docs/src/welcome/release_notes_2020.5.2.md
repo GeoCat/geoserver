@@ -22,6 +22,7 @@ General
 GeoServer Enterprise 2020.5.2:
 
 * macOS 11 compatibility
+* standard data directory styles adjusted for geopackage
 
 Detailed change log:
 
