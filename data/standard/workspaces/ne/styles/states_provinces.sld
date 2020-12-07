@@ -12,8 +12,11 @@
           </se:Description>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>ADM0_A3</ogc:PropertyName>
-              <ogc:Literal>ESP</ogc:Literal>
+              <ogc:PropertyName>sr_adm0_a3</ogc:PropertyName>
+              <ogc:Function name="env">
+                <ogc:Literal>adm0</ogc:Literal>
+                <ogc:Literal></ogc:Literal>
+              </ogc:Function>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
           <se:PolygonSymbolizer>
