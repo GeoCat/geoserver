@@ -6,7 +6,7 @@ GeoCat is pleased to present our latest distribution of GeoServer Enterprise.
 Overview
 --------
 
-GeoServer Enterprise 2020.5 provides support for publishing geospatial data using open standards.
+GeoServer Enterprise 2020.2 provides support for publishing geospatial data using open standards.
 
 This distribution is made available to GeoCat customers:
 
