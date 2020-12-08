@@ -23,6 +23,7 @@ GeoServer Enterprise 2020.5.2:
 
 * macOS 11 compatibility
 * standard data directory styles adjusted for geopackage
+* GeoCat 2020.5.2 distribution is proudly open source with the latest GeoServer 2.18.1, GeoWebCache 1.18.1, GeoTools 24.1 and JTS Topology Suite 1.17.1 technologies
 
 Detailed change log:
 
