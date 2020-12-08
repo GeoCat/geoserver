@@ -317,14 +317,11 @@ ul#navigation a {
   text-decoration: none;
 }
 ul#navigation a img {
-  filter: grayscale(100%);
+  display: none;
 }
 ul#navigation a:hover {
   text-decoration: none;
   background-color: #ececec;
-}
-ul#navigation a:hover img {
-  filter: none;
 }
 ul#navigation .navigation-tab {
   margin: 0;
@@ -360,7 +357,7 @@ ul#navigation .navigation-tab {
   font-size: 14px;
 }
 .navigation-tab-single a {
-  padding-left: 15px;
+  padding-left: 20px;
   color: #0366d6;
   font-weight: 700;
 }
