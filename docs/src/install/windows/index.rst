@@ -12,7 +12,7 @@ GeoServer Enterprise requires a Java 8 runtime Environment.
 
 OpenJDK is now the lead project for the Java ecosystem. As an open-source company GeoCat is pleased to see OpenJDK supported by a number of different distributions.
 
-To install the OpenJDK JRE, follow these steps:
+Recommended: To install the OpenJDK JRE using the AdoptOpenJDK MSI installer:
 
 #. Navigate to the `AdoptOpenJDK download page <https://adoptopenjdk.net/releases.html>`_
 
@@ -28,9 +28,36 @@ To install the OpenJDK JRE, follow these steps:
 
    .. figure:: img/openjdkarchitecture.png
 
-#. Click on the available JRE zip file download link for the above selected options, to download the OpenJDK prebuilt binary.
+#. Recommended: Click the JRE :file:`msi` download for the OpenJDK MSI Installer.
 
-   .. figure:: img/openjdkdownloadlink.png
+   .. figure:: img/jre_download.png
+
+#. During installation :guilabel:`Custom Setup` page select the options:
+
+   * ``Add to PATH``
+   * ``Set JAVA_HOME variable``
+
+   These settings take care of updating the system variables.
+
+   .. figure:: img/msi-install-java-home.png
+   
+#. To ensure that Java is now correctly installed, open a console and type `java -version`. The output should look something like this:
+
+   .. code-block:: console
+
+     > java -version
+     
+   ::
+   
+     openjdk version "1.8.0_275"
+     OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_275-b01)
+     OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.275-b01, mixed mode)
+
+Alternative: To install the OpenJDK JRE using the AdoptOpenJDK binary distribution:
+
+#. Click JRE :file:`zip` download for the OpenJDK binary distribution.
+
+   .. figure:: img/jre_download.png
 
 #. In your system, create a folder called :file:`java` under your :file:`Program files` folder.
 
@@ -65,9 +92,12 @@ To install the OpenJDK JRE, follow these steps:
    .. code-block:: console
 
      > java -version
-     openjdk version "1.8.0_242"
-     OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_242-b08)
-     OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.242-b08, mixed mode)
+     
+   ::
+   
+     openjdk version "1.8.0_275"
+     OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_275-b01)
+     OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.275-b01, mixed mode)
 
 .. tip: Oracle customers are welcome to continue using `Oracle JDK <https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`__ (keeping in mind that license terms have changed and this is no longer available free of chrage).
 
@@ -90,7 +120,7 @@ To install Tomcat, follow these steps:
    
    .. figure:: /install/img/tomcat_download.png
 
-#. Run the installer file.
+#. Run the installer file:
 
    * :guilabel:`Choose Components` page, select the ``Native`` and ``Service Startup``, and ``Manager`` options.
 
@@ -110,29 +140,51 @@ To install Tomcat, follow these steps:
    
      .. figure:: img/wintomcatconfiguration.png
 
+#. Use browser to confirm server is running:
+   
+   * http://localhost:8080/
+   
+   .. figure:: img/apache-tomcat-localhost.png
+   
 #. Once installed, Tomcat has to be correctly configured to provide a better performance when running GeoServer Enterprise. The first thing to configure are its Java Virtual Machine runtime parameters.
    
-   Open the :guilabel:`Tomcat Properties` dialog by selecting the :menuselection:`Apache Tomcat --> Configure Tomcat` menu entry in the :guilabel:`Windows Start` menu. Move to the :guilabel:`Java` tab.
+#. From the :guilabel:`Windows Start` menu select :menuselection:`Apache Tomcat --> Configure Tomcat` to open :command:`Tomcat Properties`. 
 
-   .. figure:: img/tomcatproperties.png
-      
-   * Add the highlighted lines below to :guilabel:`Java Options`:
+   .. figure:: img/tomcat-properties.png
    
-     .. literalinclude:: files/java_options.txt
-        :emphasize-lines: 6-8
-
-   * Set the memory options to:
-
-     .. list-table::
-        :widths: 30 70
+   .. note:: On a fresh install the short cut above may be unable to start a permissions issue:
+   
+      > The item referred to by this shortcut cannot be accessed
   
-        * - Initial memory pool:
-          - :kbd:`512` MB
-        * - Maximum memory pool:
-          - :kbd:`1536` MB
-          
-   Restart the service for these changes to take effect.
+      To resolve navigate to the :file:`C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0` which will prompt to grant access to this directory.
+   
+#. Change to the :guilabel:`Java` tab, add the highlighted lines below to :guilabel:`Java Options`:
+   
+   .. literalinclude:: files/java_options.txt
+      :emphasize-lines: 6-8
 
+#. From the :guilabel:`Java` tab update the memory options to:
+
+   .. list-table::
+      :widths: 30 70
+
+      * - Initial memory pool:
+        - :kbd:`512` MB
+      * - Maximum memory pool:
+        - :kbd:`1536` MB
+
+#. Use the :guilabel:`Apply` button.
+
+   .. figure:: img/tomcat-properties-java.png
+      
+#. Use the :guilabel:`General` tab :guilabel:`Stop` and :guilabel:`Start` buttons to restart the service for these changes to take effect.
+
+#. From http://localhost:8080/ click :guilabel:`Server Status` to confirm available memory, under the :guilabel:`JVM` heading.
+   
+   .. figure:: img/tomcat-server-status.png
+   
+   .. note:: The tomcat manager requires the *Tomcat Administrator Login* credentials used during installation.
+   
 .. note:: Optional
    
    Environment variables can be managed using the optional :download:`bin/setup.bat <files/setenv.bat>` file:
