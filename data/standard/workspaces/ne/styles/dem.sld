@@ -3,7 +3,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
   <NamedLayer>
-    <Name>gtopo</Name>
+    <Name>dem</Name>
     <UserStyle>
       <Name>dem</Name>
       <Title>Simple DEM style</Title>
@@ -14,12 +14,12 @@
             <Opacity>1.0</Opacity>
             <ColorMap>
               <ColorMapEntry color="#000000" quantity="-500" label="nodata" opacity="0.0" />
-              <ColorMapEntry color="#AAFFAA" quantity="0" label="values" />
+              <ColorMapEntry color="#AAFFAA" quantity="0" label="0" />
               <ColorMapEntry color="#00FF00" quantity="1000"/>
-              <ColorMapEntry color="#FFFF00" quantity="1200" label="values" />
-              <ColorMapEntry color="#FF7F00" quantity="1400" label="values" />
-              <ColorMapEntry color="#BF7F3F" quantity="1600" label="values" />
-              <ColorMapEntry color="#000000" quantity="2000" label="values" />
+              <ColorMapEntry color="#FFFF00" quantity="1200" />
+              <ColorMapEntry color="#FF7F00" quantity="1400" />
+              <ColorMapEntry color="#BF7F3F" quantity="1600"  />
+              <ColorMapEntry color="#000000" quantity="2000" label="2000" />
             </ColorMap>
           </RasterSymbolizer>
         </Rule>

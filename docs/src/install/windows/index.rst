@@ -120,25 +120,28 @@ To install Tomcat, follow these steps:
    
    .. figure:: /install/img/tomcat_download.png
 
-#. Run the installer file:
-
-   * :guilabel:`Choose Components` page, select the ``Native`` and ``Service Startup``, and ``Manager`` options.
-
-     .. figure:: img/tomcatinstalloptions.png
-     
-   * :guilabel:`Configuration` page: provide **Tomcat Administrator Login** credentials:
-     
-     .. list-table::
-        :widths: 30 70
-  
-        * - User Name
-          - :kbd:`admin`
-        * - Password:
-          - :kbd:`tomcat` (example)
-        * - Roles
-          - :kbd:`manager-gui`
+#. Run the installer installer, this will setup:
    
-     .. figure:: img/wintomcatconfiguration.png
+   * :command:`Apache Tomcat`
+   * :command:`Tomcat Properties` user interface to control configuration and settings
+   
+#. :guilabel:`Choose Components` page: select the ``Native`` and ``Service Startup``, and ``Manager`` options.
+
+   .. figure:: img/tomcatinstalloptions.png
+     
+#. :guilabel:`Configuration` page: provide **Tomcat Administrator Login** credentials:
+     
+   .. list-table::
+      :widths: 30 70
+
+      * - User Name
+        - :kbd:`admin`
+      * - Password:
+        - :kbd:`tomcat` (example)
+      * - Roles
+        - :kbd:`manager-gui`
+ 
+   .. figure:: img/wintomcatconfiguration.png
 
 #. Use browser to confirm server is running:
    
@@ -153,17 +156,29 @@ To install Tomcat, follow these steps:
    .. figure:: img/tomcat-properties.png
    
    .. note:: On a fresh install the short cut above may be unable to start a permissions issue:
-   
-      > The item referred to by this shortcut cannot be accessed
-  
+      
+      .. figure:: img/tomcat-properties-permissions.png
+      
       To resolve navigate to the :file:`C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0` which will prompt to grant access to this directory.
+
+#. Change to :guilabel:`Logon` tab, select:
+
+   .. list-table::
+      :widths: 30 70
+
+      * - Local System account:
+        - selected
+      * - Allow service to interact with desktop
+        - checked
    
+   .. figure:: img/tomcat-properties-logon.png
+
 #. Change to the :guilabel:`Java` tab, add the highlighted lines below to :guilabel:`Java Options`:
    
    .. literalinclude:: files/java_options.txt
       :emphasize-lines: 6-8
 
-#. From the :guilabel:`Java` tab update the memory options to:
+   Update the memory options to:
 
    .. list-table::
       :widths: 30 70
@@ -172,13 +187,17 @@ To install Tomcat, follow these steps:
         - :kbd:`512` MB
       * - Maximum memory pool:
         - :kbd:`1536` MB
-
-#. Use the :guilabel:`Apply` button.
-
+   
    .. figure:: img/tomcat-properties-java.png
-      
-#. Use the :guilabel:`General` tab :guilabel:`Stop` and :guilabel:`Start` buttons to restart the service for these changes to take effect.
 
+#. Return to :guilabel:`General` tab:
+   
+   * Use the :guilabel:`Apply` button to update the service with these settings.
+   
+   * Use the :guilabel:`Stop` and :guilabel:`Start` buttons to restart the service
+
+   .. figure:: img/tomcat-properties.png
+   
 #. From http://localhost:8080/ click :guilabel:`Server Status` to confirm available memory, under the :guilabel:`JVM` heading.
    
    .. figure:: img/tomcat-server-status.png
