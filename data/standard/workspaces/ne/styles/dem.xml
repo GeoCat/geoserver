@@ -1,8 +1,12 @@
 <style>
   <id>StyleInfoImpl-861d0cd:1417b9f5e23:-7fd3</id>
   <name>dem</name>
-  <sldVersion>
-    <version>1.0.0</version>
-  </sldVersion>
+  <workspace>
+    <id>WorkspaceInfoImpl--68e6e130:171aaf396ce:-8000</id>
+  </workspace>
+  <format>sld</format>
+  <languageVersion>
+    <version>1.1.0</version>
+  </languageVersion>
   <filename>dem.sld</filename>
 </style>
