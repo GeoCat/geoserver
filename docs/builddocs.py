@@ -57,12 +57,11 @@ def rebuild(folder):
         update=1
     )
 
-    print("Rebuild content")
     sphinxbuild = "sphinx-build -j auto -W --keep-going {} {}".format(sourcedir, builddir)
     run(sphinxbuild)
 
 def copycommunity():
-    print("Copying geoserver user guide to staging")    
+    print("Copying geoserver user guide to staging")
     gsdocssource = os.path.join(os.path.dirname(os.getcwd()), "geoserver", "doc", "en", "user", "source")
     gsdocsdest = os.path.join(os.getcwd(), "staging", VERSIONNAME)
     for path in os.listdir(gsdocssource):
@@ -95,14 +94,16 @@ def copytostaging():
     copycommunity()
 
 def builddocs(folder):
-    copytostaging()    
+    copytostaging()
     sourcedir = os.path.join(os.getcwd(), "staging", VERSIONNAME)
     builddir = os.path.join(folder, VERSIONNAME)
     if os.path.exists(builddir):
         shutil.rmtree(builddir)
     os.makedirs(builddir)
+    
     sphinxbuild = "sphinx-build -a -j auto -W --keep-going {} {}".format(sourcedir, builddir)
-    sh(sphinxbuild)
+    run(sphinxbuild)
+    #sh(sphinxbuild)
 
 def main():
     parser = argparse.ArgumentParser(description='Build documentation.')

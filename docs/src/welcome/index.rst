@@ -12,7 +12,7 @@ Current release:
 .. toctree::
    :maxdepth: 1
 
-   release_notes_2020.5.2.md
+   release_notes_2020.5.2
 
 Prior releases:
 

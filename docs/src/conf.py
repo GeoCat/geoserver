@@ -11,6 +11,11 @@
 import datetime
 import os
 import xml.etree.ElementTree as ET
+import warnings
+
+# ignore warning from docutils code
+# https://github.com/sphinx-contrib/confluencebuilder/pull/289
+warnings.filterwarnings("ignore", category=FutureWarning) 
 
 now = datetime.datetime.now()
 
