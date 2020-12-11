@@ -1,0 +1,6 @@
+<Context docBase="geoserver.war">
+  <Parameter name="GEOSERVER_DATA_DIR"
+             value="C:\ProgramData\GeoServer\data" override="false"/>
+  <Parameter name="GEOWEBCACHE_CACHE_DIR"
+             value="C:\ProgramData\GeoServer\tilecache" override="false"/>
+</Context>

@@ -222,32 +222,50 @@ To install Tomcat, follow these steps:
 Data Directory
 --------------
 
-GeoServer places all its required configuration files in a so-called data directory. It's recommended to change its default location and set up a new one explicitely. To do so, follow these steps:
+GeoServer places all its required configuration files in a data directory.
+
+We recommend starting with a ready-to-use data directory stored in :file:`C:\\ProgramData\\GeoServer`:
 
 #. Create a folder to hold your GeoServer Enterprise configuration:
 
    * :file:`C:\\ProgramData\\GeoServer\\`
 
-#. Login to `nexus.geocat.net <https://nexus.geocat.net/>`__ and browse to the enterprise folder:
-     
-   * https://nexus.geocat.net/#browse/browse:enterprise
-   
-   Navigate to the latest `geoserver` release, we have a choice of two ready to use data directories to download:
+#. GeoCat provides a choice of two ready to use data directories:
 
-   * :file:`geoserver-data-standard` - services setup, includes sample layers
-   * :file:`geoserver-data-default` - services setup only
+   * :file:`geoserver-data-standard.zip` - services setup, includes sample layers.
+   * :file:`geoserver-data-default.zip` - services setup only.
+   
+#. To download:
+   
+   * GeoCat Enterprise customers login to `nexus.geocat.net <https://nexus.geocat.net/>`__ and browse to the enterprise folder:
      
-   .. figure:: /install/img/nexus-download.png
+     https://nexus.geocat.net/#browse/browse:enterprise
+   
+     Navigate to the latest `geoserver` release, and download :file:`geoserver-data-default.zip` or :file:`geoserver-data-standard.zip`.
+     
+     .. figure:: /install/img/nexus-download.png
         
-      Locate latest geoserver data zip archives
-    
-#. Unzip, and copy the :file:`data` folder to :file:`C:\\ProgramData\\GeoServer\\data`.
+        GeoServer Enterprise downloads geoserver data zip archives
+
+   * GeoCat Training customers are provided with :file:`geoserver-data-standard.zip` data directory as part of course materials.
+
+#. Unzip, and copy the :file:`data` folder.
+   
+   * :file:`C:\\ProgramData\\GeoServer\\data`.
+   
+   .. figure: img/geoserver_data_dir.png
+      
+      GEOSERVER_DATA_DIR
 
 #. Create the :file:`tilecache` folder.
    
    * :file:`C:\\ProgramData\\GeoServer\\tilecache`
    
-#. Update the Tomcat configuration with this data directory location.
+   .. figure:: img/geowebcache_cache_dir.png
+      
+      GEOWEBCACHE_CACHE_DIR
+      
+#. Update the Tomcat configuration with these directory locations.
    
    * Open the Tomcat folder, by selecting the :menuselection:`Apache Tomcat --> Tomcat Program Directory` menu entry in the Windows Start menu.
 
@@ -256,6 +274,7 @@ GeoServer places all its required configuration files in a so-called data direct
    * In the :file:`localhost` folder, create a :download:`geoserver.xml <files/geoserver.xml>` file, with the following content:
    
      .. literalinclude:: files/geoserver.xml
+        :language: xml
 
 .. note:: Starting with an empty data directory
 
@@ -265,10 +284,8 @@ GeoServer places all its required configuration files in a so-called data direct
    
    * Remove the `GEOSERVER_REQUIRE_FILE` startup check for `global.xml`:
 
-     .. code-block:: xml
-
-        <Parameter name="GEOSERVER_REQUIRE_FILE"
-           value="/var/opt/geoserver/data/global.xml" override="false"/>
+     .. literalinclude:: files/geoserver-empty.xml
+        :language: xml
    
    This approach is often used in automated workflow where GeoServer is configured via REST API scripts.
 
