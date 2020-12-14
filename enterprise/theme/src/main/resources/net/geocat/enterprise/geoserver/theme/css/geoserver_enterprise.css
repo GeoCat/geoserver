@@ -306,7 +306,8 @@ fieldset.leftwise, fieldset.rightwise {
 }
 /* loader */
 #ajaxFeedback {
-  top: 65px;
+  top: 85px;
+  right: 25px;
 }
 
 /* ----------------------------------------------------------------------
