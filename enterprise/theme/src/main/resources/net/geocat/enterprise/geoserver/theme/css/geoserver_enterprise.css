@@ -187,7 +187,7 @@ fieldset.leftwise, fieldset.rightwise {
 }
 #sidebar {
   position: fixed;
-  top: 85px;
+  top: 84px;
   left: 0;
   width: 300px;
   height: calc(100% - 85px);
@@ -195,6 +195,7 @@ fieldset.leftwise, fieldset.rightwise {
   background: #fff;
   border-right: 1px solid #e1e4e5;
   overflow: auto;
+  z-index: 100;
 }
 #page {
   margin: 0 auto;
@@ -263,6 +264,8 @@ fieldset.leftwise, fieldset.rightwise {
   border-bottom: 1px solid #e1e4e5;
   margin-left: -300px;
   float: left;
+  z-index: 100;
+  background-color: #fff;
 }
 #header h2 a {
   float: none;
@@ -283,10 +286,20 @@ fieldset.leftwise, fieldset.rightwise {
 #header .button-group {
   position: fixed;
   background-color: #fff;
-  padding: 20px 0 10px 0;
-  width: calc(100% - 300px - 50px);
-  border-bottom: 1px solid #e1e4e5;
-  margin: 0 25px;
+  padding: 20px 25px 0 25px;
+  width: calc(100% - 300px - 52px);
+  margin: 0 1px;
+}
+#header .button-group:after {
+  content: '.';
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin: 0px auto;
+  text-indent: -9999px;
+  visibility: visible;
+  border-top: 1px solid #e1e4e5;
+  margin-top: 10px;
 }
 #header label.shown {
   display: inline;
