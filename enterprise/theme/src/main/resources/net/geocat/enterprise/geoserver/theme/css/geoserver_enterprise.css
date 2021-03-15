@@ -1,11 +1,23 @@
 /*
-  Copyright (C) 2020 - GeoCat B.V. All rights reserved.
+  Copyright (C) 2021 - GeoCat B.V. All rights reserved.
   Copyright (C) 2014 - 2016 Open Source Geospatial Foundation. All rights reserved.
   This code is licensed under the GPL 2.0 license, available at the root
   application directory.
 */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+/* ----------------------------------------------------------------------
+/* fonts
+/* ------------------------------------------------------------------- */
+
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('../enterprise/font/roboto-v20-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../enterprise/font/roboto-v20-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
 
 /* ----------------------------------------------------------------------
 /* general
