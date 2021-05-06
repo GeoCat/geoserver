@@ -2,10 +2,10 @@
 
 The GeoServer Enterprise web application providing a baseline used to define bundles for GeoServer Enterprise Standard, GeoCat Live, and GeoServer Enterprise Premium customers.
 
-To quickly run:
+To quickly run without a data directory:
 
 ```bash
-mvn jetty:run -Plive
+mvn jetty:run
 ```
 
 ## Web Application Directory Structure
@@ -16,6 +16,7 @@ The web application is defined using:
 * src/main/resources - unused, available to override web pages.
 * src/test/java - start application used for testing from IDE
 * src/test/resources - jetty-context.xml 
+* target/data - optional data directory for jetty:run testing
 * target/resources/data - optional data directory to include in war
 * target/resources/WEB-INF - web.xml and any contents provided by gs-web-app
 * target/resources/index.html - redirect provided by gs-web-app
@@ -28,19 +29,23 @@ mvn jetty:run
 
 ## Data Directory Testing
 
-The profiles such as `-Pdefault` and `-Pstandards` bundle a data directory using the following property:
-
-* `data.directory` : data directory (minimal, release, ...)
-
-These can be used on the command line also:
+Use the property `data.directory` to indicate a data directory to copy into `target/data` for local testing:
 
 ```bash
-mvn jetty:run -Ddata.directory=../../geoserver/data/minimal 
+mvn process-resources -Ddata.directory=../../data/default
+mvn jetty:run
 ```
 
 ```bash
-mvn jetty:run -Ddata.directory=../../data/default 
+mvn process-resources -Ddata.directory=../../data/standard
+mvn jetty:run
 ```
+
+```bash
+mvn process-resources -Ddata.directory=../../geoserver/data/minimal
+mvn jetty:run
+```
+
 
 ## External Data Directory
 
@@ -63,7 +68,6 @@ The above example is used to edit the `standard` configuration.
 
 The `geoserver.war` is constructed in in three steps:
 
-* pre-package: copy data directory from `configDirectory` and `configId`
 * pre-package: copy resources from `gs-web-app` dependency
 * package: assemble geoserver-enterprise.war
 
@@ -80,7 +84,7 @@ mvn jetty:run-war
 ```
 
 ```bash
-mvn jetty:run-exploded`
+mvn jetty:run-exploded
 ```
 
 ## Preconfigured Wars
@@ -90,5 +94,6 @@ War overlays are used to define prepackaged bundles defining both the GeoServer 
 * `webapp-standard`: GeoServer Enterprise standard distribution with GeoCat default data directory
 * `webapp-live`: GeoCat Live distribution, does not include a data directory
 * `webapp-rws`: Preconfigured for RWS, includes GeoCat default minimal data directory
+* `webapp-training`: Preconfigured for GeoServer Training
 
 These projects use an assembly to package `geoserver.war` with appropriate license information and installation files from our documentation.

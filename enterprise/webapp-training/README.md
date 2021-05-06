@@ -13,11 +13,11 @@ This web application is defined as an overlay of base `webapp`:
 * src/test/java - unused, start application used for testing from IDE
 * src/test/resources - jetty-context.xml 
 * target/html - readme and release notes compiled from markdown
-* target/data - copy of default data directory, used for jetty testing
+* target/data - copy of standard data directory, used for jetty testing
 
 ## Data Directory
 
-The default data directory is staged into `target/data` during `prepare-package` stage for test with with jetty.
+The standard data directory is staged into `target/data` during `prepare-package` stage for testing with with jetty.
 
 This `target/data` is for testing, and is not included in the `geoserver.war`.
 
@@ -32,12 +32,10 @@ mvn package
 To quickly test the `geoserver.war` war:
 
 ```bash
-export GEOSERVER_DATA_DIR=`cd target/data; pwd`
 mvn jetty:run-war
 ```
 
 ```bash
-export GEOSERVER_DATA_DIR=`cd target/data; pwd`
 mvn jetty:run-exploded
 ```
 

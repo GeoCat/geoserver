@@ -34,12 +34,10 @@ mvn package
 To quickly test the `geoserver.war` war:
 
 ```bash
-export GEOSERVER_DATA_DIR=`cd target/data; pwd`
 mvn jetty:run-war
 ```
 
 ```bash
-export GEOSERVER_DATA_DIR=`cd target/data; pwd`
 mvn jetty:run-exploded`
 ```
 

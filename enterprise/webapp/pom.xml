@@ -68,7 +68,7 @@
       
       process-resources
          unpack gs-web-app into              target/resources
-         run ant to copy data directory into target/resources/data
+         run ant to copy data directory into target/data
          
       compile
       
@@ -132,6 +132,7 @@
           </execution>
         </executions>
       </plugin>
+      
       <!-- Builds a valid data directory into the web app -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -144,11 +145,12 @@
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                  <available file="${data.directory}/global.xml" property="dataDirAvaialble" />
                  
-                 <!--echo message="Data directory not provided." unless:set="configIsAvailable"/-->
+                 <echo message="Data directory not provided." unless:set="dataDirAvaialble"/>
                  <echo message="Data directory: ${data.directory}"
                        if:set="dataDirAvaialble"/>
                  
-                 <copy todir="${project.build.directory}/resources/data" failonerror="true" 
+                 <mkdir dir="${project.build.directory}/data"/>
+                 <copy todir="${project.build.directory}/data" failonerror="true" 
                        if:set="dataDirAvaialble">
                     <fileset dir="${data.directory}" includes="**/**" />
                  </copy>
@@ -212,6 +214,12 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jetty.version}</version>
         <configuration>
+          <systemProperties>
+            <systemProperty>
+               <name>GEOSERVER_DATA_DIR</name>
+               <value>${project.build.directory}/data</value>
+             </systemProperty>
+          </systemProperties>
           <webApp>
             <contextPath>/geoserver</contextPath>
             <descriptor>${project.basedir}/resources/WEB-INF/web.xml</descriptor>

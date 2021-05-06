@@ -150,7 +150,7 @@
                </descriptors>
                <appendAssemblyId>false</appendAssemblyId>
                <outputDirectory>${release.dir}</outputDirectory>
-               <finalName>geoserver-enterprise-rws-${geocat.enterprise}-${project.version}</finalName>
+               <finalName>geoserver-enterprise-rws-${geocat.enterprise}</finalName>
              </configuration>
            </execution>
          </executions>
@@ -168,10 +168,11 @@
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                  <available file="${data.directory}/global.xml" property="dataDirAvaialble" />
                  
-                 <!--echo message="Data directory not provided." unless:set="configIsAvailable"/-->
+                 <echo message="Data directory not provided." unless:set="dataDirAvaialble"/>
                  <echo message="Data directory: ${data.directory}"
                        if:set="dataDirAvaialble"/>
                  
+                 <mkdir dir="${project.build.directory}/data"/>
                  <copy todir="${project.build.directory}/data" failonerror="true" 
                        if:set="dataDirAvaialble">
                     <fileset dir="${data.directory}" includes="**/**" />

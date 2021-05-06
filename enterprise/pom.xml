@@ -58,7 +58,7 @@
  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <geocat.enterprise>2021.3</geocat.enterprise>
+    <geocat.enterprise>2021.1</geocat.enterprise>
     <!-- dependencyManagement versions should match geoserver/src/pom.xml -->
     <gs.version>2.19.0</gs.version>
     <gwc.version>1.19.0</gwc.version>
