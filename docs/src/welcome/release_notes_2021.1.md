@@ -49,7 +49,7 @@ New features:
   
   Now the filename defaults to the layer name, and can be overriden using `format_option=filename:<file>`. As an example `json` content can be saved `export.json` using `format_option=filename:export` .
 
-  Reference: :geoserver:`WFS output formats <services/wfs/outputformats.html>`
+  Reference: [WFS output formats](file:///Users/jgarnett/java/geocat/geoserver-enterprise/docs/build/2021/services/wfs/outputformats.html)
 
 Improvements:
 

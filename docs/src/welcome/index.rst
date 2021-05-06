@@ -12,7 +12,7 @@ Current release:
 .. toctree::
    :maxdepth: 1
 
-   release_notes_2021.3
+   release_notes_2021.1
 
 `Contact GeoCat BV <http://geocat.net/contact/>`_ for more information on this product and the advantages of commercial open source.
 
@@ -33,9 +33,9 @@ Data stores
 ArcSDE Store removed
 ''''''''''''''''''''
 
-The ArcSDE extension is no longer available as ArcSDE 10.2.2 has been [retired](https://support.esri.com/en/Products/legacy-products/legacy-products/ArcSDE/10-2-2).
+The ArcSDE extension is no longer available as ArcSDE 10.2.2 has been `retired <https://support.esri.com/en/Products/legacy-products/legacy-products/ArcSDE/10-2-2>`__.
 
 We recommend:
 
 * Use of cascaded WMS and WFS services
-* Contact support to addition options.
+* Contact support for additional options.
