@@ -20,7 +20,8 @@ VERSIONNAME = "2021"
 
 toreplace = {
   "introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
-  "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")]
+  "services/wps/processes/gs.rst": [("../../../../../../../", "../../../../../../geoserver/")],
+  "community/ogc-api/features/index.rst": [("/../../../../src/", "../../../../../../geoserver/src/")]
 }
 
 def sh(commands):
