@@ -129,5 +129,12 @@ pipeline {
                 }
             }
         }
+        stage("Trigger live_gs job") {
+            when { tag "tags/live/*" }
+            steps{
+                echo "Triggering Live Geoserver enterprise-2021-live image build job"
+                build wait: false, job: '/live_gs/enterprise-2021-live', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
+            }
+        }
     }
 }
