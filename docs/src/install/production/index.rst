@@ -7,7 +7,7 @@ The following operations are required to setup GeoServer enterprise for use in a
    :maxdepth: 1
    
    adminpassword
-   masterpassword
+   masterpassword/index
    javastartup
    marlin
    wpspermissions
