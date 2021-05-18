@@ -18,7 +18,7 @@
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-release</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>GeoServer Enterprise ${geocat.enterprise} Release</name>
   <description>
    Release packaging, using assemblies to provide control over distribution bundles generated for customers.
@@ -114,7 +114,7 @@
                    </descriptors>
                    <appendAssemblyId>false</appendAssemblyId>
                    <outputDirectory>${release.dir}</outputDirectory>
-                   <finalName>geoserver-data-default-${geocat.enterprise}-${project.version}</finalName>
+                   <finalName>geoserver-data-default-${geocat.enterprise}</finalName>
                  </configuration>
                </execution>
              </executions>
@@ -146,7 +146,7 @@
                    </descriptors>
                    <appendAssemblyId>false</appendAssemblyId>
                    <outputDirectory>${release.dir}</outputDirectory>
-                   <finalName>geoserver-data-standard-${geocat.enterprise}-${project.version}</finalName>
+                   <finalName>geoserver-data-standard-${geocat.enterprise}</finalName>
                  </configuration>
                </execution>
              </executions>
