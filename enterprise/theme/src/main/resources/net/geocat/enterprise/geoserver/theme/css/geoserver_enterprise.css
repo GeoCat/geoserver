@@ -1158,6 +1158,11 @@ div.wicket-modal a.w_close:hover {
 
   /* more filter: https://codepen.io/sosuke/pen/Pjoqqp */
 }
+div.wicket-modal h3 {
+  margin:  0;
+  border-bottom: 0;
+  padding: 0;
+}
 
 /* ----------------------------------------------------------------------
 /* status bar
