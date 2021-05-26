@@ -140,9 +140,7 @@ pipeline {
             when {
                 allOf {
                     buildingTag()
-                    not {
-                        tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
-                    }
+                    tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
                 }
             }
             
