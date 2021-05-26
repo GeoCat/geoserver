@@ -132,7 +132,7 @@ pipeline {
         stage("Trigger live_gs job") {
             when {
                 not {
-                    comparator: 'EQUALS', pattern: '(live/.+)|(.+-live)'
+                    comparator: 'EQUALS', pattern: '(tags/live/.+)|(tags/.+-live)'
                 }
             }
             
