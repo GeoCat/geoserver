@@ -71,7 +71,11 @@ pipeline {
         }
         
         stage("Downloads (Release)") {
-            when { buildingTag() }
+            when {
+                not {
+                    tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
+                }
+            }
             environment {
                 ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise'
@@ -132,7 +136,7 @@ pipeline {
         stage("Trigger live_gs job") {
             when {
                 not {
-                    comparator: 'EQUALS', pattern: '(tags/live/.+)|(tags/.+-live)'
+                    tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
                 }
             }
             
