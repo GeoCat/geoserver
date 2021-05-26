@@ -72,8 +72,11 @@ pipeline {
         
         stage("Downloads (Release)") {
             when {
-                not {
-                    tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
+                allOf {
+                    buildingTag()
+                    not {
+                        tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
+                    }
                 }
             }
             environment {
@@ -135,8 +138,11 @@ pipeline {
         }
         stage("Trigger live_gs job") {
             when {
-                not {
-                    tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
+                allOf {
+                    buildingTag()
+                    not {
+                        tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
+                    }
                 }
             }
             
