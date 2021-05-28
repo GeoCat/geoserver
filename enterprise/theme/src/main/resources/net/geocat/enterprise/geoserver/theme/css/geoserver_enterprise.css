@@ -44,7 +44,7 @@ body.help form fieldset {
 h1, h2, h3, h4, h5, h6 {
   color: #333;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   height: auto;
@@ -596,7 +596,7 @@ table {
 }
 th {
   color: #222;
-  font-weight: 100;
+  font-weight: 400;
 }
 td {
   color: #707070;
@@ -664,7 +664,7 @@ legend {
   border: 1px solid #ddd;
   margin: -15px -15px 0 -16px;
   padding: 8px 15px;
-  font-weight: 100;
+  font-weight: 400;
   width: 100%;
 }
 legend span {
@@ -810,8 +810,12 @@ div.value-wide {
 div.value pre, div.value-wide pre { 
   margin: 0;
 }
-input[type=checkbox] + label, input[type=radio] + label {
+input[type=checkbox] + label {
   display: inline-block;
+  font-weight: normal;
+  margin: 0;
+}
+input[type=radio] + label {
   font-weight: normal;
   margin: 0;
 }
