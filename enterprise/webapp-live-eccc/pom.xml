@@ -17,81 +17,41 @@
   </parent>
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
-  <artifactId>gs-enterprise-webapp-live</artifactId>
+  <artifactId>gs-enterprise-webapp-live-eccc</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Live ${geocat.enterprise} WebApp</name>
+  <name>GeoServer Enterprise Live ${geocat.enterprise} ECCC WebApp</name>
   <description>
-     GeoServer Web Application for GeoCat Live distribution.  Web Application used for enterprise branding, with selected modules to prepackage for GeoCat Live customers.
+     GeoServer Web Application for GeoCat Live Premium distribution.  Web Application used for enterprise branding, GeoCat Live modules, and additional modules requested by ECCC.
      
-     This module includes its own assembly responsible for zip bundle provided to customers.
+     This module includes its own assembly responsible for zip bundle used for GeoCat Live provisioning.
   </description>
   
   <properties>
     <jetty.version>9.4.12.v20180830</jetty.version>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
-    <data.directory>${basedir}/../../data/default</data.directory>
+    <data.directory>${basedir}/../../data/standard</data.directory>
   </properties>
   
   <dependencies>
     <!-- base war -->
     <dependency>
       <groupId>net.geocat.enterprise.geoserver</groupId>
-      <artifactId>gs-enterprise-webapp</artifactId>
+      <artifactId>gs-enterprise-webapp-live</artifactId>
       <version>${project.version}</version>
       <type>war</type>
       <scope>runtime</scope>
     </dependency>
     
-    <!-- GeoCat Live additions -->
-    <!-- charts, importer, mbstyle,vectortiles, wps, ysld -->
+    <!-- GeoCat Live Premium additions -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-charts</artifactId>
+      <artifactId>gs-mapml</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-mbstyle</artifactId>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-ogcapi-features</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-vectortiles</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-wps-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-web-wps</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-ysld</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.importer</groupId>
-      <artifactId>gs-importer-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.importer</groupId>
-      <artifactId>gs-importer-rest</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.importer</groupId>
-      <artifactId>gs-importer-core</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.geotools.jdbc</groupId>
-          <artifactId>gt-jdbc-oracle</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.geotools.jdbc</groupId>
-          <artifactId>gt-jdbc-sqlserver</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
   </dependencies>
 
   <build>
@@ -147,7 +107,7 @@
           <overlays>
             <overlay>
               <groupId>net.geocat.enterprise.geoserver</groupId>
-              <artifactId>gs-enterprise-webapp</artifactId>
+              <artifactId>gs-enterprise-webapp-live</artifactId>
             </overlay>
           </overlays>
         </configuration>
@@ -170,11 +130,11 @@
              <configuration>
                <recompressZippedFiles>false</recompressZippedFiles>
                <descriptors>
-                 <descriptor>src/assembly/gse-live.xml</descriptor>
+                 <descriptor>src/assembly/gse-live-eccc.xml</descriptor>
                </descriptors>
                <appendAssemblyId>false</appendAssemblyId>
                <outputDirectory>${release.dir}</outputDirectory>
-               <finalName>geoserver-enterprise-live-${geocat.enterprise}</finalName>
+               <finalName>geoserver-enterprise-live-eccc-${geocat.enterprise}</finalName>
              </configuration>
            </execution>
          </executions>
@@ -251,6 +211,15 @@
         </configuration>
       </plugin>
       
+      <!-- deploy -->
+      <!-- no need to install this to local repo -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
       <!-- no need to deploy to nexus repo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

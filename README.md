@@ -25,7 +25,8 @@ git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterpr
 The branches follow the release of GeoServer Enterprise being distributed:
 
 * master: live development, unpublished, nightly builds used for quality assurance
-* 2020.5: stable branch, nightly builds, "next" stable release available for our customers
+* 2021.x: stable branch, nightly builds, "next" stable release available for our customers
+* 2020.x: maintenance branch, nightly builds, "next" maintenance release available for our customers
 
 Update when changing branches:
 
@@ -38,9 +39,15 @@ git submodule update --remote
 
 Building uses the [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.
 
-We make heavy use of maven and maven repositories from [geotools](https://download.osgeo.org/webdav/geotools/) and [geoserver](https://repo.boundlessgeo.com/release/) for release artifacts and do not build everything ourself. 
+We make heavy use of maven and maven repositories from [repo.osgeo.org](https://repo.osgeo.org/) for release artifacts and do not build everything ourself. 
 
-To build:
+Before you start:
+
+```bash
+mvn --file geoserver/src/community/pom.xml install -PcommunityRelease -DskipTests
+```
+
+To build enterprise:
 
 ```bash
 cd enterprise

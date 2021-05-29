@@ -280,8 +280,18 @@
       <version>${gs.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-ogcapi-features</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-inspire</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-mapml</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <dependency>
@@ -711,6 +721,7 @@
   <module>webapp</module>
   <module>webapp-standard</module>
   <module>webapp-live</module>
+  <module>webapp-live-eccc</module>
   <module>webapp-rws</module>
   <module>webapp-training</module>
   <module>release</module>

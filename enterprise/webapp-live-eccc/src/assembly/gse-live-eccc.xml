@@ -1,0 +1,51 @@
+<assembly>
+  <id>gse-live-eccc</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <files>
+    <!-- war -->
+    <file>
+      <source>target/geoserver.war</source>
+      <outputDirectory></outputDirectory>
+    </file>
+    <!-- license -->
+    <file>
+      <source>target/html/GPL.html</source>
+      <outputDirectory></outputDirectory>
+    </file>
+    <file>
+      <source>target/html/LICENSE.html</source>
+      <outputDirectory></outputDirectory>
+    </file>
+    <!-- docs -->
+    <file>
+      <source>target/html/instructions.html</source>
+      <outputDirectory></outputDirectory>
+      <destName>readme.html</destName>
+    </file>
+    <file>
+      <source>target/html/release_notes_${geocat.enterprise}.html</source>
+      <outputDirectory></outputDirectory>
+      <destName>release_notes.html</destName>
+    </file>
+    <!-- install -->
+    <file>
+      <source>../../docs/src/install/windows/files/geoserver.xml</source>
+      <outputDirectory>windows</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/windows/files/setenv.bat</source>
+      <outputDirectory>windows</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/linux/files/geoserver.xml</source>
+      <outputDirectory>linux</outputDirectory>
+    </file>
+    <file>
+      <source>../../docs/src/install/linux/files/setenv.sh</source>
+      <outputDirectory>linux</outputDirectory>
+    </file>
+  </files>
+</assembly>
