@@ -39,3 +39,18 @@ We recommend:
 
 * Use of cascaded WMS and WFS services
 * Contact support for additional options.
+
+MapML extension
+'''''''''''''''
+
+The MaoML extension tracks the emergency W3C standard to define an html element for web mapping. The extension provide additional publishing options and includes a LayerPreview.
+
+.. figure:: img/mapml.png
+   
+   Layer Publishing MapML settings
+
+MapML can support a dimension, for layers with a time or elevation attribute. MapML supports tiling, when using the one of the included GridSets for WGS84, OSMTILE.
+
+Reference
+
+* :user:`MapML Extension <extensions/mapml/index.html>`.
