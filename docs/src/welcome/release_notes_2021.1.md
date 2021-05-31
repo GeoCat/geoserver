@@ -1,4 +1,4 @@
-GeoServer Enterprise 2021.3 Release Notes
+GeoServer Enterprise 2021.1 Release Notes
 =========================================
 
 GeoCat is pleased to present our latest distribution of GeoServer Enterprise.
@@ -28,8 +28,8 @@ GeoServer Enterprise 2020.1 release notes:
 
 Detailed change log:
 
-* GeoServer issue tracker [changelog](https://osgeo-org.atlassian.net/browse/GEOS-9955?jql=project%20%3D%20GEOS%20AND%20fixVersion%20in%20(2.19-RC%2C2.19.0)%20AND%20fixVersion%20not%20in%20(2.18.0%2C%202.18.1)%20AND%20status%20not%20in%20(Open)%20ORDER%20BY%20issuetype%20DESC) from 2.18.2 to 2.19.0
-* GeoServer posts for [2.19.0](http://geoserver.org/announcements/2021/03/22/geoserver-2-19-0-released.html) [2.19-RC](http://geoserver.org/announcements/2021/03/04/geoserver-2-19-rc-released.html), [2.18.2](http://geoserver.org/announcements/2021/01/20/geoserver-2-18-2-released.html)
+* GeoServer issue tracker [changelog](https://osgeo-org.atlassian.net/browse/GEOS-9955?jql=project%20%3D%20GEOS%20AND%20fixVersion%20in%20(2.19-RC%2C2.19.0%2C2.19.1)%20AND%20fixVersion%20not%20in%20(2.18.0%2C%202.18.1)%20AND%20status%20not%20in%20(Open)%20ORDER%20BY%20issuetype%20DESC) from 2.18.2 to 2.19.1
+* GeoServer posts for [2.19.1](http://geoserver.org/announcements/2021/05/24/geoserver-2-19-1-released.html) [2.19.0](http://geoserver.org/announcements/2021/03/22/geoserver-2-19-0-released.html) [2.19-RC](http://geoserver.org/announcements/2021/03/04/geoserver-2-19-rc-released.html), [2.18.2](http://geoserver.org/announcements/2021/01/20/geoserver-2-18-2-released.html)
 
 Security considerations:
 
@@ -74,6 +74,10 @@ Notes:
 GeoServer Enterprise Premium
 ----------------------------
 
+New features:
+
+* MapML Extension
+
 Improvements:
 
 * Oracle 19.10.0.0 database driver
@@ -82,6 +86,12 @@ Removed:
 
 * ArcSDE support is no longer available
 
+Experimental:
+
+* geopackage extension
+  
+* ogcapi-features extension
+  
 GeoServer Enterprise GeoCat Live
 --------------------------------
 

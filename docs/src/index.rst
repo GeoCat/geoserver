@@ -11,8 +11,7 @@ We are pleased to offer :command:`GeoServer Enterprise Standard` with long-term-
    
    welcome/index
    install/index
-   standard/index
-   premium/index
+   features/index
 
 .. toctree::
    :maxdepth: 2
@@ -48,8 +47,8 @@ We are pleased to offer :command:`GeoServer Enterprise Standard` with long-term-
    :maxdepth: 1
    :caption: Community
 
-   installation/index
    community/index
+   Community Distribution <installation/index>
    
 Indices and tables
 ==================
