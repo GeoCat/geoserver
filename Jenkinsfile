@@ -21,9 +21,9 @@ pipeline {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
                     println "Building 'communityRelease' modules not available online"
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./geoserver/src/community/pom.xml clean install -PcommunityRelease -DskipTests"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./geoserver/src/community/pom.xml clean install -PcommunityRelease -DskipTests"
                     println "Building GeoServer Enterprise"
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml clean install -DskipTests"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml clean install -DskipTests"
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'geocat.nexus.geoserver_enterprise') {
-                    sh "export PATH=$MVN_CMD_DIR:$PATH && mvn -f ./enterprise/pom.xml deploy"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml deploy"
                 }
             }
         }
@@ -55,7 +55,7 @@ pipeline {
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(file.getPath().lastIndexOf('/')+1)
-                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}'
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
                         }
                     }
                     script {
@@ -66,7 +66,7 @@ pipeline {
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
-                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}'
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
                         }
                     }
                 }
@@ -99,7 +99,7 @@ pipeline {
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
-                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}'
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
                         }
                     }
                     script {
@@ -110,7 +110,7 @@ pipeline {
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
-                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}'
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
                         }
                     }
                     script {
@@ -121,7 +121,7 @@ pipeline {
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
-                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}'
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
                         }
                     }
                     script {
@@ -132,7 +132,7 @@ pipeline {
                         files.each { File file ->
                             println "Pushing ${file}"
                             def archive = file.getPath().substring(prefix.length())
-                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./${file} ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/${archive}'
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
                         }
                     }
                     
