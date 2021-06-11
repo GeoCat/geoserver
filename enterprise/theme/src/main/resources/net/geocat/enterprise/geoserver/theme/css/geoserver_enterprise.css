@@ -340,7 +340,7 @@ fieldset.leftwise, fieldset.rightwise {
 /* ------------------------------------------------------------------- */
 
 ul#navigation {
-  margin: 10px 0 6px;
+  margin: 10px 0 25px;
   list-style-type: none;
 }
 ul#navigation a {
@@ -842,6 +842,23 @@ input[type=radio] + label {
 #style-editor div div + div {
   border-color: #ccc !important;
 }
+.fullscreen .CodeMirror-wrap {
+  height: calc(100vh - 275px) !important;
+}
+/* code with map preview */
+.fullscreen #olPreview {
+  height: calc(100vh - 332px) !important;
+}
+@media (min-width: 1440px) {
+  .fullscreen .CodeMirror-wrap {
+    height: calc(100vh - 225px) !important;
+  }
+
+  /* code with map preview */
+  .fullscreen #olPreview {
+    height: calc(100vh - 316px) !important;
+  }
+}
 
 /* ----------------------------------------------------------------------
 /* maps
@@ -849,6 +866,9 @@ input[type=radio] + label {
 
 div#olPreview {
   border: 1px solid #ccc !important;
+}
+.ol-control.ol-scale {
+  border-color: #ddd;
 }
 
 /* ----------------------------------------------------------------------
@@ -961,7 +981,7 @@ button:hover, .button-group a:hover, .button-group button:hover, input.btnTxt:ho
 }
 .help-link {
   background: transparent url(../enterprise/icon/ic_info_24px.svg) scroll no-repeat left center;
-  padding: 2px 0px 2px 20px;
+  padding: 2px 2px 2px 20px;
 }
 .add-link {
   background: transparent url(../enterprise/icon/ic_add_24px.svg) scroll no-repeat left center;
