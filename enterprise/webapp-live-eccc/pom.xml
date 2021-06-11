@@ -63,8 +63,8 @@
         <groupId>com.ruleoftech</groupId>
         <artifactId>markdown-page-generator-plugin</artifactId>
         <configuration>
-           <headerHtmlFile>${project.basedir}/../release/src/main/markdown/html/header.html</headerHtmlFile>
-           <footerHtmlFile>${project.basedir}/../release/src/main/markdown/html/footer.html</footerHtmlFile>
+           <headerHtmlFile>${project.basedir}/../data/src/main/markdown/html/header.html</headerHtmlFile>
+           <footerHtmlFile>${project.basedir}/../data/src/main/markdown/html/footer.html</footerHtmlFile>
          </configuration>
         <executions>
           <execution>

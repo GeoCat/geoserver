@@ -19,7 +19,7 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-theme</artifactId>
   <packaging>jar</packaging>
-  <name>GeoServer Enterprise Theme</name>
+  <name>GeoServer Enterprise ${geocat.enterprise} Theme</name>
   <description>
      Enterprise theme for GeoServer used by GeoCat distribution. 
      

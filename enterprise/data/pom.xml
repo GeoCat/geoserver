@@ -17,18 +17,19 @@
   </parent>
 
   <groupId>net.geocat.enterprise.geoserver</groupId>
-  <artifactId>gs-enterprise-release</artifactId>
+  <artifactId>gs-enterprise-data</artifactId>
   <packaging>pom</packaging>
-  <name>GeoServer Enterprise ${geocat.enterprise} Release</name>
+  <name>GeoServer Enterprise ${geocat.enterprise} Data</name>
   <description>
-   Release packaging, using assemblies to provide control over distribution bundles generated for customers.
+   Release GEOSERVER_DATA_DIR packaging, using assemblies to define each distribution bundles.
    
-   This module bundles up data and extensions as required. For ease of maintenance each webapp module is responsible for its own release assembly.
+   This module bundles up data, each webapp module is responsible for its own release assembly.
   </description>
   <properties>
-    <data.default.dir>${project.build.directory}/../data/default</data.default.dir>
-    <data.standard.dir>${project.build.directory}/../data/standard</data.standard.dir>
-    <release.dir>${project.build.directory}/</release.dir>
+    <data.default.dir>${project.basedir}/src/default</data.default.dir>
+    <data.standard.dir>${project.basedir}/src/standard</data.standard.dir>
+    <data.demo.dir>${project.basedir}/src/demo</data.demo.dir>
+    <release.dir>${project.build.basedir}</release.dir>
   </properties>
  
   <build>
@@ -47,11 +48,10 @@
         <configuration>
           <skip>true</skip>
         </configuration>
-      </plugin>      
+      </plugin>
       <plugin>
         <groupId>com.ruleoftech</groupId>
         <artifactId>markdown-page-generator-plugin</artifactId>
-        <version>2.2.0</version>
         <configuration>
            <headerHtmlFile>${project.basedir}/src/main/markdown/html/header.html</headerHtmlFile>
            <footerHtmlFile>${project.basedir}/src/main/markdown/html/footer.html</footerHtmlFile>
@@ -71,7 +71,7 @@
             <phase>process-resources</phase>
             <goals><goal>generate</goal></goals>
             <configuration>
-              <inputDirectory>${project.basedir}/../../data/standard/</inputDirectory>
+              <inputDirectory>${data.standard.dir}</inputDirectory>
               <outputDirectory>${project.build.directory}/html/standard</outputDirectory>
             </configuration>
           </execution>
@@ -80,8 +80,17 @@
             <phase>process-resources</phase>
             <goals><goal>generate</goal></goals>
             <configuration>
-              <inputDirectory>${project.basedir}/../../data/default/</inputDirectory>
+              <inputDirectory>${data.default.dir}</inputDirectory>
               <outputDirectory>${project.build.directory}/html/default</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>demo</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <inputDirectory>${data.demo.dir}</inputDirectory>
+              <outputDirectory>${project.build.directory}/html/demo</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -94,7 +103,7 @@
       <id>default</id>
       <activation>
         <file>
-          <exists>../../data/target/geoserver_data_dir_default.zip</exists>
+          <exists>target/geoserver_data_dir_default.zip</exists>
         </file>
       </activation>
       <build>
@@ -122,11 +131,12 @@
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>standard</id>
       <activation>
         <file>
-          <exists>../../data/target/geoserver_data_dir_standard.zip</exists>
+          <exists>target/geoserver_data_dir_standard.zip</exists>
         </file>
       </activation>
       <build>
@@ -147,6 +157,39 @@
                    <appendAssemblyId>false</appendAssemblyId>
                    <outputDirectory>${release.dir}</outputDirectory>
                    <finalName>geoserver-data-standard-${geocat.enterprise}</finalName>
+                 </configuration>
+               </execution>
+             </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <profile>
+      <id>demo</id>
+      <activation>
+        <file>
+          <exists>target/geoserver_data_dir_demo.zip</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+           <!-- artifact assembly -->
+           <plugin>
+             <artifactId>maven-assembly-plugin</artifactId>
+             <executions>
+               <execution>
+                 <id>data-demo</id>
+                 <phase>package</phase>
+                 <goals><goal>single</goal></goals>
+                 <configuration>
+                   <recompressZippedFiles>false</recompressZippedFiles>
+                   <descriptors>
+                     <descriptor>src/assembly/data-demo.xml</descriptor>
+                   </descriptors>
+                   <appendAssemblyId>false</appendAssemblyId>
+                   <outputDirectory>${release.dir}</outputDirectory>
+                   <finalName>geoserver-data-demo-${geocat.enterprise}</finalName>
                  </configuration>
                </execution>
              </executions>

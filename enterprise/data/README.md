@@ -1,9 +1,12 @@
 # GeoCat Data Directories
 
+Uses a combination of `ant` to download and process data, and maven to assemble bundles for download.
+
 Used to manage data directories:
 
 * default - minimal setup with no sample data
-* standard - includes natural earth sample data
+* standard - natural earth sample data
+* demo - natural earth and larger data sets
 
 Hint: Use `ant -p` to show main targets.
 
@@ -18,7 +21,9 @@ ant default
 If you wish to use the data directory directly:
 
 ```
-export GEOSERVER_DATA_DIR=`cd default; pwd`
+export GEOSERVER_DATA_DIR=`cd src/default; pwd`
+cd ../webapp-standard
+mvn jetty:run
 ```
 
 ## Standard Data Directory
@@ -32,7 +37,25 @@ ant standard
 If you wish to use the data directory directly:
 
 ```
-export GEOSERVER_DATA_DIR=`cd standard; pwd`
+export GEOSERVER_DATA_DIR=`cd src/standard; pwd`
+cd ../webapp-live
+mvn jetty:run
+```
+
+## Demo Data Directory
+
+Please run the following script to download data and unzip into the correct location:
+
+```
+ant demo
+```
+
+If you wish to use the data directory directly:
+
+```
+export GEOSERVER_DATA_DIR=`cd src/demo; pwd`
+cd ../webapp-training
+mvn jetty:run
 ```
 
 ## Downloading and installing data

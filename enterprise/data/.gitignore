@@ -1,0 +1,36 @@
+# data downloads
+download
+
+# Default data directory
+src/default/data
+src/default/demo
+src/default/gwc/tmp
+src/default/legendsamples/
+src/default/logs
+src/default/security
+src/default/styles
+src/default/temp
+src/default/tmp
+src/default/workspaces
+
+# Standard data directory
+src/standard/data/ne
+src/standard/data/eaa
+src/standard/gwc/tmp
+src/standard/legendsamples/
+src/standard/logs
+src/standard/security
+src/standard/styles
+src/standard/temp
+src/standard/tmp
+
+# Demo data directory
+src/demo/data/ne
+src/demo/data/eaa
+src/demo/gwc/tmp
+src/demo/legendsamples/
+src/demo/logs
+src/demo/security
+src/demo/styles
+src/demo/temp
+src/demo/tmp

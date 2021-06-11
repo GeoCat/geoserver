@@ -32,17 +32,22 @@ mvn jetty:run
 Use the property `data.directory` to indicate a data directory to copy into `target/data` for local testing:
 
 ```bash
-mvn process-resources -Ddata.directory=../../data/default
+mvn process-resources -Ddata.directory=../data/src/default
 mvn jetty:run
 ```
 
 ```bash
-mvn process-resources -Ddata.directory=../../data/standard
+mvn process-resources -Ddata.directory=../data/src/standard
 mvn jetty:run
 ```
 
 ```bash
-mvn process-resources -Ddata.directory=../../geoserver/data/minimal
+mvn process-resources -Ddata.directory=../data/src/demo
+mvn jetty:run
+```
+
+```bash
+mvn process-resources -Ddata.directory=/../geoserver/data/minimal
 mvn jetty:run
 ```
 
@@ -58,7 +63,7 @@ mvn -DGEOSERVER_DATA_DIR=/tmp/folder jetty:run
 Or use environmental `GEOSERVER_DATA_DIR` environmental variable:
 
 ```bash
-export GEOSERVER_DATA_DIR=`cd ../../data/standard; pwd`
+export GEOSERVER_DATA_DIR=`cd ../data/src/standard; pwd`
 mvn jetty:run
 ```
 
@@ -77,14 +82,16 @@ To create a war:
 mvn war:war
 ```
 
-To quickly test the war:
-
-```bash
-mvn jetty:run-war
-```
+Quickly test:
 
 ```bash
 mvn jetty:run-exploded
+```
+
+Test war:
+
+```bash
+mvn jetty:run-war
 ```
 
 ## Preconfigured Wars

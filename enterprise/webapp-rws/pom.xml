@@ -19,7 +19,7 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp-rws</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Premium ${geocat.enterprise} RWS  WebApp</name>
+  <name>GeoServer Enterprise ${geocat.enterprise} Premium RWS WebApp</name>
   <description>
      GeoServer Enterprise Premium, web application uses GeoCat Enterprise branding, along with selected modules prepackage for RWS.
      
@@ -84,8 +84,8 @@
         <groupId>com.ruleoftech</groupId>
         <artifactId>markdown-page-generator-plugin</artifactId>
         <configuration>
-           <headerHtmlFile>${project.basedir}/../release/src/main/markdown/html/header.html</headerHtmlFile>
-           <footerHtmlFile>${project.basedir}/../release/src/main/markdown/html/footer.html</footerHtmlFile>
+           <headerHtmlFile>${project.basedir}/../data/src/main/markdown/html/header.html</headerHtmlFile>
+           <footerHtmlFile>${project.basedir}/../data/src/main/markdown/html/footer.html</footerHtmlFile>
         </configuration>
         <executions>
           <execution>

@@ -3,18 +3,22 @@
 >
   <property name="download" location="download"/>
   <property name="target" location="target"/>
-  <property name="standard" location="standard/data/"/>
+  <property name="default" location="src/default"/>
+  <property name="standard" location="src/standard"/>
+  <property name="demo" location="src/demo/data"/>
   
   <target name="init">
      <mkdir dir="${download}"/>
      <mkdir dir="${target}"/>
-     <mkdir dir="${standard}"/>
+     <mkdir dir="${standard}/data"/>
+     <mkdir dir="${standard}/data"/>
   </target>
 
   <target name="clean"
           description="clean data directories">
      <delete dir="${target}"/>
-     <delete dir="${standard}"/>
+     <delete dir="${standard}/data"/>
+     <delete dir="${demo}/data"/>
   </target>
   
   <target name="clean_download"
@@ -25,56 +29,70 @@
   <target name="default" depends="init"
           description="Package default data directory">
     <zip destfile="${target}/geoserver_data_dir_default.zip"
+         update="true"
          level="9"
-         basedir="default"
+         basedir="${default}"
          includes="**"
          excludes="**/.gitignore, .DS_Store"/>
   </target>
 
-
   <target name="standard" depends="init"
-          description="Package data directory with Natural Earth shapefiles">
-    <property name="data" value="${standard}"/>
+          description="Package data directory with Natural Earth geopackage and rasters">
+    <property name="data" value="${standard}/data"/>
 
     <antcall target="install_ne1"/>
     <antcall target="install_dem"/>
-
     <antcall target="install_custom_geopackage"/>
-
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-geographic-lines/</echo>
     <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
-
-    <!--
-
-    <antcall target="install_quickstart"/>
-    
-    -->
   
     <echo>packaging ${target}/geoserver_data_dir_standard.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_standard.zip"
+         update="true"
          level="9"
-         basedir="standard"
+         basedir="${standard}"
+         includes="**"
+         excludes="**/.gitignore, .DS_Store"/>
+  </target>
+  
+  <target name="demo" depends="init"
+          description="Package demo directory with Natural Earth geopackage and rasters, bluemarble, and more ...">
+    <property name="data" value="${demo}/data"/>
+
+    <antcall target="install_ne1"/>
+    <antcall target="install_dem"/>
+    <antcall target="install_gray"/>
+    <antcall target="install_custom_geopackage"/>
+    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
+  
+    <echo>packaging ${target}/geoserver_data_dir_standard.zip</echo>
+    <zip destfile="${target}/geoserver_data_dir_demo.zip"
+         update="true"
+         level="9"
+         basedir="${demo}"
          includes="**"
          excludes="**/.gitignore, .DS_Store"/>
   </target>
 
   <target name="install_ne1">
-      <echo>https://www.naturalearthdata.com/downloads/10m-natural-earth-1/10m-natural-earth-1-with-shaded-relief-water-and-drainages</echo>
       <echo>Download and install NE1_HR_LC_SR_W_DR.zip into ${data}/ne/raster</echo>
-      <get skipexisting="true"
+      <get skipexisting="true" tryGzipEncoding="true"
          src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
          dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
-      <mkdir dir="${data}"/>
-      <unzip overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
+      <mkdir if:set="data"
+         dir="${data}"/>
+      <unzip if:set="data"
+         overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
   </target>
 
   <target name="install_gray">
-      <echo>https://www.naturalearthdata.com/downloads/10m-gray-earth/gray-earth-with-shaded-relief-and-water</echo>
       <echo>Download and install GRAY_HR_SR_W.zip into ${data}/ne/raster</echo>
-      <get skipexisting="true"
+      <get skipexisting="true" tryGzipEncoding="true"
          src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
          dest="${download}/GRAY_HR_SR_W.zip"/>
-      <unzip overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
+      <mkdir if:set="data"
+         dir="${data}"/>
+      <unzip if:set="data"
+        overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
          <patternset>
             <include name="*/GRAY_HR_SR_W.*"/>
          </patternset>
@@ -84,156 +102,139 @@
   
   <target name="install_dem">
       <!-- https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5 -->
-      <get skipexisting="true"
+      <get skipexisting="true" tryGzipEncoding="true"
          src="https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/at_download/file"
          dest="${download}/dem_geotiff.zip"/>
-      <unzip overwrite="false" src="${download}/dem_geotiff.zip" dest="${data}/eaa"/>
+      <unzip if:set="data"
+        overwrite="false" src="${download}/dem_geotiff.zip" dest="${data}/eaa"/>
   </target>
   
-  <target name="install_quickstart_shapefiles" depends="init">
-      <property name="data" value="${standard}"/>
-    
-      <echo>https://www.naturalearthdata.com/downloads/</echo>
-      <echo>Download and install Natural_Earth_quick_start.zip and extract 10m data into ${data}/ne</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
-         dest="${download}/Natural_Earth_quick_start.zip"/>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/CHANGELOG"/>
-            <include name="packages/Natural_Earth_quick_start/README.md"/>
-            <include name="packages/Natural_Earth_quick_start/VERSION"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/cultural">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_*" to="*"
-            handledirsep="true"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/physical">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/10m_physical/ne_10m_**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/10m_physical/ne_10m_*" to="*"
-            handledirsep="true"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/raster">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/*" to="*"
-            handledirsep="true"/>
-      </unzip>
+  <!-- Unused: GeoServer styling workshop shapefile; transitioned to geopackage -->
+  <target name="_install_quickstart_shapefiles" depends="init">
+    <property name="data" value="${standard}"/>
+  
+    <echo>https://www.naturalearthdata.com/downloads/</echo>
+    <echo>Download and install Natural_Earth_quick_start.zip and extract 10m data into ${data}/ne</echo>
+    <get skipexisting="true"
+      src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
+      dest="${download}/Natural_Earth_quick_start.zip"/>
+    <mkdir if:set="data"
+       dir="${data}"/>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
+       <patternset>
+         <include name="packages/Natural_Earth_quick_start/CHANGELOG"/>
+         <include name="packages/Natural_Earth_quick_start/README.md"/>
+         <include name="packages/Natural_Earth_quick_start/VERSION"/>
+       </patternset>
+       <mapper type="flatten"/>
+    </unzip>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/cultural">
+       <patternset>
+          <include name="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_**"/>
+       </patternset>
+       <globmapper from="packages/Natural_Earth_quick_start/10m_cultural/ne_10m_*" to="*"
+          handledirsep="true"/>
+    </unzip>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/physical">
+       <patternset>
+          <include name="packages/Natural_Earth_quick_start/10m_physical/ne_10m_**"/>
+       </patternset>
+       <globmapper from="packages/Natural_Earth_quick_start/10m_physical/ne_10m_*" to="*"
+          handledirsep="true"/>
+    </unzip>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne/raster">
+       <patternset>
+          <include name="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/**"/>
+       </patternset>
+       <globmapper from="packages/Natural_Earth_quick_start/50m_raster/NE1_50M_SR_W/*" to="*"
+          handledirsep="true"/>
+    </unzip>
   </target>
   
-<target name="install_custom_shapefiles" depends="init">
-          
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/roads/</echo>
+  <!-- Unused: GeoServer styling workshop shapefile; transitioned to geopackage -->
+  <target name="install_custom_shapefiles" depends="init">
+    <mkdir if:set="data"
+       dir="${data}"/>
     <antcall target="_cultural"><param name="features" value="roads"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/airports/</echo>
     <antcall target="_cultural"><param name="features" value="airports"/></antcall>
-
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/ports/</echo>
     <antcall target="_cultural"><param name="features" value="ports"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-breakaway-disputed-areas/</echo>
     <antcall target="_cultural"><param name="features" value="admin_0_boundary_breakaway_disputed_areas"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-boundary-lines/</echo>
     <antcall target="_cultural"><param name="features" value="admin_0_boundary_lines_land"/></antcall>
     <antcall target="_cultural"><param name="features" value="admin_0_boundary_lines_maritime_indicator"/></antcall>
-
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/</echo>
     <antcall target="_cultural"><param name="features" value="admin_0_map_units"/></antcall>
     <antcall target="_cultural"><param name="features" value="admin_0_scale_ranks_with_minor_islands"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-breakaway-disputed-areas/</echo>
     <antcall target="_cultural"><param name="features" value="admin_0_disputed_areas"/></antcall>
-
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/</echo>
     <antcall target="_cultural"><param name="features" value="admin_1_states_provinces_lines"/></antcall>
     <antcall target="_cultural"><param name="features" value="admin_1_states_provinces"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/</echo>
     <antcall target="_cultural"><param name="features" value="populated_places"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-urban-area/</echo>
     <antcall target="_cultural"><param name="features" value="urban_areas"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/</echo>
     <antcall target="_physical"><param name="features" value="coastline"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-physical-labels/</echo>
     <antcall target="_physical"><param name="features" value="geography_marine_polys"/></antcall>
     <antcall target="_physical"><param name="features" value="geography_regions_elevation_points"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-lakes/</echo>
     <antcall target="_physical"><param name="features" value="lakes"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-ocean/</echo>
     <antcall target="_physical"><param name="features" value="ocean"/></antcall>
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-rivers-lake-centerlines/</echo>
     <antcall target="_physical"><param name="features" value="rivers_lake_centerlines_scale_rank"/></antcall>    
-
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-graticules/</echo>
     <antcall target="_physical"><param name="features" value="graticules_all"/></antcall> 
-    
-    <echo>https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-geographic-lines/</echo>
-    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
-    
+    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall>     
   </target>
     
   <target name="install_quickstart_shapefiles_all" depends="init">
     
-      <echo>https://www.naturalearthdata.com/downloads/</echo>
-      <echo>Download and install Natural_Earth_quick_start.zip into ${data}/ne</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
-         dest="${download}/Natural_Earth_quick_start.zip"/>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
-         <patternset>
-            <include name="CHANGELOG"/>
-            <include name="README.md"/>
-            <include name="VERSION"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
-         <patternset>
-            <include name="packages/Natural_Earth_quick_start/**"/>
-         </patternset>
-         <globmapper from="packages/Natural_Earth_quick_start/*" to="*"
-            handledirsep="true"/>
-      </unzip>
+    <echo>https://www.naturalearthdata.com/downloads/</echo>
+    <echo>Download and install Natural_Earth_quick_start.zip into ${data}/ne</echo>
+    <get skipexisting="true" tryGzipEncoding="true"
+       src="https://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip"
+       dest="${download}/Natural_Earth_quick_start.zip"/>
+    <mkdir if:set="data"
+       dir="${data}"/>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
+       <patternset>
+          <include name="CHANGELOG"/>
+          <include name="README.md"/>
+          <include name="VERSION"/>
+       </patternset>
+       <mapper type="flatten"/>
+    </unzip>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/Natural_Earth_quick_start.zip" dest="${data}/ne">
+       <patternset>
+          <include name="packages/Natural_Earth_quick_start/**"/>
+       </patternset>
+       <globmapper from="packages/Natural_Earth_quick_start/*" to="*"
+          handledirsep="true"/>
+    </unzip>
   </target>
   
   <target name="install_quickstart_geopackage" depends="init">
-      <property name="data" value="${standard}"/>
-    
-      <echo>https://www.naturalearthdata.com/downloads/</echo>
-      <echo>Download and install natural_earth_vector.gpkg.zip into ${data}/ne</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
-         dest="${download}/natural_earth_vector.gpkg.zip"/>
-      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/ne">
-         <patternset>
-            <include name="CHANGELOG"/>
-            <include name="README.md"/>
-            <include name="VERSION"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/ne">
-         <patternset>
-            <include name="packages/*"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
+    <property name="data" value="${standard}"/>
+    <echo>https://www.naturalearthdata.com/downloads/</echo>
+    <echo>Download and install natural_earth_vector.gpkg.zip into ${data}/ne</echo>
+    <get skipexisting="true" tryGzipEncoding="true"
+       src="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
+       dest="${download}/natural_earth_vector.gpkg.zip"/>
+    <mkdir if:set="data"
+       dir="${data}"/>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/ne">
+       <patternset>
+          <include name="CHANGELOG"/>
+          <include name="README.md"/>
+          <include name="VERSION"/>
+       </patternset>
+       <mapper type="flatten"/>
+    </unzip>
+    <unzip if:set="data"
+      overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${data}/ne">
+       <patternset>
+          <include name="packages/*"/>
+       </patternset>
+       <mapper type="flatten"/>
+    </unzip>
   </target>
   
   <target name="install_custom_geopackage" depends="custom_geopackage, init">
@@ -242,6 +243,7 @@
       <copy file="${target}/natural_earth.gpkg" todir="${data}/ne"/>
   </target>
   
+  <!-- check if custom (processed) geopackage is available -->
   <target name="check-gpkg">
       <available file="${target}/natural_earth.gpkg" property="gpkg.present"/>
   </target>
@@ -441,19 +443,27 @@
   </target>
   
   <target name="_cultural">
-      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
-      <get skipexisting="true"
+      <echo unless:set="data">Download ne_10m_${features}.zip</echo>
+      <echo if:set="data">Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
+      <get skipexisting="true" tryGzipEncoding="true"
          src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_${features}.zip"
          dest="${download}/ne_10m_${features}.zip"/>
-      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/cultural"/> 
+      <unzip if:set="data"
+        overwrite="false"
+        src="${download}/ne_10m_${features}.zip"
+        dest="${data}/ne/cultural"/> 
   </target>
   
   <target name="_physical">
-      <echo>Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
-      <get skipexisting="true"
-         src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
-         dest="${download}/ne_10m_${features}.zip"/>
-      <unzip overwrite="false" src="${download}/ne_10m_${features}.zip" dest="${data}/ne/physical"/> 
+      <echo unless:set="data">Download ne_10m_${features}.zip</echo>
+      <echo if:set="data">Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
+      <get skipexisting="true" tryGzipEncoding="true"
+        src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
+        dest="${download}/ne_10m_${features}.zip"/>
+      <unzip if:set="data"
+        overwrite="false"
+        src="${download}/ne_10m_${features}.zip"
+        dest="${data}/ne/physical"/> 
   </target>
   
   <target name="_ogr_lines">

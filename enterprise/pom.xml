@@ -718,13 +718,17 @@
 
  <modules>
   <module>theme</module>
+  <module>data</module>
   <module>webapp</module>
+  <!-- standard -->
   <module>webapp-standard</module>
-  <module>webapp-live</module>
-  <module>webapp-live-eccc</module>
-  <module>webapp-rws</module>
   <module>webapp-training</module>
-  <module>release</module>
+  <!-- premium -->
+  <module>webapp-rws</module>
+  <!-- live -->
+  <module>webapp-live</module>
+  <module>webapp-live-demo</module>
+  <module>webapp-live-eccc</module>
  </modules>
 
 </project>

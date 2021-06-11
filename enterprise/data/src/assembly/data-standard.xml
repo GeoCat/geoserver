@@ -1,12 +1,12 @@
 <assembly>
-  <id>data-default</id>
+  <id>data-standard</id>
   <formats>
     <format>zip</format>
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
   <files>
     <file>
-      <source>../../data/target/geoserver_data_dir_default.zip</source>
+      <source>target/geoserver_data_dir_demo.zip</source>
       <outputDirectory></outputDirectory>
       <destName>data.zip</destName>
     </file>
@@ -20,7 +20,7 @@
       <outputDirectory>linux</outputDirectory>
     </file>
     <file>
-      <source>../../data/default/README.md</source>
+      <source>src/standard/README.md</source>
       <destName>README.txt</destName>
     </file>
   </files>

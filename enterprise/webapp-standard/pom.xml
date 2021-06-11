@@ -19,7 +19,7 @@
   <groupId>net.geocat.enterprise.geoserver</groupId>
   <artifactId>gs-enterprise-webapp-standard</artifactId>
   <packaging>war</packaging>
-  <name>GeoServer Enterprise Standard ${geocat.enterprise} WebApp</name>
+  <name>GeoServer Enterprise ${geocat.enterprise} Standard WebApp</name>
   <description>
      Web Application uses GeoCat enterprise branding, with selected modules for GeoServer Enterprise Standard distribution.
      
@@ -30,7 +30,7 @@
     <jetty.version>9.4.12.v20180830</jetty.version>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
-    <data.directory>${basedir}/../../data/default</data.directory>
+    <data.directory>${basedir}/../data/src/default</data.directory>
   </properties>
   
   <dependencies>
@@ -75,8 +75,8 @@
         <groupId>com.ruleoftech</groupId>
         <artifactId>markdown-page-generator-plugin</artifactId>
         <configuration>
-           <headerHtmlFile>${project.basedir}/../release/src/main/markdown/html/header.html</headerHtmlFile>
-           <footerHtmlFile>${project.basedir}/../release/src/main/markdown/html/footer.html</footerHtmlFile>
+           <headerHtmlFile>${project.basedir}/../data/src/main/markdown/html/header.html</headerHtmlFile>
+           <footerHtmlFile>${project.basedir}/../data/src/main/markdown/html/footer.html</footerHtmlFile>
         </configuration>
         <executions>
           <execution>

@@ -17,28 +17,39 @@ This web application is defined as an overlay of base `webapp`:
 
 ## Data Directory
 
-The default data directory is staged into `target/data` during `prepare-package` stage for test with with jetty:
+The ``default`` data directory is staged into `target/data` during `prepare-package` stage for test with with jetty:
 
 ```bash
 mvn jetty:run
 ```
+
+To work directly on the ``default`` data directory:
+
+```bash
+export GEOSERVER_DATA_DIR=`cd ../data/src/default; pwd`
+mvn jetty:run-exploded
+```
+
+Configuration changes made can be committed, be careful not commit any sample data.
 
 ## GeoServer Enterprise WAR
 
 To create a `geoserver.war` war:
 
 ```bash
-mvn package
+mvn war:war
 ```
 
-To quickly test the `geoserver.war` war:
+To quickly test:
 
 ```bash
 mvn jetty:run-war
 ```
 
+To test the `geoserver.war` war:
+
 ```bash
-mvn jetty:run-exploded`
+mvn jetty:run-exploded
 ```
 
 ## Release and Deploy
@@ -50,4 +61,3 @@ mvn package
 ```
 
 This module is intended for the production of a release war and does not deploy.
-
