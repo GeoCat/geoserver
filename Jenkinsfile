@@ -20,8 +20,8 @@ pipeline {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
-                    println "Building 'communityRelease' modules not available online"
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./geoserver/src/community/pom.xml clean install -PcommunityRelease -DskipTests"
+                    println "Building requested 'community' modules not available online"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./geoserver/src/community/pom.xml clean install -Pgeopkg,ogcapi -DskipTests"
                     println "Building GeoServer Enterprise"
                     sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml clean install -DskipTests"
                 }
