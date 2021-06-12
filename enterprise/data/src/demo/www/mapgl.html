@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mapbox-to-ol-style example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css">
+  <meta charset="utf-8"/>
+  <link href='https://unpkg.com/maplibre-gl@1.14.0-rc.1/dist/maplibre-gl.css' rel='stylesheet' />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Open Layers Map with MapBox GL</h1>
+  <hr/>
+  <div id="map"></div>
+  <hr/>
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+  <script src="https://unpkg.com/maplibre-gl@1.14.0-rc.1/dist/maplibre-gl.js"></script>
+  <script>
+
+var center = [-98.8, 37.9];
+
+var mbMap = new maplibregl.Map({
+  style: 'http://localhost:8080/geoserver/styles/ne/mlmap.json',
+  attributionControl: false,
+  boxZoom: false,
+  center: center,
+  container: 'map',
+  doubleClickZoom: false,
+  dragPan: false,
+  dragRotate: false,
+  interactive: false,
+  keyboard: false,
+  pitchWithRotate: false,
+  scrollZoom: false,
+  touchZoomRotate: false,
+});
+
+var mbLayer = new ol.layer.Layer({
+  render: function (frameState) {
+    var canvas = mbMap.getCanvas();
+    var viewState = frameState.viewState;
+
+    var visible = mbLayer.getVisible();
+    canvas.style.display = visible ? 'block' : 'none';
+
+    var opacity = mbLayer.getOpacity();
+    canvas.style.opacity = opacity;
+
+    var rotation = viewState.rotation;
+    mbMap.jumpTo({
+      center: ol.proj.toLonLat(viewState.center),
+      zoom: viewState.zoom - 1,
+      bearing: (-rotation * 180) / Math.PI,
+      animate: false,
+    });
+
+    if (mbMap._frame) {
+      mbMap._frame.cancel();
+      mbMap._frame = null;
+    }
+    mbMap._render();
+
+    return canvas;
+  },
+  source: new ol.source.Source({
+    attributions: [
+      '<a href="https://www.naturalearthdata.com/" target="_blank">© Natural Earth contributors</a>',
+      '<a href="http://localhost:8080/geoserver/web/" target="_blank">GeoServer</a>'],
+  }),
+});
+
+var map = new ol.Map({
+  target: 'map',
+  view: new ol.View({
+    center: ol.proj.fromLonLat(center),
+    zoom: 4,
+  }),
+  layers: [mbLayer],
+});
+
+  </script>
+</body>

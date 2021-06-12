@@ -1,0 +1,16 @@
+<layer>
+  <name>disputed_areas</name>
+  <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fed</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--7b7c5472:171be15fac9:-7fe5</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--50f64f89:171bfada2a6:-7fee</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-04-28 07:37:15.749 UTC</dateCreated>
+</layer>

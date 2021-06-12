@@ -1,0 +1,17 @@
+<layer>
+  <name>ne1</name>
+  <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fda</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-7efc76e6:1763e5fbf5c:-7fe5</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--50f64f89:171bfada2a6:-7fdb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-04-28 07:47:46.826 UTC</dateCreated>
+  <dateModified>2020-12-07 18:19:21.145 UTC</dateModified>
+</layer>

@@ -1,0 +1,21 @@
+<dataStore>
+  <id>DataStoreInfoImpl-5f5ea890:171bdcc3fe3:-7fff</id>
+  <name>NaturalEarth</name>
+  <description>Natural Earth is a public domain map dataset</description>
+  <type>GeoPackage</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--68e6e130:171aaf396ce:-8000</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="Batch insert size">1</entry>
+    <entry key="database">file:data/ne/natural_earth.gpkg</entry>
+    <entry key="fetch size">1000</entry>
+    <entry key="Expose primary keys">false</entry>
+    <entry key="dbtype">geopkg</entry>
+    <entry key="namespace">http://www.naturalearthdata.com</entry>
+  </connectionParameters>
+  <__default>false</__default>
+  <dateCreated>2020-04-27 23:29:14.737 UTC</dateCreated>
+  <dateModified>2020-12-07 17:49:56.323 UTC</dateModified>
+</dataStore>

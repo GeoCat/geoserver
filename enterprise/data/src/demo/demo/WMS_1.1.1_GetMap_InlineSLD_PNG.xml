@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ogc:GetMap
+   xmlns:ogc="http://www.opengis.net/ows"
+   xmlns:gml="http://www.opengis.net/gml"
+   version="1.1.1" service="WMS">
+  
+  <StyledLayerDescriptor version="1.0.0">
+    <UserLayer>
+      <Name>ne:states_provinces_scale</Name>
+      <UserStyle>
+        <Name>UserSelection</Name>
+        <FeatureTypeStyle>
+          <Rule>
+            <PolygonSymbolizer>
+              <Fill>
+                <CssParameter name="fill">#aa00aa</CssParameter>
+              </Fill>
+              <Stroke>
+                <CssParameter name="stroke">#404040</CssParameter>
+              </Stroke>
+            </PolygonSymbolizer>
+          </Rule>
+        </FeatureTypeStyle>
+      </UserStyle>
+    </UserLayer>
+  </StyledLayerDescriptor>
+  
+  <BoundingBox srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+    <gml:coord>
+      <gml:X>-132</gml:X>
+      <gml:Y>20</gml:Y>
+    </gml:coord>
+    <gml:coord>
+      <gml:X>-58</gml:X>
+      <gml:Y>53</gml:Y>
+    </gml:coord>
+  </BoundingBox>
+  
+  <Output>
+    <Format>image/png</Format>
+    <Size>
+      <Width>512</Width>
+      <Height>256</Height>
+    </Size>
+  </Output>
+  
+  <Exceptions>application/vnd.ogc.se+xml</Exceptions>
+  
+</ogc:GetMap>

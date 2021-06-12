@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--50f64f89:171bfada2a6:-7fdc</id>
+  <name>NE1</name>
+  <description>Natural Earth I with Shaded Relief, Water, and Drainages</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--68e6e130:171aaf396ce:-8000</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2020-04-28 07:47:09.231 UTC</dateCreated>
+  <url>file:data/ne/raster/NE1_HR_LC_SR_W_DR.tif</url>
+</coverageStore>

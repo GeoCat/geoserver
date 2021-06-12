@@ -1,0 +1,1 @@
+wms?REQUEST=GetFeatureInfo&BBOX=-76.640625,40.248413,-73.015137,42.061157&SERVICE=WMS&layers=ne:populated_places&WIDTH=660&HEIGHT=330&format=image/png&styles=&srs=EPSG:4326&version=1.1.1&x=449&y=248&INFO_FORMAT=text/plain&QUERY_LAYERS=ne:populated_places&FEATURE_COUNT=50
