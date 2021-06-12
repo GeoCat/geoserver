@@ -63,7 +63,6 @@
   <target name="default" depends="init"
           description="Package default data directory">
     <zip destfile="${target}/geoserver_data_dir_default.zip"
-         update="true"
          level="9"
          basedir="${default}"
          includes="**"
@@ -82,7 +81,6 @@
   
     <echo level="info">Packaging ${target}/geoserver_data_dir_standard.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_standard.zip"
-         update="true"
          level="9"
          basedir="${standard}"
          includes="**"
@@ -102,7 +100,6 @@
   
     <echo level="info">Packaging ${target}/geoserver_data_dir_standard.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_demo.zip"
-         update="true"
          level="9"
          basedir="${demo}"
          includes="**"
@@ -116,7 +113,10 @@
          dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
       <mkdir if:set="data"
          dir="${data}"/>
-      <unzip if:set="data"
+      <condition property="tiff.available">
+        <available file="${data}/ne/raster/NE1_HR_LC_SR_W_DR.tif"/>
+      </condition>
+      <unzip if:set="data" unless:true="tiff.available"
          overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
   </target>
 
@@ -127,7 +127,10 @@
          dest="${download}/GRAY_HR_SR_W.zip"/>
       <mkdir if:set="data"
          dir="${data}"/>
-      <unzip if:set="data"
+      <condition property="tiff.available">
+        <available file="${data}/ne/raster/GRAY_HR_SR_W.tif"/>
+      </condition>
+      <unzip if:set="data" unless:true="tiff.available"
         overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
          <patternset>
             <include name="*/GRAY_HR_SR_W.*"/>
@@ -141,7 +144,10 @@
       <get skipexisting="true" tryGzipEncoding="true"
          src="https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/at_download/file"
          dest="${download}/dem_geotiff.zip"/>
-      <unzip if:set="data"
+      <condition property="tiff.available">
+        <available file="${data}/eaa/DEM_geotiff/alwdgg.tif"/>
+      </condition>
+      <unzip if:set="data" unless:true="tiff.available"
         overwrite="false" src="${download}/dem_geotiff.zip" dest="${data}/eaa"/>
   </target>
   
