@@ -12,7 +12,7 @@ pipeline {
 
         stage('Data') {
             steps {
-                sh "ant -f ./enterprise/data/build.xml default"
+                sh "ant -f ./enterprise/data/build.xml download"
             }
         }
 
