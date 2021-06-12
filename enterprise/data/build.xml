@@ -7,6 +7,10 @@
   <property name="standard" location="src/standard"/>
   <property name="demo" location="src/demo/data"/>
   
+  <condition property="download.available">
+    <available file="${download}"/>
+  </condition>
+  
   <property environment="env"/>
   <path id="combined-PATH">
     <pathelement path="${env.PATH}"/> <!--linux-->
@@ -20,11 +24,14 @@
     </or>
   </condition>
   
-  <target name="init">
-     <mkdir dir="${download}"/>
+  <target name="init" depends="init_download">
      <mkdir dir="${target}"/>
      <mkdir dir="${standard}/data"/>
      <mkdir dir="${demo}/data"/>
+  </target>
+  
+  <target name="init_download" unless="download.available">
+     <mkdir dir="${download}"/>
   </target>
   
   <target name="clean"
@@ -39,7 +46,7 @@
      <delete dir="${download}"/>
   </target>
   
-  <target name="download" 
+  <target name="download" depends="init_download" 
           description="Experiment to pre-download and prep files">
     <!-- Install requires "data" installation location, will only download if not provided -->
     <antcall target="install_ne1"/>
@@ -102,7 +109,7 @@
          excludes="**/.gitignore, .DS_Store"/>
   </target>
 
-  <target name="install_ne1">
+  <target name="install_ne1" depends="init_download">
       <echo level="info">Download and install NE1_HR_LC_SR_W_DR.zip into ${data}/ne/raster</echo>
       <get skipexisting="true" tryGzipEncoding="true"
          src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
@@ -113,7 +120,7 @@
          overwrite="false" src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
   </target>
 
-  <target name="install_gray">
+  <target name="install_gray" depends="init_download">
       <echo level="info">Download and install GRAY_HR_SR_W.zip into ${data}/ne/raster</echo>
       <get skipexisting="true" tryGzipEncoding="true"
          src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
@@ -129,7 +136,7 @@
       </unzip>
   </target>
   
-  <target name="install_dem">
+  <target name="install_dem" depends="init_download">
       <!-- https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5 -->
       <get skipexisting="true" tryGzipEncoding="true"
          src="https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/zipped-dem-geotiff-raster-geographic-tag-image-file-format-raster-data/at_download/file"
