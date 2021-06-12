@@ -130,11 +130,11 @@
              <configuration>
                <recompressZippedFiles>false</recompressZippedFiles>
                <descriptors>
-                 <descriptor>src/assembly/gse-live-eccc.xml</descriptor>
+                 <descriptor>src/assembly/gse-live-demo.xml</descriptor>
                </descriptors>
                <appendAssemblyId>false</appendAssemblyId>
                <outputDirectory>${release.dir}</outputDirectory>
-               <finalName>geoserver-enterprise-live-eccc-${geocat.enterprise}</finalName>
+               <finalName>geoserver-enterprise-live-demo-${geocat.enterprise}</finalName>
              </configuration>
            </execution>
          </executions>
