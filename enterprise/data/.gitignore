@@ -14,8 +14,7 @@ src/default/tmp
 src/default/workspaces
 
 # Standard data directory
-src/standard/data/ne
-src/standard/data/eaa
+src/standard/data
 src/standard/gwc/tmp
 src/standard/legendsamples/
 src/standard/logs
@@ -25,8 +24,7 @@ src/standard/temp
 src/standard/tmp
 
 # Demo data directory
-src/demo/data/ne
-src/demo/data/eaa
+src/demo/data
 src/demo/gwc/tmp
 src/demo/legendsamples/
 src/demo/logs
