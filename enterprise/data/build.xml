@@ -359,41 +359,6 @@
             <param name="file" value="world.topo.bathy.200410.3x21600x21600.D2.png"/>
           </antcall>
       </parallel>
-
-     <!--
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.A1.png"
-       file="world.topo.bathy.200410.3x21600x21600.A1.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.B1.png"
-       file="world.topo.bathy.200410.3x21600x21600.B1.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.C1.png"
-       file="world.topo.bathy.200410.3x21600x21600.C1.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.D1.png"
-       file="world.topo.bathy.200410.3x21600x21600.D1.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.A2.png"
-       file="world.topo.bathy.200410.3x21600x21600.A2.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.B2.png"
-       file="world.topo.bathy.200410.3x21600x21600.B2.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.C2.png"
-       file="world.topo.bathy.200410.3x21600x21600.C2.png">
-     </download>
-     <download
-       url="${mirror}/world.topo.bathy.200410.3x21600x21600.D2.png"
-       file="world.topo.bathy.200410.3x21600x21600.D2.png">
-     </download>
-     -->
   </target>
   
   <target name="bmng_process" depends="bmng_download"
@@ -530,16 +495,24 @@
       </copy>
   </target>
   
-  <target name="bmng_install" depends="eo_process">
+  <target name="bmng_install" depends="bmng_process3">
       <fail unless:set="data">data property required for install location</fail>
 
-      <condition property="tif.installed">
-        <available file="${data}/nasa/bmng/world.topo.bathy.200410.3x21600x21600.D2.png"/>
+      <condition property="mosiac.installed">
+        <available file="${data}/nasa/bmng"/>
       </condition>
-      <copy unless:true="tif.installed"
+      <copy unless:set="mosiac.installed"
         overwrite="false"
         todir="${data}/nasa/bmng/">
-         <fileset dir="${download}" includes="world.topo.bathy.200410.3x21600x21600.*.tif"/>
+         <fileset dir="${download}/bmng" includes="bmng.*.tif"/>
+      </copy>
+      <condition property="tiff.installed">
+        <available file="${data}/nasa/bmng.tif"/>
+      </condition>
+      <copy unless:set="tiff.installed"
+        overwrite="false"
+        todir="${data}/nasa/"
+        file="${download}/bmng_cog.tif">
       </copy>
   </target>
   
