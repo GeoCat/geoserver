@@ -59,7 +59,7 @@ pipeline {
                         }
                     }
                     script {
-                        def prefix = 'enterprise/release/target/'
+                        def prefix = 'enterprise/data/target/'
                         def files = findFiles excludes: '', glob: prefix + 'geoserver-data-*.zip'
 
                         println "Staging data ${files.size()} distribution bundles for publishing"
@@ -125,7 +125,7 @@ pipeline {
                         }
                     }
                     script {
-                        def prefix = 'enterprise/release/target/'
+                        def prefix = 'enterprise/data/target/'
                         def files = findFiles excludes: '', glob: prefix + 'geoserver-data-*.zip'
 
                         println "Staging data ${files.size()} distribution bundles for publishing"
