@@ -142,10 +142,17 @@ Commit and tags to mark releases:
 ```bash
 git add .
 git commit -m "Use version 2.19.1"
-git tag 2020.1 -a -m "GeoServer Enterprise 2021.1 release"
+git tag tags/2021.1 -a -m "GeoServer Enterprise 2021.1 release"
 ```
 
 Revert commit (to restore `2.19-SNAPSHOT`):
 ```bash
-git revert HEAD~2
+git revert HEAD
+```
+
+Push:
+
+```bash
+git push upstream tags/2021.1
+git push
 ```
