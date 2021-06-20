@@ -193,6 +193,7 @@
       </build>
     </profile>
     
+    <!--
     <profile>
       <id>demo</id>
       <activation>
@@ -225,7 +226,7 @@
         </plugins>
       </build>
     </profile>
+    -->
   </profiles>
-
   
 </project>
