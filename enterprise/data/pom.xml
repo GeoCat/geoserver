@@ -105,7 +105,7 @@
             <goals><goal>run</goal></goals>
             <configuration>
               <target>
-                <ant antfile="build.xml" dir="${basedir}" target="all"/>
+                <ant antfile="build.xml" dir="${basedir}"/>
               </target>
             </configuration>
           </execution>
@@ -193,14 +193,13 @@
       </build>
     </profile>
     
-    <!--
     <profile>
       <id>demo</id>
-      <activation>
+      <!--activation>
         <file>
           <exists>target/geoserver_data_dir_demo.zip</exists>
         </file>
-      </activation>
+      </activation-->
       <build>
         <plugins>
            <!-- artifact assembly -->
@@ -226,7 +225,6 @@
         </plugins>
       </build>
     </profile>
-    -->
   </profiles>
   
 </project>

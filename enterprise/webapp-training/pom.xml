@@ -42,33 +42,8 @@
       <type>war</type>
       <scope>runtime</scope>
     </dependency>
-    
-    <!-- GeoCat Training additions -->
-    <!-- charts, importer, mbstyle,vectortiles, wps, ysld -->
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-charts</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-mbstyle</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-vectortiles</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-wps-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-web-wps</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-ysld</artifactId>
-    </dependency>
+
+    <!-- GeoCat Bridge Recommended additions -->
     <dependency>
       <groupId>org.geoserver.importer</groupId>
       <artifactId>gs-importer-web</artifactId>
@@ -90,6 +65,34 @@
           <artifactId>gt-jdbc-sqlserver</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    
+    <!-- charts, mbstyle,vectortiles, wps, ysld -->
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-charts</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-mbstyle</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-vectortiles</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-wps-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-web-wps</artifactId>
+    </dependency>
+    
+    <!-- GeoCat Training additions -->
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-ysld</artifactId>
     </dependency>
   </dependencies>
 

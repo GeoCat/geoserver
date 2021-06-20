@@ -43,8 +43,32 @@
       <scope>runtime</scope>
     </dependency>
     
+    <!-- GeoCat Bridge Recommended additions -->
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.geotools.jdbc</groupId>
+          <artifactId>gt-jdbc-oracle</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.geotools.jdbc</groupId>
+          <artifactId>gt-jdbc-sqlserver</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
     <!-- GeoCat standard additions -->
-    <!-- charts, mbstyle, oracle, wps, vectortiles -->
+    <!-- charts, mbstyle, wps, vectortiles -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-charts</artifactId>

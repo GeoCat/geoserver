@@ -43,7 +43,53 @@
       <scope>runtime</scope>
     </dependency>
     
-    <!-- GeoCat Live Premium additions -->
+    <!-- GeoCat Bridge Recommended additions -->
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.importer</groupId>
+      <artifactId>gs-importer-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.geotools.jdbc</groupId>
+          <artifactId>gt-jdbc-oracle</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.geotools.jdbc</groupId>
+          <artifactId>gt-jdbc-sqlserver</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <!-- GeoCat Live Recommened additions -->
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-mbstyle</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-vectortiles</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-wps-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-web-wps</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-ysld</artifactId>
+    </dependency>
+    
+    <!-- GeoCat Live Premium ECCC additions -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-mapml</artifactId>

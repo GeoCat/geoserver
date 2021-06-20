@@ -281,6 +281,11 @@
     </dependency>
     <dependency>
       <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-cog</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.community</groupId>
       <artifactId>gs-ogcapi-features</artifactId>
       <version>${gs.version}</version>
     </dependency>
@@ -642,11 +647,11 @@
      <version>${gt.version}</version>
     </dependency>
     <!-- oracle dirver -->
-    <dependency>
+    <!--dependency>
      <groupId>com.oracle.ojdbc</groupId>
      <artifactId>ojdbc8</artifactId>
      <version>19.3.0.0</version>
-    </dependency>
+    </dependency-->
    </dependencies>
   </dependencyManagement>
 
