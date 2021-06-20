@@ -1,0 +1,51 @@
+import static groovy.io.FileType.FILES
+
+pipeline {
+    agent {
+        dockerfile {
+            filename 'Dockerfile.build'
+            dir 'buildtools'
+        }
+    }
+
+    stages{
+
+        stage('Data') {
+            steps {
+                sh "ant -f ../enterprise/data/build.xml download2"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh "ant -f ../enterprise/data/build.xml demo"
+            }
+        }
+
+        stage ('Downloads (Development)') {
+            environment {
+                ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise-dev-releases'
+            }
+
+            steps {
+                withCredentials([
+                        string(credentialsId: 'geonetworkenterprise_basic_auth_token', 
+                        variable: 'NEXUS_BASIC_AUTH')]) {
+                    script {
+                        def prefix = 'enterprise/data/target/'
+                        def files = findFiles excludes: '', glob: prefix + 'geoserver_data_dir_demo.zip'
+
+                        println "Staging data ${files.size()} distribution bundles for publishing"
+                        files.each { File file ->
+                            println "Pushing ${file}"
+                            def archive = file.getPath().substring(prefix.length())
+                            sh 'curl -H "Authorization: Basic ${NEXUS_BASIC_AUTH}" --upload-file ./' + "${file}" + ' ${NEXUS_URL}/${ENTERPRISE_RELEASE}/geoserver/' + "${archive}"
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
