@@ -6,7 +6,7 @@
   <includeBaseDirectory>false</includeBaseDirectory>
   <files>
     <file>
-      <source>target/geoserver_data_dir_demo.zip</source>
+      <source>target/geoserver_data_dir_standard.zip</source>
       <outputDirectory></outputDirectory>
       <destName>data.zip</destName>
     </file>
