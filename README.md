@@ -125,8 +125,27 @@ To update a submodule to a new tag:
 
 ## Release
 
-Use tags to mark releases:
+Use `build/rename.xml` to update `pom.xml` version:
 
 ```bash
+ant -f build/release.xml -Dcurrent=2.19-SNAPSHOT -Drelease=2.19.1
+```
+
+Build:
+
+```bash
+mvn -f enterprise/pom.xml clean install
+```
+
+Commit and tags to mark releases:
+
+```bash
+git add .
+git commit -m "Use version 2.19.1"
 git tag 2020.1 -a -m "GeoServer Enterprise 2021.1 release"
+```
+
+Revert commit (to restore `2.19-SNAPSHOT`):
+```bash
+git revert HEAD~2
 ```
