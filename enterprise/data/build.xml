@@ -137,7 +137,7 @@
           description="Package default data directory">
     <echo level="info">Packaging ${target}/geoserver_data_dir_default.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_default.zip"
-         level="9"
+         level="0"
          basedir="${default}"
          includes="**"
          excludes="**/.gitignore, .DS_Store"/>
@@ -156,7 +156,7 @@
   
     <echo level="info">Packaging ${target}/geoserver_data_dir_standard.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_standard.zip"
-         level="9"
+         level="0"
          basedir="${standard}"
          includes="**"
          excludes="**/.gitignore, .DS_Store"/>
@@ -178,7 +178,7 @@
   
     <echo level="info">Packaging ${target}/geoserver_data_dir_demo.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_demo.zip"
-         level="9"
+         level="0"
          basedir="${demo}"
          includes="**"
          excludes="**/.gitignore, .DS_Store"/>
@@ -506,13 +506,13 @@
      <mkdir unless:set="bmng.process3" dir="${download}/pryamid"/>
      <echo unless:set="bmng.process3" level="info">bmng pyramid: bmng</echo>
       <mkdir unless:set="bmng.pryamid"
-        dir="${download}/bmng"/>
+        dir="${download}/pryamid"/>
       <exec unless:set="bmng.process3"
         executable="gdal_retile.py">
         <arg line="-v"/>
         <arg line="-r bilinear"/>
         <arg line="-pyramidOnly"/>
-        <arg line="-levels 4"/>
+        <arg line="-levels 5"/>
         <arg line="-ps 2048 2048"/>
         <arg line="-co TILED=YES"/>
         <arg line="-co COMPRESS=JPEG"/>
@@ -521,6 +521,13 @@
         <arg path="${download}/pryamid"/>
         <arg path="${download}/bmng.tif"/>
       </exec>
+      <mkdir unless:set="bmng.pryamid"
+        dir="${download}/pryamid/0"/>
+      <copy unless:set="bmng.pryamid"
+        overwrite="false"
+        todir="${download}/pryamid/0">
+         <fileset dir="${download}/bmng" includes="bmng.*.tif"/>
+      </copy>
   </target>
   
   <target name="bmng_install" depends="eo_process">
