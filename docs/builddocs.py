@@ -16,7 +16,7 @@ the '--output [path]' argument. If not used, the documentation will be created
 under the ./build folder. 
 '''
 
-VERSIONNAME = "2021"
+VERSIONNAME = "latest"
 
 toreplace = {
   "introduction/license.rst": [("/../../../../", "/../../../geoserver/")],
