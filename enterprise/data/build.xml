@@ -1,4 +1,4 @@
-<project name="data_directory" default="all"
+<project name="data_directory" default="data_dirs"
  xmlns:if="ant:if" xmlns:unless="ant:unless"
 >
   <!-- macros -->
@@ -33,7 +33,20 @@
         overwrite="false" src="@{download}/@{zip}" dest="@{data}/@{location}"/>
     </sequential>
   </macrodef>
+  
+  <!-- some good settings -->
+  <!-- dem: https://kokoalberti.com/articles/geotiff-compression-optimization-guide/ -->
+  <property name="dem_translate_options"
+            value="-co TILED=YES -co COMPRESS=DEFLATE -co PREDICTOR=2 -co NUM_THREADS=ALL_CPUS"/>
 
+  <property name="dem_gdaladdo_options"
+            value="--config COMPRESS_OVERVIEW DEFLATE --config INTERLEAVE_OVERVIEW=pixel --config PREDICTOR_OVERVIEW=2"/>
+            
+  <!-- imagry: http://blog.cleverelephant.ca/2015/02/geotiff-compression-for-dummies.html -->
+  <property name="imagry_translate_options"
+            value="-co TILED=YES -co COMPRESS=JPEG -co PHOTOMETRIC=YCBCR"/>
+  <property name="imagry_gdaladdo_options"
+            value="--config COMPRESS_OVERVIEW JPEG --config PHOTOMETRIC_OVERVIEW YCBCR --config INTERLEAVE_OVERVIEW PIXEL"/>
   
   
   <!-- some common locations -->
@@ -95,20 +108,29 @@
   
   <!-- download -->
   <target name="download" depends="init_download" 
-          description="Experiment to pre-download and prep files">
-    <antcall target="ne1_download"/>
-    <antcall target="gray_download"/>
-    <antcall target="etopo1_download"/>
-    <antcall target="eo_download"/>
-    <antcall target="eo_process"/>
-    <antcall target="ne_geopackage_download"/>
+          description="Pre-download and prep files">
+    <parallel threadCount="5">
+      <antcall target="ne1_download"/>
+      <antcall target="gray_download"/>
+      <antcall target="etopo1_download"/>
+      <antcall target="ne_geopackage_download"/>
+      <antcall target="-physical"><param name="features" value="geographic_lines"/></antcall> 
+    </parallel>
     <antcall target="ne_geopackage_process"/>
-    
-    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
   </target>
   
-  <target name="all" depends="default,standard,demo"
-          description="Download required files and assemble default, standard and demo data directories">
+  <target name="download2" depends="download" 
+          description="Pre-download and prep demo files">
+    <antcall target="eo_download"/>
+    <antcall target="eo_process"/>
+    <antcall target="bmng_download"/>
+    <antcall target="bmng_process"/>
+    <antcall target="bmng_process2"/>
+    <antcall target="bmng_process3"/>
+  </target>
+  
+  <target name="data_dirs" depends="default,standard"
+          description="Download required files and assemble default and standard data directories">
   </target>
 
   <target name="default" depends="init"
@@ -130,7 +152,7 @@
     <antcall target="etopo1_install"/>
     <antcall target="gray_install"/>
     <antcall target="ne_geopackage_install"/>
-    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
+    <antcall target="-physical"><param name="features" value="geographic_lines"/></antcall> 
   
     <echo level="info">Packaging ${target}/geoserver_data_dir_standard.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_standard.zip"
@@ -151,7 +173,8 @@
     <antcall target="gray_install"/>
     <antcall target="eo_install"/>
     <antcall target="ne_geopackage_install"/>
-    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall> 
+    <antcall target="bmng_install"/>
+    <antcall target="-physical"><param name="features" value="geographic_lines"/></antcall> 
   
     <echo level="info">Packaging ${target}/geoserver_data_dir_demo.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_demo.zip"
@@ -171,10 +194,6 @@
       <fail unless:set="data">data property required for install location</fail>
       
       <available file="${data}/ne/raster/NE1_HR_LC_SR_W_DR.tif" property="tiff.installed"/>
-      <antcall if:set="data" unless:true="tiff.installed"
-         target="download_ne1"/>
-      <mkdir if:set="data" unless:true="tiff.installed"
-         dir="${data}"/>
       <unzip if:set="data" unless:true="tiff.installed"
          overwrite="false"
          src="${download}/NE1_HR_LC_SR_W_DR.zip" dest="${data}/ne/raster"/>
@@ -190,10 +209,6 @@
       <fail unless:set="data">data property required for install location</fail>
 
       <available file="${data}/ne/raster/GRAY_HR_SR_W.tif" property="tiff.installed"/>
-      <antcall if:set="data" unless:true="tiff.installed"
-         target="download_gray"/>
-      <mkdir if:set="data" unless:true="tiff.installed"
-         dir="${data}"/>
       <unzip if:set="data" unless:set="tiff.installed"
         overwrite="false" src="${download}/GRAY_HR_SR_W.zip" dest="${data}/ne/raster">
          <patternset>
@@ -244,6 +259,7 @@
   </target>
   <target name="eo_process" depends="eo_download">
       <!-- automatic -->
+      <!--
       <condition property="cog.processed">
         <available file="${download}/eo_base_2020_cog.tif"/>
       </condition>
@@ -254,53 +270,40 @@
         <arg path="${download}/eo_base_2020_cog.tif"/>
         <arg line="-of COG"/>
       </exec>
+      -->
       
       <!-- manual -->
       <condition property="tiled.processed">
-        <available file="${download}/eo_base_2020_tiled.ti"/>
+        <available file="${download}/eo_base_2020_tiled.tif"/>
       </condition>
       <echo unless:set="tiled.processed" level="info">Explorer Base Map: eo_base_2020_tiled.tif ...</echo>
       <exec unless:set="tiled.processed"
         executable="gdal_translate">
         <arg path="${download}/eo_base_2020_clean_geo.tif"/>
         <arg path="${download}/eo_base_2020_tiled.tif"/>
-        <arg line="-co TILED=YES"/>
-        <arg line="-co COMPRESS=DEFLATE"/>
+        <arg line="${imagry_translate_options}"/>
       </exec>
       <echo unless:set="tiled.processed" level="info">Explorer Base Map: eo_base_2020_tiled.tif overviews ...</echo>
+      <copy unless:true="tiled.installed"
+        overwrite="false"
+        file="${download}/eo_base_2020_tiled.tif"
+        tofile="${download}/eo_base_2020_tiled_overviews.tif"/>
       <exec unless:set="tiled.processed"
         executable="gdaladdo">
         <arg line="-r average"/>
-        <arg path="${download}/eo_base_2020_tiled.tif"/>
-        <arg line="2 4 8 16 32"/>
+        <arg line="${imagry_gdaladdo_options}"/>
+        <arg path="${download}/eo_base_2020_tiled_overviews.tif"/>
       </exec>
       
       <condition property="cog2.processed">
-        <available file="${download}/eo_base_2020_cog2.ti"/>
+        <available file="${download}/eo_base_2020_cog2.tif"/>
       </condition>
       <echo unless:set="cog2.processed" level="info">Explorer Base Map: eo_base_2020_cog2.tif tiled...</echo>
       <exec unless:set="cog2.processed"
         executable="gdal_translate">
-        <arg path="${download}/eo_base_2020_tiled.tif"/>
+        <arg path="${download}/eo_base_2020_tiled_overviews.tif"/>
         <arg path="${download}/eo_base_2020_cog2.tif"/>
-        <arg line="-co TILED=YES"/>
-        <arg line="-co COMPRESS=DEFLATE"/>
-        <arg line="-co COPY_SRC_OVERVIEWS=YES"/>
-      </exec>
-      
-      <condition property="cog3.processed">
-        <available file="${download}/eo_base_2020_cog3.ti"/>
-      </condition>
-      <echo unless:set="cog3.processed" level="info">Explorer Base Map: eo_base_2020_cog3.tif jepg tiles...</echo>
-      <exec unless:set="cog3.processed"
-        executable="gdal_translate">
-        <arg path="${download}/eo_base_2020_tiled.tif"/>
-        <arg path="${download}/eo_base_2020_cog3.tif"/>
-        <arg line="-co TILED=YES"/>
-        <arg line="-co BLOCKXSIZE=512"/>
-        <arg line="-co BLOCKYSIZE=512"/>
-        <arg line="-co COMPRESS=JPEG"/>
-        <arg line="-co PHOTOMETRIC=YCBCR"/>
+        <arg line="${imagry_translate_options}"/>
         <arg line="-co COPY_SRC_OVERVIEWS=YES"/>
       </exec>
   </target>
@@ -311,12 +314,542 @@
       <condition property="tif.installed">
         <available file="${data}/nasa/eo/eo_base_2020.tif"/>
       </condition>
-      <copy if:set="data" unless:true="tif.installed"
+      <copy unless:true="tif.installed"
         overwrite="false"
-        src="${download}/eo_base_2020_cog3.tif"
-        dest="${data}/nasa/eo/eo_base_2020.tif"/>
+        file="${download}/eo_base_2020_cog2.tif"
+        tofile="${data}/nasa/eo/eo_base_2020.tif"/>
   </target>
   
+  <!-- BMNG -->
+  <target name="bmng_download" depends="init_download">
+      <property name="mirror"
+         value="https://neo.sci.gsfc.nasa.gov/archive/bluemarble/bmng/world_500m"/>
+
+      <parallel threadCount="8">
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.A1.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.A1.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.B1.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.B1.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.C1.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.C1.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.D1.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.D1.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.A2.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.A2.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.B2.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.B2.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.C2.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.C2.png"/>
+          </antcall>
+          <antcall target="-download">
+            <param name="url" value="${mirror}/world.topo.bathy.200410.3x21600x21600.D2.png"/>
+            <param name="file" value="world.topo.bathy.200410.3x21600x21600.D2.png"/>
+          </antcall>
+      </parallel>
+
+     <!--
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.A1.png"
+       file="world.topo.bathy.200410.3x21600x21600.A1.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.B1.png"
+       file="world.topo.bathy.200410.3x21600x21600.B1.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.C1.png"
+       file="world.topo.bathy.200410.3x21600x21600.C1.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.D1.png"
+       file="world.topo.bathy.200410.3x21600x21600.D1.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.A2.png"
+       file="world.topo.bathy.200410.3x21600x21600.A2.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.B2.png"
+       file="world.topo.bathy.200410.3x21600x21600.B2.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.C2.png"
+       file="world.topo.bathy.200410.3x21600x21600.C2.png">
+     </download>
+     <download
+       url="${mirror}/world.topo.bathy.200410.3x21600x21600.D2.png"
+       file="world.topo.bathy.200410.3x21600x21600.D2.png">
+     </download>
+     -->
+  </target>
+  
+  <target name="bmng_process" depends="bmng_download"
+     description="georeference tiles as geotiff with overviews">
+      <condition property="bmng.processed">
+        <available file="${download}/bmng"/>
+      </condition>
+      <mkdir unless:set="bmng.processed" dir="${download}/bmng"/>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="A1"/><param name="bounds" value="-180 90 -90 0"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="B1"/><param name="bounds" value="-90 90 0 0"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="C1"/><param name="bounds" value="0 90 90 0"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="D1"/><param name="bounds" value="90 90 180 0"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="A2"/><param name="bounds" value="-180 0 -90 -90"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="B2"/><param name="bounds" value="-90 0 0 -90"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="C2"/><param name="bounds" value="0 0 90 -90"/>
+      </antcall>
+      <antcall unless:set="bmng.processed"
+         target="-bmng">
+        <param name="tile" value="D2"/><param name="bounds" value="90 0 180 -90"/>
+      </antcall>
+  </target>
+  <!--  https://kokoalberti.com/articles/geotiff-compression-optimization-guide/ -->
+  <target name="-bmng">
+     <echo level="info">bmng ${tile}: ${bounds}</echo>
+      <condition property="${tile}.processed">
+        <available file="${download}/bmng/world.topo.bathy.200410.3x21600x21600.${tile}.tif"/>
+      </condition>
+      <exec unless:set="${tile}.processed"
+        executable="gdal_translate">
+        <arg line="-a_srs EPSG:4326"/>
+        <arg line="-a_ullr ${bounds}"/>
+        <arg path="${download}/world.topo.bathy.200410.3x21600x21600.${tile}.png"/>
+        <arg path="${download}/bmng/bmng.${tile}.tif"/>
+        <arg line="${imagry_translate_options}"/>
+      </exec>
+      <exec unless:set="${tile}.processed"
+        executable="gdaladdo">
+        <arg line="-r average"/>
+        <arg line="${imagry_gdaladdo_options}"/>
+        <arg path="${download}/bmng/bmng.${tile}.tif"/>
+      </exec>
+  </target>
+  
+  <target name="bmng_process2" depends="bmng_process"
+     description="merge into a single geotiff with overvierws and COG layout">
+     <condition property="bmng.processed2">
+       <available file="${download}/bmng.tif"/>
+     </condition>
+     <echo unless:set="bmng.processed2" level="info">bmng merge: bmng.tif</echo>
+      <exec unless:set="bmng.processed2"
+        executable="gdal_merge.py">
+        <arg line="-o"/>
+        <arg path="${download}/bmng.tif"/>
+        <arg line="-of GTiff"/>
+        <arg line="-co TILED=YES"/>
+        <arg line="-co COMPRESS=JPEG"/>
+        <arg line="-co PHOTOMETRIC=YCBCR"/>
+        <arg line="-co BIGTIFF=YES"/>
+        <arg line="-co NUM_THREADS=ALL_CPUS"/>
+        <arg path="${download}/bmng/bmng.A1.tif"/>
+        <arg path="${download}/bmng/bmng.B1.tif"/>
+        <arg path="${download}/bmng/bmng.C1.tif"/>
+        <arg path="${download}/bmng/bmng.D1.tif"/>
+        <arg path="${download}/bmng/bmng.A2.tif"/>
+        <arg path="${download}/bmng/bmng.B2.tif"/>
+        <arg path="${download}/bmng/bmng.C2.tif"/>
+        <arg path="${download}/bmng/bmng.D2.tif"/>
+      </exec>
+     <echo unless:set="bmng.processed2" level="info">bmng merge: bmng.tif overviews</echo>
+      <exec unless:set="bmng.processed2"
+        executable="gdaladdo">
+        <arg line="-r average"/>
+        <arg line="${imagry_gdaladdo_options}"/>
+        <arg path="${download}/bmng.tif"/>
+      </exec>
+     <echo unless:set="bmng.processed2" level="info">bmng merge: bmng.tif cog layout</echo>
+      <exec unless:set="bmng.processed2"
+        executable="gdal_translate">
+        <arg path="${download}/bmng.tif"/>
+        <arg path="${download}/bmng_cog.tif"/>
+        <arg line="${imagry_translate_options}"/>
+        <arg line="-co BIGTIFF=YES"/>
+        <arg line="-co COPY_SRC_OVERVIEWS=YES"/>
+      </exec>
+  </target>
+  <target name="bmng_process3" depends="bmng_process2">
+     <condition property="bmng.process3">
+       <available file="${download}/pryamid" type="dir"/>
+     </condition>
+     <mkdir unless:set="bmng.process3" dir="${download}/pryamid"/>
+     <echo unless:set="bmng.process3" level="info">bmng pyramid: bmng</echo>
+      <mkdir unless:set="bmng.pryamid"
+        dir="${download}/bmng"/>
+      <exec unless:set="bmng.process3"
+        executable="gdal_retile.py">
+        <arg line="-v"/>
+        <arg line="-r bilinear"/>
+        <arg line="-pyramidOnly"/>
+        <arg line="-levels 4"/>
+        <arg line="-ps 2048 2048"/>
+        <arg line="-co TILED=YES"/>
+        <arg line="-co COMPRESS=JPEG"/>
+        <arg line="-co PHOTOMETRIC=YCBCR"/>
+        <arg line="-targetDir"/>
+        <arg path="${download}/pryamid"/>
+        <arg path="${download}/bmng.tif"/>
+      </exec>
+  </target>
+  
+  <target name="bmng_install" depends="eo_process">
+      <fail unless:set="data">data property required for install location</fail>
+
+      <condition property="tif.installed">
+        <available file="${data}/nasa/bmng/world.topo.bathy.200410.3x21600x21600.D2.png"/>
+      </condition>
+      <copy unless:true="tif.installed"
+        overwrite="false"
+        todir="${data}/nasa/bmng/">
+         <fileset dir="${download}" includes="world.topo.bathy.200410.3x21600x21600.*.tif"/>
+      </copy>
+  </target>
+  
+  <!-- Natural Earth GeoPackage -->
+  <target name="ne_geopackage_download" depends="init_download">
+     <download
+       url="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
+       file="natural_earth_vector.gpkg.zip">
+     </download>
+  </target>
+
+  <!-- check if custom (processed) geopackage is available -->
+  <target name="ne_geopackage_check">
+      <available file="${download}/natural_earth.gpkg" property="gpkg.processed"/>
+  </target>
+  
+  <target name="ne_geopackage_process" depends="ne_geopackage_download,ne_geopackage_check" unless="gpkg.processed">
+      
+      <echo level="info">Unzip into ${download}</echo>
+      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${download}">
+         <patternset>
+            <include name="packages/*"/>
+         </patternset>
+         <mapper type="flatten"/>
+      </unzip>
+      <echo level="info">Use ogr2ogr create natural_earth.gpkg</echo>
+      <property name="input" location="${download}/natural_earth_vector.gpkg"/>
+      <property name="output" location="${download}/natural_earth.gpkg"/>
+      <property name="options" location="-append -update"/>
+      
+      <!-- CULTRUAL -->
+      <!-- admin0 -->
+      <antcall target="-lines">
+        <param name="table" value="boundary_lines_disputed"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_disputed_areas"/>
+        <param name="options" value=""/>
+        <param name="title" value="Disputed boundary lines"/>
+        <param name="description" value="Disputed areas and breakaway regions"/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="boundary_lines_land"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_land"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Boundary lines"/>
+        <param name="description" value="Country boundaries on land."/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="boundary_lines_map_units"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_map_units"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Interior boundary lines"/>
+        <param name="description" value="Groups of individual territories"/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="boundary_lines_maritime"/>
+        <param name="from" value="ne_10m_admin_0_boundary_lines_maritime_indicator"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Maritime boundary lines"/>
+        <param name="description" value="Country boundaries offshore."/>
+      </antcall>
+      <antcall target="-point">
+        <param name="table" value="label_points"/>
+        <param name="from" value="ne_10m_admin_1_label_points"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Label points"/>
+        <param name="description" value="Country labels"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="countries"/>
+        <param name="from" value="ne_10m_admin_0_countries_lakes"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Countries"/>
+        <param name="description" value="Sovereign states, lakes removed"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="disputed_areas"/>
+        <param name="from" value="ne_10m_admin_0_disputed_areas"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Disputed areas"/>
+        <param name="description" value="Disputed areas and breakaway regions"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="map_subunits"/>
+        <param name="from" value="ne_10m_admin_0_map_subunits"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Subunits"/>
+        <param name="description" value="Countries subdivided by non-contiguous units"/>
+      </antcall>
+      
+      <!-- admin1 -->
+      <antcall target="-polygons">
+        <param name="table" value="states_provinces"/>
+        <param name="from" value="ne_10m_admin_1_states_provinces_lakes"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="State and province boundaries"/>
+        <param name="description" value="Internal administrative boundaries"/>
+      </antcall>
+      <antcall target="-point">
+        <param name="table" value="states_provinces_labels"/>
+        <param name="from" value="ne_10m_admin_1_label_points"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="States and provinces labels"/>
+        <param name="description" value="Internal administrative boundaries"/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="states_provinces_lines"/>
+        <param name="from" value="ne_10m_admin_1_states_provinces_lines"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="States and province boundaries"/>
+        <param name="description" value="Internal administrative boundaries"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="states_provinces_scale"/>
+        <param name="from" value="ne_10m_admin_1_states_provinces_scale_rank"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="States and provinces"/>
+        <param name="description" value="Internal administrative boundaries, subdivided with scalerank"/>
+      </antcall>
+      
+      <!-- humanity -->
+      <antcall target="-point">
+        <param name="table" value="populated_places"/>
+        <param name="from" value="ne_10m_populated_places"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Populated places"/>
+        <param name="description" value="City and town points"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="urban_areas"/>
+        <param name="from" value="ne_10m_urban_areas"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Urban areas"/>
+        <param name="description" value="Area of dense human habitation"/>
+      </antcall>
+      
+      <!-- transport -->
+      <antcall target="-point">
+        <param name="table" value="airports"/>
+        <param name="from" value="ne_10m_airports"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Airports"/>
+        <param name="description" value="Transportation. Derives from Mile High Club, a detailed GIS compilation of world wide airports that is in the public domain."/>
+      </antcall>
+      <antcall target="-point">
+        <param name="table" value="ports"/>
+        <param name="from" value="ne_10m_ports"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Ports"/>
+        <param name="description" value="Transportation. Derives from High Seas, a detailed GIS compilation of world wide ports that is in the public domain."/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="roads"/>
+        <param name="from" value="ne_10m_roads"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Roads"/>
+        <param name="description" value="Transportation."/>
+      </antcall>
+      
+      <!-- PHYSICAL -->
+      <antcall target="-polygons">
+        <param name="table" value="ocean"/>
+        <param name="from" value="ne_10m_ocean"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Ocean"/>
+        <param name="description" value="Ocean"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="ocean_scale"/>
+        <param name="from" value="ne_10m_ocean_scale_rank"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Oceans"/>
+        <param name="description" value="Ocean polygon split into contiguous pieces"/>
+      </antcall>
+      <antcall target="-polygons">
+        <param name="table" value="lakes"/>
+        <param name="from" value="ne_10m_lakes"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Lakes and reservoirs"/>
+        <param name="description" value="Natural and artificial lakes."/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="coastline"/>
+        <param name="from" value="ne_10m_coastline"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Coastline"/>
+        <param name="description" value="Ocean coastline, including major islands."/>
+      </antcall>
+      <antcall target="-lines">
+        <param name="table" value="rivers_lake_centerlines"/>
+        <param name="from" value="ne_10m_rivers_lake_centerlines_scale_rank"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Rivers and lakes"/>
+        <param name="description" value="River and lake centerlines, subdivided with scalerank"/>
+      </antcall>
+      
+      <antcall target="-lines">
+        <param name="table" value="geographic_lines"/>
+        <param name="from" value="ne_10m_geographic_lines"/>
+        <param name="options" value="-update"/>
+        <param name="title" value="Geographic lines"/>
+        <param name="description" value=""/>
+      </antcall>
+
+  </target>
+  
+  <target name="ne_geopackage_install" depends="ne_geopackage_process">
+      <fail unless:set="data">data property required for install location</fail>
+      
+      <echo if:set="data" level="info">Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
+      <copy if:set="data"
+        file="${download}/natural_earth.gpkg" todir="${data}/ne"/>
+  </target>
+  
+  <!-- download internal targets -->
+  <!-- targets are more useful than marcos in order to use parallel execution -->
+  <target name="-download">
+      <available file="${download}/${file}"
+         property="file.downloaded"/>
+      
+      <echo unless:set="file.downloaded" level="info">Downloading ${file}</echo>
+      <get unless:set="file.downloaded"
+           skipexisting="true" tryGzipEncoding="true" 
+         src="${url}"
+         dest="${download}/${file}"/>
+  </target>
+ 
+  <!-- install internal targets -->
+  <target name="-install">
+      <available file="${download}/${zip}"
+         property="zip.downloaded"/>
+      <available file="${data}/${location}/${file}"
+         property="file.installed"/>
+         
+      <mkdir if:set="data" unless:set="file.installed,zip.downloaded"
+         dir="${data}"/>
+      <unzip if:set="data" unless:set="file.installed" unless:true="zip.downloaded"
+        overwrite="false" src="${download}/$[zip}" dest="${data}/${location}"/>
+  </target>
+  
+  <target name="-cultural">
+      <echo unless:set="data" level="info">Download ne_10m_${features}.zip</echo>
+      <echo if:set="data" level="info">Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
+      <get skipexisting="true" tryGzipEncoding="true"
+         src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_${features}.zip"
+         dest="${download}/ne_10m_${features}.zip"/>
+      <unzip if:set="data"
+        overwrite="false"
+        src="${download}/ne_10m_${features}.zip"
+        dest="${data}/ne/cultural"/> 
+  </target>
+  
+  <target name="-physical">
+      <echo unless:set="data" level="info">Download ne_10m_${features}.zip</echo>
+      <echo if:set="data" level="info">Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
+      <get skipexisting="true" tryGzipEncoding="true"
+        src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
+        dest="${download}/ne_10m_${features}.zip"/>
+      <unzip if:set="data"
+        overwrite="false"
+        src="${download}/ne_10m_${features}.zip"
+        dest="${data}/ne/physical"/> 
+  </target>
+  
+  
+  <!-- processing -->
+  <target name="-lines">
+      <echo level="info">${title}: ${description}</echo>
+      <exec executable="ogr2ogr">
+        <arg line="-f 'GPKG'"/>
+        <arg path="${output}"/>
+        <arg path="${input}"/>
+        <arg line="-lco IDENTIFIER='${title}'"/>
+        <arg line="-lco DESCRIPTION='${description}'"/>
+        <arg line="${options}"/>
+        <arg line="-nlt MULTILINESTRING"/>
+        <arg line="-nln ${table}"/>
+        <arg value="-sql"/>
+        <arg value="SELECT * FROM ${from}"/>
+      </exec>
+  </target>
+  
+  <target name="-polygons">
+      <echo level="info">${title}: ${description}</echo>
+      <exec executable="ogr2ogr">
+        <arg line="-f 'GPKG'"/>
+        <arg path="${output}"/>
+        <arg path="${input}"/>
+        <arg line="-lco OVERWRITE=YES"/>
+        <arg line="-lco IDENTIFIER='${title}'"/>
+        <arg line="-lco DESCRIPTION='${description}'"/>
+        <arg line="${options}"/>
+        <arg line="-nlt MULTIPOLYGON"/>
+        <arg line="-nln ${table}"/>
+        <arg value="-sql"/>
+        <arg value="SELECT * FROM ${from}"/>
+      </exec>
+  </target>
+  <target name="-point">
+      <echo level="info">${title}: ${description}</echo>
+      <exec executable="ogr2ogr">
+        <arg line="-f 'GPKG'"/>
+        <arg path="${output}"/>
+        <arg path="${input}"/>
+        <arg line="-lco IDENTIFIER='${title}'"/>
+        <arg line="-lco DESCRIPTION='${description}'"/>
+        <arg line="${options}"/>
+        <arg line="-nlt POINT"/>
+        <arg line="-nln ${table}"/>
+        <arg value="-sql"/>
+        <arg value="SELECT * FROM ${from}"/>
+      </exec>
+  </target>
+  
+  <!--                                                                                 -->
+  <!--                                    UNUSED                                       -->
+  <!--                                                                                 -->
+
   <!-- Unused: GeoServer styling workshop shapefile; transitioned to geopackage -->
   <target name="-install_quickstart_shapefiles" depends="init">
     <property name="data" value="${standard}"/>
@@ -367,27 +900,27 @@
   <target name="-install_custom_shapefiles" depends="init">
     <mkdir if:set="data"
        dir="${data}"/>
-    <antcall target="_cultural"><param name="features" value="roads"/></antcall>
-    <antcall target="_cultural"><param name="features" value="airports"/></antcall>
-    <antcall target="_cultural"><param name="features" value="ports"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_0_boundary_breakaway_disputed_areas"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_0_boundary_lines_land"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_0_boundary_lines_maritime_indicator"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_0_map_units"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_0_scale_ranks_with_minor_islands"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_0_disputed_areas"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_1_states_provinces_lines"/></antcall>
-    <antcall target="_cultural"><param name="features" value="admin_1_states_provinces"/></antcall>
-    <antcall target="_cultural"><param name="features" value="populated_places"/></antcall>
-    <antcall target="_cultural"><param name="features" value="urban_areas"/></antcall>
-    <antcall target="_physical"><param name="features" value="coastline"/></antcall>
-    <antcall target="_physical"><param name="features" value="geography_marine_polys"/></antcall>
-    <antcall target="_physical"><param name="features" value="geography_regions_elevation_points"/></antcall>
-    <antcall target="_physical"><param name="features" value="lakes"/></antcall>
-    <antcall target="_physical"><param name="features" value="ocean"/></antcall>
-    <antcall target="_physical"><param name="features" value="rivers_lake_centerlines_scale_rank"/></antcall>    
-    <antcall target="_physical"><param name="features" value="graticules_all"/></antcall> 
-    <antcall target="_physical"><param name="features" value="geographic_lines"/></antcall>     
+    <antcall target="-cultural"><param name="features" value="roads"/></antcall>
+    <antcall target="-cultural"><param name="features" value="airports"/></antcall>
+    <antcall target="-cultural"><param name="features" value="ports"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_0_boundary_breakaway_disputed_areas"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_0_boundary_lines_land"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_0_boundary_lines_maritime_indicator"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_0_map_units"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_0_scale_ranks_with_minor_islands"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_0_disputed_areas"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_1_states_provinces_lines"/></antcall>
+    <antcall target="-cultural"><param name="features" value="admin_1_states_provinces"/></antcall>
+    <antcall target="-cultural"><param name="features" value="populated_places"/></antcall>
+    <antcall target="-cultural"><param name="features" value="urban_areas"/></antcall>
+    <antcall target="-physical"><param name="features" value="coastline"/></antcall>
+    <antcall target="-physical"><param name="features" value="geography_marine_polys"/></antcall>
+    <antcall target="-physical"><param name="features" value="geography_regions_elevation_points"/></antcall>
+    <antcall target="-physical"><param name="features" value="lakes"/></antcall>
+    <antcall target="-physical"><param name="features" value="ocean"/></antcall>
+    <antcall target="-physical"><param name="features" value="rivers_lake_centerlines_scale_rank"/></antcall>    
+    <antcall target="-physical"><param name="features" value="graticules_all"/></antcall> 
+    <antcall target="-physical"><param name="features" value="geographic_lines"/></antcall>     
   </target>
     
   <!-- Unused: transitioned to geopackage -->
@@ -446,313 +979,5 @@
        <mapper type="flatten"/>
     </unzip>
   </target>
-  
-
-  
-  <target name="ne_geopackage_download" depends="init_download">
-     <download
-       url="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
-       file="natural_earth_vector.gpkg.zip">
-     </download>
-  </target>
-
-  <!-- check if custom (processed) geopackage is available -->
-  <target name="check-gpkg">
-      <available file="${download}/natural_earth.gpkg" property="gpkg.processed"/>
-  </target>
-  
-  <target name="ne_geopackage_process" depends="ne_geopackage_download,check-gpkg" unless="gpkg.processed">
-      
-      <echo level="info">Unzip into ${download}</echo>
-      <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${download}">
-         <patternset>
-            <include name="packages/*"/>
-         </patternset>
-         <mapper type="flatten"/>
-      </unzip>
-      <echo level="info">Use ogr2ogr create natural_earth.gpkg</echo>
-      <property name="input" location="${download}/natural_earth_vector.gpkg"/>
-      <property name="output" location="${download}/natural_earth.gpkg"/>
-      <property name="options" location="-append -update"/>
-      
-      <!-- CULTRUAL -->
-      <!-- admin0 -->
-      <antcall target="_ogr_lines">
-        <param name="table" value="boundary_lines_disputed"/>
-        <param name="from" value="ne_10m_admin_0_boundary_lines_disputed_areas"/>
-        <param name="options" value=""/>
-        <param name="title" value="Disputed boundary lines"/>
-        <param name="description" value="Disputed areas and breakaway regions"/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="boundary_lines_land"/>
-        <param name="from" value="ne_10m_admin_0_boundary_lines_land"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Boundary lines"/>
-        <param name="description" value="Country boundaries on land."/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="boundary_lines_map_units"/>
-        <param name="from" value="ne_10m_admin_0_boundary_lines_map_units"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Interior boundary lines"/>
-        <param name="description" value="Groups of individual territories"/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="boundary_lines_maritime"/>
-        <param name="from" value="ne_10m_admin_0_boundary_lines_maritime_indicator"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Maritime boundary lines"/>
-        <param name="description" value="Country boundaries offshore."/>
-      </antcall>
-      <antcall target="_ogr_point">
-        <param name="table" value="label_points"/>
-        <param name="from" value="ne_10m_admin_1_label_points"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Label points"/>
-        <param name="description" value="Country labels"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="countries"/>
-        <param name="from" value="ne_10m_admin_0_countries_lakes"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Countries"/>
-        <param name="description" value="Sovereign states, lakes removed"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="disputed_areas"/>
-        <param name="from" value="ne_10m_admin_0_disputed_areas"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Disputed areas"/>
-        <param name="description" value="Disputed areas and breakaway regions"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="map_subunits"/>
-        <param name="from" value="ne_10m_admin_0_map_subunits"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Subunits"/>
-        <param name="description" value="Countries subdivided by non-contiguous units"/>
-      </antcall>
-      
-      <!-- admin1 -->
-      <antcall target="_ogr_polygons">
-        <param name="table" value="states_provinces"/>
-        <param name="from" value="ne_10m_admin_1_states_provinces_lakes"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="State and province boundaries"/>
-        <param name="description" value="Internal administrative boundaries"/>
-      </antcall>
-      <antcall target="_ogr_point">
-        <param name="table" value="states_provinces_labels"/>
-        <param name="from" value="ne_10m_admin_1_label_points"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="States and provinces labels"/>
-        <param name="description" value="Internal administrative boundaries"/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="states_provinces_lines"/>
-        <param name="from" value="ne_10m_admin_1_states_provinces_lines"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="States and province boundaries"/>
-        <param name="description" value="Internal administrative boundaries"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="states_provinces_scale"/>
-        <param name="from" value="ne_10m_admin_1_states_provinces_scale_rank"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="States and provinces"/>
-        <param name="description" value="Internal administrative boundaries, subdivided with scalerank"/>
-      </antcall>
-      
-      <!-- humanity -->
-      <antcall target="_ogr_point">
-        <param name="table" value="populated_places"/>
-        <param name="from" value="ne_10m_populated_places"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Populated places"/>
-        <param name="description" value="City and town points"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="urban_areas"/>
-        <param name="from" value="ne_10m_urban_areas"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Urban areas"/>
-        <param name="description" value="Area of dense human habitation"/>
-      </antcall>
-      
-      <!-- transport -->
-      <antcall target="_ogr_point">
-        <param name="table" value="airports"/>
-        <param name="from" value="ne_10m_airports"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Airports"/>
-        <param name="description" value="Transportation. Derives from Mile High Club, a detailed GIS compilation of world wide airports that is in the public domain."/>
-      </antcall>
-      <antcall target="_ogr_point">
-        <param name="table" value="ports"/>
-        <param name="from" value="ne_10m_ports"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Ports"/>
-        <param name="description" value="Transportation. Derives from High Seas, a detailed GIS compilation of world wide ports that is in the public domain."/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="roads"/>
-        <param name="from" value="ne_10m_roads"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Roads"/>
-        <param name="description" value="Transportation."/>
-      </antcall>
-      
-      <!-- PHYSICAL -->
-      <antcall target="_ogr_polygons">
-        <param name="table" value="ocean"/>
-        <param name="from" value="ne_10m_ocean"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Ocean"/>
-        <param name="description" value="Ocean"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="ocean_scale"/>
-        <param name="from" value="ne_10m_ocean_scale_rank"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Oceans"/>
-        <param name="description" value="Ocean polygon split into contiguous pieces"/>
-      </antcall>
-      <antcall target="_ogr_polygons">
-        <param name="table" value="lakes"/>
-        <param name="from" value="ne_10m_lakes"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Lakes and reservoirs"/>
-        <param name="description" value="Natural and artificial lakes."/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="coastline"/>
-        <param name="from" value="ne_10m_coastline"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Coastline"/>
-        <param name="description" value="Ocean coastline, including major islands."/>
-      </antcall>
-      <antcall target="_ogr_lines">
-        <param name="table" value="rivers_lake_centerlines"/>
-        <param name="from" value="ne_10m_rivers_lake_centerlines_scale_rank"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Rivers and lakes"/>
-        <param name="description" value="River and lake centerlines, subdivided with scalerank"/>
-      </antcall>
-      
-      <antcall target="_ogr_lines">
-        <param name="table" value="geographic_lines"/>
-        <param name="from" value="ne_10m_geographic_lines"/>
-        <param name="options" value="-update"/>
-        <param name="title" value="Geographic lines"/>
-        <param name="description" value=""/>
-      </antcall>
-
-  </target>
-  
-  <target name="ne_geopackage_install" depends="ne_geopackage_process">
-      <echo if:set="data" level="info">Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
-      <copy if:set="data"
-        file="${download}/natural_earth.gpkg" todir="${data}/ne"/>
-  </target>
-  
-  <!-- download internal targets -->
-  <target name="-download">
-      <available file="${download}/${file}"
-         property="file.downloaded"/>
-      
-      <echo if:set="file.download" level="info">Downloading ${file} from {$url}</echo>
-      <get skipexisting="true" tryGzipEncoding="true" unless:set="file.download"
-         src="${url}"
-         dest="${download}/${file}"/>
-  </target>
- 
-  <!-- install internal targets -->
-  <target name="-install">
-      <available file="${download}/${zip}"
-         property="zip.downloaded"/>
-      <available file="${data}/${location}/${file}"
-         property="file.installed"/>
-         
-      <mkdir if:set="data" unless:set="file.installed,zip.downloaded"
-         dir="${data}"/>
-      <unzip if:set="data" unless:set="file.installed" unless:true="zip.downloaded"
-        overwrite="false" src="${download}/$[zip}" dest="${data}/${location}"/>
-  </target>
-  
-  <target name="_cultural">
-      <echo unless:set="data" level="info">Download ne_10m_${features}.zip</echo>
-      <echo if:set="data" level="info">Download and install ne_10m_${features}.zip into ${data}/ne/cultural</echo>
-      <get skipexisting="true" tryGzipEncoding="true"
-         src="https://naciscdn.org/naturalearth/10m/cultural/ne_10m_${features}.zip"
-         dest="${download}/ne_10m_${features}.zip"/>
-      <unzip if:set="data"
-        overwrite="false"
-        src="${download}/ne_10m_${features}.zip"
-        dest="${data}/ne/cultural"/> 
-  </target>
-  
-  <target name="_physical">
-      <echo unless:set="data" level="info">Download ne_10m_${features}.zip</echo>
-      <echo if:set="data" level="info">Download and install ne_10m_${features}.zip into ${data}/ne/physical</echo>
-      <get skipexisting="true" tryGzipEncoding="true"
-        src="https://naciscdn.org/naturalearth/10m/physical/ne_10m_${features}.zip"
-        dest="${download}/ne_10m_${features}.zip"/>
-      <unzip if:set="data"
-        overwrite="false"
-        src="${download}/ne_10m_${features}.zip"
-        dest="${data}/ne/physical"/> 
-  </target>
-  
-  <!-- processing -->
-  <target name="_ogr_lines">
-      <echo level="info">${title}: ${description}</echo>
-      <exec executable="ogr2ogr">
-        <arg line="-f 'GPKG'"/>
-        <arg path="${output}"/>
-        <arg path="${input}"/>
-        <arg line="-lco IDENTIFIER='${title}'"/>
-        <arg line="-lco DESCRIPTION='${description}'"/>
-        <arg line="${options}"/>
-        <arg line="-nlt MULTILINESTRING"/>
-        <arg line="-nln ${table}"/>
-        <arg value="-sql"/>
-        <arg value="SELECT * FROM ${from}"/>
-      </exec>
-  </target>
-  
-  <target name="_ogr_polygons">
-      <echo level="info">${title}: ${description}</echo>
-      <exec executable="ogr2ogr">
-        <arg line="-f 'GPKG'"/>
-        <arg path="${output}"/>
-        <arg path="${input}"/>
-        <arg line="-lco OVERWRITE=YES"/>
-        <arg line="-lco IDENTIFIER='${title}'"/>
-        <arg line="-lco DESCRIPTION='${description}'"/>
-        <arg line="${options}"/>
-        <arg line="-nlt MULTIPOLYGON"/>
-        <arg line="-nln ${table}"/>
-        <arg value="-sql"/>
-        <arg value="SELECT * FROM ${from}"/>
-      </exec>
-  </target>
-  <target name="_ogr_point">
-      <echo level="info">${title}: ${description}</echo>
-      <exec executable="ogr2ogr">
-        <arg line="-f 'GPKG'"/>
-        <arg path="${output}"/>
-        <arg path="${input}"/>
-        <arg line="-lco IDENTIFIER='${title}'"/>
-        <arg line="-lco DESCRIPTION='${description}'"/>
-        <arg line="${options}"/>
-        <arg line="-nlt POINT"/>
-        <arg line="-nln ${table}"/>
-        <arg value="-sql"/>
-        <arg value="SELECT * FROM ${from}"/>
-      </exec>
-  </target>
-  
-
   
 </project>
