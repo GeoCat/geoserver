@@ -1,5 +1,6 @@
 # data downloads
 download
+process
 
 # Default data directory
 src/default/data
