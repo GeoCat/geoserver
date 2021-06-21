@@ -291,6 +291,12 @@
         <arg path="${process}/etopo5.tif"/>
         <arg line="${dem_translate_options}"/>
       </exec>
+      <exec unless:set="etopo5.processed"
+        executable="gdaladdo">
+        <arg line="-r average"/>
+        <arg line="${dem_gdaladdo_options}"/>
+        <arg path="${process}/etopo5.tif"/>
+      </exec>
   </target>
   <target name="etopo5_install" depends="etopo5_process">
     <fail unless:set="data">data property required for install location</fail>
@@ -321,6 +327,12 @@
         <arg path="${process}/etopo1/ETOPO1_Ice_c_geotiff.tif"/>
         <arg path="${process}/etopo1.tif"/>
         <arg line="${dem_translate_options}"/>
+      </exec>
+      <exec unless:set="etopo1.processed"
+        executable="gdaladdo">
+        <arg line="-r average"/>
+        <arg line="${dem_gdaladdo_options}"/>
+        <arg path="${process}/etopo1.tif"/>
       </exec>
   </target>
   
