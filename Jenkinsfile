@@ -15,6 +15,12 @@ pipeline {
                 sh "ant -f ./enterprise/data/build.xml download"
             }
         }
+        
+        stage('Process') {
+            steps {
+                sh "ant -f ./enterprise/data/build.xml process"
+            }
+        }
 
         stage('Build') {
             steps {

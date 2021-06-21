@@ -1,4 +1,4 @@
-<project name="data_directory" default="data_dirs"
+<project name="data_directory" default="data-dirs"
  xmlns:if="ant:if" xmlns:unless="ant:unless"
 >
   <!-- macros -->
@@ -145,12 +145,11 @@
           description="Prep files">
     <antcall target="eo_process"/>
     <antcall target="bmng_process"/>
-    <antcall target="bmng_process2"/>
-    <antcall target="bmng_process3"/>
+    <antcall target="bmng_process_cog"/>
   </target>
   
   <!-- stage -->
-  <target name="data_dirs" depends="default-data-dir,standard-data-dir"
+  <target name="data-dirs" depends="default-data-dir,standard-data-dir"
           description="Download required files and assemble default and standard data directories">
   </target>
 
@@ -449,7 +448,7 @@
       <condition property="bmng.processed">
         <available file="${download}/bmng"/>
       </condition>
-      <mkdir unless:set="bmng.processed" dir="${download}/bmng"/>
+      <mkdir unless:set="bmng.processed" dir="${process}/bmng"/>
       <antcall unless:set="bmng.processed"
          target="-bmng">
         <param name="tile" value="A1"/><param name="bounds" value="-180 90 -90 0"/>
@@ -485,10 +484,11 @@
   </target>
   <!--  https://kokoalberti.com/articles/geotiff-compression-optimization-guide/ -->
   <target name="-bmng">
-     <echo level="info">bmng ${tile}: ${bounds}</echo>
       <condition property="${tile}.processed">
-        <available file="${process}/bmng/world.topo.bathy.200410.3x21600x21600.${tile}.tif"/>
+        <available file="${process}/bmng/bmng.${tile}.tif"/>
       </condition>
+     <echo unless:set="${tile}.processed"
+       level="info">bmng ${tile}: ${bounds}</echo>
       <exec unless:set="${tile}.processed"
         executable="gdal_translate">
         <arg line="-a_srs EPSG:4326"/>
@@ -505,53 +505,57 @@
       </exec>
   </target>
   
-  <target name="bmng_process2" depends="bmng_process"
+  <target name="bmng_process_cog" depends="bmng_process"
      description="merge into a single geotiff with overvierws and COG layout">
      <condition property="bmng.processed2">
        <available file="${process}/bmng.tif"/>
      </condition>
      <echo unless:set="bmng.processed2" level="info">bmng merge: bmng.tif</echo>
-      <exec unless:set="bmng.processed2"
-        executable="gdal_merge.py">
-        <arg line="-o"/>
-        <arg path="${process}/bmng.tif"/>
-        <arg line="-of GTiff"/>
-        <arg line="-co TILED=YES"/>
-        <arg line="-co COMPRESS=JPEG"/>
-        <arg line="-co PHOTOMETRIC=YCBCR"/>
-        <arg line="-co BIGTIFF=YES"/>
-        <arg line="-co NUM_THREADS=ALL_CPUS"/>
-        <arg path="${process}/bmng/bmng.A1.tif"/>
-        <arg path="${process}/bmng/bmng.B1.tif"/>
-        <arg path="${process}/bmng/bmng.C1.tif"/>
-        <arg path="${process}/bmng/bmng.D1.tif"/>
-        <arg path="${process}/bmng/bmng.A2.tif"/>
-        <arg path="${process}/bmng/bmng.B2.tif"/>
-        <arg path="${process}/bmng/bmng.C2.tif"/>
-        <arg path="${process}/bmng/bmng.D2.tif"/>
-      </exec>
+     <exec unless:set="bmng.processed2"
+       executable="gdal_merge.py">
+       <arg line="-o"/>
+       <arg path="${process}/bmng.tif"/>
+       <arg line="-of GTiff"/>
+       <arg line="-co TILED=YES"/>
+       <arg line="-co COMPRESS=JPEG"/>
+       <arg line="-co PHOTOMETRIC=YCBCR"/>
+       <arg line="-co BIGTIFF=YES"/>
+       <arg line="-co NUM_THREADS=ALL_CPUS"/>
+       <arg path="${process}/bmng/bmng.A1.tif"/>
+       <arg path="${process}/bmng/bmng.B1.tif"/>
+       <arg path="${process}/bmng/bmng.C1.tif"/>
+       <arg path="${process}/bmng/bmng.D1.tif"/>
+       <arg path="${process}/bmng/bmng.A2.tif"/>
+       <arg path="${process}/bmng/bmng.B2.tif"/>
+       <arg path="${process}/bmng/bmng.C2.tif"/>
+       <arg path="${process}/bmng/bmng.D2.tif"/>
+     </exec>
      <echo unless:set="bmng.processed2" level="info">bmng merge: bmng.tif overviews</echo>
-      <exec unless:set="bmng.processed2"
-        executable="gdaladdo">
-        <arg line="-r average"/>
-        <arg line="${imagry_gdaladdo_options}"/>
-        <arg path="${process}/bmng.tif"/>
-      </exec>
-     <echo unless:set="bmng.processed2" level="info">bmng merge: bmng.tif cog layout</echo>
-      <exec unless:set="bmng.processed2"
-        executable="gdal_translate">
-        <arg path="${process}/bmng.tif"/>
-        <arg path="${process}/bmng_cog.tif"/>
-        <arg line="${imagry_translate_options}"/>
-        <arg line="-co BIGTIFF=YES"/>
-        <arg line="-co COPY_SRC_OVERVIEWS=YES"/>
-      </exec>
+     <exec unless:set="bmng.processed2"
+       executable="gdaladdo">
+       <arg line="-r average"/>
+       <arg line="${imagry_gdaladdo_options}"/>
+       <arg path="${process}/bmng.tif"/>
+     </exec>
+     <condition property="bmng_cog.processed2">
+       <available file="${process}/bmng_cog.tif"/>
+     </condition>
+     <echo unless:set="bmng_cog.processed2" level="info">bmng merge: bmng.tif cog layout</echo>
+     <exec unless:set="bmng_cog.processed2"
+       executable="gdal_translate">
+       <arg path="${process}/bmng.tif"/>
+       <arg path="${process}/bmng_cog.tif"/>
+       <arg line="${imagry_translate_options}"/>
+       <!--arg line="-co BIGTIFF=YES"/-->
+       <arg line="-co COPY_SRC_OVERVIEWS=YES"/>
+     </exec>
   </target>
-  <target name="bmng_process3" depends="bmng_process2">
+  <target name="bmng_process_pryamid" depends="bmng_process_cog"
+    description="process into an pyramid">
      <condition property="bmng.process3">
        <available file="${process}/pryamid" type="dir"/>
      </condition>
-     <mkdir unless:set="bmng.process3" dir="${download}/pryamid"/>
+     <mkdir unless:set="bmng.process3" dir="${process}/pryamid"/>
      <echo unless:set="bmng.process3" level="info">bmng pyramid: bmng</echo>
       <mkdir unless:set="bmng.pryamid"
         dir="${process}/pryamid"/>
@@ -566,8 +570,8 @@
         <arg line="-co COMPRESS=JPEG"/>
         <arg line="-co PHOTOMETRIC=YCBCR"/>
         <arg line="-targetDir"/>
-        <arg path="${download}/pryamid"/>
-        <arg path="${download}/bmng.tif"/>
+        <arg path="${process}/pryamid"/>
+        <arg path="${process}/bmng.tif"/>
       </exec>
       <mkdir unless:set="bmng.pryamid"
         dir="${process}/pryamid/0"/>
@@ -578,7 +582,7 @@
       </copy>
   </target>
   
-  <target name="bmng_install" depends="bmng_process3">
+  <target name="bmng_install" depends="bmng_process_cog">
       <fail unless:set="data">data property required for install location</fail>
 
       <condition property="mosiac.installed">
@@ -609,7 +613,7 @@
 
   <!-- check if custom (processed) geopackage is available -->
   <target name="ne_geopackage_check">
-      <available file="${download}/natural_earth.gpkg" property="gpkg.processed"/>
+      <available file="${process}/natural_earth.gpkg" property="gpkg.processed"/>
   </target>
   
   <target name="ne_geopackage_process" depends="ne_geopackage_download,ne_geopackage_check" unless="gpkg.processed">
@@ -804,8 +808,11 @@
   <target name="ne_geopackage_install" depends="ne_geopackage_process">
       <fail unless:set="data">data property required for install location</fail>
       
-      <echo if:set="data" level="info">Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
-      <copy if:set="data"
+      <condition property="geopackage.installed">
+        <available file="${data}/ne/natural_earth.gpkg"/>
+      </condition>
+      <echo unless:set="geopackage" level="info">Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
+      <copy unless:set="geopackage"
         file="${process}/natural_earth.gpkg" todir="${data}/ne"/>
   </target>
   

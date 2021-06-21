@@ -12,13 +12,19 @@ pipeline {
 
         stage('Data') {
             steps {
-                sh "ant -f ../enterprise/data/build.xml download2"
+                sh "ant -f ../enterprise/data/build.xml download-demo"
+            }
+        }
+        
+        stage('Process') {
+            steps {
+                sh "ant -f ../enterprise/data/build.xml process-demo"
             }
         }
 
         stage('Build') {
             steps {
-                sh "ant -f ../enterprise/data/build.xml demo"
+                sh "ant -f ../enterprise/data/build.xml demo-data-dir"
             }
         }
 
