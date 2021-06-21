@@ -1,32 +1,32 @@
 <GeoServerTileLayer>
-  <id>LayerInfoImpl--50f64f89:171bfada2a6:-7ff3</id>
+  <id>LayerInfoImpl-627dadce:17a30b269b7:-7fe0</id>
   <enabled>true</enabled>
   <inMemoryCached>true</inMemoryCached>
-  <name>ne:boundary_lines_map_units</name>
+  <name>ne:states_provinces</name>
   <mimeFormats>
     <string>image/png</string>
     <string>image/jpeg</string>
   </mimeFormats>
   <gridSubsets>
     <gridSubset>
-      <gridSetName>EPSG:900913</gridSetName>
+      <gridSetName>EPSG:4326</gridSetName>
       <extent>
         <coords>
-          <double>-357905.74721782695</double>
-          <double>668997.7936930496</double>
-          <double>5449255.062044234</double>
-          <double>7519790.565151464</double>
+          <double>-179.9999999999999</double>
+          <double>-89.99999999999994</double>
+          <double>180.0</double>
+          <double>83.63410065300008</double>
         </coords>
       </extent>
     </gridSubset>
     <gridSubset>
-      <gridSetName>EPSG:4326</gridSetName>
+      <gridSetName>EPSG:900913</gridSetName>
       <extent>
         <coords>
-          <double>-3.215122029999918</double>
-          <double>5.998720092000042</double>
-          <double>48.95149109300007</double>
-          <double>55.80548648900003</double>
+          <double>-2.003750834E7</double>
+          <double>-2.003750834E7</double>
+          <double>2.003750834E7</double>
+          <double>1.8428920012950014E7</double>
         </coords>
       </extent>
     </gridSubset>
@@ -42,7 +42,7 @@
       <key>STYLES</key>
       <defaultValue></defaultValue>
       <availableStyles class="sorted-set"/>
-      <defaultStyle>ne:boundary_lines_land</defaultStyle>
+      <defaultStyle>ne:states_provinces</defaultStyle>
     </styleParameterFilter>
   </parameterFilters>
   <gutter>0</gutter>

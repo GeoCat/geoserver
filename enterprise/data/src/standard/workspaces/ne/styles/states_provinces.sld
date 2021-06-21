@@ -12,9 +12,9 @@
           </se:Description>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>sr_adm0_a3</ogc:PropertyName>
+              <ogc:PropertyName>admin</ogc:PropertyName>
               <ogc:Function name="env">
-                <ogc:Literal>adm0</ogc:Literal>
+                <ogc:Literal>admin</ogc:Literal>
                 <ogc:Literal></ogc:Literal>
               </ogc:Function>
             </ogc:PropertyIsEqualTo>

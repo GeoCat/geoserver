@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-627dadce:17a30b269b7:-7fcc</id>
+  <name>ETOPO1</name>
+  <description>ETOPO1 Global Relief Model</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-627dadce:17a30b269b7:-7fce</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2021-06-21 23:19:29.699 UTC</dateCreated>
+  <url>file:data/noaa/etopo1.tif</url>
+</coverageStore>

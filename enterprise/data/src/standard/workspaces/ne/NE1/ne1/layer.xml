@@ -1,17 +1,18 @@
 <layer>
   <name>ne1</name>
-  <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fda</id>
+  <id>LayerInfoImpl-627dadce:17a30b269b7:-7fe7</id>
   <type>RASTER</type>
   <defaultStyle>
-    <id>StyleInfoImpl-7efc76e6:1763e5fbf5c:-7fe5</id>
+    <id>StyleInfoImpl-627dadce:17a30b269b7:-7ffd</id>
   </defaultStyle>
   <resource class="coverage">
-    <id>CoverageInfoImpl--50f64f89:171bfada2a6:-7fdb</id>
+    <id>CoverageInfoImpl-627dadce:17a30b269b7:-7fe8</id>
   </resource>
   <attribution>
     <logoWidth>0</logoWidth>
     <logoHeight>0</logoHeight>
   </attribution>
-  <dateCreated>2020-04-28 07:47:46.826 UTC</dateCreated>
-  <dateModified>2020-12-07 18:19:21.145 UTC</dateModified>
+  <defaultWMSInterpolationMethod>Nearest</defaultWMSInterpolationMethod>
+  <dateCreated>2021-06-21 22:40:58.934 UTC</dateCreated>
+  <dateModified>2021-06-21 22:41:22.89 UTC</dateModified>
 </layer>

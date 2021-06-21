@@ -1,8 +1,8 @@
 <GeoServerTileLayer>
-  <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fda</id>
+  <id>LayerInfoImpl-627dadce:17a30b269b7:-7fe2</id>
   <enabled>true</enabled>
   <inMemoryCached>true</inMemoryCached>
-  <name>ne:ne1</name>
+  <name>ne:roads</name>
   <mimeFormats>
     <string>image/png</string>
     <string>image/jpeg</string>
@@ -26,7 +26,7 @@
       <key>STYLES</key>
       <defaultValue></defaultValue>
       <availableStyles class="sorted-set"/>
-      <defaultStyle>raster</defaultStyle>
+      <defaultStyle>line</defaultStyle>
     </styleParameterFilter>
   </parameterFilters>
   <gutter>0</gutter>

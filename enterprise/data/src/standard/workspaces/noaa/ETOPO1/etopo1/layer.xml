@@ -1,0 +1,17 @@
+<layer>
+  <name>etopo1</name>
+  <id>LayerInfoImpl-627dadce:17a30b269b7:-7fca</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-627dadce:17a30b269b7:-7fc9</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-627dadce:17a30b269b7:-7fcb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2021-06-21 23:22:26.232 UTC</dateCreated>
+  <dateModified>2021-06-21 23:24:11.59 UTC</dateModified>
+</layer>

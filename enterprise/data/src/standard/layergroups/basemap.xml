@@ -6,13 +6,13 @@
   <abstractTxt>Natural earth basemap</abstractTxt>
   <publishables>
     <published type="layer">
-      <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fda</id>
-    </published>
-    <published type="layer">
-      <id>LayerInfoImpl--50f64f89:171bfada2a6:-7ff5</id>
+      <id>LayerInfoImpl-627dadce:17a30b269b7:-7fe7</id>
     </published>
     <published type="layer">
       <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fe5</id>
+    </published>
+    <published type="layer">
+      <id>LayerInfoImpl--50f64f89:171bfada2a6:-7ff5</id>
     </published>
     <published type="layer">
       <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fe1</id>
@@ -20,13 +20,13 @@
   </publishables>
   <styles>
     <style>
-      <id>StyleInfoImpl--2d16eeb1:171a5444854:-7ffd</id>
-    </style>
-    <style>
-      <id>StyleInfoImpl--7b7c5472:171be15fac9:-7ff9</id>
+      <id>StyleInfoImpl-627dadce:17a30b269b7:-7ffd</id>
     </style>
     <style>
       <id>StyleInfoImpl--7b7c5472:171be15fac9:-7fdc</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl--7b7c5472:171be15fac9:-7ff9</id>
     </style>
     <style>
       <id>StyleInfoImpl--7b7c5472:171be15fac9:-7fca</id>
@@ -34,11 +34,11 @@
   </styles>
   <bounds>
     <minx>-180.0</minx>
-    <maxx>180.00000000007202</maxx>
-    <miny>-90.000000000036</miny>
-    <maxy>90.00000000000001</maxy>
+    <maxx>180.0</maxx>
+    <miny>-90.0</miny>
+    <maxy>90.0</maxy>
     <crs>EPSG:4326</crs>
   </bounds>
   <dateCreated>2020-04-28 07:50:16.750 UTC</dateCreated>
-  <dateModified>2020-04-28 07:53:38.369 UTC</dateModified>
+  <dateModified>2021-06-21 23:12:38.601 UTC</dateModified>
 </layerGroup>

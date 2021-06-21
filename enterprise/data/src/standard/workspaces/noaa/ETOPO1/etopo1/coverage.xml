@@ -1,27 +1,22 @@
 <coverage>
-  <id>CoverageInfoImpl-627dadce:17a30b269b7:-7fe8</id>
-  <name>ne1</name>
-  <nativeName>ne1</nativeName>
+  <id>CoverageInfoImpl-627dadce:17a30b269b7:-7fcb</id>
+  <name>etopo1</name>
+  <nativeName>etopo1</nativeName>
   <namespace>
-    <id>NamespaceInfoImpl--68e6e130:171aaf396ce:-7fff</id>
+    <id>NamespaceInfoImpl-627dadce:17a30b269b7:-7fcd</id>
   </namespace>
-  <title>Natural Earth I</title>
+  <title>ETOPO1 Global Relief Model</title>
   <description>Generated from GeoTIFF</description>
-  <abstract>Natural Earth I with Shaded Relief, Water, and Drainages. Coloring based on land cover.</abstract>
+  <abstract>ETOPO1 is a 1 arc-minute global relief model of Earth&apos;s surface that integrates land topography and ocean bathymetry. Built from global and regional data sets, it is available in &quot;Ice Surface&quot; (top of Antarctic and Greenland ice sheets) and &quot;Bedrock&quot; (base of the ice sheets).</abstract>
   <keywords>
-    <string>ne1</string>
+    <string>etopo1</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
-    <string>Provider\@language=en\;\@vocabulary=NaturalEarth\;</string>
   </keywords>
   <dataLinks>
     <org.geoserver.catalog.impl.DataLinkInfoImpl>
-      <type>application/zip</type>
-      <content>https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/raster/NE1_HR_LC_SR_W_DR.zip</content>
-    </org.geoserver.catalog.impl.DataLinkInfoImpl>
-    <org.geoserver.catalog.impl.DataLinkInfoImpl>
       <type>text/html</type>
-      <content>https://www.naturalearthdata.com/downloads/10m-natural-earth-1/10m-natural-earth-1-with-shaded-relief-water-and-drainages/</content>
+      <content>https://www.ngdc.noaa.gov/mgg/global/</content>
     </org.geoserver.catalog.impl.DataLinkInfoImpl>
   </dataLinks>
   <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
@@ -51,11 +46,10 @@
   <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
   <enabled>true</enabled>
   <metadata>
-    <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">NE1_ne1</entry>
+    <entry key="dirName">ETOPO1_etopo1</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl--50f64f89:171bfada2a6:-7fdc</id>
+    <id>CoverageStoreInfoImpl-627dadce:17a30b269b7:-7fcc</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -66,12 +60,12 @@
       <high>21600 10800</high>
     </range>
     <transform>
-      <scaleX>0.01666666666667</scaleX>
-      <scaleY>-0.01666666666667</scaleY>
+      <scaleX>0.016666666666666666</scaleX>
+      <scaleY>-0.016666666666666663</scaleY>
       <shearX>0.0</shearX>
       <shearY>0.0</shearY>
       <translateX>-179.99166666666667</translateX>
-      <translateY>89.99166666666667</translateY>
+      <translateY>89.99166666666666</translateY>
     </transform>
     <crs>EPSG:4326</crs>
   </grid>
@@ -80,49 +74,31 @@
     <string>PNG</string>
     <string>JPEG</string>
     <string>TIFF</string>
+    <string>GeoPackage (mosaic)</string>
     <string>GEOTIFF</string>
+    <string>ArcGrid</string>
+    <string>ImageMosaic</string>
   </supportedFormats>
   <interpolationMethods>
     <string>nearest neighbor</string>
     <string>bilinear</string>
     <string>bicubic</string>
   </interpolationMethods>
-  <defaultInterpolationMethod>bilinear</defaultInterpolationMethod>
+  <defaultInterpolationMethod>nearest neighbor</defaultInterpolationMethod>
   <dimensions>
     <coverageDimension>
-      <name>RED_BAND</name>
+      <name>ELEVATION</name>
       <description>GridSampleDimension[-Infinity,Infinity]</description>
       <range>
         <min>-inf</min>
         <max>inf</max>
       </range>
-      <unit>W.m-2.Sr-1</unit>
+      <nullValues>
+        <double>-32768.0</double>
+      </nullValues>
+      <unit>m</unit>
       <dimensionType>
-        <name>UNSIGNED_8BITS</name>
-      </dimensionType>
-    </coverageDimension>
-    <coverageDimension>
-      <name>GREEN_BAND</name>
-      <description>GridSampleDimension[-Infinity,Infinity]</description>
-      <range>
-        <min>-inf</min>
-        <max>inf</max>
-      </range>
-      <unit>W.m-2.Sr-1</unit>
-      <dimensionType>
-        <name>UNSIGNED_8BITS</name>
-      </dimensionType>
-    </coverageDimension>
-    <coverageDimension>
-      <name>BLUE_BAND</name>
-      <description>GridSampleDimension[-Infinity,Infinity]</description>
-      <range>
-        <min>-inf</min>
-        <max>inf</max>
-      </range>
-      <unit>W.m-2.Sr-1</unit>
-      <dimensionType>
-        <name>UNSIGNED_8BITS</name>
+        <name>SIGNED_16BITS</name>
       </dimensionType>
     </coverageDimension>
   </dimensions>
@@ -146,5 +122,5 @@
       <boolean>true</boolean>
     </entry>
   </parameters>
-  <nativeCoverageName>ne1</nativeCoverageName>
+  <nativeCoverageName>etopo1</nativeCoverageName>
 </coverage>

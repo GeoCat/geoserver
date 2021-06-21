@@ -1,22 +1,24 @@
 <featureType>
-  <id>FeatureTypeInfoImpl--50f64f89:171bfada2a6:-7ff6</id>
-  <name>boundary_lines_land</name>
-  <nativeName>boundary_lines_land</nativeName>
+  <id>FeatureTypeInfoImpl-627dadce:17a30b269b7:-7fe6</id>
+  <name>countries</name>
+  <nativeName>countries</nativeName>
   <namespace>
     <id>NamespaceInfoImpl--68e6e130:171aaf396ce:-7fff</id>
   </namespace>
-  <title>Boundary lines</title>
-  <abstract>Country boundaries on land.</abstract>
+  <title>Countries</title>
+  <abstract>There are 247 countries in the world. Greenland as separate from Denmark. Most users will want this file instead of sovereign states.&#xd;
+&#xd;
+Countries distinguish between metropolitan (homeland) and independent and semi-independent portions of sovereign states. &#xd;
+&#xd;
+If you want to see the dependent overseas regions broken out (like in ISO codes, see France for example), use map units instead.&#xd;
+&#xd;
+Each country is coded with a world region that roughly follows the United Nations setup.&#xd;
+&#xd;
+Countries are coded with standard ISO and FIPS codes. French INSEE codes are also included.</abstract>
   <keywords>
     <string>features</string>
-    <string>boundary_lines_land</string>
+    <string>countries</string>
   </keywords>
-  <dataLinks>
-    <org.geoserver.catalog.impl.DataLinkInfoImpl>
-      <type>text/html</type>
-      <content>https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/</content>
-    </org.geoserver.catalog.impl.DataLinkInfoImpl>
-  </dataLinks>
   <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
   DATUM[&quot;World Geodetic System 1984&quot;, 
     SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], 
@@ -28,17 +30,17 @@
   AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>-141.00554863899987</minx>
-    <maxx>140.97762699400005</maxx>
-    <miny>-55.120923766999944</miny>
-    <maxy>70.07531036400012</maxy>
+    <minx>-179.9999999999999</minx>
+    <maxx>180.0</maxx>
+    <miny>-89.99999999999994</miny>
+    <maxy>83.63410065300008</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>-141.00554863899987</minx>
-    <maxx>140.97762699400005</maxx>
-    <miny>-55.120923766999944</miny>
-    <maxy>70.07531036400012</maxy>
+    <minx>-179.9999999999999</minx>
+    <maxx>180.0</maxx>
+    <miny>-89.99999999999994</miny>
+    <maxy>83.63410065300008</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>FORCE_DECLARED</projectionPolicy>
@@ -50,6 +52,7 @@
     <id>DataStoreInfoImpl-5f5ea890:171bdcc3fe3:-7fff</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
+  <simpleConversionEnabled>false</simpleConversionEnabled>
   <maxFeatures>0</maxFeatures>
   <numDecimals>0</numDecimals>
   <padWithZeros>false</padWithZeros>

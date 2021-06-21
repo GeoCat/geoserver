@@ -9,17 +9,6 @@
   </mimeFormats>
   <gridSubsets>
     <gridSubset>
-      <gridSetName>EPSG:4326</gridSetName>
-      <extent>
-        <coords>
-          <double>-141.00554863899987</double>
-          <double>-55.120923766999944</double>
-          <double>140.97762699400005</double>
-          <double>70.07531036400012</double>
-        </coords>
-      </extent>
-    </gridSubset>
-    <gridSubset>
       <gridSetName>EPSG:900913</gridSetName>
       <extent>
         <coords>
@@ -27,6 +16,17 @@
           <double>-7385370.408338475</double>
           <double>1.5693557650216144E7</double>
           <double>1.1093271780664718E7</double>
+        </coords>
+      </extent>
+    </gridSubset>
+    <gridSubset>
+      <gridSetName>EPSG:4326</gridSetName>
+      <extent>
+        <coords>
+          <double>-141.00554863899987</double>
+          <double>-55.120923766999944</double>
+          <double>140.97762699400005</double>
+          <double>70.07531036400012</double>
         </coords>
       </extent>
     </gridSubset>
@@ -41,9 +41,7 @@
     <styleParameterFilter>
       <key>STYLES</key>
       <defaultValue></defaultValue>
-      <availableStyles class="sorted-set">
-        <string>ne:boundary_lines_land</string>
-      </availableStyles>
+      <availableStyles class="sorted-set"/>
       <defaultStyle>ne:boundary_lines_land</defaultStyle>
     </styleParameterFilter>
   </parameterFilters>

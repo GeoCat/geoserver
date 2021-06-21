@@ -1,8 +1,8 @@
 <GeoServerTileLayer>
-  <id>LayerInfoImpl--50f64f89:171bfada2a6:-7fe3</id>
+  <id>LayerInfoImpl-627dadce:17a30b269b7:-7fe5</id>
   <enabled>true</enabled>
   <inMemoryCached>true</inMemoryCached>
-  <name>ne:states_provinces_scale</name>
+  <name>ne:countries</name>
   <mimeFormats>
     <string>image/png</string>
     <string>image/jpeg</string>
@@ -10,25 +10,9 @@
   <gridSubsets>
     <gridSubset>
       <gridSetName>EPSG:4326</gridSetName>
-      <extent>
-        <coords>
-          <double>-179.99999999999991</double>
-          <double>-89.99999999999994</double>
-          <double>180.0</double>
-          <double>83.63410065300008</double>
-        </coords>
-      </extent>
     </gridSubset>
     <gridSubset>
       <gridSetName>EPSG:900913</gridSetName>
-      <extent>
-        <coords>
-          <double>-2.003750834E7</double>
-          <double>-2.003750834E7</double>
-          <double>2.003750834E7</double>
-          <double>1.8428920012950014E7</double>
-        </coords>
-      </extent>
     </gridSubset>
   </gridSubsets>
   <metaWidthHeight>
@@ -42,7 +26,7 @@
       <key>STYLES</key>
       <defaultValue></defaultValue>
       <availableStyles class="sorted-set"/>
-      <defaultStyle>ne:states_provinces</defaultStyle>
+      <defaultStyle>polygon</defaultStyle>
     </styleParameterFilter>
   </parameterFilters>
   <gutter>0</gutter>
