@@ -138,7 +138,6 @@
     <antcall target="gray_process"/>
     <antcall target="ne1_process"/>
     <antcall target="ne_geopackage_process"/>
-    <antcall target="-physical"><param name="features" value="geographic_lines"/></antcall> 
   </target>
 
   <target name="process-demo" depends="download-demo,init_process" 
@@ -173,7 +172,7 @@
     <antcall target="gray_install"/>
     <antcall target="ne_geopackage_install"/>
     <antcall target="-physical"><param name="features" value="geographic_lines"/></antcall> 
-  
+
     <echo level="info">Packaging ${target}/geoserver_data_dir_standard.zip</echo>
     <zip destfile="${target}/geoserver_data_dir_standard.zip"
          level="0"
