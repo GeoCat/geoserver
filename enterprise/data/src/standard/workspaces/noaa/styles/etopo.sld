@@ -5,7 +5,12 @@
       <sld:FeatureTypeConstraint/>
     </sld:LayerFeatureConstraints>
     <sld:UserStyle>
-      <sld:Name>ETOPO1_Ice_g_geotiff</sld:Name>
+      <sld:Name>ngdc</sld:Name>
+      <sld:Title>NGDC</sld:Title>
+      <sld:Abstract>A palette used by the US National Geophysical Data Center (NGDC) for relief maps using the ETOPO1 global relief model.
+      
+      The topographic colors are based on GMT globe by Lester M. Anderson of CASP, UK, modified by Jesse Varner and Elliot Lim (NOAA/NGDC) to have a smaller band of white at the highest elevations. The bathymetry is based on GMT haxby, popularised by Bill Haxby, LDEO.
+      </sld:Abstract>
       <sld:FeatureTypeStyle>
         <sld:Rule>
           <sld:RasterSymbolizer>
