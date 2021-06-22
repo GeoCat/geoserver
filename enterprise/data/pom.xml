@@ -105,7 +105,7 @@
             <goals><goal>run</goal></goals>
             <configuration>
               <target>
-                <ant antfile="build.xml" dir="${basedir}" target="data_dirs"/>
+                <ant antfile="build.xml" dir="${basedir}" target="data-dirs"/>
               </target>
             </configuration>
           </execution>

@@ -40,7 +40,7 @@
             value="-co TILED=YES -co COMPRESS=DEFLATE -co PREDICTOR=2 -co NUM_THREADS=ALL_CPUS"/>
 
   <property name="dem_gdaladdo_options"
-            value="--config COMPRESS_OVERVIEW DEFLATE --config INTERLEAVE_OVERVIEW=pixel --config PREDICTOR_OVERVIEW=2"/>
+            value="--config COMPRESS_OVERVIEW DEFLATE --config INTERLEAVE_OVERVIEW PIXEL --config PREDICTOR_OVERVIEW 2"/>
             
   <!-- imagry: http://blog.cleverelephant.ca/2015/02/geotiff-compression-for-dummies.html -->
   <property name="imagry_translate_options"
