@@ -1,7 +1,7 @@
-Standard Data Directory
+Demo Data Directory
 ======================
 
-Standard GeoServer Enterprise data directory including Natural Earth sample data.
+Demo GeoServer Enterprise data directory including sample data for L101 GeoCat Live Orientation exercises.
 
 This data directory requires provides default configuration for:
 
@@ -15,9 +15,11 @@ This data directory requires provides default configuration for:
 * wms and wmts
 * wps
 
-And include Natural Earth sample data:
+And include Natural Earth and other sample data:
 
 * data/ne
+* data/noaa/
+* data/nasa
 * workspaces/ne
 
 Styles from the GeoServer styling workshop:

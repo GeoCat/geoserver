@@ -822,8 +822,8 @@
       <condition property="geopackage.installed">
         <available file="${data}/ne/natural_earth.gpkg"/>
       </condition>
-      <echo unless:set="geopackage" level="info">Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
-      <copy unless:set="geopackage"
+      <echo unless:set="geopackage.installed" level="info">Download and repackage natural_earth_vector.gpkg.zip into ${data}/ne</echo>
+      <copy unless:set="geopackage.installed"
         file="${process}/natural_earth.gpkg" todir="${data}/ne"/>
   </target>
   
