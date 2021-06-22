@@ -66,10 +66,6 @@
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-oracle</artifactId>
     </dependency>
-    <!--dependency>
-      <groupId>com.oracle.ojdbc</groupId>
-      <artifactId>ojdbc8</artifactId>
-    </dependency-->
     <dependency>
       <groupId>org.geotools</groupId>
       <artifactId>gt-imagepyramid</artifactId>
