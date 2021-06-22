@@ -54,6 +54,13 @@
    <snapshots><enabled>true</enabled></snapshots>
    <releases><enabled>false</enabled></releases>
   </repository>
+  <repository>
+   <id>geocat-releases</id>
+   <name>GeoCat GeoServer Repository</name>
+   <url>https://nexus.geocat.net/repository/geoserver-geocat/</url>
+   <snapshots><enabled>true</enabled></snapshots>
+   <releases><enabled>true</enabled></releases>
+  </repository>
  </repositories>
  
   <properties>
