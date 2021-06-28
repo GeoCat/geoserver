@@ -659,6 +659,9 @@ fieldset.rightwise {
 fieldset.noTitle {
   padding: 0;
 }
+fieldset span[style="float: right; margin-top:-1.5em;"] {
+  margin-top: -3.5em !important;
+}
 legend {
   background: #f5f5f5;
   border: 1px solid #ddd;
