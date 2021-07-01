@@ -1,4 +1,4 @@
-<project name="data_directory" default="data-dirs"
+<project name="data_directory" default="default-data-dir"
  xmlns:if="ant:if" xmlns:unless="ant:unless"
 >
   <!-- macros -->
@@ -134,9 +134,9 @@
   <!-- process -->
   <target name="process" depends="download,init_process" 
           description="Prep files">
-    <antcall target="etopo1_process"/>
-    <antcall target="gray_process"/>
     <antcall target="ne1_process"/>
+    <antcall target="gray_process"/>
+    <antcall target="etopo1_process"/>
     <antcall target="ne_geopackage_process"/>
   </target>
 
@@ -148,10 +148,6 @@
   </target>
   
   <!-- stage -->
-  <target name="data-dirs" depends="default-data-dir,standard-data-dir"
-          description="Download required files and assemble default and standard data directories">
-  </target>
-
   <target name="default-data-dir" depends="init"
           description="Package default data directory">
     <echo level="info">Packaging ${target}/geoserver_data_dir_default.zip</echo>

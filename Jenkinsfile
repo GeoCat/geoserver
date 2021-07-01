@@ -27,7 +27,7 @@ pipeline {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
                     println "Building GeoServer Enterprise"
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml --batch-mode --no-transfer-progress install"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml --batch-mode --no-transfer-progress install -Pstandard"
                 }
             }
         }

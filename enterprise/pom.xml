@@ -675,6 +675,10 @@
           <version>3.3.0</version>
         </plugin>
         <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
         </plugin>

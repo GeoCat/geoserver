@@ -34,6 +34,7 @@
  
   <build>
     <plugins>
+      <!-- no need to install these artifacts to nexus repo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-install-plugin</artifactId>
@@ -67,15 +68,6 @@
             </configuration>
           </execution>
           <execution>
-            <id>standard</id>
-            <phase>process-resources</phase>
-            <goals><goal>generate</goal></goals>
-            <configuration>
-              <inputDirectory>${data.standard.dir}</inputDirectory>
-              <outputDirectory>${project.build.directory}/html/standard</outputDirectory>
-            </configuration>
-          </execution>
-          <execution>
             <id>default</id>
             <phase>process-resources</phase>
             <goals><goal>generate</goal></goals>
@@ -84,31 +76,11 @@
               <outputDirectory>${project.build.directory}/html/default</outputDirectory>
             </configuration>
           </execution>
-          <execution>
-            <id>demo</id>
-            <phase>process-resources</phase>
-            <goals><goal>generate</goal></goals>
-            <configuration>
-              <inputDirectory>${data.demo.dir}</inputDirectory>
-              <outputDirectory>${project.build.directory}/html/demo</outputDirectory>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>3.0.0</version>
         <executions>
-          <execution>
-            <id>download</id>
-            <phase>generate-resources</phase>
-            <goals><goal>run</goal></goals>
-            <configuration>
-              <target>
-                <ant antfile="build.xml" dir="${basedir}" target="data-dirs"/>
-              </target>
-            </configuration>
-          </execution>
           <execution>
             <id>dataDirectoryClean</id>
             <phase>clean</phase>
@@ -121,54 +93,81 @@
               <goal>run</goal>
             </goals>
           </execution>
+          <execution>
+            <id>default</id>
+            <phase>generate-resources</phase>
+            <goals><goal>run</goal></goals>
+            <configuration>
+              <target>
+                <ant antfile="build.xml" dir="${basedir}" target="default-data-dir"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- artifact assembly -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>data-default</id>
+            <phase>package</phase>
+            <goals><goal>single</goal></goals>
+            <configuration>
+              <recompressZippedFiles>false</recompressZippedFiles>
+              <descriptors>
+                <descriptor>src/assembly/data-default.xml</descriptor>
+              </descriptors>
+              <appendAssemblyId>false</appendAssemblyId>
+              <outputDirectory>${release.dir}</outputDirectory>
+              <finalName>geoserver-data-default-${geocat.enterprise}</finalName>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
   
   <profiles>
-    <profile>
-      <id>default</id>
-      <activation>
-        <file>
-          <exists>target/geoserver_data_dir_default.zip</exists>
-        </file>
-      </activation>
-      <build>
-        <plugins>
-           <!-- artifact assembly -->
-           <plugin>
-             <artifactId>maven-assembly-plugin</artifactId>
-             <executions>
-               <execution>
-                 <id>data-default</id>
-                 <phase>package</phase>
-                 <goals><goal>single</goal></goals>
-                 <configuration>
-                   <recompressZippedFiles>false</recompressZippedFiles>
-                   <descriptors>
-                     <descriptor>src/assembly/data-default.xml</descriptor>
-                   </descriptors>
-                   <appendAssemblyId>false</appendAssemblyId>
-                   <outputDirectory>${release.dir}</outputDirectory>
-                   <finalName>geoserver-data-default-${geocat.enterprise}</finalName>
-                 </configuration>
-               </execution>
-             </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
+  
     <profile>
       <id>standard</id>
-      <activation>
-        <file>
-          <exists>target/geoserver_data_dir_standard.zip</exists>
-        </file>
-      </activation>
       <build>
         <plugins>
+          <plugin>
+            <groupId>com.ruleoftech</groupId>
+            <artifactId>markdown-page-generator-plugin</artifactId>
+            <configuration>
+               <headerHtmlFile>${project.basedir}/src/main/markdown/html/header.html</headerHtmlFile>
+               <footerHtmlFile>${project.basedir}/src/main/markdown/html/footer.html</footerHtmlFile>
+             </configuration>
+            <executions>
+              <execution>
+                <id>standard</id>
+                <phase>process-resources</phase>
+                <goals><goal>generate</goal></goals>
+                <configuration>
+                  <inputDirectory>${data.standard.dir}</inputDirectory>
+                  <outputDirectory>${project.build.directory}/html/standard</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>standard</id>
+                <phase>generate-resources</phase>
+                <goals><goal>run</goal></goals>
+                <configuration>
+                  <target>
+                    <ant antfile="build.xml" dir="${basedir}" target="standard-data-dir"/>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
            <!-- artifact assembly -->
            <plugin>
              <artifactId>maven-assembly-plugin</artifactId>
@@ -195,13 +194,42 @@
     
     <profile>
       <id>demo</id>
-      <!--activation>
-        <file>
-          <exists>target/geoserver_data_dir_demo.zip</exists>
-        </file>
-      </activation-->
       <build>
         <plugins>
+          <plugin>
+            <groupId>com.ruleoftech</groupId>
+            <artifactId>markdown-page-generator-plugin</artifactId>
+            <configuration>
+               <headerHtmlFile>${project.basedir}/src/main/markdown/html/header.html</headerHtmlFile>
+               <footerHtmlFile>${project.basedir}/src/main/markdown/html/footer.html</footerHtmlFile>
+             </configuration>
+            <executions>
+              <execution>
+                <id>demo</id>
+                <phase>process-resources</phase>
+                <goals><goal>generate</goal></goals>
+                <configuration>
+                  <inputDirectory>${data.demo.dir}</inputDirectory>
+                  <outputDirectory>${project.build.directory}/html/demo</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>demo</id>
+                <phase>generate-resources</phase>
+                <goals><goal>run</goal></goals>
+                <configuration>
+                  <target>
+                    <ant antfile="build.xml" dir="${basedir}" target="demo-data-dir"/>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
            <!-- artifact assembly -->
            <plugin>
              <artifactId>maven-assembly-plugin</artifactId>
