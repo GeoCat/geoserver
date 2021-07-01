@@ -26,10 +26,8 @@ pipeline {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
-                    println "Building requested 'community' modules not available online"
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./geoserver/src/community/pom.xml -B -T2C -fae -Dfmt.skip=true -DskipTests -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn install -Pcog,geopkg,ogcapi"
                     println "Building GeoServer Enterprise"
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn install"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml --batch-mode --no-transfer-progress install"
                 }
             }
         }
@@ -38,7 +36,7 @@ pipeline {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'geocat.nexus.geoserver_enterprise') {
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn deploy -DskipTests"
+                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml --batch-mode --no-transfer-progress deploy -DskipTests"
                 }
             }
         }

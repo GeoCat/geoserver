@@ -24,8 +24,7 @@ git clone --recursive https://eos.geocat.net/gitlab/enterprise/geoserver-enterpr
 
 The branches follow the release of GeoServer Enterprise being distributed:
 
-* master: live development, unpublished, nightly builds used for quality assurance
-* 2021.x: stable branch, nightly builds, "next" stable release available for our customers
+* master: stable branch, nightly builds, "next" stable release available for our customers
 * 2020.x: maintenance branch, nightly builds, "next" maintenance release available for our customers
 
 Update when changing branches:
@@ -41,18 +40,37 @@ Building uses the [maven](https://maven.apache.org) and is expected to work on L
 
 We make heavy use of maven and maven repositories from [repo.osgeo.org](https://repo.osgeo.org/) for release artifacts and do not build everything ourself. 
 
-Before you start:
+#. When upgrading GeoServer (see below) we make a point of building additional community modules and deploying to the GeoCat repository.
 
-```bash
-mvn --file geoserver/src/community/pom.xml install -PcommunityRelease -DskipTests
-```
+   The build makes use of `.m2/settings.xml` credentials to access the geocat nexus repository:
 
-To build enterprise:
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <servers>
+       <server>
+         <username>username</username>
+         <password>password123</password>
+         <id>geocat</id>
+       </server>
+     </servers>
+   </settings>
+   ```
 
-```bash
-cd enterprise
-mvn clean install 
-```
+   Optional: If you are testing with GeoServer nightly SNAPSHOT, you will need to build some of the community modules locally (as they are not available to download):
+
+   ```bash
+   mvn --file geoserver/src/community/pom.xml install -Pcog,geopkg,ogcapi -DskipTests
+   ```
+
+#. To build enterprise:
+
+   ```bash
+   cd enterprise
+   mvn clean install
+   ```
+
 ### Run
 
 To run `webapp` locally using jetty:
@@ -64,6 +82,38 @@ mvn jetty:run
 Individual webapp modules, like `webapp-standard` above, describe preconfigured distributions for customers, defining what extensions to include and if a data directory should be included in the war.
 
 See web app [README](enterprise/webapp/README.md) for further instructions.
+
+### Data download and processing
+
+During the maven build `enterprise/data` is used to prepare sample data for distribution.
+
+* ``enterprise/data/download`` downloaded files
+* ``enterprise/data/process`` files processed using gdal and ogr
+
+Maven profiles are available to work with different data directories:
+
+* Default data directory for enterprise customers:
+
+  ```bash
+  cd enterprise/data
+  mvn package
+  ```
+
+* Standard data directory for enterprise customers, GeoCat Live, and testing:
+  
+  ```bash
+  cd enterprise/data
+  mvn -Pstandard package
+  ```
+
+* Demo data used for training:
+  
+  ```bash
+  cd enterprise/data
+  mvn -Pdemo package
+  ```
+
+Please see [readme](enterprise/data/README.md) for additional details.
 
 ### Release Bundle
 
@@ -98,7 +148,35 @@ To update a submodule to a new tag:
     <spring.security.version>5.1.11.RELEASE</spring.security.version>
    ```
 
-3. Test the change
+3. Build some of the community modules (as they are not available to download):
+   
+   ```bash
+   mvn --file geoserver/src/community/pom.xml install -Pcog,geopkg,ogcapi -DskipTests
+   ```
+   
+   Double check your `.m2/settings.xml` credentials used to publish to the `geocat` repository:
+
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <servers>
+       <server>
+         <username>username</username>
+         <password>password123</password>
+         <id>geocat</id>
+       </server>
+     </servers>
+   </settings>
+   ```
+   
+   Deploy to our GeoCat repository:
+   
+   ```bash
+   mvn --file geoserver/src/community/pom.xml deploy -Pcog,geopkg,ogcapi -DskipTests -DaltDeploymentRepository=geocat::default::https://nexus.geocat.net/repository/geoserver-geocat/
+   ```
+
+4. Test the change
    
    ```bash
    cd enterprise
