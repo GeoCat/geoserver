@@ -179,7 +179,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
         <configuration>
            <classesDirectory>${project.build.directory}/resources</classesDirectory>
            <excludes>WEB-INF/lib/*</excludes>
@@ -190,7 +189,6 @@
       <!-- war packaging using target/resource and excluding gs-web-app jar -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.0.0</version>
         <configuration>
           <webResources>
             <resource>
@@ -240,17 +238,7 @@
           <contextXml>${project.build.testOutputDirectory}/jetty-context.xml</contextXml>
         </configuration>
       </plugin>
-      
-      <!-- deploy -->
-      <!-- See release_gse where use of mvn deploy:deploy-file -->
-      <!--plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin-->
+
     </plugins>
   </build>
   

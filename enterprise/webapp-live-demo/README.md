@@ -20,16 +20,12 @@ This web application is defined as an overlay of base `webapp`:
 
 ## Data Directory
 
-An empty data directory setup in `target/data` during `prepare-package` stage for testing with:
+The `target/data` GEOSERVER_DATA_DIR location is used for local testing, and is not included in the `geoserver.war`. If you have built the demo data directory the contents will be staged into `target/data` during `prepare-package` stage.
+
+To work directly on the original ``demo`` data directory:
 
 ```bash
-mvn jetty:run
-```
-
-To work directly on the ``demo`` data directory:
-
-```bash
-mvn jetty:run-exploded -DGEOSERVER_DATA_DIR=../data/src/demo
+mvn jetty:run -DGEOSERVER_DATA_DIR=`cd ../data/src/demo; pwd`
 ```
 
 Configuration changes made can be committed, be careful not commit any sample data.
@@ -50,4 +46,4 @@ To assemble a release bundle:
 mvn package
 ```
 
-This module is intended for the production of a release war and does not deploy.
+This module is intended for the production of a release war and does not install or deploy.

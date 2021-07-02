@@ -26,13 +26,12 @@ An empty data directory setup in `target/data` during `prepare-package` stage fo
 mvn jetty:run
 ```
 
-To work directly on the ``default`` data directory:
+To stage the default data directory into the `target/data` location:
 
 ```bash
-mvn jetty:run-exploded -DGEOSERVER_DATA_DIR=../data/src/default
+mvn package -Ddata.directory=../data/src/default
+mvn jetty:run
 ```
-
-Configuration changes made can be committed, be careful not commit any sample data.
 
 ## GeoServer Enterprise WAR
 
@@ -50,4 +49,4 @@ To assemble a release bundle:
 mvn package
 ```
 
-This module is intended for the production of a release war and does not deploy.
+This module is intended for the production of a release war and does not install or deploy.

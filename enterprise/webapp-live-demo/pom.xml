@@ -30,7 +30,7 @@
     <jetty.version>9.4.12.v20180830</jetty.version>
     <jetty.port>8080</jetty.port>
     <jetty.run.daemon>false</jetty.run.daemon>
-    <!--data.directory>${basedir}/../data/src/default</data.directory-->
+    <!--data.directory>${basedir}/../data/src/demo</data.directory-->
   </properties>
   
   <dependencies>
@@ -204,7 +204,7 @@
             <phase>process-test-resources</phase>
             <configuration>
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
-                 <available file="${data.directory}/global.xml" property="dataDirAvaialble" />
+                 <available file="${data.directory}/data" property="dataDirAvaialble" />
                  
                  <echo message="Data directory not provided." unless:set="dataDirAvaialble"/>
                  <echo message="Data directory: ${data.directory}"

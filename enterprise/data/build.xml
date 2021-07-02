@@ -107,8 +107,6 @@
   
   <target name="init" depends="init_download">
      <mkdir dir="${target}"/>
-     <mkdir dir="${standard}/data"/>
-     <mkdir dir="${demo}/data"/>
   </target>
   
   <!-- download -->
@@ -162,7 +160,8 @@
           name="standard-data-dir" depends="init"
           description="Package data directory with Natural Earth geopackage and rasters.">
     <property name="data" value="${standard}/data"/>
-
+    <mkdir dir="${data}"/>
+    
     <antcall target="ne1_install"/>
     <antcall target="etopo1_install"/>
     <antcall target="gray_install"/>
@@ -181,7 +180,8 @@
           name="demo-data-dir" depends="init"
           description="Package demo directory with Natural Earth geopackage and rasters, bluemarble, and more ...">
     <property name="data" value="${demo}/data"/>
-
+    <mkdir dir="${data}"/>
+    
     <antcall target="ne1_install"/>
     <antcall target="etopo1_install"/>
     <antcall target="etopo5_install"/>
