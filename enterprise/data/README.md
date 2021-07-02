@@ -1,45 +1,55 @@
 # GeoCat Data Directories
 
-Uses a combination of `ant` to download and process data, and maven to assemble bundles for download.
+Uses a combination of `mvn` and `ant` to download and process data, and maven to assemble bundles for download.
 
 Used to manage data directories:
 
-* default - minimal setup with no sample data
-* standard - natural earth sample data
-* demo - natural earth and larger data sets
+* default - minimal setup for enterprise customers with no sample data
+* standard - includes natural earth sample data for enterprise custoemrs, GeoCat Live, and testing
+* demo - includes natural earth and larger range of sample data for training and the geocat website
 
 Hint: Use `ant -p` to show main targets.
 
 ## Default Data Directory
 
-Please run the following script to package up the default data directory as a zip:
+The default data directory is located in `src/default`, to edit the data directory use `webapp-standard`:
 
 ```
-ant default
-```
-
-If you wish to use the data directory directly:
-
-```
-export GEOSERVER_DATA_DIR=`cd src/default; pwd`
 cd ../webapp-standard
-mvn jetty:run
+mvn jetty:run -DGEOSERVER_DATA_DIR=../src/default
+```
+
+Ant is used to package `src/default` as a zip:
+
+```
+ant default-data-dir
+```
+
+Maven packages everything for distribution:
+
+```
+mvn package
 ```
 
 ## Standard Data Directory
 
-Please run the following script to download data and unzip into the correct location:
+Ant is used to package download and process data into `src/standard/data` folder:
 
 ```
-ant standard
+ant standard-data-dir
 ```
 
-If you wish to use the data directory directly:
+To edit the data directory use `webapp-standard`:
 
 ```
-export GEOSERVER_DATA_DIR=`cd src/standard; pwd`
-cd ../webapp-live
-mvn jetty:run
+cd ../webapp-standard
+mvn jetty:run -DGEOSERVER_DATA_DIR=../src/standard
+```
+
+Maven packages everything for distribution:
+
+```
+mvn package -Pstandard
 ```
 
 ## Demo Data Directory
@@ -47,15 +57,14 @@ mvn jetty:run
 Please run the following script to download data and unzip into the correct location:
 
 ```
-ant demo
+ant demo-data-dir
 ```
 
-If you wish to use the data directory directly:
+To edit the data directory use `webapp-training`:
 
 ```
-export GEOSERVER_DATA_DIR=`cd src/demo; pwd`
-cd ../webapp-training
-mvn jetty:run
+cd ../webapp-standard
+mvn jetty:run -DGEOSERVER_DATA_DIR=../src/demo
 ```
 
 ## Downloading and installing data
@@ -75,6 +84,16 @@ Install targets copy data into a data folder:
 * install_quickstart_shapefiles
 * install_quickstart_shapefiles_all
 
+### geopackage
+
+Several ogr targets are used by `install_custom_geopackage` to create a new geopackage:
+
+* -point
+* -lines
+* -polygons
+
+### shapefile
+
 These targets are designed to be used via antcall, using data property:
 
 ```xml
@@ -84,20 +103,32 @@ These targets are designed to be used via antcall, using data property:
 
 Downloads are fetched, if required, into `downloads` folder:
 
-* _cultural
-* _physical
+* -cultural-download
+* -cultural
+* -physical-download
+* -physical
 
 These targets are designed to be used via antcall, using data and features parameters:
 
 ```xml
-<antcall target="_physical">
+<antcall target="-physical">
   <param name="features" value="geographic_lines"/>
   <param name="data" value="standard"/>
 </antcall>
 ```
 
-Finally several ogr targets are used by `install_custom_geopackage` to create a new geopackage:
+### imagry 
 
-* _ogr_point
-* _ogr_lines
-* _ogr_polygons
+Tasks like `ne1_download`, `ne1_process` and `ne1_install` download imagry, and prepare it for use using gdal, and copy the result into the ``data`` folder.
+
+### dem
+
+Tasks like `etopo1_download`, `etopo1_process`, `etopo1_install` download the etopo1 dataset, and prepare it for use using gdal, and copy the result into the ``data`` folder.
+
+In this case jpeg compression of innter tiles is not appropriate as the information is intended as measurements rather than as a visual.
+
+### demo data
+
+For specific datasets like `bmng` and `eo` considerably more processing is needed.
+
+These steps match up with the training `L101` exercises and are considered demo material.
