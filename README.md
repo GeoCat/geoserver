@@ -68,7 +68,7 @@ We make heavy use of maven and maven repositories from [repo.osgeo.org](https://
 
    ```bash
    cd enterprise
-   mvn clean install
+   mvn clean install -T2C
    ```
 
 ### Run
@@ -151,7 +151,7 @@ To update a submodule to a new tag:
 3. Build some of the community modules (as they are not available to download):
    
    ```bash
-   mvn --file geoserver/src/community/pom.xml install -Pcog,geopkg,ogcapi -DskipTests
+   mvn --file geoserver/src/community/pom.xml install -Pcog,geopkg,ogcapi -DskipTests -T2C
    ```
    
    Double check your `.m2/settings.xml` credentials used to publish to the `geocat` repository:
@@ -180,7 +180,7 @@ To update a submodule to a new tag:
    
    ```bash
    cd enterprise
-   mvn clean install
+   mvn clean install -T2C
    cd webapp
    mvn package
    mvn jetty:run -Prelease
