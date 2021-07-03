@@ -137,10 +137,6 @@
           <plugin>
             <groupId>com.ruleoftech</groupId>
             <artifactId>markdown-page-generator-plugin</artifactId>
-            <configuration>
-               <headerHtmlFile>${project.basedir}/src/main/markdown/html/header.html</headerHtmlFile>
-               <footerHtmlFile>${project.basedir}/src/main/markdown/html/footer.html</footerHtmlFile>
-             </configuration>
             <executions>
               <execution>
                 <id>standard</id>
@@ -199,10 +195,6 @@
           <plugin>
             <groupId>com.ruleoftech</groupId>
             <artifactId>markdown-page-generator-plugin</artifactId>
-            <configuration>
-               <headerHtmlFile>${project.basedir}/src/main/markdown/html/header.html</headerHtmlFile>
-               <footerHtmlFile>${project.basedir}/src/main/markdown/html/footer.html</footerHtmlFile>
-             </configuration>
             <executions>
               <execution>
                 <id>demo</id>
