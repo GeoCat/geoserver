@@ -278,6 +278,11 @@
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
+      <artifactId>gs-css</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-gdal</artifactId>
       <version>${gs.version}</version>
     </dependency>
@@ -745,6 +750,7 @@
   <module>webapp-live</module>
   <module>webapp-live-demo</module>
   <module>webapp-live-eccc</module>
+  <module>webapp-live-bev</module>
  </modules>
 
 </project>
