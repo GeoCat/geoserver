@@ -152,8 +152,12 @@ pipeline {
             }
             
             steps{
-                echo "Triggering Live Geoserver enterprise-2021-live image build job"
+                echo "Triggering Live Geoserver enterprise-2021-live* images build jobs"
                 build wait: false, job: '/live_gs/enterprise-2021-live', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
+                build wait: false, job: '/live_gs/enterprise-2021-live-bev', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
+                build wait: false, job: '/live_gs/enterprise-2021-live-demo', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
+                build wait: false, job: '/live_gs/enterprise-2021-live-eccc', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
+
             }
         }
     }
