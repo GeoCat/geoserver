@@ -86,11 +86,11 @@ Removed:
 
 * ArcSDE support is no longer available
 
-Experimental:
+Early access:
 
-* geopackage extension
-  
-* ogcapi-features extension
+* cloud optimized geotiff (cog)
+* geopackage output format for wfs and wps
+* ogc-api features
   
 GeoServer Enterprise GeoCat Live
 --------------------------------
@@ -98,3 +98,12 @@ GeoServer Enterprise GeoCat Live
 New features:
 
 * ysld styling format
+
+GeoServer Enterprise GeoCat Live
+--------------------------------
+
+Early access:
+
+* cloud optimized geotiff (cog)
+* geopackage output format for wfs and wps
+* ogc-api features

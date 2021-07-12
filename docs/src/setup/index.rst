@@ -1,5 +1,5 @@
-Production
-==========
+Setup
+=====
 
 The following operations are required to setup GeoServer enterprise for use in a production environment:
 
@@ -31,6 +31,13 @@ GetCat recommends the following best practices:
    libjpegturbo
 
 .. add deprecatedwps to the above list
+
+Advanced topics:
+
+.. toctree::
+   :maxdepth: 1
+   
+   gwc-full-wms
 
 References:
 
