@@ -6,7 +6,7 @@ GeoCat is pleased to present our latest distribution of GeoServer Enterprise.
 Overview
 --------
 
-GeoServer Enterprise 2021.3 provides support for publishing geospatial data using open standards.
+GeoServer Enterprise 2021.1 provides support for publishing geospatial data using open standards.
 
 This distribution is made available to GeoCat customers:
 
@@ -14,17 +14,17 @@ This distribution is made available to GeoCat customers:
 * GeoServer Enterprise Premium offers a custom distribution with your selection of extensions backed by GeoCat extended support.
 * GeoCat Live provides a hosted GeoServer environment
 
-GeoServer Enterprise 2020.3 is a recommended upgrade for all our customers and is compatible with GeoCat Bridge for both ArcGIS Desktop and QGIS Desktop.
+GeoServer Enterprise 2021.1 is a recommended upgrade for all our customers and is compatible with GeoCat Bridge for both ArcGIS Desktop and QGIS Desktop.
 
 General
 -------
 
-GeoServer Enterprise 2020.1 release notes:
+GeoServer Enterprise 2021.1 release notes:
 
 * Now offering our GeoServer Enterprise Premium customers "predefined war" service with a ready to use war including your selection of supported GeoServer extensions.
 * Visual refresh with a clean appearance.
 * Built-in web-resource extension
-* GeoServer Enterprise 2020.3 is proudly open source with the latest GeoServer 2.19, GeoWebCache 1.19, and GeoTools 25 technologies. 
+* GeoServer Enterprise 2021.1 is proudly open source with the latest GeoServer 2.19, GeoWebCache 1.19, and GeoTools 25 technologies. 
 
 Detailed change log:
 
