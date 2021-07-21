@@ -12,6 +12,7 @@ Current release:
 .. toctree::
    :maxdepth: 1
 
+   release_notes_2021.2
    release_notes_2021.1
 
 `Contact GeoCat BV <http://geocat.net/contact/>`_ for more information on this product and the advantages of commercial open source.

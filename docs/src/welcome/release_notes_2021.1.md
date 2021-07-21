@@ -92,15 +92,15 @@ Early access:
 * geopackage output format for wfs and wps
 * ogc-api features
   
-GeoServer Enterprise GeoCat Live
---------------------------------
+GeoCat Live Standard
+--------------------
 
 New features:
 
 * ysld styling format
 
-GeoServer Enterprise GeoCat Live
---------------------------------
+GeoCat Live Premium
+-------------------
 
 Early access:
 
