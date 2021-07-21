@@ -124,6 +124,29 @@ cd webapp-standard
 mvn assembly
 ```
 
+
+### GeoCat Live Update
+
+1. Figure out tag name based on UTM time:
+
+   ```bash
+   date -u +%Y%m%d-%H%0MZ
+   ```
+   ```
+   20210721-0144Z
+   ```
+
+2. Tag for geocat live:
+
+   ```bash
+   git tag -a tags/live/2021.2-20210721-0144Z -m "GeoCat Live 2021.2 update"
+   git push upstream tags/live/2021.2-20210721-0144Z
+   ```
+
+3. Check live-services jenkins [geoserver-enterprise-release](https://live-services.geocat.net/jenkins/view/geoserver_enterprise/job/geoserver-enterprise-release/view/tags/) for progress.
+   
+   This tag pattern is used to trigger enterprise-2021-live jobs.
+
 ## Updating GeoServer version
 
 To update a submodule to a new tag:
