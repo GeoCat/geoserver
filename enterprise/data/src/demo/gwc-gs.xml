@@ -24,8 +24,10 @@
   <metaTilingY>4</metaTilingY>
   <gutter>0</gutter>
   <defaultCachingGridSetIds>
-    <string>EPSG:4326</string>
-    <string>EPSG:900913</string>
+    <string>APSTILE</string>
+    <string>WGS84</string>
+    <string>OSMTILE</string>
+    <string>CBMTILE</string>
   </defaultCachingGridSetIds>
   <defaultCoverageCacheFormats>
     <string>image/png</string>
