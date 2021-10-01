@@ -82,6 +82,13 @@
         <configuration>
            <headerHtmlFile>${project.basedir}/../data/src/main/markdown/html/header.html</headerHtmlFile>
            <footerHtmlFile>${project.basedir}/../data/src/main/markdown/html/footer.html</footerHtmlFile>
+           <pegdownExtensions>TABLES</pegdownExtensions>
+           <attributes>
+               <attribute>TableBlock|style="border: 1px solid black; border-collapse: collapse; width: 100%;"</attribute>
+               <attribute>TableHead|style="border-bottom: 1px solid #ddd;"</attribute>
+               <attribute>TableRow|style="border-bottom: 1px solid #ddd;"</attribute>
+               <attribute>TableCell|style="border: 1px solid #ddd;"</attribute>
+           </attributes>
         </configuration>
         <executions>
           <execution>
@@ -112,6 +119,16 @@
             <configuration>
               <recursiveInput>false</recursiveInput>
               <inputDirectory>${project.basedir}/../../docs/src/welcome</inputDirectory>
+              <outputDirectory>${project.build.directory}/html</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>md-report</id>
+            <phase>process-resources</phase>
+            <goals><goal>generate</goal></goals>
+            <configuration>
+              <recursiveInput>false</recursiveInput>
+              <inputDirectory>${project.basedir}</inputDirectory>
               <outputDirectory>${project.build.directory}/html</outputDirectory>
             </configuration>
           </execution>

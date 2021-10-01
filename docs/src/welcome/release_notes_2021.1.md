@@ -21,9 +21,9 @@ General
 
 GeoServer Enterprise 2021.1 release notes:
 
-* Now offering our GeoServer Enterprise Premium customers "predefined war" service with a ready to use war including your selection of supported GeoServer extensions.
+* Offers our GeoServer Enterprise Premium customers "predefined war" service with a ready to use war including your selection of supported GeoServer extensions.
 * Visual refresh with a clean appearance.
-* Built-in web-resource extension
+* Built-in web-resource extension and control-flow extensions
 * GeoServer Enterprise 2021.1 is proudly open source with the latest GeoServer 2.19, GeoWebCache 1.19, and GeoTools 25 technologies. 
 
 Detailed change log:
