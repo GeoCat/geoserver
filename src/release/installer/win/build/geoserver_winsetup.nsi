@@ -22,7 +22,7 @@
 !endif
 !define FULLNAME "${APPNAME} ${VERSION}"                        ; app name and version combined
 !define FULLKEY "${APPNAME}-${VERSION}"                         ; app name and version combined (delimited)
-!define INSTNAME "${APPNAME}-install-${VERSION}.exe"            ; installer exe name
+!define INSTNAME "geoserver-${VERSION}.exe"                     ; installer exe name
 !define UNINNAME "${APPNAME}-uninstall.exe"                     ; uninstaller exe name
 !define HOMEPAGE "http://geoserver.org"                         ; resource URL
 !define TIMESTAMPURL "http://timestamp.comodoca.com/rfc3161"    ; URL used to timestamp certificates
