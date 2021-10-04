@@ -10,7 +10,12 @@ Overview of [my.geocat.net](https://my.geocat.net/) support portal activity:
 
 <style>
   tr:nth-child(even) {
-    background-color: #f2f2f2;}
+    background-color: #f2f2f2;
+  }
+  td, th {
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
   }
 </style>
 
