@@ -1,4 +1,4 @@
-.. _installation_upgrade:
+.. _upgrade:
 
 Upgrade
 =======
@@ -26,7 +26,7 @@ References:
 Minor Update (Windows)
 ----------------------
 
-.. list-table:: GeoServer Enterprise 2020.5 Update
+.. list-table:: GeoServer Enterprise 2021 Update
    :widths: 40 25 15 10 10
    :header-rows: 1
 
@@ -35,14 +35,13 @@ Minor Update (Windows)
      - Updates
      - Standard
      - Premium
-   * - GeoServer Enterprise Premium 2020.5
-     - GeoServer 2.18.5 |br|
-       GeoServer 2.18.1 |br|
-       GeoServer 2.18.0 |br|
-       GeoServer 2.17.2
-     - 2020
-     - 2023
-     - 2025
+   * - GeoServer Enterprise Premium 2021
+     - GeoServer 2.20.0 |br|
+       GeoServer 2.19.2 |br|
+       GeoServer 2.19.1
+     - 2021
+     - 2024
+     - 2026
 
 Minor upgrades can be performed in place and consist of a new web archive:
 
@@ -86,7 +85,7 @@ Minor upgrades can be performed in place and consist of a new web archive:
 Minor Update (Linux)
 --------------------
 
-.. list-table:: GeoServer Enterprise 2020.5 Update
+.. list-table:: GeoServer Enterprise 2021 Update
    :widths: 40 25 15 10 10
    :header-rows: 1
 
@@ -95,14 +94,13 @@ Minor Update (Linux)
      - Updates
      - Standard
      - Premium
-   * - GeoServer Enterprise Premium 2020.5
-     - GeoServer 2.18.5 |br|
-       GeoServer 2.18.1 |br|
-       GeoServer 2.18.0 |br|
-       GeoServer 2.17.2
-     - 2020
-     - 2023
-     - 2025
+   * - GeoServer Enterprise Premium 2021
+     - GeoServer 2.20.0 |br|
+       GeoServer 2.19.2 |br|
+       GeoServer 2.19.1
+     - 2021
+     - 2024
+     - 2026
 
 Minor upgrades can be performed in place and consist of a new web archive:
 
@@ -164,7 +162,7 @@ GeoServer Enterprise Upgrade
      - Updates
      - Standard
      - Premium
-   * - GeoServer Enterprise Premium 2021.1
+   * - GeoServer Enterprise Premium 2021
      - GeoServer 2.20 |br|
        GeoServer 2.19
      - 2021
@@ -321,7 +319,7 @@ To migrate from GeoServer distribution to GeoServer Enterprise:
    * Linux: :file:`/etc/default/tomcat7` service, using a``JAVA_OPTS`` environmental variable
    * Windows Service: :command:`Apache Tomcat 9.0 Tomcat Properties`, where :guilabel:`Java Options` are located on the :command:`Java tab`.
    
-   During upgrade any custom settings noted here can be applied to your new system following: :doc:`/install/production/javastartup`.
+   During upgrade any custom settings noted here can be applied to your new system following: :doc:`/setup/javastartup`.
    
 3. Check if :file:`conf/web.xml` has enabled Cross-Origin Resource Sharing (CORS):
    
@@ -336,7 +334,7 @@ To migrate from GeoServer distribution to GeoServer Enterprise:
         <url-pattern>/*</url-pattern>
       </filter-mapping>
       
-   To enable CORS for your new system: :doc:`/install/production/cors`.
+   To enable CORS for your new system: :doc:`/setup/cors`.
 
 3. Follow the GeoSever Enterprise installation instructions:
 
@@ -500,7 +498,7 @@ To migrate from Boundless Suite:
         
         OPENGEO_OPTS="-Djava.awt.headless=true -Xms256m -Xmx768m -Xrs -XX:PerfDataSamplingInterval=500 -Dorg.geotools.referencing.forceXY=true
    
-   During upgrade any custom settings noted here can be applied to your new system following: :doc:`/install/production/javastartup`.
+   During upgrade any custom settings noted here can be applied to your new system following: :doc:`/setup/javastartup`.
    
 3. Check if :file:`conf/web.xml` has enabled Cross-Origin Resource Sharing (CORS):
    
@@ -515,7 +513,7 @@ To migrate from Boundless Suite:
         <url-pattern>/*</url-pattern>
       </filter-mapping>
       
-   To enable CORS for your new system: :doc:`/install/production/cors`.
+   To enable CORS for your new system: :doc:`/setup/cors`.
 
 4. Follow the GeoSever Enterprise installation instructions:
 

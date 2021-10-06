@@ -77,6 +77,7 @@ GeoServer Enterprise Premium
 New features:
 
 * MapML Extension
+* Control legend graphic generation with legendOnly and mapOnly vendor options
 
 Improvements:
 

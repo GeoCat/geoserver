@@ -12,6 +12,13 @@ Current release:
 .. toctree::
    :maxdepth: 1
 
+   release_notes_2021.3
+   
+Prior releases:
+
+.. toctree::
+   :maxdepth: 1
+
    release_notes_2021.2
    release_notes_2021.1
 
@@ -28,6 +35,12 @@ GeoServer Enterprise continues to improve with new page icons.
    
    GeoServer Enterprise Theme
 
+Services
+--------
+
+Internationalization
+''''''''''''''''''''
+
 Data stores
 -----------
 
@@ -40,6 +53,28 @@ We recommend:
 
 * Use of cascaded WMS and WFS services
 * Contact support for additional options.
+
+Mapping
+-------
+
+Internationalization
+''''''''''''''''''''
+
+Map labels generation can now be internationalized with the addition of a ``langage`` function. Support has also been added to support the internationalized of rules (as seen in legend generation).
+
+Reference:
+
+* :ref:`internationalization`
+* :ref:`sld_language`
+
+Control legend generation with mapOnly and legendOnly
+'''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+You can now choose which rules are used for legend generation using the mapOnly and legendOnly vendor options (to mark how rules are used).
+
+Reference:
+
+* :ref:`rendering_selection`
 
 MapML extension
 '''''''''''''''
