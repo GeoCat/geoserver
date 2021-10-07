@@ -220,22 +220,29 @@ fieldset.leftwise, fieldset.rightwise {
   overflow: auto;
   max-width: 100%;
   position: absolute;
-  top: -125px;
+  top: -120px;
   max-width: 100%;
   background: #fff;
   z-index: 1100;
-  padding: 20px;
+  padding: 0 20px;
   height: 100vh;
 }
 .fullscreen #header-title {
   font-size: 32px;
 }
+.fullscreen .page-footer {
+  padding: 0;
+  height: 0;
+}
 .fullscreen .toolbar-sticky {
-  padding-bottom: 25px;
+  /*padding-bottom: 25px;*/
 }
 .page-pane-fullscreen {
   height: auto;
-  padding-bottom: 50px;
+  /*padding-bottom: 50px;*/
+}
+.fullscreen #styleForm #style-context {
+  margin-bottom: 0 !important;
 }
 .tab-panel .selfclear.clearBoth {
   padding-top: 0 !important;
