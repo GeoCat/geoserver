@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="release" default="info"
+  xmlns:if="ant:if" xmlns:unless="ant:unless"
+  >
+  
+  <!-- macro definitions -->
+  <macrodef name="project-version">
+    <attribute name="property"/>
+    <attribute name="project.dir"/>
+    <sequential>
+      <loadfile
+        encoding="UTF-8"
+        property="@{property}"
+        srcFile="@{project.dir}/pom.xml" >
+        <filterchain>
+          <tokenfilter>
+            <containsregex pattern="^\s*&lt;version&gt;(\S*)&lt;/version&gt;$" replace="\1" />
+          </tokenfilter>
+          <filterreader classname="org.apache.tools.ant.filters.HeadFilter">
+            <param name="lines" value="1"/>
+          </filterreader>
+          <striplinebreaks/>
+        </filterchain>
+      </loadfile>
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="module-version">
+    <attribute name="property"/>
+    <attribute name="module.dir"/>
+    <attribute name="skip" default="1"/>
+    <sequential>
+      <loadfile
+        encoding="UTF-8"
+        property="@{property}"
+        srcFile="@{module.dir}/pom.xml" >
+        <filterchain>
+          <tokenfilter>
+            <containsregex pattern="^\s*&lt;version&gt;(\S*)&lt;/version&gt;$" replace="\1" />
+          </tokenfilter>
+          <filterreader classname="org.apache.tools.ant.filters.HeadFilter">
+            <param name="skip" value="@{skip}"/>
+            <param name="lines" value="1"/>
+          </filterreader>
+          <striplinebreaks/>
+        </filterchain>
+      </loadfile>
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="pom-property">
+    <attribute name="property"/>
+    <attribute name="pom.dir"/>
+    <sequential>
+      <loadfile
+        encoding="UTF-8"
+        property="@{property}"
+        srcFile="@{pom.dir}/pom.xml" >
+        <filterchain>
+          <tokenfilter>
+            <containsregex pattern="^\s*&lt;@{property}&gt;(\S*)&lt;/@{property}&gt;$" replace="\1" />
+          </tokenfilter>
+          <filterreader classname="org.apache.tools.ant.filters.HeadFilter">
+            <param name="lines" value="1"/>
+          </filterreader>
+          <striplinebreaks/>
+        </filterchain>
+      </loadfile>
+    </sequential>
+  </macrodef>
+
+  <macrodef name = "git">
+      <attribute name = "command" />
+      <attribute name = "dir" default = "" />
+      <attribute name = "property" default = "" />
+      <text name="line"/>
+      <sequential>
+          <exec unless:set="${@{property}}" failonerror="true"
+                executable = "git"
+                dir = "@{dir}"
+                outputproperty = "@{property}" >
+              <arg value = "@{command}" />
+              <arg line = "@{line}" />
+          </exec>
+          <exec if:set="${@{property}}" failonerror="true"
+                executable = "git"
+                dir = "@{dir}">
+              <arg value = "@{command}" />
+              <arg line = "@{line}" />
+          </exec>
+      </sequential>
+  </macrodef>
+  
+  <macrodef name = "sha">
+      <attribute name = "dir" default = "" />
+      <attribute name = "property"/>
+      <sequential>
+          <exec executable = "git"
+                dir = "@{dir}"
+                outputproperty = "@{property}" >
+              <arg line = "rev-parse --short HEAD" />
+          </exec>
+      </sequential>
+  </macrodef>
+
+  <!-- collect properties -->
+  <tstamp/>
+  
+  <property name="current" value="2.19-SNAPSHOT"/>
+  <property name="release" value="2.19.1"/>
+  
+  <project-version property="enterprise.version" project.dir="../enterprise"/>
+  <pom-property property="geocat.enterprise" pom.dir="../enterprise"></pom-property>
+  <sha property="enterprise.sha" dir="../enterprise"></sha>
+  <sha property="themes.sha" dir="../docs/themes"></sha>
+  <project-version property="geoserver.version" project.dir="../geoserver/src"/>
+  <sha property="geoserver.sha" dir="../geoserver"></sha>
+  <pom-property property="gs.version" pom.dir="../enterprise"></pom-property>
+  
+  <!-- generated properties -->
+  <tstamp>
+    <format property="USTAMP" pattern="yyyymmdd'T'hhmmX" timezone="Z" locale="en,GB"/>
+  </tstamp>
+  <property name="enterprise.live" value="${geocat.enterprise}-${enterprise.sha}"/>
+  
+  <!-- INFO -->
+  <target name="info" description="List versions used to update build">
+     <echo>USTAMP: ${USTAMP}</echo>
+     
+     <echo> geocat.enterprise: '${geocat.enterprise}'</echo>
+     <echo>enterprise version: '${enterprise.version}'</echo>
+     <echo>    enterprise sha: '${enterprise.sha}'</echo>
+     <echo>   enterprise live: '${enterprise.live}'</echo>
+     
+     <echo/>
+     <echo>submodules:</echo>
+     <echo>themes.sha: ${themes.sha}'</echo>
+     
+     <echo/>     
+     <echo>geoserver version:</echo>
+     <echo>geoserver version: '${geoserver.version}'</echo>
+     <echo>geoserver sha: '${geoserver.sha}'</echo>
+     <echo>geoserver property: '${gs.version}'</echo>
+     
+  </target>
+  
+  <target name="doctor" description="Troubleshooting">
+     <local name="_"/>
+     <git dir="../docs/themes"
+          command="fetch">origin</git>
+     <git dir="../docs/themes" property="themes.origin"
+          command="rev-parse" >--short FETCH_HEAD</git>
+
+     <condition property="themes.check" value="true">
+       <equals forcestring="true"
+         arg1="${themes.sha}" arg2="${themes.origin}"
+       />
+     </condition>
+     <echo if:set="themes.check">docs/themes ... checked</echo>
+     <echo unless:set="themes.check" level="error">docs/themes update available:
+       cd ../docs/themes
+       git pull origin master
+       cd ..
+       git add themes
+       git commit -m "Update documentation theme"
+     </echo>
+     
+     <condition property="geoserver.check" value="true">
+       <equals forcestring="true"
+         arg1="${geoserver.version}" arg2="${gs.version}"
+       />
+     </condition>
+     <echo if:set="geoserver.check">enterprise/pom.xml: gs.version ... checked</echo>
+     <echo unless:set="geoserver.check" level="error">enterprise/pom.xml: gs.version ... update required:
+        &lt;gs.version&gt;${geoserver.version}&lt;/gs.version&gt;</echo>
+  </target>
+  
+  
+  
+  <target name="rename"
+          description="Update version references for a new branch">
+    <replace dir="../enterprise">
+      <include name="**/pom.xml"/>
+      <replacefilter token="&lt;version&gt;${current}&lt;/version&gt;" value="&lt;version&gt;${release}&lt;/version&gt;"/>
+    </replace>
+  </target>
+
+</project>
+
