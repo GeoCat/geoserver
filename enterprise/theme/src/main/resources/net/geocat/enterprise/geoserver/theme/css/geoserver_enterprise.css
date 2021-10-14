@@ -508,6 +508,7 @@ div#capabilities .flat li a:hover {
 }
 #page.fullscreen .tab-row-compact {
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 /* ----------------------------------------------------------------------
@@ -655,7 +656,7 @@ form:after, form li:after {
 }
 fieldset {
   padding: 15px;
-  margin: 10px 0;
+  margin-bottom: 10px !important;
   border: 1px solid #ddd;
   max-width: 900px;
 }
@@ -671,7 +672,7 @@ fieldset span[style="float: right; margin-top:-1.5em;"] {
 legend {
   background: #f5f5f5;
   border: 1px solid #ddd;
-  margin: -15px -15px 0 -16px;
+  margin: 0px -15px 0 -16px;
   padding: 8px 15px;
   font-weight: 400;
   width: 100%;
