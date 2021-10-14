@@ -127,6 +127,38 @@ mvn assembly
 
 ### GeoCat Live Update
 
+
+Preflight check:
+
+1. Check that it is ready to release:
+   ```
+   cd release
+   ant doctor
+   ```
+
+2. Check what will be released:
+   ```
+   cd release
+   ant info
+   ```
+
+Automatic process:
+
+1. Release
+   ```
+   cd release
+   ant release-live
+   ```
+
+   If you are using `origin` as your upstream branch:
+   ```
+   ant release-live -Dupstream=origin
+   ```
+
+3. Check live-services jenkins [geoserver-enterprise-release](https://live-services.geocat.net/jenkins/view/geoserver_enterprise/job/geoserver-enterprise-release/view/tags/) for progress.
+
+Manual process:
+
 1. Figure out tag name based on UTM time:
 
    ```bash

@@ -116,6 +116,9 @@
       </sequential>
   </macrodef>
 
+  <!-- configuation -->
+  <property name="upstream" value="upstream"/>
+
   <!-- collect properties -->
   <tstamp/>
   
@@ -212,6 +215,8 @@
     <git command="tag">-f -a ${enterprise.live.tag} -m &quot;Internal ${enterprise.live} release for GeoCat Live&quot;</git>
     <git command="revert">HEAD --no-commit</git>
     <git command="commit">-m &quot;Restore ${enterprise.version} development&quot;</git>
+    <git command="push">${upstream}</git>
+    <git command="push">${upstream} ${enterprise.live.tag}</echo>
   </target>
   
   
