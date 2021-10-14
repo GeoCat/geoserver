@@ -102,6 +102,19 @@
           </exec>
       </sequential>
   </macrodef>
+  
+  <macrodef name = "git-tstamp">
+      <attribute name = "dir" default = "" />
+      <attribute name = "property"/>
+      <sequential>
+          <exec executable = "git"
+                dir = "@{dir}"
+                outputproperty = "@{property}" >
+              <env key="TZ" value="UTC"/>
+              <arg line = "log -1 --format=%cd --date=format:'%Y%m%dT%H%M'" />
+          </exec>
+      </sequential>
+  </macrodef>
 
   <!-- collect properties -->
   <tstamp/>
@@ -112,6 +125,7 @@
   <project-version property="enterprise.version" project.dir="../enterprise"/>
   <pom-property property="geocat.enterprise" pom.dir="../enterprise"></pom-property>
   <sha property="enterprise.sha" dir="../enterprise"></sha>
+  <git-tstamp property="enterprise.tstamp"></git-tstamp>
   <sha property="themes.sha" dir="../docs/themes"></sha>
   <project-version property="geoserver.version" project.dir="../geoserver/src"/>
   <sha property="geoserver.sha" dir="../geoserver"></sha>
@@ -119,29 +133,44 @@
   
   <!-- generated properties -->
   <tstamp>
-    <format property="USTAMP" pattern="yyyymmdd'T'hhmmX" timezone="Z" locale="en,GB"/>
+    <format property="USTAMP" pattern="yyyyMMdd'T'hhmmX" timezone="Z" locale="en,GB"/>
   </tstamp>
-  <property name="enterprise.live" value="${geocat.enterprise}-${enterprise.sha}"/>
+  <!--property name="enterprise.live" value="${geocat.enterprise}-${enterprise.sha}"/-->
+  <loadresource property="enterprise.live">
+    <propertyresource name="enterprise.version"/>
+    <filterchain>
+      <tokenfilter>
+        <filetokenizer/>
+        <replacestring from="-SNAPSHOT" to="-${enterprise.sha}"/>
+      </tokenfilter>
+    </filterchain>
+  </loadresource>
+
+  <property name="enterprise.live.tag" value="tags/live/${geocat.enterprise}-${USTAMP}"/>
   
   <!-- INFO -->
   <target name="info" description="List versions used to update build">
-     <echo>USTAMP: ${USTAMP}</echo>
-     
-     <echo> geocat.enterprise: '${geocat.enterprise}'</echo>
-     <echo>enterprise version: '${enterprise.version}'</echo>
-     <echo>    enterprise sha: '${enterprise.sha}'</echo>
-     <echo>   enterprise live: '${enterprise.live}'</echo>
-     
+     <echo>geoserver enterprise:</echo>
+     <echo>   geocat.enterprise: '${geocat.enterprise}'</echo>
+     <echo>  enterprise version: '${enterprise.version}'</echo>
+     <echo>      enterprise sha: '${enterprise.sha}'</echo>
+     <echo>   enterprise tstamp: '${enterprise.tstamp}'</echo>
      <echo/>
      <echo>submodules:</echo>
-     <echo>themes.sha: ${themes.sha}'</echo>
-     
-     <echo/>     
-     <echo>geoserver version:</echo>
-     <echo>geoserver version: '${geoserver.version}'</echo>
-     <echo>geoserver sha: '${geoserver.sha}'</echo>
-     <echo>geoserver property: '${gs.version}'</echo>
-     
+     <echo>          themes.sha: ${themes.sha}'</echo>
+     <echo/>
+     <echo>geoserver</echo>
+     <echo>   geoserver version: '${geoserver.version}'</echo>
+     <echo>       geoserver sha: '${geoserver.sha}'</echo>
+     <echo>   geoserver property: '${gs.version}'</echo>
+     <echo/>
+     <echo>geocat live:</echo>
+     <echo>              DSTAMP: '${DSTAMP}'</echo>
+     <echo>              TSTAMP: '${TSTAMP}'</echo>
+     <echo>               TODAY: '${TODAY}'</echo>
+     <echo>              USTAMP: '${USTAMP}'</echo>
+     <echo>     enterprise live: '${enterprise.live}'</echo>
+     <echo>enterprise live tag : '${enterprise.live.tag}'</echo>
   </target>
   
   <target name="doctor" description="Troubleshooting">
@@ -175,13 +204,23 @@
         &lt;gs.version&gt;${geoserver.version}&lt;/gs.version&gt;</echo>
   </target>
   
+  <target name="release-live"
+          description="Update enterprise.version to enterprise.live, commit and branch">
+    <antcall target="-update"><param name="release.version" value="${enterprise.live}"/></antcall>
+    <git dir="../enterprise" command="add">.</git>
+    <git command="commit">-m &quot;Release ${enterprise.live}&quot;</git>
+    <git command="tag">-f -a ${enterprise.live.tag} -m &quot;Internal ${enterprise.live} release for GeoCat Live&quot;</git>
+    <git command="revert">HEAD --no-commit</git>
+    <git command="commit">-m &quot;Restore ${enterprise.version} development&quot;</git>
+  </target>
   
   
-  <target name="rename"
+  <target name="-update"
           description="Update version references for a new branch">
+    <fail unless:set="release.version">release.version parameter required to update pom.xml version</fail>
     <replace dir="../enterprise">
       <include name="**/pom.xml"/>
-      <replacefilter token="&lt;version&gt;${current}&lt;/version&gt;" value="&lt;version&gt;${release}&lt;/version&gt;"/>
+      <replacefilter token="&lt;version&gt;${enterprise.version}&lt;/version&gt;" value="&lt;version&gt;${release.version}&lt;/version&gt;"/>
     </replace>
   </target>
 
