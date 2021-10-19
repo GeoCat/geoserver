@@ -27,7 +27,7 @@ Minor Update (Windows)
 ----------------------
 
 .. list-table:: GeoServer Enterprise 2021 Update
-   :widths: 40 25 15 10 10
+   :widths: 45 20 15 10 10
    :header-rows: 1
 
    * - Release
@@ -35,13 +35,21 @@ Minor Update (Windows)
      - Updates
      - Standard
      - Premium
-   * - GeoServer Enterprise Premium 2021
-     - GeoServer 2.20.0 |br|
-       GeoServer 2.19.2 |br|
-       GeoServer 2.19.1
+   * - GeoServer Enterprise 2021.3
+     - GeoServer 2.20.0
      - 2021
      - 2024
      - 2026
+   * - GeoServer Enterprise 2021.2
+     - 2.19.2
+     - 
+     - 
+     - 
+   * - GeoServer Enterprise 2021.1
+     - 2.19.1
+     - 
+     - 
+     - 
 
 Minor upgrades can be performed in place and consist of a new web archive:
 
@@ -86,7 +94,7 @@ Minor Update (Linux)
 --------------------
 
 .. list-table:: GeoServer Enterprise 2021 Update
-   :widths: 40 25 15 10 10
+   :widths: 45 20 15 10 10
    :header-rows: 1
 
    * - Release
@@ -94,13 +102,21 @@ Minor Update (Linux)
      - Updates
      - Standard
      - Premium
-   * - GeoServer Enterprise Premium 2021
-     - GeoServer 2.20.0 |br|
-       GeoServer 2.19.2 |br|
-       GeoServer 2.19.1
+   * - GeoServer Enterprise 2021.3
+     - GeoServer 2.20.0
      - 2021
      - 2024
      - 2026
+   * - GeoServer Enterprise 2021.2
+     - 2.19.2
+     - 
+     - 
+     - 
+   * - GeoServer Enterprise 2021.1
+     - 2.19.1
+     - 
+     - 
+     - 
 
 Minor upgrades can be performed in place and consist of a new web archive:
 
@@ -352,6 +368,8 @@ To migrate from GeoServer distribution to GeoServer Enterprise:
 
 Migrating from Boundless Suite
 ------------------------------
+
+As a reseller of the now discontinued Boundless Suite we would like to offer migration guidance to GeoServer Enterprise.
 
 Planning a migrating to GeoServer Enterprise Premium should be conducted with the assistance of staff on the `my.geocat.net <https://my.geocat.net/>`__ support portal to ensure your pre-configured web archive as the extensions you require.
 

@@ -7,8 +7,6 @@ Installation
    download/index
    windows/index
    linux/index
-
-   production/index
    upgrade/index
    
 .. * :ref:`installation_on_macos`
