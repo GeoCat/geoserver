@@ -36,7 +36,7 @@ Minor Update (Windows)
      - Standard
      - Premium
    * - GeoServer Enterprise 2021.3
-     - GeoServer 2.20.0
+     - 2.20.0
      - 2021
      - 2024
      - 2026
@@ -103,7 +103,7 @@ Minor Update (Linux)
      - Standard
      - Premium
    * - GeoServer Enterprise 2021.3
-     - GeoServer 2.20.0
+     - 2.20.0
      - 2021
      - 2024
      - 2026
@@ -178,25 +178,25 @@ GeoServer Enterprise Upgrade
      - Updates
      - Standard
      - Premium
-   * - GeoServer Enterprise Premium 2021
-     - GeoServer 2.20 |br|
-       GeoServer 2.19
+   * - GeoServer Enterprise 2021
+     - 2.20 |br|
+       2.19
      - 2021
      - 2024
      - 2026
-   * - GeoServer Enterprise Premium 2020.5
-     - GeoServer 2.18 |br|
-       GeoServer 2.17
+   * - GeoServer Enterprise 2020.5
+     - 2.18 |br|
+       2.17
      - 2020
      - 2023
      - 2025
    * - GeoServer Enterprise 2.14
-     - GeoServer 2.14
+     - 2.14
      - 2019
      - 2022
      - 2024
    * - GeoServer Enterprise 2.13
-     - GeoServer 2.13
+     - 2.13
      - 2018
      - 2021
      - 2023
