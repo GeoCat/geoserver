@@ -202,7 +202,7 @@
   <!-- Natural Earth NE1 -->
   <target name="ne1_download" depends="init_download">
       <get skipexisting="true" tryGzipEncoding="true"
-         src="https://naciscdn.org/naturalearth/10m/raster/NE1_HR_LC_SR_W_DR.zip"
+         username="geoserver_data" password="download" src="https://nexus.geocat.net/repository/geoserver-geocat/com/naturalearthdata/NE1_HR_LC_SR_W_DR/3.2.0/NE1_HR_LC_SR_W_DR-3.2.0.zip"
          dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
   </target>
   <target name="ne1_process" depends="ne1_download">
