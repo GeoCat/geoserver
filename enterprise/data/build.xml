@@ -1,6 +1,7 @@
 <project name="data_directory" default="default-data-dir"
  xmlns:if="ant:if" xmlns:unless="ant:unless"
->
+ xmlns:resolver="antlib:org.apache.maven.resolver.ant"
+> 
   <!-- macros -->
   <macrodef name="download">
     <attribute name="download" default="download"/>
@@ -14,6 +15,23 @@
         skipexisting="true" tryGzipEncoding="true" 
          src="@{url}"
          dest="@{download}/@{file}"/>
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="dependency">
+    <attribute name="download" default="download"/>
+    <attribute name="group" default="com/naturalearthdata"/>
+    <attribute name="artifact"/>
+    <attribute name="version"/>
+    <attribute name="extension" default="zip"/>
+    <sequential>
+      <condition property="@{artifact}.downloaded">
+        <available file="@{download}/@{artifact}.@{extension}"/>
+      </condition>
+      <get unless:set="@{artifact}.downloaded"
+           skipexisting="true" tryGzipEncoding="true"
+         username="geoserver_data" password="download" src="https://nexus.geocat.net/repository/geoserver-geocat/@{group}/@{artifact}/@{version}/@{artifact}-@{version}.@{extension}"
+         dest="@{download}/@{artifact}.@{extension}"/>
     </sequential>
   </macrodef>
   
@@ -56,7 +74,7 @@
   <property name="default" location="src/default"/>
   <property name="standard" location="src/standard"/>
   <property name="demo" location="src/demo"/>
-  
+
   <!-- check environment -->
   <condition property="download.available">
     <available file="${download}"/>
@@ -113,11 +131,15 @@
   <target name="download" depends="init_download" 
           description="Pre-download and prep files">
     <parallel threadCount="5">
-      <antcall target="ne1_download"/>
-      <antcall target="gray_download"/>
-      <antcall target="etopo1_download"/>
-      <antcall target="ne_geopackage_download"/>
+      <antcall target="ne1_dependency"/>
+      <antcall target="gray_dependency"/>
+      <antcall target="etopo1_dependency"/>
+      <antcall target="ne_geopackage_dependency"/>
+
+      <dependency artifact="ne_10m_geographic_lines" version="4.1.0"/>
+      <!--
       <antcall target="-physical-download"><param name="features" value="geographic_lines"/></antcall> 
+      -->
     </parallel>
   </target>
   
@@ -200,12 +222,16 @@
   </target>
   
   <!-- Natural Earth NE1 -->
-  <target name="ne1_download" depends="init_download">
+  <target name="ne1_dependency" depends="init_download">
+      <!--
       <get skipexisting="true" tryGzipEncoding="true"
          username="geoserver_data" password="download" src="https://nexus.geocat.net/repository/geoserver-geocat/com/naturalearthdata/NE1_HR_LC_SR_W_DR/3.2.0/NE1_HR_LC_SR_W_DR-3.2.0.zip"
          dest="${download}/NE1_HR_LC_SR_W_DR.zip"/>
+      -->
+      <dependency artifact="NE1_HR_LC_SR_W_DR" version="3.2.0"/>
   </target>
-  <target name="ne1_process" depends="ne1_download">
+  
+  <target name="ne1_process" depends="ne1_dependency">
       <condition property="ne1.processed">
         <available file="${process}/ne1.tif"/>
       </condition>
@@ -230,12 +256,26 @@
   </target>
   
   <!-- Natural Earth GRAY -->
-  <target name="gray_download" depends="init_download">
+  <target name="gray_dependency" depends="init_download">
+      <!-- https://www.naturalearthdata.com/downloads/10m-raster-data/10m-gray-earth/ -->
+      <!-- Gray Earth with Shaded Relief, Hypsography, and Flat Water                 -->
+      <!-- GRAY_HR_SR_W.zip                                                           -->
+    
+      <!-- direct -->
+      <!--
       <get skipexisting="true" tryGzipEncoding="true" 
          src="https://naciscdn.org/naturalearth/10m/raster/GRAY_HR_SR_W.zip"
          dest="${download}/GRAY_HR_SR_W.zip"/>
+      -->
+      <!--
+      <get skipexisting="true" tryGzipEncoding="true"
+         username="geoserver_data" password="download" src="https://nexus.geocat.net/repository/geoserver-geocat/com/naturalearthdata/GRAY_HR_SR_W/3.2.0/GRAY_HR_SR_W-3.2.0.zip"
+         dest="${download}/GRAY_HR_SR_W.zip"/>
+      -->
+      <dependency artifact="GRAY_HR_SR_W" version="3.2.0"/>
   </target>
-  <target name="gray_process" depends="gray_download">
+  
+  <target name="gray_process" depends="gray_dependency">
       <condition property="gray.processed">
         <available file="${process}/GRAY_HR_SR_W.tif"/>
       </condition>
@@ -304,14 +344,17 @@
   
   <!-- NOAA ETOPO1 -->
   <!-- https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/cell_registered/georeferenced_tiff/ -->
-  <target name="etopo1_download" depends="init_download">
+  <target name="etopo1_dependency" depends="init_download">
+     <!--
      <download
        url="https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/cell_registered/georeferenced_tiff/ETOPO1_Ice_c_geotiff.zip"
        file="ETOPO1_Ice_c_geotiff.zip">
      </download>
+     -->
+     <dependency group="gov/noaa/ngdc" artifact="ETOPO1_Ice_c_geotiff" version="2011.6.6"/>
   </target>
   
-  <target name="etopo1_process" depends="etopo1_download">
+  <target name="etopo1_process" depends="etopo1_dependency">
       <condition property="etopo1.processed">
         <available file="${process}/etopo1.tif"/>
       </condition>
@@ -611,11 +654,19 @@
   </target>
   
   <!-- Natural Earth GeoPackage -->
-  <target name="ne_geopackage_download" depends="init_download">
+  <target name="ne_geopackage_dependency" depends="init_download">
+     <!--
      <download
        url="https://naciscdn.org/naturalearth/packages/natural_earth_vector.gpkg.zip"
        file="natural_earth_vector.gpkg.zip">
      </download>
+     -->
+      <!--
+      <get skipexisting="true" tryGzipEncoding="true"
+         username="geoserver_data" password="download" src="https://nexus.geocat.net/repository/geoserver-geocat/com/naturalearthdata/natural_earth_vector.gpkg/4.1.0/natural_earth_vector.gpkg.zip"
+         dest="${download}/natural_earth_vector.gpkg.zip"/>
+      -->
+     <dependency artifact="natural_earth_vector.gpkg" version="4.1.0"/>
   </target>
 
   <!-- check if custom (processed) geopackage is available -->
@@ -623,7 +674,7 @@
       <available file="${process}/natural_earth.gpkg" property="gpkg.processed"/>
   </target>
   
-  <target name="ne_geopackage_process" depends="ne_geopackage_download,ne_geopackage_check" unless="gpkg.processed">
+  <target name="ne_geopackage_process" depends="ne_geopackage_dependency,ne_geopackage_check" unless="gpkg.processed">
       
       <echo level="info">Unzip into ${download}</echo>
       <unzip overwrite="false" src="${download}/natural_earth_vector.gpkg.zip" dest="${download}">

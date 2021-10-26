@@ -93,7 +93,29 @@ mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
                        -Dfile=download/NE1_HR_LC_SR_W_DR.zip \
                        -Dpackaging=zip \
                        -DrepositoryId=geocat \
-                       -Durl=https://nexus.geocat.net/repository/geoserver-geocat/com/naturalearthdata/NE1_HR_LC_SR_W_DR/3.2.0/NE1_HR_LC_SR_W_DR-3.2.0.zip
+                       -Durl=https://nexus.geocat.net/repository/geoserver-geocat
+```
+
+```
+mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
+                       -DartifactId=GRAY_HR_SR_W \
+                       -Dversion=3.2.0 \
+                       -Dfile=download/GRAY_HR_SR_W.zip \
+                       -Dpackaging=zip \
+                       -DrepositoryId=geocat \
+                       -DgeneratePom=true \
+                       -DgeneratePom.description="Gray Earth with Shaded Relief, Hypsography, and Flat Water" \
+                       -Durl=https://nexus.geocat.net/repository/geoserver-geocat
+                       
+mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
+                       -DartifactId=GRAY_HR_SR_W \
+                       -Dversion=3.2.0 \
+                       -Dfile=download/GRAY_HR_SR_W.zip \
+                       -Dpackaging=zip \
+                       -DrepositoryId=geocat \
+                       -DgeneratePom=true \
+                       -DgeneratePom.description="Gray Earth with Shaded Relief, Hypsography, and Flat Water" \
+                       -Durl=https://nexus.geocat.net/repository/geoserver-geocat
 ```
 
 ### geopackage
