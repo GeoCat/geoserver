@@ -84,7 +84,9 @@ Install targets copy data into a data folder:
 * install_quickstart_shapefiles
 * install_quickstart_shapefiles_all
 
-We cache downloads in our nexus repository using:
+### Nexus Cache
+
+To avoid directly dependency on data provider we cache downloads in our nexus repository using:
 
 ```
 mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
@@ -106,15 +108,41 @@ mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
                        -DgeneratePom=true \
                        -DgeneratePom.description="Gray Earth with Shaded Relief, Hypsography, and Flat Water" \
                        -Durl=https://nexus.geocat.net/repository/geoserver-geocat
-                       
+```
+
+```
 mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
-                       -DartifactId=GRAY_HR_SR_W \
-                       -Dversion=3.2.0 \
-                       -Dfile=download/GRAY_HR_SR_W.zip \
+                       -DartifactId=natural_earth_vector.gpkg \
+                       -Dversion=4.1.0\
+                       -Dfile=download/natural_earth_vector.gpkg.zip \
                        -Dpackaging=zip \
                        -DrepositoryId=geocat \
                        -DgeneratePom=true \
-                       -DgeneratePom.description="Gray Earth with Shaded Relief, Hypsography, and Flat Water" \
+                       -DgeneratePom.description="Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales" \
+                       -Durl=https://nexus.geocat.net/repository/geoserver-geocat
+```
+
+```
+mvn deploy:deploy-file -DgroupId=gov.noaa.ngdc \
+                       -DartifactId=ETOPO1_Ice_c_geotiff \
+                       -Dversion=2011.6.6 \
+                       -Dfile=download/ETOPO1_Ice_c_geotiff.zip \
+                       -Dpackaging=zip \
+                       -DrepositoryId=geocat \
+                       -DgeneratePom=true \
+                       -DgeneratePom.description="ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry" \
+                       -Durl=https://nexus.geocat.net/repository/geoserver-geocat
+```
+
+```
+mvn deploy:deploy-file -DgroupId=com.naturalearthdata \
+                       -DartifactId=ne_10m_geographic_lines \
+                       -Dversion=4.1.0 \
+                       -Dfile=download/ne_10m_geographic_lines.zip \
+                       -Dpackaging=zip \
+                       -DrepositoryId=geocat \
+                       -DgeneratePom=true \
+                       -DgeneratePom.description="Tropical and polar circles, equator, and International Date Line" \
                        -Durl=https://nexus.geocat.net/repository/geoserver-geocat
 ```
 
@@ -153,11 +181,11 @@ These targets are designed to be used via antcall, using data and features param
 
 ### imagry 
 
-Tasks like `ne1_download`, `ne1_process` and `ne1_install` download imagry, and prepare it for use using gdal, and copy the result into the ``data`` folder.
+Tasks like `ne1_dependency`, `ne1_process` and `ne1_install` download imagry, and prepare it for use using gdal, and copy the result into the ``data`` folder.
 
 ### dem
 
-Tasks like `etopo1_download`, `etopo1_process`, `etopo1_install` download the etopo1 dataset, and prepare it for use using gdal, and copy the result into the ``data`` folder.
+Tasks like `etopo1_dependency`, `etopo1_process`, `etopo1_install` download the etopo1 dataset, and prepare it for use using gdal, and copy the result into the ``data`` folder.
 
 In this case jpeg compression of innter tiles is not appropriate as the information is intended as measurements rather than as a visual.
 
