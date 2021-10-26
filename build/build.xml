@@ -189,7 +189,7 @@
        />
      </condition>
      <echo if:set="themes.check">docs/themes ... checked</echo>
-     <echo unless:set="themes.check" level="error">docs/themes update available:
+     <echo unless:set="themes.check" level="error">docs/themes update `${themes.origin}` available:
        cd ../docs/themes
        git pull origin master
        cd ..
