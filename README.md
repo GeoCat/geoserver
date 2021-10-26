@@ -30,7 +30,12 @@ The branches follow the release of GeoServer Enterprise being distributed:
 Update when changing branches:
 
 ```bash
-git checkout 2021.x
+git checkout master
+git submodule update --init
+```
+
+To check if submodules have any new updates:
+```bash
 git submodule update --remote
 ```
 
@@ -127,18 +132,16 @@ mvn assembly
 
 ### GeoCat Live Update
 
-
-Preflight check:
+Preflight check using `build/build.xml` script:
 
 1. Check that it is ready to release:
    ```
-   cd release
+   cd build
    ant doctor
    ```
 
 2. Check what will be released:
    ```
-   cd release
    ant info
    ```
 
@@ -146,7 +149,6 @@ Automatic process:
 
 1. Release
    ```
-   cd release
    ant release-live
    ```
 
@@ -155,7 +157,7 @@ Automatic process:
    ant release-live -Dupstream=origin
    ```
 
-3. Check live-services jenkins [geoserver-enterprise-release](https://live-services.geocat.net/jenkins/view/geoserver_enterprise/job/geoserver-enterprise-release/view/tags/) for progress.
+2. Check live-services jenkins [geoserver-enterprise-release](https://live-services.geocat.net/jenkins/view/geoserver_enterprise/job/geoserver-enterprise-release/view/tags/) for progress.
 
 Manual process:
 
