@@ -150,13 +150,16 @@ pipeline {
                     tag comparator: 'REGEXP', pattern: '(tags/live/.+)|(tags/.+-live)'
                 }
             }
+            environment {
+                ENTERPRISE_RELEASE = sh (script: 'mvn -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+            }
             
             steps{
                 echo "Triggering Live Geoserver enterprise-2021-live* images build jobs"
-                build wait: false, job: '/live_gs/enterprise-2021-live', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
-                build wait: false, job: '/live_gs/enterprise-2021-live-bev', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
-                build wait: false, job: '/live_gs/enterprise-2021-live-demo', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
-                build wait: false, job: '/live_gs/enterprise-2021-live-eccc', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases')]
+                build wait: false, job: '/live_gs/enterprise-2021-live', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases'), string(name: 'argGseVersion', value: ${ENTERPRISE_RELEASE})]
+                build wait: false, job: '/live_gs/enterprise-2021-live-bev', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases'), string(name: 'argGseVersion', value: ${ENTERPRISE_RELEASE})]
+                build wait: false, job: '/live_gs/enterprise-2021-live-demo', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases'), string(name: 'argGseVersion', value: ${ENTERPRISE_RELEASE})]
+                build wait: false, job: '/live_gs/enterprise-2021-live-eccc', parameters: [string(name: 'argDataDir', value: '/usr/local/geoserver-live/data'), string(name: 'argRepository', value: 'enterprise-dev-releases'), string(name: 'argGseVersion', value: ${ENTERPRISE_RELEASE})]
 
             }
         }
