@@ -39,6 +39,46 @@ To check if submodules have any new updates:
 git submodule update --remote
 ```
 
+Work in progress: `build/build/.xml` script reports version information:
+```
+ant -f build/build.xml info
+```
+```
+info:
+     [echo] geoserver enterprise:
+     [echo]    geocat.enterprise: '2021.3'
+     [echo]   enterprise version: '2.20-SNAPSHOT'
+     [echo]       enterprise sha: 'e3f69db'
+     [echo]    enterprise tstamp: '20211026T0711'
+     [echo] 
+     [echo] submodules:
+     [echo]           themes.sha: 012e28f'
+     [echo] 
+     [echo] geoserver
+     [echo]    geoserver version: '2.20.0'
+     [echo]        geoserver sha: 'd4cfef6233'
+     [echo]    geoserver property: '2.20.0'
+     [echo] 
+     [echo] geocat live:
+     [echo]               DSTAMP: '20211026'
+     [echo]               TSTAMP: '0719'
+     [echo]                TODAY: 'October 26 2021'
+     [echo]               USTAMP: '20211026T0219Z'
+     [echo]      enterprise live: '2.20-e3f69db'
+     [echo] enterprise live tag : 'tags/live/2021.3-20211026T0219Z'
+```
+
+Work in progress: `build/build.xml` script can check anything needs to be updated:
+```
+ant -f build/build.xml doctor
+```
+```
+doctor:
+     [echo] docs/themes ... checked
+     [echo] enterprise/pom.xml: gs.version ... checked
+```
+
+
 ## Build Instructions
 
 Building uses the [maven](https://maven.apache.org) and is expected to work on Linux, Windows and Mac.

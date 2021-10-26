@@ -165,7 +165,7 @@
      <echo>geoserver</echo>
      <echo>   geoserver version: '${geoserver.version}'</echo>
      <echo>       geoserver sha: '${geoserver.sha}'</echo>
-     <echo>   geoserver property: '${gs.version}'</echo>
+     <echo>  geoserver property: '${gs.version}'</echo>
      <echo/>
      <echo>geocat live:</echo>
      <echo>              DSTAMP: '${DSTAMP}'</echo>
