@@ -43,7 +43,7 @@ pipeline {
 
         stage ('Downloads (Development)') {
             environment {
-                ENTERPRISE_RELEASE = sh (script: './mvnw -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                ENTERPRISE_RELEASE = sh (script: 'mvn -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise-dev-releases'
             }
 
@@ -87,7 +87,7 @@ pipeline {
                 }
             }
             environment {
-                ENTERPRISE_RELEASE = sh (script: './mvnw -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                ENTERPRISE_RELEASE = sh (script: 'mvn -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise'
             }
             steps {
