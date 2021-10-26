@@ -216,7 +216,7 @@
     <git command="revert">HEAD --no-commit</git>
     <git command="commit">-m &quot;Restore ${enterprise.version} development&quot;</git>
     <git command="push">${upstream}</git>
-    <git command="push">${upstream} ${enterprise.live.tag}</echo>
+    <git command="push">${upstream} ${enterprise.live.tag}</git>
   </target>
   
   
