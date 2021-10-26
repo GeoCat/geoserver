@@ -27,7 +27,7 @@ pipeline {
                 withMaven(
                     mavenSettingsConfig: 'nexusProxies') {
                     println "Building GeoServer Enterprise"
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml --batch-mode --no-transfer-progress -T2C install -Pstandard"
+                    sh "./mvnw -B -f ./enterprise/pom.xml --batch-mode --no-transfer-progress -T2C install -Pstandard"
                 }
             }
         }
@@ -36,14 +36,14 @@ pipeline {
             steps {
                 withMaven(
                     mavenSettingsConfig: 'geocat.nexus.geoserver_enterprise') {
-                    sh "export PATH=${MVN_CMD_DIR}:${PATH} && mvn -f ./enterprise/pom.xml --batch-mode --no-transfer-progress -T2C deploy -DskipTests"
+                    sh "./mvnw -B -f ./enterprise/pom.xml --batch-mode --no-transfer-progress -T2C deploy -DskipTests"
                 }
             }
         }
 
         stage ('Downloads (Development)') {
             environment {
-                ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                ENTERPRISE_RELEASE = sh (script: './mvnw -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise-dev-releases'
             }
 
@@ -87,7 +87,7 @@ pipeline {
                 }
             }
             environment {
-                ENTERPRISE_RELEASE = sh (script: 'mvn -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
+                ENTERPRISE_RELEASE = sh (script: './mvnw -B -f enterprise/pom.xml help:evaluate -Dexpression=geocat.enterprise -q -DforceStdout',returnStdout: true)
                 NEXUS_URL = 'https://nexus.geocat.net/repository/enterprise'
             }
             steps {
