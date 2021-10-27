@@ -148,6 +148,17 @@
       </tokenfilter>
     </filterchain>
   </loadresource>
+  
+  <loadresource property="geoserver.live">
+    <propertyresource name="geoserver.version"/>
+    <filterchain>
+      <tokenfilter>
+        <filetokenizer/>
+        <replacestring from="-SNAPSHOT" to="-${geoserver.sha}"/>
+      </tokenfilter>
+    </filterchain>
+  </loadresource>
+  
 
   <property name="enterprise.live.tag" value="tags/live/${geocat.enterprise}-${USTAMP}"/>
   
@@ -173,6 +184,7 @@
      <echo>               TODAY: '${TODAY}'</echo>
      <echo>              USTAMP: '${USTAMP}'</echo>
      <echo>     enterprise live: '${enterprise.live}'</echo>
+     <echo>      geoserver live: '${geoserver.live}'</echo>
      <echo>enterprise live tag : '${enterprise.live.tag}'</echo>
   </target>
   
@@ -228,6 +240,27 @@
       <replacefilter token="&lt;version&gt;${enterprise.version}&lt;/version&gt;" value="&lt;version&gt;${release.version}&lt;/version&gt;"/>
     </replace>
   </target>
+
+  <target name="release-gs"
+          description="Update geoserver.version to enterprise.live, locally tag, and deploy">
+          
+     <condition property="geoserver.check" value="true">
+       <equals forcestring="true"
+         arg1="${geoserver.version}" arg2="${geoserver.live}"
+       />
+     </condition>
+    
+    <fail if:set="geoserver.check">GeoServer ${geoserver.version} already released</fail>
+
+    <echo unless:set="geoserver.check">Releasing GeoServer ${geoserver.version} as GeoServer ${geoserver.live}</echo>
+    
+    <replace unless:set="geoserver.check" dir="../geoserver">
+      <include name="**/pom.xml"/>
+      <replacefilter token="&lt;version&gt;${geoserver.version}&lt;/version&gt;" value="&lt;version&gt;${geoserver.live}&lt;/version&gt;"/>
+    </replace>
+    
+  </target>
+
 
 </project>
 

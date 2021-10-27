@@ -182,10 +182,98 @@ Preflight check using `build/build.xml` script:
 
 2. Check what will be released:
    ```
+   cd build
    ant info
    ```
 
-Automatic process:
+3. To avoid using SNAPSHOTs create internal releases of geoserver, geotools, geowebcache components to geocat nexus repository.
+   
+   1. Check if an internal release is needed:
+   
+      * When using a GeoServer SNAPSHOT, proposed geoserver live tag will be based on git revision:
+   
+        ```
+        geoserver live: '2.20-6a7ca61467'
+        ```
+     
+        Use ``ant release-gs`` to update `geoserver/src` with this proposed version.
+     
+      * Perform similar check for GeoTools SNAPSHOT and GeoWebCache SNAPSHOT.
+   
+   2. Create a new branch for this activity:
+   
+      ```
+      git checkout -b 2.20-6a7ca61467
+      git remote add geocat git@github.com:geoserver/geoserver.git
+      git push -u geocat 2.20-6a7ca61467
+      ```
+      
+   2. Build geoserver component including required community modules:
+   
+      ```
+      mvn --file geoserver/src/pom.xml clean install -Prelease,cog,geopkg,ogcapi -T2C
+      ```
+
+   3. After change `ant doctor` will indicate need to change `enterprise/pom.xml`:
+     
+      ```
+      [echo] enterprise/pom.xml: gs.version ... update required:
+      [echo]         <gs.version>2.20-6a7ca61467</gs.version>
+      ```
+
+   4. Rebuild enterprise without using any SNAPSHOTs:
+      ```
+      cd enterprise
+      mvn clean install -T2C
+      ```
+   
+   5. Test build using ``webapp-live`:
+   
+      ```
+      cd enterprise/webapp-live
+      mvn jetty:run
+      ```
+   
+   6. Smoke test the following pages:
+   
+      * http://localhost:8080/geoserver/web/
+     
+        Confirm this page loads and indicates the expected version.
+     
+      * http://localhost:8080/geoserver/web/wicket/bookmarkable/org.geoserver.web.AboutGeoServerPage
+     
+        Confirm expected versions listed of geotools, geowebcache and geoserver.
+     
+      * http://localhost:8080/geoserver/wms/reflect?layers=basemap&format=application/openlayers
+     
+        Does standard data directory basemap display.
+   
+   7. Deploy to geocat nexus repository:
+   
+      ```
+      mvn --file geoserver/src/pom.xml deploy -Prelease,cog,geopkg,ogcapi -DskipTests -DaltDeploymentRepository=geocat::default::https://nexus.geocat.net/repository/geoserver-geocat/   
+      ```
+      
+      Similar to our practice of deploying community modules to our nexus repository.
+      
+   8. And push a branch up to geocat repository (branch used to avoid accidentally sharing tag):
+   
+      ```
+      cd geoserver
+      git add remote geocat git@github.com:geoserver/geoserver.git
+      ```
+      
+      ```
+      cd geoserver
+      git add .
+      git commit -m "GeoServer Enterprise 2.20-6a7ca61467 internal release."
+      ```
+      
+      ```
+      git push 2.20-6a7ca61467
+      ```
+   
+Automatic release process:
 
 1. Release
    ```
@@ -199,7 +287,7 @@ Automatic process:
 
 2. Check live-services jenkins [geoserver-enterprise-release](https://live-services.geocat.net/jenkins/view/geoserver_enterprise/job/geoserver-enterprise-release/view/tags/) for progress.
 
-Manual process:
+Manual release process:
 
 1. Figure out tag name based on UTM time:
 
