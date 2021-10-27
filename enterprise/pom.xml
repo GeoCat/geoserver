@@ -172,6 +172,22 @@
      <!-- Use of gs.version for GeoServer modules -->
     <dependency>
      <groupId>org.geoserver</groupId>
+     <artifactId>gs-gwc</artifactId>
+     <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+     <groupId>org.geoserver</groupId>
+     <artifactId>gs-main</artifactId>
+     <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+     <groupId>org.geoserver</groupId>
+     <artifactId>gs-main</artifactId>
+     <version>${gs.version}</version>
+     <classifier>tests</classifier>
+    </dependency>
+    <dependency>
+     <groupId>org.geoserver</groupId>
      <artifactId>gs-platform</artifactId>
      <version>${gs.version}</version>
     </dependency>
@@ -194,14 +210,8 @@
     </dependency>
     <dependency>
      <groupId>org.geoserver</groupId>
-     <artifactId>gs-main</artifactId>
+     <artifactId>gs-rest</artifactId>
      <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-     <groupId>org.geoserver</groupId>
-     <artifactId>gs-main</artifactId>
-     <version>${gs.version}</version>
-     <classifier>tests</classifier>
     </dependency>
     <dependency>
      <groupId>org.geoserver</groupId>
@@ -230,6 +240,16 @@
      <classifier>tests</classifier>
     </dependency>
     <dependency>
+      <groupId>org.geoserver.web</groupId>
+      <artifactId>gs-web-app</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+     <groupId>org.geoserver.web</groupId>
+     <artifactId>gs-web-core</artifactId>
+     <version>${gs.version}</version>
+    </dependency>
+    <dependency>
      <groupId>org.geoserver</groupId>
      <artifactId>gs-wfs</artifactId>
      <version>${gs.version}</version>
@@ -245,26 +265,7 @@
      <version>${gs.version}</version>
      <classifier>tests</classifier>
     </dependency>
-    <dependency>
-     <groupId>org.geoserver</groupId>
-     <artifactId>gs-gwc</artifactId>
-     <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-     <groupId>org.geoserver</groupId>
-     <artifactId>gs-rest</artifactId>
-     <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-     <groupId>org.geoserver.web</groupId>
-     <artifactId>gs-web-core</artifactId>
-     <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.web</groupId>
-      <artifactId>gs-web-app</artifactId>
-      <version>${gs.version}</version>
-    </dependency>
+    
     <!-- extensions for inclusion in webapp assemblies -->
     <dependency>
       <groupId>org.geoserver.extension</groupId>
@@ -287,24 +288,14 @@
       <version>${gs.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.geoserver.community</groupId>
-      <artifactId>gs-geopkg</artifactId>
-      <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.community</groupId>
-      <artifactId>gs-cog</artifactId>
-      <version>${gs.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.geoserver.community</groupId>
-      <artifactId>gs-ogcapi-features</artifactId>
-      <version>${gs.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.geoserver.extension</groupId>
       <artifactId>gs-inspire</artifactId>
       <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+     <groupId>org.geoserver.extension</groupId>
+     <artifactId>gs-libjpeg-turbo</artifactId>
+     <version>${gs.version}</version>
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
@@ -333,12 +324,12 @@
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-web-wps</artifactId>
+      <artifactId>gs-wps-core</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <dependency>
       <groupId>org.geoserver.extension</groupId>
-      <artifactId>gs-wps-core</artifactId>
+      <artifactId>gs-web-wps</artifactId>
       <version>${gs.version}</version>
     </dependency>
     <dependency>
@@ -346,6 +337,7 @@
       <artifactId>gs-ysld</artifactId>
       <version>${gs.version}</version>
     </dependency>
+    <!-- importer extension -->
     <dependency>
       <groupId>org.geoserver.importer</groupId>
       <artifactId>gs-importer-web</artifactId>
@@ -361,6 +353,23 @@
       <artifactId>gs-importer-core</artifactId>
       <version>${gs.version}</version>
     </dependency>
+    <!-- community modules for inclusion in webapp assemblies -->
+    <dependency>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-geopkg</artifactId>
+      <version>${gs.version}</version>
+    </dependency>    
+    <dependency>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-cog</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geoserver.community</groupId>
+      <artifactId>gs-ogcapi-features</artifactId>
+      <version>${gs.version}</version>
+    </dependency>
+
     <!-- Use of gt.version for GeoTools modules -->
     <dependency>
      <groupId>org.geotools</groupId>
