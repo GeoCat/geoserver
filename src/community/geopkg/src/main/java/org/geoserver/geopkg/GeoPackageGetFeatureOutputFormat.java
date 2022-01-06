@@ -71,13 +71,19 @@ public class GeoPackageGetFeatureOutputFormat extends WFSGetFeatureOutputFormat 
         return EXTENSION;
     }
 
-    /** According to GeoPKG spec, the coordinates MUST be in XY order. We flip if necessary. */
+    /**
+     * According to GeoPKG spec, the coordinates MUST be in XY order. If this FC is in YX format, we
+     * reproject to the equivalent XY project.
+     *
+     * <p>If already XY, return the input FC.
+     *
+     * @param fc underlying feature collection
+     * @return feature collection which is has axis order in XY (NORTH_EAST)
+     */
     public static SimpleFeatureCollection forceXY(SimpleFeatureCollection fc) {
         CoordinateReferenceSystem sourceCRS = fc.getSchema().getCoordinateReferenceSystem();
-        if (CRS.getAxisOrder(sourceCRS) == CRS.AxisOrder.EAST_NORTH) {
-            return fc;
-        }
-        if (CRS.getAxisOrder(sourceCRS) == CRS.AxisOrder.INAPPLICABLE) {
+        if ((CRS.getAxisOrder(sourceCRS) == CRS.AxisOrder.EAST_NORTH)
+                || (CRS.getAxisOrder(sourceCRS) == CRS.AxisOrder.INAPPLICABLE)) {
             return fc;
         }
 
