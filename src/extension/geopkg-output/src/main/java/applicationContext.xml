@@ -28,7 +28,7 @@
     <bean id="GeoPKGOutputExtension"
           class="org.geoserver.platform.ModuleStatusImpl">
         <property name="module" value="gs-geopkg-output" />
-        <property name="name" value="GeoPKG Output Extension" />
+        <property name="name" value="GeoPKG Output Extension (Hotfix)" />
         <property name="component" value="GeoPKG WFS/WMS Output" />
         <property name="available" value="true" />
         <property name="enabled" value="true" />
