@@ -90,7 +90,7 @@
   <properties>
     <gs.version>2.25.3</gs.version>
     <gt.version>31.3</gt.version>
-    <gwc.version>1.25-SNAPSHOT</gwc.version>
+    <gwc.version>1.25.2</gwc.version>
     <jts.version>1.19.0</jts.version>
     <spring.version>5.3.34</spring.version>
     <spring.security.version>5.7.12</spring.security.version>
