@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.ServletWrappingController;
  */
 public class PrintingServletWrappingController extends ServletWrappingController {
 
-    private Logger LOG = org.geotools.util.logging.Logging.getLogger("org.geoserver.printing");
+    private final Logger LOG = org.geotools.util.logging.Logging.getLogger("org.geoserver.printing");
 
     @Override
     public void setInitParameters(Properties initParameters) {
@@ -33,9 +33,8 @@ public class PrintingServletWrappingController extends ServletWrappingController
         String configProp = initParameters.getProperty("config");
 
         try {
-            GeoServerResourceLoader loader =
-                    GeoServerExtensions.bean(GeoServerResourceLoader.class);
-            String configPath = Paths.path("printing", Paths.convert(configProp));
+            GeoServerResourceLoader loader = GeoServerExtensions.bean(GeoServerResourceLoader.class);
+            String configPath = findPrintConfigDirectory(configProp);
             Resource config = loader.get(configPath);
 
             if (config.getType() == Type.UNDEFINED) {
@@ -44,22 +43,46 @@ public class PrintingServletWrappingController extends ServletWrappingController
                 }
             }
             if (!Resources.canRead(config)) {
-                LOG.warning(
-                        "Printing module missing its configuration.  Any actions it takes will fail.");
+                LOG.warning("Printing module missing its configuration.  Any actions it takes will fail.");
                 return;
             }
             initParameters.setProperty("config", config.file().getAbsolutePath());
         } catch (java.io.IOException e) {
-            LOG.warning(
-                    "Unable to calcule canonical path for MapFish printing servlet. "
-                            + "Module will fail when run.  IO Exception is: "
-                            + e);
+            LOG.warning("Unable to calculate canonical path for MapFish printing servlet. "
+                    + "Module will fail when run.  IO Exception is: "
+                    + e);
         } catch (Exception e) {
-            LOG.warning(
-                    "Unable to access/create config directory for MapFish printing module."
-                            + "Module will fail when run. Config exception is: "
-                            + e);
+            LOG.warning("Unable to access/create config directory for MapFish printing module."
+                    + "Module will fail when run. Config exception is: "
+                    + e);
         }
         super.setInitParameters(initParameters);
+    }
+
+    private String findPrintConfigDirectory(String configProp) {
+        // 1. look for environment variable
+        String dd = lookupEnvironmentVariable();
+
+        // 2. look up java property
+        if (dd == null) {
+            dd = lookupSystemProperty();
+        }
+
+        // 3. fall back to the default one
+        if (dd == null) {
+            dd = "printing";
+        } else {
+            dd = Paths.convert(dd);
+        }
+
+        return Paths.path(dd, Paths.convert(configProp));
+    }
+
+    String lookupSystemProperty() {
+        return System.getProperty("GEOSERVER_PRINT_CONFIG_DIR");
+    }
+
+    String lookupEnvironmentVariable() {
+        return System.getenv("GEOSERVER_PRINT_CONFIG_DIR");
     }
 }

@@ -33,18 +33,26 @@ public abstract class AbstractRecordsResponse extends Response {
 
     GeoServer gs;
 
-    FeatureType recordType;
+    Set<FeatureType> recordTypes;
 
     public AbstractRecordsResponse(FeatureType recordType, String schema, GeoServer gs) {
-        this(recordType, schema, Collections.singleton("application/xml"), gs);
+        this(Collections.singleton(recordType), schema, gs);
+    }
+
+    public AbstractRecordsResponse(Set<FeatureType> recordTypes, String schema, GeoServer gs) {
+        this(recordTypes, schema, Collections.singleton("application/xml"), gs);
+    }
+
+    public AbstractRecordsResponse(FeatureType recordType, String schema, Set<String> outputFormats, GeoServer gs) {
+        this(Collections.singleton(recordType), schema, outputFormats, gs);
     }
 
     public AbstractRecordsResponse(
-            FeatureType recordType, String schema, Set<String> outputFormats, GeoServer gs) {
+            Set<FeatureType> recordTypes, String schema, Set<String> outputFormats, GeoServer gs) {
         super(CSWRecordsResult.class, outputFormats);
         this.schema = schema;
         this.gs = gs;
-        this.recordType = recordType;
+        this.recordTypes = recordTypes;
     }
 
     @Override
@@ -75,8 +83,7 @@ public abstract class AbstractRecordsResponse extends Response {
     }
 
     @Override
-    public void write(Object value, OutputStream output, Operation operation)
-            throws IOException, ServiceException {
+    public void write(Object value, OutputStream output, Operation operation) throws IOException, ServiceException {
         CSWRecordsResult result = (CSWRecordsResult) value;
         RequestBaseType request = (RequestBaseType) operation.getParameters()[0];
         CSWInfo csw = gs.getService(CSWInfo.class);
@@ -84,12 +91,9 @@ public abstract class AbstractRecordsResponse extends Response {
         // check the output schema is valid
         if (result.getRecords() != null) {
             FeatureType recordSchema = result.getRecords().getSchema();
-            if (recordSchema != null && !recordType.equals(recordSchema)) {
+            if (recordSchema != null && !recordTypes.contains(recordSchema)) {
                 throw new IllegalArgumentException(
-                        "Cannot encode this kind of record "
-                                + recordSchema.getName()
-                                + " into schema "
-                                + schema);
+                        "Cannot encode this kind of record " + recordSchema.getName() + " into schema " + schema);
             }
         }
 
@@ -109,8 +113,7 @@ public abstract class AbstractRecordsResponse extends Response {
         }
     }
 
-    private void transformAcknowledgement(
-            OutputStream output, RequestBaseType request, CSWInfo csw) {
+    private void transformAcknowledgement(OutputStream output, RequestBaseType request, CSWInfo csw) {
         AcknowledgementTransformer transformer =
                 new AcknowledgementTransformer(request, csw.isCanonicalSchemaLocation());
         transformer.setIndentation(2);
