@@ -62,35 +62,40 @@ if [ -d /home/teamengine/te_base/bin/unix/ ]; then
 fi;
 
 
-wms11 () {
-  echo $0
-  source="$TE_SCRIPTS_DIR/wms11/1.1.1/ctl/main.xml"
-  form="$TE_FORMS_DIR/wms-1.1.1.xml"
-  _run
+wms11() {
+    echo $0
+
+    run_rest_test_suite "wms11" "xml" "capabilities-url=http%3A%2F%2Fgeoserver%3A8080%2Fgeoserver%2Fwms%3Fservice=WMS%26request%3DGetCapabilities%26version%3D1.1.0" "updatesequence=auto" "low-updatesequence=0" "high-updatesequence=100" "profile=queryable" "recommended=true" "getfeatureinfo=true" "feesconstraints=true" "bboxconstraints=EITHER"
 }
 
 wms13 () {
   echo $0
-  source="$TE_SCRIPTS_DIR/wms13/1.3.0/ctl/main.xml"
-  form="$TE_FORMS_DIR/wms-1.3.0.xml"
-  _run
+  
+  run_rest_test_suite "wms13" "xml" "capabilities-url=http%3A%2F%2Fgeoserver%3A8080%2Fgeoserver%2Fwms%3Fservice=WMS%26request%3DGetCapabilities%26version%3D1.3.0" "updatesequence=auto" "low-updatesequence=0" "high-updatesequence=100" "queryable=true" "recommended=true"
 }
 
 wfs10 () {
   echo $0
-  source="$TE_SCRIPTS_DIR/wfs/1.0.0/ctl/main.xml"
-  form="$TE_FORMS_DIR/wfs-1.0.0.xml"
-  _run
+
+  run_rest_test_suite "wfs10" "xml" "capabilities-url=http%3A%2F%2Fgeoserver%3A8080%2Fgeoserver%2Fwms%3Fservice=WFS%26request%3DGetCapabilities%26version%3D1.0.0" "multiplenamenspaces=true"
 }
 
 wfs11 () {
+  # Cannot run via REST API, see https://github.com/opengeospatial/ets-wfs11/issues/109
   echo $0
   source="$TE_SCRIPTS_DIR/wfs/1.1.0/ctl/main.ctl"
   form="$TE_FORMS_DIR/wfs-1.1.0.xml"
   _run
 }
 
+wfs20 () {
+  echo $0
+
+  run_rest_test_suite "wfs20" "testng" "iut=http%3A%2F%2Fgeoserver%3A8080%2Fgeoserver%2Fwfs%3Fservice=WFS%26request%3DGetCapabilities%26version%3D2.0.0"
+}
+
 wcs10 () {
+  # WCS 1.0.0 is not supported by the REST API,s see https://github.com/opengeospatial/ets-wcs10/issues/43
   echo $0
   source="$TE_SCRIPTS_DIR/wcs/1.0.0/ctl/wcs.xml"
   form="$TE_FORMS_DIR/wcs-1.0.0.xml"
@@ -99,21 +104,38 @@ wcs10 () {
 
 wcs11 () {
   echo $0
-  source="$TE_SCRIPTS_DIR/wcs/1.1.1/ctl/wcs.xml"
-  form="$TE_FORMS_DIR/wcs-1.1.1.xml"
-  _run
+
+  run_rest_test_suite "wcs11" "xml" "url=http%3A%2F%2Fgeoserver%3A8080%2Fgeoserver%2Fows%3Fservice=WCS%26request%3DGetCapabilities%26version%3D1.1.0"
 }
 
 ogcapi-features10() {
+    run_rest_test_suite "ogcapi-features-1.0" "testng" "iut=http://geoserver:8080/geoserver/ogc/features/v1" "noofcollections=-1"
+}
+
+run_rest_test_suite() {
+    local suite_name=$1
+    local targetfile="/logs/$2-results.xml"
+    shift 2
+    local params=("$@")
+
     echo $0
-    
+
     teamenginehost=$(hostname)
-    apiurl="http://$teamenginehost:8080/teamengine/rest/suites/ogcapi-features-1.0/run"
-    iut="http://geoserver:8080/geoserver/ogc/features/v1"
-    testurl="$apiurl?noofcollections=-1&iut=$iut"
-    credentials="ogctest:ogctest"
-    targetfile="/logs/testng-results.xml"
+    apiurl="http://$teamenginehost:8080/teamengine/rest/suites/$suite_name/run"
     
+    # Build the URL parameters
+    url_params=""
+    for param in "${params[@]}"; do
+        url_params+="$param&"
+    done
+    url_params=${url_params%&}  # Remove the trailing '&'
+
+    testurl="$apiurl?$url_params"
+    echo $testurl
+    credentials="ogctest:ogctest"
+
+    set +x
+
     echo
     echo Running tests
     echo api URL: $apiurl
@@ -122,69 +144,9 @@ ogcapi-features10() {
     echo This may take a while...
     # if requesting application/zip, ogccite/teamengine-production will include both the html and xml results,
     # but ogccite/ets-ogcapi-features10 won't.
-    
+
     # requesting application/xml as it's the one we can parse to fail the build if there are test failures
     curl -v -s -u "$credentials" "$testurl" -H "Accept: application/xml" > $targetfile
-    # Check if the first curl command failed
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to run tests"
-        exit 1
-    fi
-}
-
-
-# Usage:
-# ogcapi-features10([iut])
-# - iut: optional. URL of landing page. Defaults to 'default_iut="http://geoserver:8080/geoserver/ogc/features/v1'
-ogcapi-features10() {
-    # Define the default Instance Under Test
-    default_iut="http://geoserver:8080/geoserver/ogc/features/v1"
-
-    # Use provided argument if given, otherwise use the default value
-    iut="${1:-$default_iut}"
-
-    # Call the generic function with iut as the first argument and default values for the others
-    run_rest_test 'ogcapi-features-1.0' "$iut"
-}
-
-# Usage:
-# run_rest_test(suitename iut)
-# - suitename: name of the test suite to run (e.g. 'ogcapi-features-1.0')
-# - iut: URL of the Instance Under Test's landing page or GetCapabilities document
-run_rest_test() {
-
-    local suitename="${1}"
-    local iut="${2}"    
-
-    local teamenginehost=$(hostname)
-
-    # Check if required arguments are provided
-    if [ -z "$suitename" ] || [ -z "$iut" ]; then
-        echo "run-rest-test()> Invalid arguments. Expected run-rest-test(suitename, iut)"
-        echo "suitename: name of the test suite to run (e.g., 'ogcapi-features-1.0')"
-        echo "iut: URL of the Instance Under Test's landing page or GetCapabilities document"
-        exit 1
-    fi
-    
-    apiurl="http://$teamenginehost:8080/teamengine/rest/suites/$suitename/run"
-    testurl="$apiurl?noofcollections=-1&iut=$iut"
-    credentials="ogctest:ogctest"
-    targetfile="/logs/testng-results.xml"
-
-    echo
-    echo Running tests
-    echo api URL: $apiurl
-    echo iut: $iut
-    echo Will save the XML report to $targetfile
-    echo This may take a while...
-
-    # Requesting application/xml as it's the one we can parse to fail the build if there are test failures
-    curl -v -s -u "$credentials" "$testurl" -H "Accept: application/xml" > $targetfile
-    # Check if the curl command failed
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to run tests"
-        exit 1
-    fi
 }
 
 interactive () {
