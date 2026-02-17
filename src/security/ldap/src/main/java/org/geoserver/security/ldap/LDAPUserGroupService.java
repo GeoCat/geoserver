@@ -4,6 +4,8 @@
  */
 package org.geoserver.security.ldap;
 
+import static org.springframework.security.ldap.LdapUtils.getRelativeName;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
+import javax.naming.directory.DirContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -267,9 +270,16 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
                             if (m.matches()) {
                                 user = m.group(1);
                             }
+                            user = removeBaseDN(user);
                             String userNameFromMembership = getUserNameFromMembership(user);
                             if (StringUtils.isNotBlank(userNameFromMembership)) {
                                 GeoServerUser userByUsername = getUserByUsername(userNameFromMembership);
+                                if (userByUsername == null) {
+                                    // The member value may be a relative DN (e.g.
+                                    // uid=admin,ou=People) rather than a plain username.
+                                    // Try resolving the username by looking up the entry.
+                                    userByUsername = lookupUserByDn(ctx, user);
+                                }
                                 if (userByUsername != null) users.add(userByUsername);
                             }
                         }
@@ -278,6 +288,35 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
             } catch (IncorrectResultSizeDataAccessException e) {
             }
         });
+    }
+
+    private String removeBaseDN(String user) {
+        DirContext baseCtx = template.getContextSource().getReadOnlyContext();
+        try {
+            user = getRelativeName(user, baseCtx);
+        } catch (Exception e) {
+            // continue, rename only if works for the case
+        }
+        return user;
+    }
+
+    /**
+     * Look up a user entry by its relative DN and extract the username attribute.
+     * This handles the case where group member values are full DNs (standard LDAP per RFC 4519)
+     * and the user resides in a nested OU structure.
+     */
+    private GeoServerUser lookupUserByDn(DirContext ctx, String relativeDn) {
+        try {
+            DirContextOperations obj = (DirContextOperations)
+                    LDAPUtils.getLdapTemplateInContext(ctx, template).lookup(relativeDn);
+            Object attribute = obj.getObjectAttribute(userNameAttribute);
+            if (attribute != null) {
+                return getUserByUsername(attribute.toString());
+            }
+        } catch (Exception e) {
+            // lookup failed, the DN may not be a user entry
+        }
+        return null;
     }
 
     private void searchAllNestedChildGroups(

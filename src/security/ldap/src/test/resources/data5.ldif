@@ -1,0 +1,51 @@
+version: 1
+dn: dc=example,dc=com
+objectClass: domain
+objectClass: top
+dc: example
+
+dn: ou=People,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+description: Container for user entries
+
+dn: ou=Production,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: Production
+
+dn: ou=Administration,ou=Production,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: Administration
+
+dn: ou=Groups,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+
+dn: uid=admin,ou=Administration,ou=Production,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+givenName: admin
+sn: admin
+uid: admin
+cn: admin
+userPassword: {SHA}0DPiKuNIrrVmD8IUCuw1hQxNqZc=
+
+dn: uid=other,ou=Administration,ou=Production,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+givenName: other
+sn: dude
+uid: other
+cn: other
+userPassword: {SHA}0JQeaNqPOBUf+Gph/Fn3xc+fyqI=
+
+dn: cn=testgroup,ou=Groups,dc=example,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: testgroup
+member: uid=admin,ou=Administration,ou=Production,ou=People,dc=example,dc=com
+member: uid=other,ou=Administration,ou=Production,ou=People,dc=example,dc=com
