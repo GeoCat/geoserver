@@ -1648,7 +1648,7 @@ button.outline-danger,
   --gs-gradient: none;
 }
 
-.gs-envelope .gn-unordered-list-class {
+.gs-panel-EnvelopePanel .gn-unordered-list-class {
     display: flex;
     flex-direction: row;
 }
