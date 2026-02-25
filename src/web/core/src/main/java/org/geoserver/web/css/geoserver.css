@@ -1657,3 +1657,17 @@ button.outline-danger,
     display:flex;
     flex-direction: column;
 }
+
+
+.gs-grid-table {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+.gs-grid-table-cell {
+    padding: 10px;
+    border: 1px solid #ccc;
+    /*text-align: center;*/
+}
