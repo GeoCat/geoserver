@@ -298,7 +298,9 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService
                                     if (m.matches()) {
                                         user = m.group(1);
                                     }
-                                    String userNameFromMembership = getUserNameFromMembership(user);
+                                    String userNameFromMembership = groupName2UserName(user);
+                                    userNameFromMembership =
+                                            getUserNameFromMembership(userNameFromMembership);
                                     if (StringUtils.isNotBlank(userNameFromMembership)) {
                                         GeoServerUser userByUsername =
                                                 getUserByUsername(userNameFromMembership);
